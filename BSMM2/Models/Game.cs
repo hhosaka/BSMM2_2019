@@ -200,7 +200,7 @@ namespace BSMM2.Models {
 
 		public Game(IRule rule, Players players, string title = null) {
 			if (title == null)
-				Title = Headline;
+				Title = GameTitle;
 			else
 				Title = title;
 
