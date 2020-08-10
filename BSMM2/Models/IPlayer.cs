@@ -1,6 +1,15 @@
-﻿namespace BSMM2.Models {
+﻿using System;
 
-	public interface IPlayer {
+namespace BSMM2.Models {
+
+	public interface IPlayer
+	{
 		string Name { get; }
 	}
+
+	public interface IOrderedPlayer : IPlayer
+	{
+		string Description { get; }
+		int Order { get; }
+    }
 }

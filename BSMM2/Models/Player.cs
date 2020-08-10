@@ -8,7 +8,7 @@ using Xamarin.Forms.Internals;
 namespace BSMM2.Models {
 
 	[JsonObject]
-	public class Player : IPlayer {
+	public class Player : IPlayer, IComparable<Player>{
 
 		[JsonProperty]
 		private IRule _rule;
@@ -46,9 +46,6 @@ namespace BSMM2.Models {
 
 		[JsonIgnore]
 		public IPoint OpponentPoint { get; private set; }
-
-		[JsonIgnore]
-		public int Order { get; set; }
 
 		[JsonIgnore]
 		public string Description
@@ -97,7 +94,10 @@ namespace BSMM2.Models {
 			return data;
 		}
 
-		public Player(IRule rule, string name) : this() {
+        public int CompareTo(Player obj)
+			=> _rule.GetComparer(true).Compare(this, obj);
+
+        public Player(IRule rule, string name) : this() {
 			_rule = rule;
 			_matches = new List<Match>();
 			Name = name;

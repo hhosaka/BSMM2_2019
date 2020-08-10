@@ -32,7 +32,7 @@ namespace BSMM2Test {
 		}
 
 		public static void CheckOrder(IEnumerable<int> expectedOrder, IEnumerable<Player> players) {
-			var result = players.Select(p => p.Order);
+			var result = Players.GetByOrdered(players).Select(player=>player.Order);
 			CollectionAssert.AreEqual(expectedOrder.ToArray(), result.ToArray(), Message(expectedOrder, result));
 		}
 
@@ -73,8 +73,8 @@ namespace BSMM2Test {
 
 		public static void Check(IRule rule, Players a, Players b) {
 			Assert.AreEqual(a.Count, b.Count);
-			var ita = a.GetByOrder().GetEnumerator();
-			var itb = b.GetByOrder().GetEnumerator();
+			var ita = a.GetSortedSource().GetEnumerator();
+			var itb = b.GetSortedSource().GetEnumerator();
 			while (ita.MoveNext() && itb.MoveNext()) {
 				Check(ita.Current, itb.Current);
 			}

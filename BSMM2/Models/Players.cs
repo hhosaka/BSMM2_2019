@@ -4,12 +4,50 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using Xamarin.Forms.Internals;
 
 namespace BSMM2.Models {
 
 	public class Players {
 		private const String DEFAULT_PREFIX = "Player";
+
+		public class PlayerAdapter : IOrderedPlayer
+		{
+			private Player _player;
+
+			public string Name => _player.Name;
+
+			public string Description => _player.Description;
+
+			public int Order { get; }
+
+			public PlayerAdapter(Player player, int order)
+			{
+				_player = player;
+				Order = order;
+			}
+
+			public int CompareTo(Player other)
+				=> _player.CompareTo(other);
+		}
+
+		public static IEnumerable<IOrderedPlayer> GetByOrdered(IEnumerable<Player> players)
+		{
+			Player prev = null;
+			int order = 0;
+			int count = 0;
+			foreach (var p in players)
+			{
+				if (prev == null || prev.CompareTo(p) != 0)
+				{
+					order = count;
+					prev = p;
+				}
+				yield return new PlayerAdapter(p, order + 1);
+				++count;
+			}
+		}
 
 		[JsonProperty]
 		private IRule _rule;
@@ -76,28 +114,6 @@ namespace BSMM2.Models {
 		public void Remove(Player player)
 			=> _players.Remove(player);
 
-		public IEnumerable<Player> GetByOrder() {
-			if (_players == null) {
-				return Enumerable.Empty<Player>();
-			} else {
-				Reset();
-				var comparer = _rule.GetComparer(true);
-				var players = _players.OrderByDescending(p => p, comparer);
-				Player prev = null;
-				int order = 0;
-				int count = 0;
-				foreach (var p in players) {
-					if (prev == null || comparer.Compare(prev, p) != 0) {
-						order = count;
-						prev = p;
-					}
-					p.Order = order + 1;
-					++count;
-				}
-				return players;
-			}
-		}
-
 		public void Reset() {
 			_players.ForEach(p => p.CalcPoint(_rule));
 			_players.ForEach(p => p.CalcOpponentPoint(_rule));
@@ -120,6 +136,18 @@ namespace BSMM2.Models {
 					}
 				}
 				writer.WriteLine();
+			}
+		}
+		public IEnumerable<Player> GetSortedSource()
+		{
+			if (_players == null)
+			{
+				return Enumerable.Empty<Player>();
+			}
+			else
+			{
+				Reset();
+				return _players.OrderByDescending(p => p, _rule.GetComparer(true));
 			}
 		}
 	}

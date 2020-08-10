@@ -104,7 +104,7 @@ namespace BSMM2Test {
 				AppResources.TextMatchPoint + " = 0/ " +
 				AppResources.TextWinPoint + " = 0/ " +
 				AppResources.TextLifePoint + " = 0",
-				game.Players.GetByOrder().ElementAt(0).Description);
+				game.Players.GetSortedSource().ElementAt(0).Description);
 		}
 
 		[TestMethod]
@@ -116,7 +116,7 @@ namespace BSMM2Test {
 			Assert.AreEqual(
 				AppResources.TextMatchPoint + " = 0/ " +
 				AppResources.TextWinPoint + " = 0",
-				game.Players.GetByOrder().ElementAt(0).Description);
+				game.Players.GetSortedSource().ElementAt(0).Description);
 		}
 	}
 }

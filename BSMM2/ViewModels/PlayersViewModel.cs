@@ -9,13 +9,13 @@ using Xamarin.Forms;
 
 namespace BSMM2.ViewModels {
 
-	public class PlayersViewModel : BaseViewModel {
+    public class PlayersViewModel : BaseViewModel {
 		private BSMMApp _app;
 		private Game Game => _app.Game;
 
-		private IEnumerable<Player> _players;
+		private ObservableCollection<IOrderedPlayer> _players;
 
-		public IEnumerable<Player> Players {
+		public ObservableCollection<IOrderedPlayer> Players {
 			get => _players;
 			set { SetProperty(ref _players, value); }
 		}
@@ -31,7 +31,7 @@ namespace BSMM2.ViewModels {
 
 		public PlayersViewModel(BSMMApp app, Action newGame = null, Action selectGame = null, Action deleteGame = null, Action addPlayer = null) {
 			_app = app;
-			Players = new ObservableCollection<Player>();
+			Players = new ObservableCollection<IOrderedPlayer>();
 
 			NewGameCommand = new DelegateCommand(() => newGame?.Invoke());
 			SelectGameCommand = new DelegateCommand(() => selectGame?.Invoke(), () => _app.Games.Any());
@@ -59,8 +59,7 @@ namespace BSMM2.ViewModels {
 		}
 
 		private void Refresh() {
-			Players = new ObservableCollection<Player>();
-			Players = new ObservableCollection<Player>(Game.Players.GetByOrder());
+			Players = new ObservableCollection<IOrderedPlayer>(Models.Players.GetByOrdered(Game.Players.GetSortedSource()));
 			Title = Game.Headline;
 			RuleCommand?.RaiseCanExecuteChanged();
 			SelectGameCommand?.RaiseCanExecuteChanged();

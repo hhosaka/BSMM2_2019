@@ -27,7 +27,7 @@ namespace BSMM2Test {
 			Util.Check(new[] { 1, 2, 3, 4, 5, 6 }, game.ActiveRound);
 			game.ActiveRound.Swap(0, 1);
 			Util.Check(new[] { 3, 2, 1, 4, 5, 6 }, game.ActiveRound);
-			Util.Check(new[] { 1, 2, 3, 4, 5, 6 }, game.Players.GetByOrder());
+			Util.Check(new[] { 1, 2, 3, 4, 5, 6 }, game.Players.GetSortedSource());
 
 			var buf = new StringBuilder();
 
@@ -38,7 +38,7 @@ namespace BSMM2Test {
 			var result = new Serializer<Game>().Deserialize(new StringReader(sbuf));
 
 			Util.Check(new[] { 3, 2, 1, 4, 5, 6 }, result.ActiveRound);
-			Util.Check(new[] { 1, 2, 3, 4, 5, 6 }, result.Players.GetByOrder());
+			Util.Check(new[] { 1, 2, 3, 4, 5, 6 }, result.Players.GetSortedSource());
 			Assert.AreEqual(game.Title, result.Title);
 			Assert.AreEqual(game.Id, result.Id);
 			Util.Check(game, result);
@@ -58,13 +58,13 @@ namespace BSMM2Test {
 			game.ActiveRound.Matches.ElementAt(2).SetResult(Win);
 
 			Util.Check(new[] { 1, 2, 3, 4, 5, 6 }, game.ActiveRound);
-			Util.Check(new[] { 1, 3, 5, 2, 4, 6 }, game.Players.GetByOrder());
+			Util.Check(new[] { 1, 3, 5, 2, 4, 6 }, game.Players.GetSortedSource());
 
 			var json = JsonConvert.SerializeObject(game, settings);
 			var result = JsonConvert.DeserializeObject<Game>(json, settings);
 
 			Util.Check(new[] { 1, 2, 3, 4, 5, 6 }, result.ActiveRound);
-			Util.Check(new[] { 1, 3, 5, 2, 4, 6 }, result.Players.GetByOrder());
+			Util.Check(new[] { 1, 3, 5, 2, 4, 6 }, result.Players.GetSortedSource());
 		}
 
 		[TestMethod]
@@ -81,7 +81,7 @@ namespace BSMM2Test {
 			game.ActiveRound.Matches.ElementAt(2).SetResult(Win);
 
 			Util.Check(new[] { 1, 2, 3, 4, 5, 6 }, game.ActiveRound);
-			Util.Check(new[] { 1, 3, 5, 2, 4, 6 }, game.Players.GetByOrder());
+			Util.Check(new[] { 1, 3, 5, 2, 4, 6 }, game.Players.GetSortedSource());
 
 			var engine = new Storage();
 
@@ -90,7 +90,7 @@ namespace BSMM2Test {
 			var game2 = Game.Load(game.Id, engine);
 
 			Util.Check(new[] { 1, 2, 3, 4, 5, 6 }, game2.ActiveRound);
-			Util.Check(new[] { 1, 3, 5, 2, 4, 6 }, game2.Players.GetByOrder());
+			Util.Check(new[] { 1, 3, 5, 2, 4, 6 }, game2.Players.GetSortedSource());
 			Assert.AreEqual(0, game2.Rounds.Count());
 		}
 
@@ -227,7 +227,7 @@ namespace BSMM2Test {
 			game.ActiveRound.Matches.ElementAt(0).SetResult(Win);
 
 			Util.Check(new[] { 1, 2, 3, -1 }, game.ActiveRound);
-			Util.Check(new[] { 1, 3, 2 }, game.Players.GetByOrder());
+			Util.Check(new[] { 1, 3, 2 }, game.Players.GetSortedSource());
 
 			var engine = new Storage();
 
@@ -236,7 +236,7 @@ namespace BSMM2Test {
 			var game2 = Game.Load(game.Id, engine);
 
 			Util.Check(new[] { 1, 2, 3, -1 }, game2.ActiveRound);
-			Util.Check(new[] { 1, 3, 2 }, game2.Players.GetByOrder());
+			Util.Check(new[] { 1, 3, 2 }, game2.Players.GetSortedSource());
 			Assert.AreEqual(0, game2.Rounds.Count());
 		}
 
@@ -256,7 +256,7 @@ namespace BSMM2Test {
 			game.ActiveRound.Matches.ElementAt(1).SetResult(Win);
 
 			Util.Check(new[] { 3, 2, 1, -1 }, game.ActiveRound);
-			Util.Check(new[] { 3, 1, 2 }, game.Players.GetByOrder());
+			Util.Check(new[] { 3, 1, 2 }, game.Players.GetSortedSource());
 		}
 
 		[TestMethod]
@@ -346,7 +346,7 @@ namespace BSMM2Test {
 			Util.SetResult(game, 3, Win);
 			Util.SetResult(game, 4, Win);
 
-			Util.Check(new[] { 1, 3, 5, 7, 9, 2, 4, 6, 8, 10 }, game.Players.GetByOrder());
+			Util.Check(new[] { 1, 3, 5, 7, 9, 2, 4, 6, 8, 10 }, game.Players.GetSortedSource());
 
 			game.StepToMatching();
 
