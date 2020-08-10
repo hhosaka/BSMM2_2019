@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+			 xmlns:local="clr-namespace:BSMM2.ViewModels"
+			 xmlns:prop="clr-namespace:BSMM2.Resource"
+			 x:Class="BSMM2.Views.RoundLogPage"
+			  Title="{x:Static prop:AppResources.MenuRoundLog}"
+			 x:Name="BrowseItemsPage">
+	<ContentPage.Resources>
+		<local:RoundResultConverter x:Key="Converter" />
+	</ContentPage.Resources>
+	<ContentPage.ToolbarItems>
+		<ToolbarItem Text="{x:Static prop:AppResources.MenuBack}" Clicked="Back" Order="Secondary" />
+	</ContentPage.ToolbarItems>
+	<ContentPage.Content>
+		<StackLayout>
+			<ListView x:Name="RoundListView"
+				ItemsSource="{Binding Round}"
+				SelectedItem="{Binding SelectedItem}"
+				VerticalOptions="FillAndExpand"
+				HasUnevenRows="true"
+				IsRefreshing="{Binding IsBusy, Mode=OneWay}"
+				CachingStrategy="RecycleElement">
+				<ListView.ItemTemplate>
+					<DataTemplate>
+						<ViewCell>
+							<StackLayout Padding="10">
+								<StackLayout Orientation="Horizontal"  HorizontalOptions="Start">
+									<Label Text="{Binding Record1, Converter={StaticResource Converter}, ConverterParameter=RESULTMARK}}"
+									LineBreakMode="NoWrap"
+									FontSize="20" />
+									<Label Text="{Binding Record1.Player.Name}"
+									LineBreakMode="NoWrap"
+									FontSize="20" />
+								</StackLayout>
+								<StackLayout Orientation="Horizontal" HorizontalOptions="End">
+									<Label Text="{Binding Record2.Player.Name}"
+									LineBreakMode="NoWrap"
+									FontSize="20" />
+									<Label Text="{Binding Record2, Converter={StaticResource Converter}, ConverterParameter=RESULTMARK}}"
+									LineBreakMode="NoWrap"
+									FontSize="20" />
+								</StackLayout>
+							</StackLayout>
+						</ViewCell>
+					</DataTemplate>
+				</ListView.ItemTemplate>
+			</ListView>
+		</StackLayout>
+	</ContentPage.Content>
+</ContentPage>

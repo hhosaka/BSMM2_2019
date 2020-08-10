@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+			 xmlns:local="clr-namespace:BSMM2.ViewModels"
+			 xmlns:prop="clr-namespace:BSMM2.Resource"
+			 x:Class="BSMM2.Views.RoundPage"
+			  Title="{Binding Title}"
+			 x:Name="BrowseItemsPage">
+	<ContentPage.ToolbarItems>
+		<ToolbarItem Text="{x:Static prop:AppResources.MenuRoundLog}" Command="{Binding ShowRoundsLogCommand}" Order="Secondary" />
+		<ToolbarItem Text="{x:Static prop:AppResources.MenuHelp}" Clicked="OpenHelpPage" Order="Secondary" />
+	</ContentPage.ToolbarItems>
+	<ContentPage.Resources>
+		<local:RoundResultConverter x:Key="Converter" />
+	</ContentPage.Resources>
+	<ContentPage.Content>
+		<StackLayout>
+			<Label Text="{Binding Timer}" IsVisible="{Binding IsTimerVisible}" FontSize="40" HorizontalOptions="Center" />
+			<ListView x:Name="RoundListView"
+				ItemsSource="{Binding Matches}"
+				VerticalOptions="FillAndExpand"
+				HasUnevenRows="true"
+				IsRefreshing="{Binding IsBusy, Mode=OneWay}"
+				CachingStrategy="RecycleElement"
+				ItemTapped="OnMatchTapped">
+				<ListView.ItemTemplate>
+					<DataTemplate>
+						<ViewCell>
+							<StackLayout Padding="10" BackgroundColor="{Binding IsFinished, Converter={StaticResource Converter}, ConverterParameter=BGCOLOR}">
+								<StackLayout Orientation="Horizontal"  HorizontalOptions="Start">
+									<Label Text="{Binding Record1, Converter={StaticResource Converter}, ConverterParameter=RESULTMARK}"
+									LineBreakMode="NoWrap"
+									FontSize="20" />
+									<Label Text="{Binding Record1.Player.Name}"
+									LineBreakMode="NoWrap"
+									FontSize="20" />
+								</StackLayout>
+								<StackLayout Orientation="Horizontal" HorizontalOptions="End">
+									<Label Text="{Binding Record2.Player.Name}"
+									LineBreakMode="NoWrap"
+									FontSize="20" />
+									<Label Text="{Binding Record2, Converter={StaticResource Converter}, ConverterParameter=RESULTMARK}"
+									LineBreakMode="NoWrap"
+									FontSize="20" />
+								</StackLayout>
+							</StackLayout>
+						</ViewCell>
+					</DataTemplate>
+				</ListView.ItemTemplate>
+			</ListView>
+			<StackLayout Orientation="Horizontal">
+				<Button Text="{x:Static prop:AppResources.ButtonShuffle}" Command="{Binding ShuffleCommand}"  HorizontalOptions="FillAndExpand"></Button>
+				<Button Text="{x:Static prop:AppResources.ButtonStart}" Command="{Binding StartCommand}" HorizontalOptions="FillAndExpand"></Button>
+				<Button Text="{x:Static prop:AppResources.ButtonNextRound}" Command="{Binding StepToMatchingCommand}" HorizontalOptions="FillAndExpand"></Button>
+			</StackLayout>
+		</StackLayout>
+	</ContentPage.Content>
+</ContentPage>

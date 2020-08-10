@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+			 xmlns:prop="clr-namespace:BSMM2.Resource"
+			 x:Class="BSMM2.Views.JsonPage"
+			 xmlns:local="clr-namespace:BSMM2.ViewModels"
+			 Title="{Binding Name}">
+	<ContentPage.ToolbarItems>
+		<ToolbarItem Text="{x:Static prop:AppResources.MenuBack}" Clicked="Back" Order="Secondary" />
+	</ContentPage.ToolbarItems>
+	<ContentPage.Content>
+		<StackLayout>
+			<StackLayout Orientation="Horizontal">
+				<Switch IsToggled="{Binding AsCurrentGame}" />
+				<Label Text="{x:Static prop:AppResources.LabelNewGameAsCurrentGame}" />
+			</StackLayout>
+			<Editor Text="{Binding Buf}" HeightRequest="512" />
+			<StackLayout Orientation="Horizontal">
+				<Button Text="{x:Static prop:AppResources.MenuExport}" Command="{Binding ExportCommand}" HorizontalOptions="FillAndExpand" />
+				<Button Text="{x:Static prop:AppResources.MenuImport}" Command="{Binding ImportCommand}" HorizontalOptions="FillAndExpand" />
+				<Button Text="{x:Static prop:AppResources.MenuClear}" Command="{Binding ClearCommand}" HorizontalOptions="FillAndExpand" />
+				<Button Text="{x:Static prop:AppResources.MenuSendMail}" Command="{Binding SendByMailCommand}" HorizontalOptions="FillAndExpand" />
+			</StackLayout>
+		</StackLayout>
+	</ContentPage.Content>
+</ContentPage>

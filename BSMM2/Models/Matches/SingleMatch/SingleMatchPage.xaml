@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+			 xmlns:prop="clr-namespace:BSMM2.Resource"
+			 x:Class="BSMM2.Models.Matches.SingleMatch.SingleMatchPage"
+			 Title="{Binding Title}">
+	<ContentPage.ToolbarItems>
+		<ToolbarItem Text="{x:Static prop:AppResources.MenuBack}" Clicked="Back" Order="Secondary" />
+	</ContentPage.ToolbarItems>
+	<ContentPage.Content>
+		<Grid>
+			<Grid.RowDefinitions>
+				<RowDefinition Height="Auto" />
+				<RowDefinition Height="Auto" />
+				<RowDefinition Height="Auto" />
+				<RowDefinition Height="Auto" />
+				<RowDefinition Height="Auto" />
+				<RowDefinition Height="*" />
+			</Grid.RowDefinitions>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="Auto" />
+				<ColumnDefinition Width="Auto" />
+				<ColumnDefinition Width="*" />
+			</Grid.ColumnDefinitions>
+			<Label Text="{x:Static prop:AppResources.TextResult}" Grid.Row="0" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="Center" />
+			<Label Text="{x:Static prop:AppResources.TextLifePoint}" Grid.Row="0" Grid.Column="1" FontSize="Medium" VerticalTextAlignment="Center" IsVisible="{Binding EnableLifePoint}" />
+			<Label Text="{x:Static prop:AppResources.TextPlayerName}" Grid.Row="0" Grid.Column="2" FontSize="Medium" VerticalTextAlignment="Center" />
+
+			<Switch Grid.Row="1" Grid.Column="0" IsToggled="{Binding ResultItem.Player1Win}" />
+
+			<Picker IsVisible="{Binding EnableLifePoint}"
+				Grid.Row="1" Grid.Column="1"
+				ItemsSource ="{Binding LifePoints}"
+				SelectedItem="{Binding Player1LP}"
+				ItemDisplayBinding="{Binding Label}" />
+
+			<Label Text="{Binding Player1.Name}" Grid.Row="1" Grid.Column="2" FontSize="Medium" VerticalTextAlignment="Center" />
+
+			<Switch Grid.Row="2" Grid.Column="0" IsToggled="{Binding ResultItem.Draw}" />
+			<Label Text="Draw" Grid.Row="2"  Grid.Column="2" FontSize="Medium" VerticalTextAlignment="Center" />
+
+			<Switch IsToggled="{Binding ResultItem.Player2Win}" Grid.Row="3"  Grid.Column="0" />
+			<Picker IsVisible="{Binding EnableLifePoint}"
+				Grid.Row="3"  Grid.Column="1"
+				ItemsSource ="{Binding LifePoints}"
+				SelectedItem="{Binding Player2LP}"
+				ItemDisplayBinding="{Binding Label}" />
+			<Label Text="{Binding Player2.Name}" Grid.Row="3"  Grid.Column="2" FontSize="Medium" VerticalTextAlignment="Center" />
+			<Button Text="Done" Grid.Row="4" Grid.ColumnSpan="3" Command="{Binding DoneCommand}"  HorizontalOptions="FillAndExpand" />
+		</Grid>
+	</ContentPage.Content>
+</ContentPage>

@@ -1,0 +1,89 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <LangVersion>7.2</LangVersion>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DebugType>pdbonly</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="ViewModels\RoundViewModel.cs~RF267bde.TMP" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
+    <PackageReference Include="PCLStorage" Version="1.0.2" />
+    <PackageReference Include="Prism.Core" Version="7.2.0.1367" />
+    <PackageReference Include="Xamarin.Essentials" Version="1.2.0" />
+    <PackageReference Include="Xamarin.Forms" Version="4.1.0.673156" />  
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Models\Matches\MultiMatch\ThreeGameMatch\ThreeGameMatchPage.xaml.cs">
+      <DependentUpon>ThreeGameMatchPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Models\Matches\SingleMatch\SingleMatchPage.xaml.cs">
+      <DependentUpon>SingleMatchPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Resource\AppResources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>AppResources.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Views\AddPlayerPage.xaml.cs">
+      <DependentUpon>AddPlayerPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\PlayerPage.xaml.cs">
+      <DependentUpon>PlayerPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\RoundLogPage.xaml.cs">
+      <DependentUpon>RoundLogPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\JsonPage.xaml.cs">
+      <DependentUpon>JsonPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\SettingsPage.xaml.cs">
+      <DependentUpon>SettingsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Models\Matches\SingleMatch\SingleMatchRulePage.xaml.cs">
+      <DependentUpon>SingleMatchRulePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\GamesPage.xaml.cs">
+      <DependentUpon>GamesPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\RoundPage.xaml.cs">
+      <DependentUpon>RoundPage.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Resource\AppResources.ja.resx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resource\AppResources.resx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>AppResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\NewGamePage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\PlayersPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\RoundPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Properties\" />
+    <Folder Include="Services\" />
+    <Folder Include="ViewModels\Matches\" />
+    <Folder Include="Views\Matches\" />
+  </ItemGroup>
+</Project>

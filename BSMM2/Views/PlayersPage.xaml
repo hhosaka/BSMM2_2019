@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+			 xmlns:prop="clr-namespace:BSMM2.Resource"
+			 x:Class="BSMM2.Views.PlayersPage"
+			  Title="{Binding Title}"
+			 x:Name="BrowseItemsPage">
+	<ContentPage.ToolbarItems>
+		<ToolbarItem Text="{x:Static prop:AppResources.MenuNewGame}" Command="{Binding NewGameCommand}" Order="Secondary" />
+		<ToolbarItem Text="{x:Static prop:AppResources.MenuSettingRule}" Clicked="OpenRuleSettingPage" Order="Secondary" />
+		<ToolbarItem Text="{x:Static prop:AppResources.MenuSelectGame}" Command ="{Binding SelectGameCommand}" Order="Secondary" />
+		<ToolbarItem Text="{x:Static prop:AppResources.MenuDeleteGame}" Command ="{Binding DeleteGameCommand}" Order="Secondary" />
+		<ToolbarItem Text="{x:Static prop:AppResources.MenuAddPlayer}" Command="{Binding AddPlayerCommand}" Order="Secondary" />
+		<ToolbarItem Text="{x:Static prop:AppResources.MenuExport}" Command="{Binding ExportPlayersCommand}" Order="Secondary" />
+		<ToolbarItem Text="{x:Static prop:AppResources.MenuSave}" Command="{Binding SaveCommand}" Order="Secondary" />
+		<ToolbarItem Text="{x:Static prop:AppResources.MenuJson}" Clicked="OpenJsonPage" Order="Secondary" />
+		<ToolbarItem Text="{x:Static prop:AppResources.MenuSetting}" Clicked="OpenSettingsPage" Order="Secondary" />
+		<!--ToolbarItem Text="Log" Clicked="Log" Order="Secondary" /-->
+		<ToolbarItem Text="{x:Static prop:AppResources.MenuHelp}" Clicked="OpenHelpPage" Order="Secondary" />
+	</ContentPage.ToolbarItems>
+	<ContentPage.Content>
+		<StackLayout>
+			<ListView x:Name="PlayersListView"
+				ItemsSource="{Binding Players}"
+				VerticalOptions="FillAndExpand"
+				 HasUnevenRows="true"
+				 IsRefreshing="{Binding IsBusy, Mode=OneWay}"
+				 CachingStrategy="RecycleElement"
+				 ItemTapped="OnPlayerTapped">
+				<ListView.ItemTemplate>
+					<DataTemplate>
+						<ViewCell>
+							<StackLayout Padding="10">
+								<StackLayout Orientation="Horizontal">
+									<Label Text="{Binding Order}" FontSize="16" />
+									<Label Text="{Binding Name}" FontSize="16" />
+								</StackLayout>
+								<Label Text="{Binding Description}" FontSize="13" />
+							</StackLayout>
+						</ViewCell>
+					</DataTemplate>
+				</ListView.ItemTemplate>
+			</ListView>
+		</StackLayout>
+	</ContentPage.Content>
+</ContentPage>

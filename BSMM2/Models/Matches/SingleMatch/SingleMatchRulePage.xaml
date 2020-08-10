@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+			 xmlns:prop="clr-namespace:BSMM2.Resource"
+ 			 x:Class="BSMM2.Models.Matches.SingleMatch.SingleMatchRulePage"
+			 Disappearing="OnClosing"
+			 Title="{Binding Title}">
+	<ContentPage.ToolbarItems>
+		<ToolbarItem Text="Back" Clicked="Back" Order="Secondary" />
+	</ContentPage.ToolbarItems>
+	<ContentPage.Content>
+		<StackLayout>
+			<StackLayout Orientation="Horizontal">
+				<Switch IsToggled="{Binding Game.AcceptByeMatchDuplication}" />
+				<Label Text="{x:Static prop:AppResources.LabelRuleAcceptByeMatchDuplication}" VerticalOptions="Center" />
+			</StackLayout>
+			<StackLayout Orientation="Horizontal">
+				<Switch IsToggled="{Binding Game.AcceptGapMatchDuplication}" />
+				<Label Text="{x:Static prop:AppResources.LabelRuleAcceptGapMatchDuplication}" VerticalOptions="Center" />
+			</StackLayout>
+			<ListView x:Name="ComparersView"
+				ItemsSource="{Binding Rule.Comparers}"
+				VerticalOptions="FillAndExpand"
+				HasUnevenRows="true"
+				IsRefreshing="{Binding IsBusy, Mode=OneWay}"
+				CachingStrategy="RecycleElement">
+				<ListView.ItemTemplate>
+					<DataTemplate>
+						<ViewCell>
+							<StackLayout Orientation="Horizontal">
+								<Switch IsToggled="{Binding Active}" IsEnabled="{Binding Selectable}" />
+								<Label Text="{Binding Label}" VerticalTextAlignment="Center" />
+							</StackLayout>
+						</ViewCell>
+					</DataTemplate>
+				</ListView.ItemTemplate>
+			</ListView>
+		</StackLayout>
+	</ContentPage.Content>
+</ContentPage>

@@ -1,0 +1,393 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ButtonAdd" xml:space="preserve">
+    <value>追加</value>
+  </data>
+  <data name="ButtonCreate" xml:space="preserve">
+    <value>作成</value>
+  </data>
+  <data name="ButtonDone" xml:space="preserve">
+    <value>決定</value>
+  </data>
+  <data name="ButtonNextRound" xml:space="preserve">
+    <value>次のラウンド</value>
+  </data>
+  <data name="ButtonShuffle" xml:space="preserve">
+    <value>再抽選</value>
+  </data>
+  <data name="ButtonStart" xml:space="preserve">
+    <value>スタート</value>
+  </data>
+  <data name="DescriptionEntrySheet" xml:space="preserve">
+    <value>プレーヤー名を改行で列記してください。</value>
+  </data>
+  <data name="DescriptionSingleMatch" xml:space="preserve">
+    <value>一本取りのルールです。</value>
+  </data>
+  <data name="DescriptionThreeOnThreeMatch" xml:space="preserve">
+    <value>３ on 3のルールです。</value>
+  </data>
+  <data name="DescriptionTreeGameMatch" xml:space="preserve">
+    <value>2本先取のルールです。</value>
+  </data>
+  <data name="ItemPlayerModeEntrySheet" xml:space="preserve">
+    <value>エントリーシート</value>
+  </data>
+  <data name="ItemPlayerModeNumber" xml:space="preserve">
+    <value>プレーヤー人数</value>
+  </data>
+  <data name="ItemPlayerModeRestart" xml:space="preserve">
+    <value>再試合</value>
+  </data>
+  <data name="ItemResultDraw" xml:space="preserve">
+    <value>引分け</value>
+  </data>
+  <data name="ItemResultLose" xml:space="preserve">
+    <value>負け</value>
+  </data>
+  <data name="ItemResultProgress" xml:space="preserve">
+    <value>未定</value>
+  </data>
+  <data name="ItemResultWin" xml:space="preserve">
+    <value>勝ち</value>
+  </data>
+  <data name="ItemRuleSingleMatch" xml:space="preserve">
+    <value>一本取り</value>
+  </data>
+  <data name="ItemRuleThreeGameMatch" xml:space="preserve">
+    <value>二本取り</value>
+  </data>
+  <data name="ItemRuleThreeOnThreeMatch" xml:space="preserve">
+    <value>3 on 3</value>
+  </data>
+  <data name="Label1stMatch" xml:space="preserve">
+    <value>1st Match</value>
+  </data>
+  <data name="Label2ndMatch" xml:space="preserve">
+    <value>2nd Match</value>
+  </data>
+  <data name="Label3rdMatch" xml:space="preserve">
+    <value>3rd Match</value>
+  </data>
+  <data name="LabelAppTitle" xml:space="preserve">
+    <value>BS Match Maker 2</value>
+  </data>
+  <data name="LabelAutoSave" xml:space="preserve">
+    <value>自動保存</value>
+  </data>
+  <data name="LabelDrop" xml:space="preserve">
+    <value>棄権する</value>
+  </data>
+  <data name="LabelMailAddress" xml:space="preserve">
+    <value>メールアドレス</value>
+  </data>
+  <data name="LabelMatchLog" xml:space="preserve">
+    <value>対戦履歴</value>
+  </data>
+  <data name="LabelMinimumCondition" xml:space="preserve">
+    <value>マッチポイントだけで比較</value>
+  </data>
+  <data name="LabelNewGameAsCurrentGame" xml:space="preserve">
+    <value>現在のゲームに上書き</value>
+  </data>
+  <data name="LabelNewGameEnableLifePoint" xml:space="preserve">
+    <value>ライフポイントを有効にする</value>
+  </data>
+  <data name="LabelNewGameEntrySheet" xml:space="preserve">
+    <value>エントリーシート</value>
+  </data>
+  <data name="LabelNewGameNumberOfPlayer" xml:space="preserve">
+    <value>プレーヤー人数</value>
+  </data>
+  <data name="LabelNewGamePlayerEntryMode" xml:space="preserve">
+    <value>プレイヤー登録方法</value>
+  </data>
+  <data name="LabelNewGamePlayerPrefix" xml:space="preserve">
+    <value>プレーヤー名</value>
+  </data>
+  <data name="LabelNewGameRule" xml:space="preserve">
+    <value>試合形式</value>
+  </data>
+  <data name="LabelNewGameTitle" xml:space="preserve">
+    <value>タイトル</value>
+  </data>
+  <data name="LabelPointCompare" xml:space="preserve">
+    <value>ポイント比較　必須</value>
+  </data>
+  <data name="LabelPostCompare" xml:space="preserve">
+    <value>事後比較　必須</value>
+  </data>
+  <data name="LabelPreCompare" xml:space="preserve">
+    <value>事前比較　必須</value>
+  </data>
+  <data name="LabelRuleAcceptByeMatchDuplication" xml:space="preserve">
+    <value>不戦勝の重複を認める</value>
+  </data>
+  <data name="LabelRuleAcceptGapMatchDuplication" xml:space="preserve">
+    <value>階段戦の重複を認める</value>
+  </data>
+  <data name="LabelRuleSetting" xml:space="preserve">
+    <value>ルール設定</value>
+  </data>
+  <data name="LabelUseByePoint" xml:space="preserve">
+    <value>不戦勝を考慮する</value>
+  </data>
+  <data name="LabelUseLifePoint" xml:space="preserve">
+    <value>ライフポイントで比較</value>
+  </data>
+  <data name="LabelUseOpponentLifePoint" xml:space="preserve">
+    <value>オポネントライフポイントで比較</value>
+  </data>
+  <data name="LabelUseOpponentMatchPoint" xml:space="preserve">
+    <value>オポネントポイントで比較</value>
+  </data>
+  <data name="LabelUseOpponentWinPoint" xml:space="preserve">
+    <value>オポネント勝利ポイントで比較</value>
+  </data>
+  <data name="LabelUseWinPoint" xml:space="preserve">
+    <value>勝利ポイントで比較</value>
+  </data>
+  <data name="MenuAddPlayer" xml:space="preserve">
+    <value>プレーヤー追加</value>
+  </data>
+  <data name="MenuBack" xml:space="preserve">
+    <value>戻る</value>
+  </data>
+  <data name="MenuClear" xml:space="preserve">
+    <value>クリア</value>
+  </data>
+  <data name="MenuDeleteGame" xml:space="preserve">
+    <value>ゲーム削除</value>
+  </data>
+  <data name="MenuExport" xml:space="preserve">
+    <value>エクスポート</value>
+  </data>
+  <data name="MenuHelp" xml:space="preserve">
+    <value>ヘルプ</value>
+  </data>
+  <data name="MenuImport" xml:space="preserve">
+    <value>インポート</value>
+  </data>
+  <data name="MenuJson" xml:space="preserve">
+    <value>Json</value>
+  </data>
+  <data name="MenuNewGame" xml:space="preserve">
+    <value>新しいゲーム</value>
+  </data>
+  <data name="MenuRoundLog" xml:space="preserve">
+    <value>対戦履歴</value>
+  </data>
+  <data name="MenuSave" xml:space="preserve">
+    <value>保存</value>
+  </data>
+  <data name="MenuSelectGame" xml:space="preserve">
+    <value>ゲーム選択</value>
+  </data>
+  <data name="MenuSendMail" xml:space="preserve">
+    <value>メール送信</value>
+  </data>
+  <data name="MenuSetting" xml:space="preserve">
+    <value>設定</value>
+  </data>
+  <data name="MenuSettingRule" xml:space="preserve">
+    <value>ルール設定</value>
+  </data>
+  <data name="PrefixGame" xml:space="preserve">
+    <value>Game</value>
+  </data>
+  <data name="PrefixRound" xml:space="preserve">
+    <value>ラウンド</value>
+  </data>
+  <data name="TabPlayer" xml:space="preserve">
+    <value>Player</value>
+  </data>
+  <data name="TabRound" xml:space="preserve">
+    <value>Round</value>
+  </data>
+  <data name="Text1stPlayer" xml:space="preserve">
+    <value>先鋒</value>
+  </data>
+  <data name="Text2ndPlayer" xml:space="preserve">
+    <value>中堅</value>
+  </data>
+  <data name="Text3rdPlayer" xml:space="preserve">
+    <value>大将</value>
+  </data>
+  <data name="TextAlert" xml:space="preserve">
+    <value>警告</value>
+  </data>
+  <data name="TextBYE" xml:space="preserve">
+    <value>不戦勝</value>
+  </data>
+  <data name="TextByeMatchCount" xml:space="preserve">
+    <value>不戦勝回数</value>
+  </data>
+  <data name="TextDropped" xml:space="preserve">
+    <value>棄権</value>
+  </data>
+  <data name="TextFailToMakeMatch" xml:space="preserve">
+    <value>抽選に失敗しました。制約を変更して再抽選できます。</value>
+  </data>
+  <data name="TextGiveUp" xml:space="preserve">
+    <value>中止</value>
+  </data>
+  <data name="TextGoToRuleSetting" xml:space="preserve">
+    <value>ルール設定へ</value>
+  </data>
+  <data name="TextLifePoint" xml:space="preserve">
+    <value>ライフP</value>
+  </data>
+  <data name="TextMatchPoint" xml:space="preserve">
+    <value>マッチP</value>
+  </data>
+  <data name="TextOpponent" xml:space="preserve">
+    <value>対戦者</value>
+  </data>
+  <data name="TextOpponentLifePoint" xml:space="preserve">
+    <value>OPライフP</value>
+  </data>
+  <data name="TextOpponentMatchPoint" xml:space="preserve">
+    <value>OPマッチP</value>
+  </data>
+  <data name="TextOpponentWinPoint" xml:space="preserve">
+    <value>OP勝利P</value>
+  </data>
+  <data name="TextPlayer" xml:space="preserve">
+    <value>プレーヤー</value>
+  </data>
+  <data name="TextPlayerInformation" xml:space="preserve">
+    <value>プレイヤー情報</value>
+  </data>
+  <data name="TextPlayerName" xml:space="preserve">
+    <value>プレーヤー名</value>
+  </data>
+  <data name="TextPlayerParameterKey" xml:space="preserve">
+    <value>パラメータ</value>
+  </data>
+  <data name="TextPlayerParameterValue" xml:space="preserve">
+    <value>値</value>
+  </data>
+  <data name="TextResult" xml:space="preserve">
+    <value>勝敗</value>
+  </data>
+  <data name="TextWinPoint" xml:space="preserve">
+    <value>勝利P</value>
+  </data>
+</root>

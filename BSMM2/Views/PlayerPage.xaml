@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+			 xmlns:prop="clr-namespace:BSMM2.Resource"
+			 x:Class="BSMM2.Views.PlayerPage"
+			 xmlns:local="clr-namespace:BSMM2.ViewModels"
+			 Disappearing="OnClosing"
+			 Title="{x:Static prop:AppResources.TextPlayerInformation}">
+	<ContentPage.Resources>
+		<local:RoundResultConverter x:Key="Converter" />
+	</ContentPage.Resources>
+	<ContentPage.ToolbarItems>
+		<ToolbarItem Text="{x:Static prop:AppResources.MenuBack}" Clicked="Back" Order="Secondary" />
+	</ContentPage.ToolbarItems>
+	<ContentPage.Content>
+		<StackLayout>
+			<Grid x:Name="grid">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="Auto" />
+					<ColumnDefinition Width="*" />
+				</Grid.ColumnDefinitions>
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto" />
+					<RowDefinition Height="Auto" />
+				</Grid.RowDefinitions>
+				<Label Text="{x:Static prop:AppResources.TextPlayerName}" Grid.Row="0" Grid.Column="0" VerticalTextAlignment="Center" />
+				<Entry Text="{Binding Player.Name}"  Grid.Row="0" Grid.Column="1" />
+				<Label Text="{x:Static prop:AppResources.LabelDrop}" Grid.Row="1" Grid.Column="0" VerticalTextAlignment="Center" />
+				<Switch IsToggled="{Binding Dropped , Mode=TwoWay}" IsEnabled="{Binding IsMatching}" Grid.Row="1" Grid.Column="1" />
+			</Grid>
+			<Label Text="{x:Static prop:AppResources.LabelMatchLog}" />
+			<ListView x:Name="RoundListView"
+				ItemsSource="{Binding Player.Matches}"
+				VerticalOptions="FillAndExpand"
+				HasUnevenRows="true"
+				IsRefreshing="{Binding IsBusy, Mode=OneWay}"
+				CachingStrategy="RecycleElement">
+				<ListView.ItemTemplate>
+					<DataTemplate>
+						<ViewCell>
+							<StackLayout Padding="10">
+								<StackLayout Orientation="Horizontal"  HorizontalOptions="Start">
+									<Label Text="{Binding Record1, Converter={StaticResource Converter}, ConverterParameter=RESULTMARK}"
+									LineBreakMode="NoWrap"
+									FontSize="20" />
+									<Label Text="{Binding Record1.Player.Name}"
+									LineBreakMode="NoWrap"
+									FontSize="20" />
+								</StackLayout>
+								<StackLayout Orientation="Horizontal" HorizontalOptions="End">
+									<Label Text="{Binding Record2.Player.Name}"
+									LineBreakMode="NoWrap"
+									FontSize="20" />
+									<Label Text="{Binding Record2, Converter={StaticResource Converter}, ConverterParameter=RESULTMARK}"
+									LineBreakMode="NoWrap"
+									FontSize="20" />
+								</StackLayout>
+							</StackLayout>
+						</ViewCell>
+					</DataTemplate>
+				</ListView.ItemTemplate>
+			</ListView>
+		</StackLayout>
+	</ContentPage.Content>
+</ContentPage>
