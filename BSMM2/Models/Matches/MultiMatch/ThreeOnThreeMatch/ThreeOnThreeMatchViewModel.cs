@@ -60,6 +60,8 @@ namespace BSMM2.Models.Matches.MultiMatch.ThreeOnThreeMatch {
 					new Score(ResultItem[1].RESULT, EnableLifePoint? Player1LP[1].Point: 0, EnableLifePoint? Player2LP[1].Point: 0),
 					new Score(ResultItem[2].RESULT, EnableLifePoint? Player1LP[2].Point: 0, EnableLifePoint? Player2LP[2].Point: 0),
 				});
+				MessagingCenter.Send<object>(this, Messages.REFRESH);
+				back?.Invoke();
 			}
 			MessagingCenter.Send<object>(this, Messages.REFRESH);
 			back?.Invoke();
