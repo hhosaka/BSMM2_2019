@@ -13,9 +13,9 @@ namespace BSMM2.ViewModels {
 		private BSMMApp _app;
 		private Game Game => _app.Game;
 
-		private ObservableCollection<IOrderedPlayer> _players;
+		private ObservableCollection<OrderedPlayer> _players;
 
-		public ObservableCollection<IOrderedPlayer> Players {
+		public ObservableCollection<OrderedPlayer> Players {
 			get => _players;
 			set { SetProperty(ref _players, value); }
 		}
@@ -31,7 +31,7 @@ namespace BSMM2.ViewModels {
 
 		public PlayersViewModel(BSMMApp app, Action newGame = null, Action selectGame = null, Action deleteGame = null, Action addPlayer = null) {
 			_app = app;
-			Players = new ObservableCollection<IOrderedPlayer>();
+			Players = new ObservableCollection<OrderedPlayer>();
 
 			NewGameCommand = new DelegateCommand(() => newGame?.Invoke());
 			SelectGameCommand = new DelegateCommand(() => selectGame?.Invoke(), () => _app.Games.Any());
@@ -59,7 +59,7 @@ namespace BSMM2.ViewModels {
 		}
 
 		private void Refresh() {
-			Players = new ObservableCollection<IOrderedPlayer>(Models.Players.GetByOrdered(Game.Players.GetSortedSource()));
+			Players = new ObservableCollection<OrderedPlayer>(Models.Players.GetOrderedPlayers(Game.Players.GetSortedSource()));
 			Title = Game.Headline;
 			RuleCommand?.RaiseCanExecuteChanged();
 			SelectGameCommand?.RaiseCanExecuteChanged();

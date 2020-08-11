@@ -32,7 +32,7 @@ namespace BSMM2Test {
 		}
 
 		public static void CheckOrder(IEnumerable<int> expectedOrder, IEnumerable<Player> players) {
-			var result = Players.GetByOrdered(players).Select(player=>player.Order);
+			var result = Players.GetOrderedPlayers(players).Select(player=>player.Order);
 			CollectionAssert.AreEqual(expectedOrder.ToArray(), result.ToArray(), Message(expectedOrder, result));
 		}
 

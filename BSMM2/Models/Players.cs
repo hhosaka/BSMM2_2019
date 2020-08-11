@@ -12,27 +12,7 @@ namespace BSMM2.Models {
 	public class Players {
 		private const String DEFAULT_PREFIX = "Player";
 
-		public class PlayerAdapter : IOrderedPlayer
-		{
-			private Player _player;
-
-			public string Name => _player.Name;
-
-			public string Description => _player.Description;
-
-			public int Order { get; }
-
-			public PlayerAdapter(Player player, int order)
-			{
-				_player = player;
-				Order = order;
-			}
-
-			public int CompareTo(Player other)
-				=> _player.CompareTo(other);
-		}
-
-		public static IEnumerable<IOrderedPlayer> GetByOrdered(IEnumerable<Player> players)
+		public static IEnumerable<OrderedPlayer> GetOrderedPlayers(IEnumerable<Player> players)
 		{
 			Player prev = null;
 			int order = 0;
@@ -44,7 +24,7 @@ namespace BSMM2.Models {
 					order = count;
 					prev = p;
 				}
-				yield return new PlayerAdapter(p, order + 1);
+				yield return new OrderedPlayer(p, order + 1);
 				++count;
 			}
 		}

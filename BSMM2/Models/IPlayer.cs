@@ -6,10 +6,4 @@ namespace BSMM2.Models {
 	{
 		string Name { get; }
 	}
-
-	public interface IOrderedPlayer : IPlayer
-	{
-		string Description { get; }
-		int Order { get; }
-    }
 }

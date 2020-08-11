@@ -61,8 +61,8 @@ namespace BSMM2.Views {
 		private void OpenHelpPage(object sender, EventArgs e) => Navigation.PushModalAsync(new WebPage("https://sites.google.com/site/hhosaka183/bs-match-maker-2"));
 
 		private async void OnPlayerTapped(object sender, ItemTappedEventArgs args) {
-			if (args.Item is Player player)
-				await Navigation.PushModalAsync(new NavigationPage(new PlayerPage(_app, player)));
+			if (args.Item is OrderedPlayer player)
+				await Navigation.PushModalAsync(new NavigationPage(new PlayerPage(_app, player.Player)));
 			PlayersListView.SelectedItem = null;
 		}
 	}
