@@ -16,7 +16,9 @@
 				<Label Text="{x:Static prop:AppResources.LabelAutoSave}" VerticalOptions="Center" />
 			</StackLayout>
 			<Label Text="{x:Static prop:AppResources.LabelMailAddress}" />
-			<Editor Text="{Binding MailAddress}" />
-		</StackLayout>
+			<Entry Text="{Binding MailAddress}" />
+            <Button Text="Export App" Command="{Binding ExportAppCommand}" IsVisible="{Binding IsDebugMode}"/>
+            <Button Text="Import App" Command="{Binding ImportAppCommand}" IsVisible="{Binding IsDebugMode}"/>
+        </StackLayout>
 	</ContentPage.Content>
 </ContentPage>

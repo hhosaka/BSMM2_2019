@@ -46,6 +46,9 @@ namespace BSMM2.Models {
 		public Guid Id { get; private set; }
 
 		[JsonProperty]
+		public bool IsDebugMode { get; set; }
+
+		[JsonProperty]
 		private string _path;
 
 		[JsonIgnore]

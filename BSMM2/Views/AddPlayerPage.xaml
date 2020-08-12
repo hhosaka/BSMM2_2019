@@ -4,8 +4,7 @@
 			 xmlns:prop="clr-namespace:BSMM2.Resource"
 			 x:Class="BSMM2.Views.AddPlayerPage"
 			 xmlns:local="clr-namespace:BSMM2.ViewModels"
-			  Title="{Binding Title}"
-			 x:Name="BrowseItemsPage">
+			  Title="{x:Static prop:AppResources.MenuAddPlayer}">
 	<ContentPage.ToolbarItems>
 		<ToolbarItem Text="{x:Static prop:AppResources.MenuBack}" Clicked="Back" Order="Secondary" />
 	</ContentPage.ToolbarItems>

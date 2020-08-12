@@ -1,4 +1,5 @@
 ﻿using BSMM2.Models;
+using BSMM2.ViewModels;
 using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -10,7 +11,10 @@ namespace BSMM2.Views {
 
 		public SettingsPage(BSMMApp app) {
 			InitializeComponent();
-			BindingContext = app;
+			BindingContext = new SettingsViewModel(app, DisplayMessage);
+
+			void DisplayMessage(string body)
+				=> DisplayAlert("Debug", body, "OK");
 		}
 
 		private async void Back(object sender, EventArgs args)

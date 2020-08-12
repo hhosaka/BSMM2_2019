@@ -50,15 +50,13 @@ namespace BSMM2.Views {
 		}
 
 		private void OpenRuleSettingPage(object sender, EventArgs e)
-				=> Navigation.PushModalAsync(new NavigationPage(_app.Game.CreateRulePage()));
+			=> Navigation.PushModalAsync(new NavigationPage(_app.Game.CreateRulePage()));
 
 		private void OpenSettingsPage(object sender, EventArgs e)
-				=> Navigation.PushModalAsync(new NavigationPage(new SettingsPage(_app)));
+			=> Navigation.PushModalAsync(new NavigationPage(new SettingsPage(_app)));
 
-		private void OpenJsonPage(object sender, EventArgs e)
-				=> Navigation.PushModalAsync(new NavigationPage(new JsonPage(_app)));
-
-		private void OpenHelpPage(object sender, EventArgs e) => Navigation.PushModalAsync(new WebPage("https://sites.google.com/site/hhosaka183/bs-match-maker-2"));
+		private void OpenHelpPage(object sender, EventArgs e)
+			=> Navigation.PushModalAsync(new WebPage("https://sites.google.com/site/hhosaka183/bs-match-maker-2"));
 
 		private async void OnPlayerTapped(object sender, ItemTappedEventArgs args) {
 			if (args.Item is OrderedPlayer player)

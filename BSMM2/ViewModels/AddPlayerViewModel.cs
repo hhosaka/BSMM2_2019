@@ -15,15 +15,14 @@ namespace BSMM2.ViewModels {
 		public ICommand AddPlayerCommand { get; }
 
 		public AddPlayerViewModel(BSMMApp app, Action exit) {
-			Title = "Add Player";
 			_app = app;
 
 			AddPlayerCommand = new DelegateCommand(AddPlayer);
 
 			void AddPlayer() {
-				_app.Game.AddPlayers(Data);
-				MessagingCenter.Send<object>(this, Messages.REFRESH);
-				exit();
+					_app.Game.AddPlayers(Data);
+					MessagingCenter.Send<object>(this, Messages.REFRESH);
+					exit();
 			}
 		}
 	}
