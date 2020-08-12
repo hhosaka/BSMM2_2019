@@ -15,7 +15,7 @@
 	</ContentPage.Resources>
 	<ContentPage.Content>
 		<StackLayout>
-			<Label Text="{Binding Timer}" IsVisible="{Binding IsTimerVisible}" FontSize="40" HorizontalOptions="Center" />
+            <Label Text="{Binding Timer}" IsVisible="{Binding IsTimerVisible}" FontSize="40" HorizontalOptions="Center" />
 			<ListView x:Name="RoundListView"
 				ItemsSource="{Binding Matches}"
 				VerticalOptions="FillAndExpand"
@@ -49,10 +49,11 @@
 				</ListView.ItemTemplate>
 			</ListView>
 			<StackLayout Orientation="Horizontal">
-				<Button Text="{x:Static prop:AppResources.ButtonShuffle}" Command="{Binding ShuffleCommand}"  HorizontalOptions="FillAndExpand"></Button>
-				<Button Text="{x:Static prop:AppResources.ButtonStart}" Command="{Binding StartCommand}" HorizontalOptions="FillAndExpand"></Button>
-				<Button Text="{x:Static prop:AppResources.ButtonNextRound}" Command="{Binding StepToMatchingCommand}" HorizontalOptions="FillAndExpand"></Button>
-			</StackLayout>
+                <Button Text="{x:Static prop:AppResources.ButtonShuffle}" Command="{Binding ShuffleCommand}"  HorizontalOptions="FillAndExpand"/>
+                <Button Text="{x:Static prop:AppResources.ButtonStart}" Command="{Binding StartCommand}" HorizontalOptions="FillAndExpand"/>
+                <Button Text="{x:Static prop:AppResources.TextStartTimer}" Command="{Binding StartTimerCommand}"  HorizontalOptions="FillAndExpand"/>
+                <Button Text="{x:Static prop:AppResources.ButtonNextRound}" Command="{Binding StepToMatchingCommand}" HorizontalOptions="FillAndExpand"/>
+            </StackLayout>
 		</StackLayout>
 	</ContentPage.Content>
 </ContentPage>

@@ -39,6 +39,7 @@ namespace BSMM2.ViewModels {
 		public DelegateCommand StartCommand { get; }
 		public DelegateCommand StepToMatchingCommand { get; }
 		public DelegateCommand ShowRoundsLogCommand { get; }
+		public DelegateCommand StartTimerCommand { get; }
 
 		private Action _failToMakeMatch;
 
@@ -50,11 +51,19 @@ namespace BSMM2.ViewModels {
 			StartCommand = CreateStepToPlayingCommand();
 			StepToMatchingCommand = CreateStepToMatchingCommand();
 			ShowRoundsLogCommand = new DelegateCommand(showRoundsLog, () => app.Game.Rounds.Any());
+			StartTimerCommand = new DelegateCommand(ExecuteStartTimer, () => Game.CanExecuteStartTimer());
 			MessagingCenter.Subscribe<object>(this, Messages.REFRESH,
 				async (sender) => await ExecuteRefresh());
 
 			StartTimer();
 			Refresh();
+
+			async void ExecuteStartTimer()
+            {
+				Game.StartTimer();
+				_app.Save(false);
+				await ExecuteRefresh();
+			}
 		}
 
 		private async Task ExecuteRefresh() {
@@ -77,6 +86,7 @@ namespace BSMM2.ViewModels {
 			ShuffleCommand?.RaiseCanExecuteChanged();
 			StepToMatchingCommand?.RaiseCanExecuteChanged();
 			ShowRoundsLogCommand?.RaiseCanExecuteChanged();
+			StartTimerCommand?.RaiseCanExecuteChanged();
 		}
 
 		private DelegateCommand CreateStepToPlayingCommand() {
@@ -86,7 +96,6 @@ namespace BSMM2.ViewModels {
 
 			async void Execute() {
 				Game.StepToPlaying();
-				StartTimer();
 				_app.Save(false);
 				await ExecuteRefresh();
 			}

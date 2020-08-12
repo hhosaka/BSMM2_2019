@@ -133,7 +133,7 @@
     <value>再抽選</value>
   </data>
   <data name="ButtonStart" xml:space="preserve">
-    <value>スタート</value>
+    <value>確定</value>
   </data>
   <data name="DescriptionEntrySheet" xml:space="preserve">
     <value>プレーヤー名を改行で列記してください。</value>
@@ -386,6 +386,9 @@
   </data>
   <data name="TextResult" xml:space="preserve">
     <value>勝敗</value>
+  </data>
+  <data name="TextStartTimer" xml:space="preserve">
+    <value>開始</value>
   </data>
   <data name="TextWinPoint" xml:space="preserve">
     <value>勝利P</value>

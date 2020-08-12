@@ -91,8 +91,15 @@ namespace BSMM2.Models {
 		public void StepToPlaying() {
 			if (CanExecuteStepToPlaying()) {
 				ActiveRound.Commit();
-				StartTime = DateTime.Now;
 			}
+		}
+
+		public bool CanExecuteStartTimer()
+			=> ActiveRound.IsPlaying && StartTime==null;
+
+		public void StartTimer()
+		{
+			StartTime = DateTime.Now;
 		}
 
 		public bool CanExecuteStepToMatching()
