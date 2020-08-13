@@ -1,6 +1,7 @@
 using BSMM2.Models;
 using BSMM2.Models.Matches.MultiMatch;
 using BSMM2.Models.Matches.MultiMatch.ThreeGameMatch;
+using BSMM2.Models.Matches.MultiMatch.ThreeOnThreeMatch;
 using BSMM2.Models.Matches.SingleMatch;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
@@ -287,6 +288,62 @@ namespace BSMM2Test {
 			Util.CheckWithOrder(new[] { 5, 1, 3, 6, 7, 2, 4, 8 }, new[] { 1, 2, 3, 4, 4, 6, 7, 8 }, game.Players.GetSortedSource());
 		}
 
+		[TestMethod]
+		public void ThreeOnThreeMatchStatusTest()
+		{
+			var game = new FakeGame(new ThreeOnThreeMatchRule(), 4);
+			var match = game.ActiveRound.Matches.ElementAt(0) as MultiMatch;
+			match.SetMultiMatchResult(new[] {
+				new MultiMatch.Score(Win),
+				new MultiMatch.Score(Lose),
+				new MultiMatch.Score(Win) });
+
+			Assert.IsTrue(match.IsFinished);
+			Assert.AreEqual(Win, match.Record1.Result.RESULT);
+
+			match.SetMultiMatchResult(new[] {
+				new MultiMatch.Score(Win),
+				new MultiMatch.Score(Progress),
+				new MultiMatch.Score(Win) });
+
+			Assert.IsFalse(match.IsFinished);
+			Assert.AreEqual(Progress, match.Record1.Result.RESULT);
+
+		}
+
+		[TestMethod]
+		public void ThreeGameMatchStatusTest()
+		{
+			var game = new FakeGame(new ThreeGameMatchRule(), 4);
+			var match = game.ActiveRound.Matches.ElementAt(0) as MultiMatch;
+			match.SetMultiMatchResult(new[] {
+				new MultiMatch.Score(Win),
+				new MultiMatch.Score(Lose),
+				new MultiMatch.Score(Win) });
+
+			Assert.IsTrue(match.IsFinished);
+			Assert.AreEqual(Win, match.Record1.Result.RESULT);
+
+			match.SetMultiMatchResult(new[] {
+				new MultiMatch.Score(Win),
+				new MultiMatch.Score(Lose)});
+
+			Assert.IsTrue(match.IsFinished);
+			Assert.AreEqual(Draw, match.Record1.Result.RESULT);
+
+			match.SetMultiMatchResult(new[] {
+				new MultiMatch.Score(Win)});
+
+			Assert.IsTrue(match.IsFinished);
+			Assert.AreEqual(Win, match.Record1.Result.RESULT);
+
+			match.SetMultiMatchResult(new[] {
+				new MultiMatch.Score(Progress)});
+
+			Assert.IsTrue(match.IsFinished);
+			Assert.AreEqual(Progress, match.Record1.Result.RESULT);
+		}
+
 		private void OrderTest(IRule rule) {
 			OrderTest1(rule);
 			OrderTest2(rule);
@@ -490,5 +547,6 @@ namespace BSMM2Test {
 			Assert.AreEqual(rule.EnableLifePoint, a.EnableLifePoint);
 			Assert.IsNotNull(a.Comparers);
 		}
+
 	}
 }

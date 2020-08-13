@@ -54,10 +54,11 @@ namespace BSMM2.Models.Matches.MultiMatch {
 						case Win:
 							++result;
 							break;
-
 						case Lose:
 							--result;
 							break;
+						case Progress:
+							return RESULT_T.Progress;
 					}
 				}
 				return result == 0 ? Draw : result > 0 ? Win : Lose;
