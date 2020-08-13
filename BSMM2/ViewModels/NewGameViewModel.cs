@@ -41,7 +41,19 @@ namespace BSMM2.ViewModels {
 	internal class NewGameViewModel : BaseViewModel {
 		private BSMMApp _app;
 		public string GameName { get; set; }
-		public IRule Rule { get; set; }
+
+		public IRule Rule
+		{
+			get => _app.Rule;
+			set
+			{
+				if (_app.Rule != value)
+				{
+					_app.Rule = value;
+					OnPropertyChanged(nameof(Rule));
+				}
+			}
+		}
 		public IEnumerable<IRule> Rules => _app.Rules;
 		public string Prefix { get; set; }
 		public int PlayerCount { get; set; }
@@ -61,7 +73,6 @@ namespace BSMM2.ViewModels {
 
 		public NewGameViewModel(BSMMApp app, Action close) {
 			_app = app;
-			Rule = Rules.First();
 			GameName = Game.GameTitle;
 			PlayerModes = new[]{
 				new PlayerCreator(AppResources.ItemPlayerModeNumber,"Number", CreateByNumber),

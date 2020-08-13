@@ -52,7 +52,7 @@ namespace BSMM2.Models.Matches.SingleMatch {
 			buf.Append("/ ");
 			buf.Append(AppResources.TextWinPoint);
 			buf.Append(" = ");
-			buf.Append(player.Point.WinPoint);
+			buf.Append(string.Format("{0:F}",player.Point.WinPoint));
 			if (EnableLifePoint) {
 				buf.Append("/ ");
 				buf.Append(AppResources.TextLifePoint);

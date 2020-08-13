@@ -35,6 +35,9 @@ namespace BSMM2.Models.Matches.MultiMatch.ThreeGameMatch {
 
 		public bool EnableLifePoint => _rule.EnableLifePoint;
 
+		public IEnumerable<LifePoint> LifePoints
+			=> LifePoint.Instance;
+
 		public ResultItem[] ResultItems { get; }
 
 		public LifePoint[] Player1LPs { get; }
