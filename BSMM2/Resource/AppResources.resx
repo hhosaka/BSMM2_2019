@@ -315,8 +315,14 @@
   <data name="PrefixGame" xml:space="preserve">
     <value>Game</value>
   </data>
+  <data name="PrefixPlayer" xml:space="preserve">
+    <value>Player</value>
+  </data>
   <data name="PrefixRound" xml:space="preserve">
     <value>Round</value>
+  </data>
+  <data name="PrefixTeam" xml:space="preserve">
+    <value>Team</value>
   </data>
   <data name="TabPlayer" xml:space="preserve">
     <value>Player</value>

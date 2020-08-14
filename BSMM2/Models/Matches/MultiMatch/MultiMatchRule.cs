@@ -11,6 +11,10 @@ namespace BSMM2.Models.Matches.MultiMatch {
 		protected MultiMatchRule() {
 		}
 
+		protected MultiMatchRule(bool enableLifePoint=false):base(enableLifePoint)
+		{
+		}
+
 		protected MultiMatchRule(SingleMatchRule rule) : base(rule) {
 		}
 	}

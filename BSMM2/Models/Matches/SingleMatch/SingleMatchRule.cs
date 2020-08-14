@@ -13,6 +13,9 @@ namespace BSMM2.Models.Matches.SingleMatch {
 		public bool EnableLifePoint { get; set; }
 
 		[JsonProperty]
+		public string Prefix { get; set; }
+
+		[JsonProperty]
 		private IEnumerable<IComparer> _comparers;
 
 		[JsonIgnore]
@@ -67,6 +70,7 @@ namespace BSMM2.Models.Matches.SingleMatch {
 
 		public SingleMatchRule(bool enableLifePoint = false) {
 			EnableLifePoint = enableLifePoint;
+			Prefix = AppResources.PrefixPlayer;
 			if (enableLifePoint) {
 				_comparers = new IComparer[] {
 				new PointComparer(),

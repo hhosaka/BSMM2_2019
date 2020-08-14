@@ -12,6 +12,8 @@ namespace BSMM2.Models {
 
 		string Description { get; }
 
+		string Prefix { get; set; }
+
 		Match CreateMatch(IPlayer player1, IPlayer player2 = null);
 
 		ContentPage CreateMatchPage(Match match);

@@ -655,11 +655,29 @@ namespace BSMM2.Resource {
         }
         
         /// <summary>
+        ///   Player に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string PrefixPlayer {
+            get {
+                return ResourceManager.GetString("PrefixPlayer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Round に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string PrefixRound {
             get {
                 return ResourceManager.GetString("PrefixRound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Team に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string PrefixTeam {
+            get {
+                return ResourceManager.GetString("PrefixTeam", resourceCulture);
             }
         }
         

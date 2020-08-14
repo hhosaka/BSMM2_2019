@@ -60,10 +60,9 @@ namespace BSMM2.Models {
 			_players = players.Source.Select(player => new Player(players._rule, player.Name)).ToList();
 		}
 
-		public Players(IRule rule, int count, String prefix = DEFAULT_PREFIX) {
+		public Players(IRule rule, int count) {
 			_rule = rule;
-			_prefix = prefix;
-			_players = Generate(1, prefix, count).ToList();
+			_players = Generate(1, rule.Prefix, count).ToList();
 		}
 
 		public Players(IRule rule, TextReader r, String prefix = DEFAULT_PREFIX) {

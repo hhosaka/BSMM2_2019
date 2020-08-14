@@ -11,7 +11,7 @@ namespace BSMM2.Models.Matches.MultiMatch.ThreeGameMatch {
 		public override int MatchCount => 2;
 
 		[JsonIgnore]
-		public override int MinimumMatchCount => 0;
+		public override int MinimumMatchCount => 1;
 
 		[JsonIgnore]
 		public override string Name => AppResources.ItemRuleThreeGameMatch;
@@ -26,8 +26,13 @@ namespace BSMM2.Models.Matches.MultiMatch.ThreeGameMatch {
 		public override Match CreateMatch(IPlayer player1, IPlayer player2)
 			=> new MultiMatch(this, player1, player2);
 
-		public ThreeGameMatchRule() {
+		private ThreeGameMatchRule() {
 		}
+
+		public ThreeGameMatchRule(bool enableLifePoint = false) : base(enableLifePoint)
+        {
+
+        }
 
 		private ThreeGameMatchRule(MultiMatchRule src) : base(src) {
 		}

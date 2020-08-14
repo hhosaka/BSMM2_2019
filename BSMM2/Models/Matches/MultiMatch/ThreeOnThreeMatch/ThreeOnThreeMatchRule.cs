@@ -30,7 +30,11 @@ namespace BSMM2.Models.Matches.MultiMatch.ThreeOnThreeMatch {
 		public override Match CreateMatch(IPlayer player1, IPlayer player2)
 			=> new MultiMatch(this, player1, player2);
 
-		public ThreeOnThreeMatchRule() {
+		private ThreeOnThreeMatchRule() {
+		}
+
+		public ThreeOnThreeMatchRule(bool enableLifePoint=false):base(enableLifePoint)
+		{
 		}
 
 		private ThreeOnThreeMatchRule(MultiMatchRule rule) : base(rule) {

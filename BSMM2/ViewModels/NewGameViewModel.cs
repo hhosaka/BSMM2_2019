@@ -55,7 +55,6 @@ namespace BSMM2.ViewModels {
 			}
 		}
 		public IEnumerable<IRule> Rules => _app.Rules;
-		public string Prefix { get; set; }
 		public int PlayerCount { get; set; }
 		public string EntrySheet { get; set; }
 		public bool AsCurrentGame { get; set; }
@@ -80,7 +79,6 @@ namespace BSMM2.ViewModels {
 				new PlayerCreator(AppResources.ItemPlayerModeRestart,"Restart", CreateByCurrent),
 			};
 			PlayerMode = PlayerModes.First();
-			Prefix = "Player";
 			PlayerCount = 8;
 			EntrySheet = app.EntryTemplate;
 			AsCurrentGame = true;
@@ -95,7 +93,7 @@ namespace BSMM2.ViewModels {
 			}
 
 			Players CreateByNumber()
-				=> new Players(Rule, PlayerCount, Prefix);
+				=> new Players(Rule, PlayerCount);
 
 			Players CreateByEntrySheet() {
 				app.EntryTemplate = EntrySheet;
