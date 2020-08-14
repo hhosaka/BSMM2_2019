@@ -7,7 +7,7 @@
 			 Disappearing="OnClosing"
 			 Title="{x:Static prop:AppResources.TextPlayerInformation}">
 	<ContentPage.Resources>
-		<local:RoundResultConverter x:Key="Converter" />
+		<local:PlayerLogResultConverter x:Key="Converter" />
 	</ContentPage.Resources>
 	<ContentPage.ToolbarItems>
 		<ToolbarItem Text="{x:Static prop:AppResources.MenuBack}" Clicked="Back" Order="Secondary" />
@@ -30,7 +30,7 @@
 			</Grid>
 			<Label Text="{x:Static prop:AppResources.LabelMatchLog}" />
 			<ListView x:Name="RoundListView"
-				ItemsSource="{Binding Player.Matches}"
+				ItemsSource="{Binding Opponents}"
 				VerticalOptions="FillAndExpand"
 				HasUnevenRows="true"
 				IsRefreshing="{Binding IsBusy, Mode=OneWay}"
@@ -40,18 +40,10 @@
 						<ViewCell>
 							<StackLayout Padding="10">
 								<StackLayout Orientation="Horizontal"  HorizontalOptions="Start">
-									<Label Text="{Binding Record1, Converter={StaticResource Converter}, ConverterParameter=RESULTMARK}"
+									<Label Text="{Binding Result, Converter={StaticResource Converter}}"
 									LineBreakMode="NoWrap"
 									FontSize="20" />
-									<Label Text="{Binding Record1.Player.Name}"
-									LineBreakMode="NoWrap"
-									FontSize="20" />
-								</StackLayout>
-								<StackLayout Orientation="Horizontal" HorizontalOptions="End">
-									<Label Text="{Binding Record2.Player.Name}"
-									LineBreakMode="NoWrap"
-									FontSize="20" />
-									<Label Text="{Binding Record2, Converter={StaticResource Converter}, ConverterParameter=RESULTMARK}"
+									<Label Text="{Binding Player.Name}"
 									LineBreakMode="NoWrap"
 									FontSize="20" />
 								</StackLayout>
