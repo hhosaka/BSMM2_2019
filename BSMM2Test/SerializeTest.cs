@@ -11,7 +11,7 @@ using static BSMM2.Models.RESULT_T;
 namespace BSMM2Test {
 
 	[TestClass]
-	public class SerializeTest {
+	public class SerializeTest1 {
 
 		private readonly JsonSerializerSettings settings
 			= new JsonSerializerSettings {
@@ -19,6 +19,61 @@ namespace BSMM2Test {
 				TypeNameHandling = TypeNameHandling.Auto
 			};
 
+
+		public interface IJsonTest
+        {
+			string String { get; }
+			int Int { get;  }
+
+			double Double { get; }
+
+			RESULT_T RESULT { get; }
+
+		}
+		[JsonObject]
+		class JsonTest : IJsonTest{
+			[JsonProperty]
+			public string String { get; set; }
+			[JsonProperty]
+			public int Int { get; set; }
+
+			[JsonProperty]
+			public double Double { get; set; }
+
+			[JsonProperty]
+			public RESULT_T RESULT { get; set; }
+
+		}
+
+		[TestMethod]
+		public void JsonTest1()
+		{
+			var src = new JsonTest() { String = "string", Int = 123, Double = 5.0, RESULT=Win};
+
+			var buf = new StringBuilder();
+			var serializer = new Serializer<JsonTest>();
+			serializer.Serialize(new StringWriter(buf), src);
+			var dst = serializer.Deserialize(new StringReader(buf.ToString()));
+
+			Assert.AreEqual(src.String, dst.String);
+			Assert.AreEqual(src.Int, dst.Int);
+			Assert.AreEqual(src.Double, dst.Double);
+			Assert.AreEqual(src.RESULT, dst.RESULT);
+		}
+
+		[TestMethod]
+		public void JsonTest2()
+		{
+			var src = new SingleMatchResult(RESULT_T.Win, 5);
+
+			var buf = new StringBuilder();
+			var serializer = new Serializer<SingleMatchResult>();
+			serializer.Serialize(new StringWriter(buf), src);
+			var dst = serializer.Deserialize(new StringReader(buf.ToString()));
+
+			Assert.AreEqual(src.RESULT, dst.RESULT);
+			Assert.AreEqual(src.LifePoint, dst.LifePoint);
+		}
 		[TestMethod]
 		public void LoadSaveTest1() {
 			var game = new FakeGame(new SingleMatchRule(), 6);
@@ -253,7 +308,7 @@ namespace BSMM2Test {
 
 			game.StepToPlaying();
 
-			game.ActiveRound.Matches.ElementAt(1).SetResult(Win);
+			game.ActiveRound.Matches.ElementAt(0).SetResult(Win);
 
 			Util.Check(new[] { 3, 2, 1, -1 }, game.ActiveRound);
 			Util.Check(new[] { 3, 1, 2 }, game.Players.GetSortedSource());

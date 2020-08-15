@@ -19,8 +19,8 @@ namespace BSMM2.Models.Matches.MultiMatch {
 		private RESULT_T _RESULT;
 
 		[JsonIgnore]
-		public int LifePoint
-			=> _results.Sum(p => p.LifePoint);
+		public double LifePoint
+			=> _results.Where(r=>r.IsFinished).DefaultIfEmpty().Average(p => p?.LifePoint??0);
 
 		[JsonIgnore]
 		public double WinPoint

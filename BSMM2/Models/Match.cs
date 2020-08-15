@@ -22,7 +22,7 @@ namespace BSMM2.Models {
 				public int MatchPoint => 0;
 
 				[JsonIgnore]
-				public int LifePoint => -1;
+				public double LifePoint => -1;
 
 				[JsonIgnore]
 				public double WinPoint => 0;
@@ -124,7 +124,6 @@ namespace BSMM2.Models {
 				SetIsGapMatch();
 			} else {
 				_records = new[] { new Record(player1), new Record(BYE) };
-				SetResult(RESULT_T.Win);
 			}
 		}
 	}

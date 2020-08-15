@@ -354,7 +354,7 @@ namespace BSMM2Test {
 
 		[TestMethod]
 		public void ThreeGameMatchWithLPStatusTest()
-		{
+ 		{
 			var game = new FakeGame(new ThreeGameMatchRule(true), 4);
 			var match = game.ActiveRound.Matches.ElementAt(0) as MultiMatch;
 			match.SetMultiMatchResult(new[] {
@@ -403,15 +403,14 @@ namespace BSMM2Test {
 			Assert.IsFalse(match.IsFinished);
 			Assert.AreEqual(Win, match.Record1.Result.RESULT);
 
-			// TBD
-			//match.SetMultiMatchResult(new[] {
-			//	new MultiMatch.Score(Progress,1,0)});
+            match.SetMultiMatchResult(new[] {
+                new MultiMatch.Score(Progress,1,0)});
 
-			//Assert.IsFalse(match.IsFinished);
-			//Assert.AreEqual(Progress, match.Record1.Result.RESULT);
-			//Assert.AreEqual(0, match.Record1.Result.LifePoint);
+            Assert.IsFalse(match.IsFinished);
+            Assert.AreEqual(Progress, match.Record1.Result.RESULT);
+            Assert.AreEqual(0, match.Record1.Result.LifePoint);
 
-		}
+        }
 
 		private void OrderTest(IRule rule) {
 			OrderTest1(rule);
@@ -517,6 +516,7 @@ namespace BSMM2Test {
 			Util.SetResult(game, 2, Win);
 
 			var buf = Util.Export(game);
+			Util.CheckOrder(new[] { 1, 1, 3, 3, 5, 5, 7 },game.Players.GetSortedSource());
 			Util.CheckWithOrder(new[] { 1, 5, 2, 3, 6, 7, 4 }, new[] { 1, 1, 3, 3, 5, 5, 7 }, game.Players.GetSortedSource());
 
 			game.StepToMatching();

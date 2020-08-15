@@ -15,11 +15,7 @@ namespace BSMM2.Models {
 				//using (var err = new StreamWriter(errs))
 				using (var strm = _store.OpenFile(filename, FileMode.Open))
 				using (var reader = new StreamReader(strm)) {
-					try {
-						return new Serializer<T>().Deserialize(reader);
-					} catch (Exception e) {
-						Debug.WriteLine(e);
-					}
+					return new Serializer<T>().Deserialize(reader);
 				}
 			}
 			return initiator();

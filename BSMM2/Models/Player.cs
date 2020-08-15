@@ -52,7 +52,13 @@ namespace BSMM2.Models {
 			=> _rule.GetDescription(this);
 
 		public void Commit(Match match)
-			=> _matches.Add(match);
+		{
+			_matches.Add(match);
+            if (match.IsByeMatch)
+            {
+				match.SetResult(RESULT_T.Win);
+            }
+		}
 
 		public int? GetResult(Player player) {
 			var result = _matches.FirstOrDefault(m => m.GetOpponentRecord(this).Player == player)?.GetRecord(this).Result.RESULT;
@@ -72,10 +78,10 @@ namespace BSMM2.Models {
 		}
 
 		internal void CalcPoint(IRule rule)
-			=> Point = _rule.Point(_matches.Select(match => match.GetRecord(this).Result));
+			=> Point = _rule.Point(_matches.Where(match=>match.IsFinished).Select(match => match.GetRecord(this).Result));
 
 		internal void CalcOpponentPoint(IRule rule)
-			=> OpponentPoint = _rule.Point(_matches.Select(match => (match.GetOpponentRecord(this).Player as Player)?.Point));
+			=> OpponentPoint = _rule.Point(_matches.Where(match => match.IsFinished).Select(match => (match.GetOpponentRecord(this).Player as Player)?.Point));
 
 		public Player() {// For Serializer
 		}

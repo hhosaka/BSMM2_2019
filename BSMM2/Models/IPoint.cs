@@ -1,10 +1,12 @@
-﻿namespace BSMM2.Models {
+﻿using Newtonsoft.Json;
+
+namespace BSMM2.Models {
 
 	public interface IPoint : IExportable {
 		int MatchPoint { get; }
 
 		double WinPoint { get; }
 
-		int LifePoint { get; }
+		double LifePoint { get; }
 	}
 }

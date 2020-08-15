@@ -33,9 +33,8 @@ namespace BSMM2.Models.Matches {
 			return _instance;
 		}
 
-		public static LifePoint GetItem(int point) {
-			return GetInstance().First(lp => lp.Point == point);
-		}
+		public static LifePoint GetItem(double lifePoint)
+			=> GetInstance().First(lp => lp.Point == lifePoint);
 	}
 
 	internal class ResultItem {
