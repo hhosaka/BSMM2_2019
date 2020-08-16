@@ -12,13 +12,13 @@ namespace BSMM2.Models.Matches.MultiMatch.ThreeOnThreeMatch {
 		private MultiMatch _match;
 		private ThreeOnThreeMatchRule _rule;
 
-		public IEnumerable<LifePoint> LifePoints
-			=> LifePoint.Instance;
+		public IEnumerable<LifePointItem> LifePoints
+			=> LifePointItem.Instance;
 
 		public bool EnableLifePoint => _rule.EnableLifePoint;
 		public ResultItem[] ResultItem { get; }
-		public LifePoint[] Player1LP { get; }
-		public LifePoint[] Player2LP { get; }
+		public LifePointItem[] Player1LP { get; }
+		public LifePointItem[] Player2LP { get; }
 		public IPlayer Player1 => _match.Record1.Player;
 		public IPlayer Player2 => _match.Record2.Player;
 
@@ -40,9 +40,9 @@ namespace BSMM2.Models.Matches.MultiMatch.ThreeOnThreeMatch {
 					new ResultItem(RESULT_T.Progress, () => OnPropertyChanged(nameof(ResultItem))),
 				};
 				Player1LP = Player2LP = new[]{
-					LifePoint.GetItem(-1),
-					LifePoint.GetItem(-1),
-					LifePoint.GetItem(-1),
+					LifePointItem.GetItem(-1),
+					LifePointItem.GetItem(-1),
+					LifePointItem.GetItem(-1),
 				};
 			}
 
@@ -52,9 +52,9 @@ namespace BSMM2.Models.Matches.MultiMatch.ThreeOnThreeMatch {
 				return items.ToArray();
 			}
 
-			LifePoint[] CreateLifePoints(MultiMatchResult results) {
-				var buf = new List<LifePoint>();
-				results.Results.ForEach(result => buf.Add(LifePoint.GetItem(result.LifePoint)));
+			LifePointItem[] CreateLifePoints(MultiMatchResult results) {
+				var buf = new List<LifePointItem>();
+				results.Results.ForEach(result => buf.Add(LifePointItem.GetItem(result.LifePoint)));
 				return buf.ToArray();
 			}
 			void Done() {

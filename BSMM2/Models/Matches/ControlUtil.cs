@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BSMM2.Models.Matches.SingleMatch;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -6,12 +7,11 @@ using System.Linq;
 namespace BSMM2.Models.Matches {
 
 	using LIFEPOINTITEM_T = System.Collections.Generic.KeyValuePair<string, int>;
-	using LifePoints = IEnumerable<LifePoint>;
+	using LifePoints = IEnumerable<LifePointItem>;
 	using RESULTITEM_T = System.Collections.Generic.KeyValuePair<string, RESULT_T>;
 
-	internal class LifePoint {
+	internal class LifePointItem {
 		private static LifePoints _instance;
-		private static LifePoint _null = new LifePoint();
 
 		public string Label { get; private set; }
 		public int Point { get; private set; }
@@ -20,30 +20,40 @@ namespace BSMM2.Models.Matches {
 
 		private static LifePoints GetInstance() {
 			if (_instance == null) {
-				_instance = new List<LifePoint> {
-					new LifePoint{ Label = "-", Point = -1},
-					new LifePoint{ Label = "5", Point = 5},
-					new LifePoint{ Label = "4", Point = 4},
-					new LifePoint{ Label = "3", Point = 3},
-					new LifePoint{ Label = "2", Point = 2},
-					new LifePoint{ Label = "1", Point = 1},
-					new LifePoint{ Label = "0", Point = 0},
+				_instance = new List<LifePointItem> {
+					new LifePointItem{ Label = "-", Point = -1},
+					new LifePointItem{ Label = "5", Point = 5},
+					new LifePointItem{ Label = "4", Point = 4},
+					new LifePointItem{ Label = "3", Point = 3},
+					new LifePointItem{ Label = "2", Point = 2},
+					new LifePointItem{ Label = "1", Point = 1},
+					new LifePointItem{ Label = "0", Point = 0},
 				};
 			}
 			return _instance;
 		}
 
-		public static LifePoint GetItem(double lifePoint)
+		public static LifePointItem GetItem(double lifePoint)
 			=> GetInstance().First(lp => lp.Point == lifePoint);
 	}
 
 	internal class ResultItem {
 		private Action _onPropertyChanged;
 
+		public LifePointItem[] LifePoint { get; } = new LifePointItem[2];
+
 		public RESULT_T RESULT { get; private set; }
 
 		public ResultItem(RESULT_T result, Action onPropertyChanged) {
-			Initial(result);
+			InitialRESULT(result);
+			_onPropertyChanged = onPropertyChanged;
+		}
+
+		public ResultItem(IResult result1, IResult result2, Action onPropertyChanged)
+		{
+			InitialRESULT(result1?.RESULT??RESULT_T.Progress);
+			LifePoint[0] = Matches.LifePointItem.GetItem(result1?.LifePoint ?? -1);
+			LifePoint[1] = Matches.LifePointItem.GetItem(result2?.LifePoint ?? -1);
 			_onPropertyChanged = onPropertyChanged;
 		}
 
@@ -92,7 +102,7 @@ namespace BSMM2.Models.Matches {
 			}
 		}
 
-		private void Initial(RESULT_T result) {
+		private void InitialRESULT(RESULT_T result) {
 			RESULT = RESULT_T.Progress;
 			switch (result) {
 				case RESULT_T.Win:

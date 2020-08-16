@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using System.Windows.Input;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
@@ -35,57 +36,56 @@ namespace BSMM2.Models.Matches.MultiMatch.ThreeGameMatch {
 
 		public bool EnableLifePoint => _rule.EnableLifePoint;
 
-		public IEnumerable<LifePoint> LifePoints
-			=> LifePoint.Instance;
+		public IEnumerable<LifePointItem> LifePointItems
+			=> LifePointItem.Instance;
 
 		public ResultItem[] ResultItems { get; }
 
-		public LifePoint[] Player1LPs { get; }
-		public LifePoint[] Player2LPs { get; }
 		public IPlayer Player1 => _match.Record1.Player;
 		public IPlayer Player2 => _match.Record2.Player;
 
 		public ICommand DoneCommand { get; }
 
 		public ThreeGameMatchViewModel(ThreeGameMatchRule rule, MultiMatch match, Action back) {
-			DoneCommand = new Command(Done);
-
 			_match = match;
 			_rule = rule;
-			if (match.Record1.Result is MultiMatchResult result1) {
-				ResultItems = CreateItems();
-				Player1LPs = CreateLifePoints(result1);
-				Player2LPs = CreateLifePoints((MultiMatchResult)match.Record2.Result);
-			} else {
-				ResultItems = new[] {
-					new ResultItem(RESULT_T.Progress, () => OnPropertyChanged(nameof(ResultItems))),
-					new ResultItem(RESULT_T.Progress, () => OnPropertyChanged(nameof(ResultItems))),
-					new ResultItem(RESULT_T.Progress, () => OnPropertyChanged(nameof(ResultItems)))
-				};
-				Player1LPs = Player2LPs = new[] { LifePoint.GetItem(-1), LifePoint.GetItem(-1), LifePoint.GetItem(-1) };
-			}
 
-			ResultItem[] CreateItems() {
-				var items = new List<ResultItem>();
-				result1.Results.ForEach(result => items.Add(new ResultItem(result.RESULT, () => OnPropertyChanged(nameof(ResultItems)))));
-				return items.ToArray();
-			}
+			ResultItems = CreateItems(match.Record1.Result as MultiMatchResult).ToArray();
 
-			LifePoint[] CreateLifePoints(MultiMatchResult results) {
-				var buf = new List<LifePoint>();
-				results.Results.ForEach(result => buf.Add(LifePoint.GetItem(result.LifePoint)));
-				return buf.ToArray();
+			DoneCommand = new Command(Done);
+
+			IEnumerable<ResultItem> CreateItems(MultiMatchResult result) {
+
+				var e1 = (match.Record1.Result as MultiMatchResult)?.Results.GetEnumerator() ?? Enumerable.Empty<SingleMatch.SingleMatchResult>().GetEnumerator();
+				var e2 = (match.Record2.Result as MultiMatchResult)?.Results.GetEnumerator() ?? Enumerable.Empty<SingleMatch.SingleMatchResult>().GetEnumerator();
+				for (int i=0; i<3; ++i)
+                {
+					yield return new ResultItem(
+						e1.MoveNext() ? e1.Current : null,
+						e2.MoveNext() ? e2.Current : null,
+						() => OnPropertyChanged(nameof(ResultItems)));
+				}
 			}
 
 			void Done() {
-				match.SetMultiMatchResult(new[] {
-					new Score(ResultItems[0].RESULT, EnableLifePoint? Player1LPs[0].Point: 0, EnableLifePoint? Player2LPs[0].Point: 0),
-					new Score(ResultItems[1].RESULT, EnableLifePoint? Player1LPs[1].Point: 0, EnableLifePoint? Player2LPs[1].Point: 0),
-					new Score(ResultItems[2].RESULT, EnableLifePoint? Player1LPs[2].Point: 0, EnableLifePoint? Player2LPs[2].Point: 0),
-				});
+
+				match.SetMultiMatchResult(Create());
 				MessagingCenter.Send<object>(this, Messages.REFRESH);
 				back?.Invoke();
-			}
+
+                IEnumerable<Score> Create()
+                {
+                    for (int i = 0; i < 3; ++i)
+                    {
+                        var item = ResultItems[i];
+                        if (item.RESULT != RESULT_T.Progress)
+                            yield return new Score(item.RESULT,
+								EnableLifePoint ? ResultItems[i].LifePoint[0].Point : 0,
+								EnableLifePoint ? ResultItems[i].LifePoint[1].Point : 0);
+                    }
+
+                }
+            }
 		}
 	}
 }

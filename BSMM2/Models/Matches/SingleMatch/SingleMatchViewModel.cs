@@ -6,7 +6,7 @@ using Xamarin.Forms;
 
 namespace BSMM2.Models.Matches.SingleMatch {
 
-	using LifePoints = IEnumerable<LifePoint>;
+	using LifePoints = IEnumerable<LifePointItem>;
 
 	internal class SingleMatchViewModel : BaseViewModel {
 		private SingleMatch _match;
@@ -14,13 +14,13 @@ namespace BSMM2.Models.Matches.SingleMatch {
 
 		public bool EnableLifePoint => _rule.EnableLifePoint;
 		public ResultItem ResultItem { get; }
-		public LifePoint Player1LP { get; set; }
-		public LifePoint Player2LP { get; set; }
+		public LifePointItem Player1LP { get; set; }
+		public LifePointItem Player2LP { get; set; }
 		public IPlayer Player1 => _match.Record1.Player;
 		public IPlayer Player2 => _match.Record2.Player;
 
 		public LifePoints LifePoints
-			=> LifePoint.Instance;
+			=> LifePointItem.Instance;
 
 		public ICommand DoneCommand { get; }
 
@@ -30,8 +30,8 @@ namespace BSMM2.Models.Matches.SingleMatch {
 			_match = match;
 			_rule = rule;
 
-			Player1LP = LifePoint.GetItem(match.Record1.Result.LifePoint);
-			Player2LP = LifePoint.GetItem(match.Record2.Result.LifePoint);
+			Player1LP = LifePointItem.GetItem(match.Record1.Result.LifePoint);
+			Player2LP = LifePointItem.GetItem(match.Record2.Result.LifePoint);
 
 			ResultItem = new ResultItem(match.Record1.Result.RESULT, () => OnPropertyChanged(nameof(ResultItem)));
 
