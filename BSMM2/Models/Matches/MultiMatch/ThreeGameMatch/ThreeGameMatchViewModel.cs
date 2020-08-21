@@ -16,10 +16,10 @@ namespace BSMM2.Models.Matches.MultiMatch.ThreeGameMatch {
 			if (value is ResultItem[] resultItems) {
 				switch (parameter.ToString()) {
 					case "1":
-						return !(resultItems[0].RESULT == RESULT_T.Progress && resultItems[1].RESULT == RESULT_T.Progress && resultItems[2].RESULT == RESULT_T.Progress);
+						return resultItems[0].IsFinished(false);
 
 					case "2":
-						return !(resultItems[1].RESULT == RESULT_T.Progress && resultItems[2].RESULT == RESULT_T.Progress);
+						return resultItems[0].IsFinished(false) && resultItems[1].IsFinished(false);
 				}
 			}
 
@@ -59,7 +59,7 @@ namespace BSMM2.Models.Matches.MultiMatch.ThreeGameMatch {
 				var e1 = (match.Record1.Result as MultiMatchResult)?.Results.GetEnumerator() ?? Enumerable.Empty<SingleMatch.SingleMatchResult>().GetEnumerator();
 				var e2 = (match.Record2.Result as MultiMatchResult)?.Results.GetEnumerator() ?? Enumerable.Empty<SingleMatch.SingleMatchResult>().GetEnumerator();
 				for (int i=0; i<3; ++i)
-                {
+				{
 					yield return new ResultItem(
 						e1.MoveNext() ? e1.Current : null,
 						e2.MoveNext() ? e2.Current : null,
@@ -69,21 +69,17 @@ namespace BSMM2.Models.Matches.MultiMatch.ThreeGameMatch {
 
 			void Done() {
 
-				match.SetMultiMatchResult(Create());
+				match.SetMultiMatchResult(CreateScores());
 				MessagingCenter.Send<object>(this, Messages.REFRESH);
 				back?.Invoke();
 
-                IEnumerable<Score> Create()
+                IEnumerable<Score> CreateScores()
                 {
-                    for (int i = 0; i < 3; ++i)
+					foreach(var item in ResultItems)
                     {
-                        var item = ResultItems[i];
-                        if (item.RESULT != RESULT_T.Progress)
-                            yield return new Score(item.RESULT,
-								EnableLifePoint ? ResultItems[i].LifePoint[0].Point : 0,
-								EnableLifePoint ? ResultItems[i].LifePoint[1].Point : 0);
-                    }
-
+						if (item.RESULT == RESULT_T.Progress) break;
+						yield return item.CreateScore(EnableLifePoint);
+					}
                 }
             }
 		}

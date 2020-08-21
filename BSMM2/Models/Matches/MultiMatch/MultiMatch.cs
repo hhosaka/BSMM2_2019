@@ -5,7 +5,7 @@ using System.Collections.Generic;
 namespace BSMM2.Models.Matches.MultiMatch {
 
 	[JsonObject]
-	public class MultiMatch : SingleMatch.SingleMatch {
+	public abstract class MultiMatch : SingleMatch.SingleMatch {
 
 		public class Score {
 			public RESULT_T Result { get; }
@@ -19,6 +19,9 @@ namespace BSMM2.Models.Matches.MultiMatch {
 			}
 		}
 
+		[JsonIgnore]
+		protected abstract int MatchCount { get; }
+
 		[JsonProperty]
 		private MultiMatchRule Rule => _rule as MultiMatchRule;
 
@@ -31,15 +34,17 @@ namespace BSMM2.Models.Matches.MultiMatch {
 
 		public override void SetResult(RESULT_T result) {
 			var scores = new List<Score>();
-			for (int i = 0; i < Rule.MatchCount; ++i) {
+			for (int i = 0; i < MatchCount; ++i) {
 				scores.Add(new Score(result));
 			}
 			SetMultiMatchResult(scores);
 		}
 
+		protected abstract MultiMatchResult CreateResult();
+
 		public void SetMultiMatchResult(IEnumerable<Score> scores) {
-			var result1 = new MultiMatchResult(Rule.MinimumMatchCount);
-			var result2 = new MultiMatchResult(Rule.MinimumMatchCount);
+			var result1 = CreateResult();
+			var result2 = CreateResult();
 			foreach (var score in scores) {
 				result1.Add(new SingleMatchResult(score.Result, score.LifePoint1));
 				result2.Add(new SingleMatchResult(RESULTUtil.ToOpponents(score.Result), score.LifePoint2));

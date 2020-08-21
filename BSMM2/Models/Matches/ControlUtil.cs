@@ -5,8 +5,8 @@ using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace BSMM2.Models.Matches {
-
-	using LIFEPOINTITEM_T = System.Collections.Generic.KeyValuePair<string, int>;
+    using static BSMM2.Models.Matches.MultiMatch.MultiMatch;
+    using LIFEPOINTITEM_T = System.Collections.Generic.KeyValuePair<string, int>;
 	using LifePoints = IEnumerable<LifePointItem>;
 	using RESULTITEM_T = System.Collections.Generic.KeyValuePair<string, RESULT_T>;
 
@@ -15,7 +15,6 @@ namespace BSMM2.Models.Matches {
 
 		public string Label { get; private set; }
 		public int Point { get; private set; }
-
 		public static LifePoints Instance => GetInstance();
 
 		private static LifePoints GetInstance() {
@@ -35,14 +34,37 @@ namespace BSMM2.Models.Matches {
 
 		public static LifePointItem GetItem(double lifePoint)
 			=> GetInstance().First(lp => lp.Point == lifePoint);
+
+	}
+
+	internal class LifePointItems {
+		private Action _onPropertyChanged;
+		private LifePointItem[] _items;
+		public LifePointItem this[int index] {
+			get => _items[index];
+			set {
+				_items[index] = value;
+				_onPropertyChanged?.Invoke();
+			}
+		}
+		public LifePointItems(Action onPropertyChanged) {
+			_onPropertyChanged=onPropertyChanged;
+			_items = new LifePointItem[2];
+		}
 	}
 
 	internal class ResultItem {
 		private Action _onPropertyChanged;
 
-		public LifePointItem[] LifePoint { get; } = new LifePointItem[2];
+		public LifePointItems LifePoint { get; }
 
 		public RESULT_T RESULT { get; private set; }
+
+		public bool IsFinished(bool AcceptDraw)
+			=> (RESULT == RESULT_T.Win || RESULT == RESULT_T.Lose || (AcceptDraw && RESULT == RESULT_T.Draw)) && LifePoint[0].Point>=0 && LifePoint[1].Point >= 0;
+
+		public Score CreateScore(bool enableLifePoint)
+			=> new Score(RESULT, enableLifePoint ? LifePoint[0].Point : 0, enableLifePoint ? LifePoint[1].Point : 0);
 
 		public ResultItem(RESULT_T result, Action onPropertyChanged) {
 			InitialRESULT(result);
@@ -52,6 +74,7 @@ namespace BSMM2.Models.Matches {
 		public ResultItem(IResult result1, IResult result2, Action onPropertyChanged)
 		{
 			InitialRESULT(result1?.RESULT??RESULT_T.Progress);
+			LifePoint = new LifePointItems(onPropertyChanged);
 			LifePoint[0] = Matches.LifePointItem.GetItem(result1?.LifePoint ?? -1);
 			LifePoint[1] = Matches.LifePointItem.GetItem(result2?.LifePoint ?? -1);
 			_onPropertyChanged = onPropertyChanged;

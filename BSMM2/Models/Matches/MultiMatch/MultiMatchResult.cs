@@ -7,13 +7,10 @@ using static BSMM2.Models.RESULT_T;
 namespace BSMM2.Models.Matches.MultiMatch {
 
 	[JsonObject]
-	public class MultiMatchResult : IResult {
+	public abstract class MultiMatchResult : IResult {
 
 		[JsonProperty]
-		private List<IResult> _results;
-
-		[JsonProperty]
-		private int _minCount;
+		protected List<IResult> _results;
 
 		[JsonIgnore]
 		private RESULT_T _RESULT;
@@ -33,9 +30,7 @@ namespace BSMM2.Models.Matches.MultiMatch {
 		public int MatchPoint
 			=> RESULT == Win ? 3 : RESULT == Lose ? 0 : 1;
 
-		[JsonIgnore]
-		public bool IsFinished
-			=> _results.Count(result => result.IsFinished) >= _minCount;
+		public abstract bool IsFinished { get; }
 
 		[JsonIgnore]
 		internal IEnumerable<SingleMatchResult> Results => _results.Cast<SingleMatchResult>();
@@ -69,8 +64,7 @@ namespace BSMM2.Models.Matches.MultiMatch {
 		public IExportData Export(IExportData data)
 			=> throw new System.NotImplementedException();
 
-		public MultiMatchResult(int minCount) {
-			_minCount = minCount;
+		public MultiMatchResult() {
 			_results = new List<IResult>();
 		}
 	}

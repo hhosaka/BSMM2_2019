@@ -348,7 +348,7 @@ namespace BSMM2Test {
 				new MultiMatch.Score(Win),
 				new MultiMatch.Score(Progress)});
 
-			Assert.IsTrue(match.IsFinished);
+			Assert.IsFalse(match.IsFinished);
 			Assert.AreEqual(Progress, match.Record1.Result.RESULT);
 		}
 
@@ -388,7 +388,7 @@ namespace BSMM2Test {
 				new MultiMatch.Score(Win),
 				new MultiMatch.Score(Progress)});
 
-			Assert.IsTrue(match.IsFinished);
+			Assert.IsFalse(match.IsFinished);
 			Assert.AreEqual(Progress, match.Record1.Result.RESULT);
 
 			match.SetMultiMatchResult(new[] {
