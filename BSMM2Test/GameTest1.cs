@@ -312,6 +312,27 @@ namespace BSMM2Test {
 
 		}
 
+		//[TestMethod]
+		//public void LifePointTest() {
+		//	var game = new FakeGame(new SingleMatchRule(), 4);
+		//	var match = game.ActiveRound.Matches.ElementAt(0) as SingleMatch;
+		//	match.SetSingleMatchResult(Win);
+
+		//	Assert.AreEqual(RESULT_T.Win, match.Record1.Result.RESULT);
+
+		//	match.SetSingleMatchResult(Win,-1,-1);
+
+		//	Assert.AreEqual(RESULT_T.Progress, match.Record1.Result.RESULT);
+
+		//	match.SetSingleMatchResult(Win, -1);
+
+		//	Assert.AreEqual(RESULT_T.Progress, match.Record1.Result.RESULT);
+
+		//	match.SetSingleMatchResult(Win, 1,1);
+
+		//	Assert.AreEqual(RESULT_T.Win, match.Record1.Result.RESULT);
+		//}
+
 		[TestMethod]
 		public void ThreeGameMatchStatusTest()
 		{
@@ -394,8 +415,8 @@ namespace BSMM2Test {
 			match.SetMultiMatchResult(new[] {
 				new MultiMatch.Score(Win,-1,-1)});
 
-			Assert.IsFalse(match.IsFinished);
-			Assert.AreEqual(Win, match.Record1.Result.RESULT);
+			//Assert.IsFalse(match.IsFinished);
+			//Assert.AreEqual(Progress, match.Record1.Result.RESULT);
 
 			match.SetMultiMatchResult(new[] {
 				new MultiMatch.Score(Win,0,-1)});

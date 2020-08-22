@@ -1,4 +1,6 @@
 using BSMM2.Models;
+using BSMM2.Models.Matches.MultiMatch.ThreeGameMatch;
+using BSMM2.Models.Matches.MultiMatch.ThreeOnThreeMatch;
 using BSMM2.Models.Matches.SingleMatch;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
@@ -293,6 +295,66 @@ namespace BSMM2Test {
 			Util.Check(new[] { 1, 2, 3, -1 }, game2.ActiveRound);
 			Util.Check(new[] { 1, 3, 2 }, game2.Players.GetSortedSource());
 			Assert.AreEqual(0, game2.Rounds.Count());
+		}
+
+		[TestMethod]
+		public void LoadSaveTest9() {
+			var game = new FakeGame(new ThreeGameMatchRule(), 8);
+
+			game.StepToPlaying();
+
+			var buf = new StringBuilder();
+			var serializer = new Serializer<Game>();
+			serializer.Serialize(new StringWriter(buf), game);
+			var dst = serializer.Deserialize(new StringReader(buf.ToString()));
+
+			Assert.IsFalse(dst.ActiveRound.Matches.Any(match=>match == null));
+			Assert.IsFalse(dst.Players.Source.Any(player => player.Matches.Any(match=>match==null)));
+		}
+
+		[TestMethod]
+		public void LoadSaveTest10() {
+			var game = new FakeGame(new ThreeGameMatchRule(true), 8);
+
+			game.StepToPlaying();
+
+			var buf = new StringBuilder();
+			var serializer = new Serializer<Game>();
+			serializer.Serialize(new StringWriter(buf), game);
+			var dst = serializer.Deserialize(new StringReader(buf.ToString()));
+
+			Assert.IsFalse(dst.ActiveRound.Matches.Any(match => match == null));
+			Assert.IsFalse(dst.Players.Source.Any(player => player.Matches.Any(match => match == null)));
+		}
+
+		[TestMethod]
+		public void LoadSaveTest11() {
+			var game = new FakeGame(new ThreeOnThreeMatchRule(), 8);
+
+			game.StepToPlaying();
+
+			var buf = new StringBuilder();
+			var serializer = new Serializer<Game>();
+			serializer.Serialize(new StringWriter(buf), game);
+			var dst = serializer.Deserialize(new StringReader(buf.ToString()));
+
+			Assert.IsFalse(dst.ActiveRound.Matches.Any(match => match == null));
+			Assert.IsFalse(dst.Players.Source.Any(player => player.Matches.Any(match => match == null)));
+		}
+
+		[TestMethod]
+		public void LoadSaveTest12() {
+			var game = new FakeGame(new ThreeOnThreeMatchRule(true), 8);
+
+			game.StepToPlaying();
+
+			var buf = new StringBuilder();
+			var serializer = new Serializer<Game>();
+			serializer.Serialize(new StringWriter(buf), game);
+			var dst = serializer.Deserialize(new StringReader(buf.ToString()));
+
+			Assert.IsFalse(dst.ActiveRound.Matches.Any(match => match == null));
+			Assert.IsFalse(dst.Players.Source.Any(player => player.Matches.Any(match => match == null)));
 		}
 
 		[TestMethod]

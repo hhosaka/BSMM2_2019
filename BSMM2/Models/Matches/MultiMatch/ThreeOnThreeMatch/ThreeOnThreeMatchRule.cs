@@ -20,6 +20,9 @@ namespace BSMM2.Models.Matches.MultiMatch.ThreeOnThreeMatch {
 			protected override MultiMatchResult CreateResult()
 				=> new TheResult();
 
+			public TheMatch() {// For Serializer
+			}
+
 			public TheMatch(MultiMatchRule rule, IPlayer player1, IPlayer player2) : base(rule, player1, player2) { }
 		}
 
