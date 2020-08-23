@@ -31,10 +31,10 @@
 			<Picker IsVisible="{Binding EnableLifePoint}"
 				Grid.Row="1" Grid.Column="1"
 				ItemsSource ="{Binding LifePoints}"
-				SelectedItem="{Binding Player1LP}"
+				SelectedItem="{Binding ResultItem.LifePoints[0]}"
 				ItemDisplayBinding="{Binding Label}" />
 
-			<Label Text="{Binding Player1.Name}" Grid.Row="1" Grid.Column="2" FontSize="Medium" VerticalTextAlignment="Center" />
+			<Label Text="{Binding Player1Name}" Grid.Row="1" Grid.Column="2" FontSize="Medium" VerticalTextAlignment="Center" />
 
 			<Switch Grid.Row="2" Grid.Column="0" IsToggled="{Binding ResultItem.Draw}" />
 			<Label Text="Draw" Grid.Row="2"  Grid.Column="2" FontSize="Medium" VerticalTextAlignment="Center" />
@@ -43,9 +43,9 @@
 			<Picker IsVisible="{Binding EnableLifePoint}"
 				Grid.Row="3"  Grid.Column="1"
 				ItemsSource ="{Binding LifePoints}"
-				SelectedItem="{Binding Player2LP}"
+				SelectedItem="{Binding ResultItem.LifePoints[1]}"
 				ItemDisplayBinding="{Binding Label}" />
-			<Label Text="{Binding Player2.Name}" Grid.Row="3"  Grid.Column="2" FontSize="Medium" VerticalTextAlignment="Center" />
+			<Label Text="{Binding Player2Name}" Grid.Row="3"  Grid.Column="2" FontSize="Medium" VerticalTextAlignment="Center" />
 			<Button Text="Done" Grid.Row="4" Grid.ColumnSpan="3" Command="{Binding DoneCommand}"  HorizontalOptions="FillAndExpand" />
 		</Grid>
 	</ContentPage.Content>

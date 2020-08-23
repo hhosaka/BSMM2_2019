@@ -66,28 +66,6 @@ namespace BSMM2.Models.Matches {
 
 		public bool IsEmpty => RESULT == RESULT_T.Progress && (LifePoints==null || (LifePoint1 == -1 && LifePoint2 == -1));
 
-		private void InitialRESULT(RESULT_T result) {
-			RESULT = RESULT_T.Progress;
-			switch (result) {
-				case RESULT_T.Win:
-					Player1Win = true;
-					break;
-
-				case RESULT_T.Draw:
-					Draw = true;
-					break;
-
-				case RESULT_T.Lose:
-					Player2Win = true;
-					break;
-			}
-		}
-
-		public ResultItem(RESULT_T result, Action onPropertyChanged) {
-			InitialRESULT(result);
-			_onPropertyChanged = onPropertyChanged;
-		}
-
 		public ResultItem(bool enableLifePoint, IResult result1, IResult result2, Action onPropertyChanged)
 		{
 			InitialRESULT(result1?.RESULT??RESULT_T.Progress);
@@ -97,6 +75,25 @@ namespace BSMM2.Models.Matches {
 				LifePoints[1] = Matches.LifePointItem.GetItem(result2?.LifePoint);
 			}
 			_onPropertyChanged = onPropertyChanged;
+
+			void InitialRESULT(RESULT_T result) {
+				RESULT = RESULT_T.Progress;
+				switch (result) {
+					case RESULT_T.Win:
+						Player1Win = true;
+						break;
+
+					case RESULT_T.Draw:
+						Draw = true;
+						break;
+
+					case RESULT_T.Lose:
+						Player2Win = true;
+						break;
+				}
+			}
+
+
 		}
 
 		public bool Player1Win {
