@@ -41,8 +41,8 @@ namespace BSMM2.Models.Matches.MultiMatch.ThreeGameMatch {
 
 		public ResultItem[] ResultItems { get; }
 
-		public IPlayer Player1 => _match.Record1.Player;
-		public IPlayer Player2 => _match.Record2.Player;
+		public string Player1Name => _match.Record1.Player.Name;
+		public string Player2Name => _match.Record2.Player.Name;
 
 		public ICommand DoneCommand { get; }
 
