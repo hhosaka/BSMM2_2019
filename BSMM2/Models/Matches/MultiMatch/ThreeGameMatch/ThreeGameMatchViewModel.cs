@@ -36,7 +36,7 @@ namespace BSMM2.Models.Matches.MultiMatch.ThreeGameMatch {
 
 		public bool EnableLifePoint => _rule.EnableLifePoint;
 
-		public IEnumerable<LifePointItem> LifePointItems
+		public IEnumerable<LifePointItem> LifePointList
 			=> LifePointItem.Instance;
 
 		public ResultItem[] ResultItems { get; }
@@ -61,6 +61,7 @@ namespace BSMM2.Models.Matches.MultiMatch.ThreeGameMatch {
 				for (int i=0; i<3; ++i)
 				{
 					yield return new ResultItem(
+						EnableLifePoint,
 						e1.MoveNext() ? e1.Current : null,
 						e2.MoveNext() ? e2.Current : null,
 						() => OnPropertyChanged(nameof(ResultItems)));

@@ -38,7 +38,7 @@
 				<Switch Grid.Row="1" Grid.Column="0" IsToggled="{Binding ResultItems[0].Player1Win}" />
 				<Picker IsVisible="{Binding EnableLifePoint}"
 					Grid.Row="1" Grid.Column="1"
-					ItemsSource ="{Binding LifePointItems}"
+					ItemsSource ="{Binding LifePointList}"
 					SelectedItem="{Binding ResultItems[0].LifePoints[0]}"
 					ItemDisplayBinding="{Binding Label}" />
 				<Label Text="{Binding Player1.Name}" Grid.Row="1" Grid.Column="2" FontSize="Medium" VerticalTextAlignment="Center" />
@@ -47,7 +47,7 @@
 				<Switch IsToggled="{Binding ResultItems[0].Player2Win}" Grid.Row="3"  Grid.Column="0" />
 				<Picker IsVisible="{Binding EnableLifePoint}"
 					Grid.Row="3"  Grid.Column="1"
-					ItemsSource ="{Binding LifePointItems}"
+					ItemsSource ="{Binding LifePointList}"
 					SelectedItem="{Binding ResultItems[0].LifePoints[1]}"
 					ItemDisplayBinding="{Binding Label}" />
 				<Label Text="{Binding Player2.Name}" Grid.Row="3"  Grid.Column="2" FontSize="Medium" VerticalTextAlignment="Center" />
@@ -71,7 +71,7 @@
 				<Switch Grid.Row="1" Grid.Column="0" IsToggled="{Binding ResultItems[1].Player1Win}" />
 				<Picker IsVisible="{Binding EnableLifePoint}"
 					Grid.Row="1" Grid.Column="1"
-					ItemsSource ="{Binding LifePointItems}"
+					ItemsSource ="{Binding LifePointList}"
 					SelectedItem="{Binding ResultItems[1].LifePoints[0]}"
 					ItemDisplayBinding="{Binding Label}" />
 				<Label Text="{Binding Player1.Name}" Grid.Row="1" Grid.Column="2" FontSize="Medium" VerticalTextAlignment="Center" />
@@ -80,7 +80,7 @@
 				<Switch IsToggled="{Binding ResultItems[1].Player2Win}" Grid.Row="3"  Grid.Column="0" />
 				<Picker IsVisible="{Binding EnableLifePoint}"
 					Grid.Row="3"  Grid.Column="1"
-					ItemsSource ="{Binding LifePointItems}"
+					ItemsSource ="{Binding LifePointList}"
 					SelectedItem="{Binding ResultItems[1].LifePoints[1]}"
 					ItemDisplayBinding="{Binding Label}" />
 				<Label Text="{Binding Player2.Name}" Grid.Row="3"  Grid.Column="2" FontSize="Medium" VerticalTextAlignment="Center" />
@@ -104,7 +104,7 @@
 				<Switch Grid.Row="1" Grid.Column="0" IsToggled="{Binding ResultItems[2].Player1Win}" />
 				<Picker IsVisible="{Binding EnableLifePoint}"
 					Grid.Row="1" Grid.Column="1"
-					ItemsSource ="{Binding LifePointItems}"
+					ItemsSource ="{Binding LifePointList}"
 					SelectedItem="{Binding ResultItems[2].LifePoints[0]}"
 					ItemDisplayBinding="{Binding Label}" />
 				<Label Text="{Binding Player1.Name}" Grid.Row="1" Grid.Column="2" FontSize="Medium" VerticalTextAlignment="Center" />
@@ -113,7 +113,7 @@
 				<Switch IsToggled="{Binding ResultItems[2].Player2Win}" Grid.Row="3"  Grid.Column="0" />
 				<Picker IsVisible="{Binding EnableLifePoint}"
 					Grid.Row="3"  Grid.Column="1"
-					ItemsSource ="{Binding LifePointItems}"
+					ItemsSource ="{Binding LifePointList}"
 					SelectedItem="{Binding ResultItems[2].LifePoints[1]}"
 					ItemDisplayBinding="{Binding Label}" />
 				<Label Text="{Binding Player2.Name}" Grid.Row="3"  Grid.Column="2" FontSize="Medium" VerticalTextAlignment="Center" />
