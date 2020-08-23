@@ -53,18 +53,17 @@ namespace BSMM2.Models.Matches {
 		}
 	}
 
-	internal class ResultItem {
+	internal class ResultItem : IScore{
 		private Action _onPropertyChanged;
 
-		public LifePointItems LifePoint { get; }
+		public LifePointItems LifePoints { get; }
 
 		public RESULT_T RESULT { get; private set; }
 
 		public bool IsFinished(bool AcceptDraw)
-			=> (RESULT == RESULT_T.Win || RESULT == RESULT_T.Lose || (AcceptDraw && RESULT == RESULT_T.Draw)) && LifePoint[0].Point>=0 && LifePoint[1].Point >= 0;
+			=> (RESULT == RESULT_T.Win || RESULT == RESULT_T.Lose || (AcceptDraw && RESULT == RESULT_T.Draw)) && LifePoints[0].Point>=0 && LifePoints[1].Point >= 0;
 
-		public Score CreateScore(bool enableLifePoint)
-			=> new Score(RESULT, enableLifePoint ? LifePoint[0].Point : 0, enableLifePoint ? LifePoint[1].Point : 0);
+		public bool IsEmpty => RESULT == RESULT_T.Progress && LifePoints[0].Point == -1 && LifePoints[1].Point == -1;
 
 		public ResultItem(RESULT_T result, Action onPropertyChanged) {
 			InitialRESULT(result);
@@ -74,9 +73,9 @@ namespace BSMM2.Models.Matches {
 		public ResultItem(IResult result1, IResult result2, Action onPropertyChanged)
 		{
 			InitialRESULT(result1?.RESULT??RESULT_T.Progress);
-			LifePoint = new LifePointItems(onPropertyChanged);
-			LifePoint[0] = Matches.LifePointItem.GetItem(result1?.LifePoint ?? -1);
-			LifePoint[1] = Matches.LifePointItem.GetItem(result2?.LifePoint ?? -1);
+			LifePoints = new LifePointItems(onPropertyChanged);
+			LifePoints[0] = Matches.LifePointItem.GetItem(result1?.LifePoint ?? -1);
+			LifePoints[1] = Matches.LifePointItem.GetItem(result2?.LifePoint ?? -1);
 			_onPropertyChanged = onPropertyChanged;
 		}
 
@@ -124,6 +123,10 @@ namespace BSMM2.Models.Matches {
 				}
 			}
 		}
+
+		public int LifePoint1 => LifePoints[0].Point;
+
+		public int LifePoint2 => LifePoints[1].Point;
 
 		private void InitialRESULT(RESULT_T result) {
 			RESULT = RESULT_T.Progress;

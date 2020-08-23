@@ -7,13 +7,13 @@ namespace BSMM2.Models.Matches.MultiMatch {
 	[JsonObject]
 	public abstract class MultiMatch : SingleMatch.SingleMatch {
 
-		public class Score {
-			public RESULT_T Result { get; }
+		public class Score:IScore {
+			public RESULT_T RESULT { get; }
 			public int LifePoint1 { get; }
 			public int LifePoint2 { get; }
 
 			public Score(RESULT_T result, int lp1 = 0, int lp2 = 0) {
-				Result = result;
+				RESULT = result;
 				LifePoint1 = lp1;
 				LifePoint2 = lp2;
 			}
@@ -42,12 +42,12 @@ namespace BSMM2.Models.Matches.MultiMatch {
 
 		protected abstract MultiMatchResult CreateResult();
 
-		public void SetMultiMatchResult(IEnumerable<Score> scores) {
+		public void SetMultiMatchResult(IEnumerable<IScore> scores) {
 			var result1 = CreateResult();
 			var result2 = CreateResult();
 			foreach (var score in scores) {
-				result1.Add(new SingleMatchResult(score.Result, score.LifePoint1));
-				result2.Add(new SingleMatchResult(RESULTUtil.ToOpponents(score.Result), score.LifePoint2));
+				result1.Add(new SingleMatchResult(score.RESULT, score.LifePoint1));
+				result2.Add(new SingleMatchResult(RESULTUtil.ToOpponents(score.RESULT), score.LifePoint2));
 			}
 			SetResults(result1, result2);
 		}

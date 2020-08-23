@@ -73,12 +73,13 @@ namespace BSMM2.Models.Matches.MultiMatch.ThreeGameMatch {
 				MessagingCenter.Send<object>(this, Messages.REFRESH);
 				back?.Invoke();
 
-                IEnumerable<Score> CreateScores()
+                IEnumerable<IScore> CreateScores()
                 {
 					foreach(var item in ResultItems)
                     {
-						if (item.RESULT == RESULT_T.Progress) break;
-						yield return item.CreateScore(EnableLifePoint);
+						if (item.IsEmpty) break;
+						yield return item;
+						if (!item.IsFinished(false)) break;
 					}
                 }
             }
