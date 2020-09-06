@@ -16,11 +16,8 @@ namespace BSMM2.Views {
 					"Round" + (index + 1)));
 			}
 
-			Page CreatePage(Page page, string title) {
-				var ret = new NavigationPage(page);
-				ret.Title = title;
-				return ret;
-			}
+			Page CreatePage(Page page, string title)
+				=> new NavigationPage(page) { Title = title , BarBackgroundColor=Color.ForestGreen};
 		}
 	}
 }
