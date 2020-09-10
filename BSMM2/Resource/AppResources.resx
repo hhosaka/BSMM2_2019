@@ -351,6 +351,9 @@
   <data name="TextDropped" xml:space="preserve">
     <value>Dropped</value>
   </data>
+  <data name="TextEndGame" xml:space="preserve">
+    <value>There is only winner.　no more create matching.</value>
+  </data>
   <data name="TextFailToMakeMatch" xml:space="preserve">
     <value>Fail to make match</value>
   </data>

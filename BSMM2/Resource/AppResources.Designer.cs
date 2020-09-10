@@ -763,6 +763,15 @@ namespace BSMM2.Resource {
         }
         
         /// <summary>
+        ///   There is only winner.　no more create matching. に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string TextEndGame {
+            get {
+                return ResourceManager.GetString("TextEndGame", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Fail to make match に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string TextFailToMakeMatch {

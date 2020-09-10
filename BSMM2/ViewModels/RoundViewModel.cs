@@ -1,4 +1,5 @@
 ﻿using BSMM2.Models;
+using BSMM2.Resource;
 using Prism.Commands;
 using System;
 using System.Collections.Generic;
@@ -41,9 +42,9 @@ namespace BSMM2.ViewModels {
 		public DelegateCommand ShowRoundsLogCommand { get; }
 		public DelegateCommand StartTimerCommand { get; }
 
-		private Action _failToMakeMatch;
+		private Action<string> _failToMakeMatch;
 
-		public RoundViewModel(BSMMApp app, Action showRoundsLog, Action failToMakeMatch) {
+		public RoundViewModel(BSMMApp app, Action showRoundsLog, Action<string> failToMakeMatch) {
 			Debug.Assert(app != null);
 			_app = app;
 			_failToMakeMatch = failToMakeMatch;
@@ -111,7 +112,7 @@ namespace BSMM2.ViewModels {
 					_app.Save(false);
 					await ExecuteRefresh();
 				} else {
-					_failToMakeMatch();
+					_failToMakeMatch(AppResources.TextFailToMakeMatch);
 				}
 			}
 		}
@@ -122,11 +123,13 @@ namespace BSMM2.ViewModels {
 				() => Game.CanExecuteStepToMatching());
 
 			async void Execute() {
-				if (Game.StepToMatching()) {
+				if(Game.Players.Source.Count(player => player.IsAllWins) <= 1) {
+					_failToMakeMatch(AppResources.TextEndGame);
+				} else if (Game.StepToMatching()) {
 					_app.Save(false);
 					await ExecuteRefresh();
 				} else {
-					_failToMakeMatch();
+					_failToMakeMatch(AppResources.TextFailToMakeMatch);
 				}
 			}
 		}

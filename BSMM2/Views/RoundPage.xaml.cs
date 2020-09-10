@@ -19,8 +19,8 @@ namespace BSMM2.Views {
 			void showRoundsLog()
 				=> Navigation.PushModalAsync(new RoundsLogPage(app));
 
-			async void FailToMakeMatch() {
-				if (await DisplayAlert(AppResources.TextAlert, AppResources.TextFailToMakeMatch, AppResources.TextGoToRuleSetting, AppResources.TextGiveUp)) {
+			async void FailToMakeMatch(string message) {
+				if (await DisplayAlert(AppResources.TextAlert, message, AppResources.TextGoToRuleSetting, AppResources.TextGiveUp)) {
 					await Navigation.PushModalAsync(new NavigationPage(app.Game.CreateRulePage()));
 				}
 			}

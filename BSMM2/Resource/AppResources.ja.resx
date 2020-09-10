@@ -348,6 +348,9 @@
   <data name="TextDropped" xml:space="preserve">
     <value>棄権</value>
   </data>
+  <data name="TextEndGame" xml:space="preserve">
+    <value>全勝者が決まりました.これ以上の抽選は行いません。</value>
+  </data>
   <data name="TextFailToMakeMatch" xml:space="preserve">
     <value>抽選に失敗しました。制約を変更して再抽選できます。</value>
   </data>
