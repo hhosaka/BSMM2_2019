@@ -27,6 +27,9 @@
     <Compile Update="Models\Matches\MultiMatch\ThreeGameMatch\ThreeGameMatchPage.xaml.cs">
       <DependentUpon>ThreeGameMatchPage.xaml</DependentUpon>
     </Compile>
+    <Compile Update="Models\Matches\SingleMatch\SingleMatchSimplePage.xaml.cs">
+      <DependentUpon>SingleMatchSimplePage.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Models\Matches\SingleMatch\SingleMatchPage.xaml.cs">
       <DependentUpon>SingleMatchPage.xaml</DependentUpon>
     </Compile>

@@ -30,7 +30,7 @@ namespace BSMM2.Models.Matches.SingleMatch {
 			=> AppResources.DescriptionSingleMatch;
 
 		public virtual ContentPage CreateMatchPage(Match match)
-			=> new SingleMatchPage(this, (SingleMatch)match);
+			=> EnableLifePoint ? (ContentPage)new SingleMatchPage(this, (SingleMatch)match) : (ContentPage)new SingleMatchSimplePage(this, (SingleMatch)match);
 
 		public ContentPage CreateRulePage(Game game)
 			=> new SingleMatchRulePage(game);
