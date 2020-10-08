@@ -151,6 +151,15 @@ namespace BSMM2.Resource {
         }
         
         /// <summary>
+        ///   {0} wins に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string FormatSingleMatchLabel {
+            get {
+                return ResourceManager.GetString("FormatSingleMatchLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Entry Sheet に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string ItemPlayerModeEntrySheet {

@@ -30,9 +30,9 @@ namespace BSMM2.Models.Matches.SingleMatch {
 			_back = back;
 
 			RESULTs = new[] {
-				new KeyValuePair<string,RESULT_T>(string.Format("",match.Record1.Player.Name),RESULT_T.Win),
+				new KeyValuePair<string,RESULT_T>(string.Format(AppResources.FormatSingleMatchLabel,match.Record1.Player.Name),RESULT_T.Win),
 				new KeyValuePair<string,RESULT_T>(AppResources.ItemResultDraw,RESULT_T.Draw),
-				new KeyValuePair<string,RESULT_T>(string.Format("",match.Record1.Player.Name),RESULT_T.Lose),
+				new KeyValuePair<string,RESULT_T>(string.Format(AppResources.FormatSingleMatchLabel,match.Record2.Player.Name),RESULT_T.Lose),
 			};
 		}
 	}

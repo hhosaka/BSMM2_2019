@@ -147,6 +147,9 @@
   <data name="DescriptionTreeGameMatch" xml:space="preserve">
     <value>Three Game match rule</value>
   </data>
+  <data name="FormatSingleMatchLabel" xml:space="preserve">
+    <value>{0} wins</value>
+  </data>
   <data name="ItemPlayerModeEntrySheet" xml:space="preserve">
     <value>Entry Sheet</value>
   </data>

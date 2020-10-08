@@ -147,6 +147,9 @@
   <data name="DescriptionTreeGameMatch" xml:space="preserve">
     <value>2本先取のルールです。</value>
   </data>
+  <data name="FormatSingleMatchLabel" xml:space="preserve">
+    <value>{0} の勝利</value>
+  </data>
   <data name="ItemPlayerModeEntrySheet" xml:space="preserve">
     <value>エントリーシート</value>
   </data>
