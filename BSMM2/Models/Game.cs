@@ -49,7 +49,7 @@ namespace BSMM2.Models {
 		public Round ActiveRound { get; private set; }
 
 		[JsonIgnore]
-		public string Headline => Title + "(Round " + (Rounds?.Count() + 1 ?? 0) + ")";
+		public string Headline => "(Round " + (Rounds?.Count() + 1 ?? 0) + ")"　+ Title;
 
 		public bool CanAddPlayers() => !ActiveRound.IsPlaying && !_rounds.Any();
 

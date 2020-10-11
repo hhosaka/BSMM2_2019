@@ -124,6 +124,15 @@ namespace BSMM2.Resource {
         }
         
         /// <summary>
+        ///   Five Game Match Rule に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string DescriptionFiveGameMatch {
+            get {
+                return ResourceManager.GetString("DescriptionFiveGameMatch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Single match rule に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string DescriptionSingleMatch {
@@ -223,6 +232,15 @@ namespace BSMM2.Resource {
         }
         
         /// <summary>
+        ///   Five Game Match に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string ItemRuleFiveGameMatch {
+            get {
+                return ResourceManager.GetString("ItemRuleFiveGameMatch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Single Match に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string ItemRuleSingleMatch {
@@ -273,6 +291,24 @@ namespace BSMM2.Resource {
         public static string Label3rdMatch {
             get {
                 return ResourceManager.GetString("Label3rdMatch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   4th Match に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Label4thMatch {
+            get {
+                return ResourceManager.GetString("Label4thMatch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   5th Match に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Label5thMatch {
+            get {
+                return ResourceManager.GetString("Label5thMatch", resourceCulture);
             }
         }
         

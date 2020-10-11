@@ -138,6 +138,9 @@
   <data name="DescriptionEntrySheet" xml:space="preserve">
     <value>プレーヤー名を改行で列記してください。</value>
   </data>
+  <data name="DescriptionFiveGameMatch" xml:space="preserve">
+    <value>三本取りのルールです</value>
+  </data>
   <data name="DescriptionSingleMatch" xml:space="preserve">
     <value>一本取りのルールです。</value>
   </data>
@@ -171,6 +174,9 @@
   <data name="ItemResultWin" xml:space="preserve">
     <value>勝ち</value>
   </data>
+  <data name="ItemRuleFiveGameMatch" xml:space="preserve">
+    <value>三本取り</value>
+  </data>
   <data name="ItemRuleSingleMatch" xml:space="preserve">
     <value>一本取り</value>
   </data>
@@ -188,6 +194,12 @@
   </data>
   <data name="Label3rdMatch" xml:space="preserve">
     <value>3rd Match</value>
+  </data>
+  <data name="Label4thMatch" xml:space="preserve">
+    <value>四回戦</value>
+  </data>
+  <data name="Label5thMatch" xml:space="preserve">
+    <value>五回戦</value>
   </data>
   <data name="LabelAppTitle" xml:space="preserve">
     <value>BS Match Maker 2</value>
@@ -404,5 +416,8 @@
   </data>
   <data name="TextWinPoint" xml:space="preserve">
     <value>勝利P</value>
+  </data>
+  <data name="}ItemRuleFiveGameMatch" xml:space="preserve">
+    <value>三本取り</value>
   </data>
 </root>

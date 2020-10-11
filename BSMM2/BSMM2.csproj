@@ -24,6 +24,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Models\Matches\MultiMatch\FiveGameMatch\FiveGameMatchPage.xaml.cs">
+      <DependentUpon>FiveGameMatchPage.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Models\Matches\MultiMatch\ThreeGameMatch\ThreeGameMatchPage.xaml.cs">
       <DependentUpon>ThreeGameMatchPage.xaml</DependentUpon>
     </Compile>

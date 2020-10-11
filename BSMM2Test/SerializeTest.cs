@@ -519,7 +519,7 @@ namespace BSMM2Test {
 			var sbuf = buf.ToString();
 
 			var result = new Serializer<BSMMApp>().Deserialize(new StringReader(sbuf));
-			Assert.IsTrue(result.Rules.Count() == 3);
+			Assert.IsTrue(result.Rules.Count() == 4);
 			Assert.AreEqual(result.Rule, result.Rules.ElementAt(1));
 		}
 
@@ -531,7 +531,7 @@ namespace BSMM2Test {
 			app.Rule = app.Rules.ElementAt(0);
 			app.Save(true);
 			var app2 = BSMMApp.Create(TESTFILE, false);
-			Assert.IsTrue(app2.Rules.Count() == 3);
+			Assert.IsTrue(app2.Rules.Count() == 4);
 			Assert.AreEqual(app2.Rules.ElementAt(0), app2.Rule);
 			Assert.AreEqual(1, app2.Games.Count());
 			Assert.AreEqual(app.Games.Last(), app.Game);
@@ -546,7 +546,7 @@ namespace BSMM2Test {
 			app.Add(new Game(rule, new Players(app.Rule, 8), title), true);
 			app.Save(true);
 			var app2 = BSMMApp.Create(TESTFILE, false);
-			Assert.IsTrue(app2.Rules.Count() == 3);
+			Assert.IsTrue(app2.Rules.Count() == 4);
 			Assert.AreEqual(app2.Rules.ElementAt(1), app2.Rule);
 			Assert.AreEqual(1, app2.Games.Count());
 			Assert.AreEqual(app.Game.Id, app2.Game.Id);

@@ -1,4 +1,5 @@
-﻿using BSMM2.Models.Matches.MultiMatch.ThreeGameMatch;
+﻿using BSMM2.Models.Matches.MultiMatch.FiveGameMatch;
+using BSMM2.Models.Matches.MultiMatch.ThreeGameMatch;
 using BSMM2.Models.Matches.MultiMatch.ThreeOnThreeMatch;
 using BSMM2.Models.Matches.SingleMatch;
 using Newtonsoft.Json;
@@ -36,6 +37,7 @@ namespace BSMM2.Models {
 					new SingleMatchRule(),
 					new ThreeGameMatchRule(),
 					new ThreeOnThreeMatchRule(),
+					new FiveGameMatchRule(),
 						});
 				app.Save(true);
 				return app;
