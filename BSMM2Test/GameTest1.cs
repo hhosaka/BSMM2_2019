@@ -1,5 +1,6 @@
 using BSMM2.Models;
 using BSMM2.Models.Matches.MultiMatch;
+using BSMM2.Models.Matches.MultiMatch.FiveGameMatch;
 using BSMM2.Models.Matches.MultiMatch.ThreeGameMatch;
 using BSMM2.Models.Matches.MultiMatch.ThreeOnThreeMatch;
 using BSMM2.Models.Matches.SingleMatch;
@@ -388,6 +389,55 @@ namespace BSMM2Test {
 
 			match.SetMultiMatchResult(new[] {
 				new MultiMatch.Score(Win),
+				new MultiMatch.Score(Lose),
+				new MultiMatch.Score(Lose),
+				new MultiMatch.Score(Win) });
+
+			Assert.IsTrue(match.IsFinished);
+			Assert.AreEqual(Draw, match.Record1.Result.RESULT);
+
+			match.SetMultiMatchResult(new[] {
+				new MultiMatch.Score(Win),
+				new MultiMatch.Score(Lose),
+				new MultiMatch.Score(Lose),
+				new MultiMatch.Score(Win),
+				new MultiMatch.Score(Win) });
+
+			Assert.IsTrue(match.IsFinished);
+			Assert.AreEqual(Win, match.Record1.Result.RESULT);
+
+			match.SetMultiMatchResult(new[] {
+				new MultiMatch.Score(Win),
+				new MultiMatch.Score(Lose),
+				new MultiMatch.Score(Win),
+				new MultiMatch.Score(Lose),
+				new MultiMatch.Score(Win) });
+
+			Assert.IsTrue(match.IsFinished);
+			Assert.AreEqual(Win, match.Record1.Result.RESULT);
+
+			match.SetMultiMatchResult(new[] {
+				new MultiMatch.Score(Win),
+				new MultiMatch.Score(Lose),
+				new MultiMatch.Score(Lose),
+				new MultiMatch.Score(Lose),
+				new MultiMatch.Score(Win) });
+
+			Assert.IsTrue(match.IsFinished);
+			Assert.AreEqual(Lose, match.Record1.Result.RESULT);
+
+			match.SetMultiMatchResult(new[] {
+				new MultiMatch.Score(Win),
+				new MultiMatch.Score(Lose),
+				new MultiMatch.Score(Progress),
+				new MultiMatch.Score(Lose),
+				new MultiMatch.Score(Win) });
+
+			Assert.IsFalse(match.IsFinished);
+			Assert.AreEqual(Progress, match.Record1.Result.RESULT);
+
+			match.SetMultiMatchResult(new[] {
+				new MultiMatch.Score(Win),
 				new MultiMatch.Score(Lose)});
 
 			Assert.IsTrue(match.IsFinished);
@@ -432,6 +482,65 @@ namespace BSMM2Test {
             Assert.AreEqual(0, match.Record1.Result.LifePoint);
 
         }
+
+		[TestMethod]
+		public void FiveGameMatchWithLPStatusTest() {
+			var game = new FakeGame(new FiveGameMatchRule(true), 4);
+			var match = game.ActiveRound.Matches.ElementAt(0) as MultiMatch;
+			match.SetMultiMatchResult(new[] {
+				new MultiMatch.Score(Win),
+				new MultiMatch.Score(Lose),
+				new MultiMatch.Score(Win) });
+
+			Assert.IsTrue(match.IsFinished);
+			Assert.AreEqual(Win, match.Record1.Result.RESULT);
+
+			match.SetMultiMatchResult(new[] {
+				new MultiMatch.Score(Win),
+				new MultiMatch.Score(Lose)});
+
+			Assert.IsTrue(match.IsFinished);
+			Assert.AreEqual(Draw, match.Record1.Result.RESULT);
+
+			match.SetMultiMatchResult(new[] {
+				new MultiMatch.Score(Win)});
+
+			Assert.IsTrue(match.IsFinished);
+			Assert.AreEqual(Win, match.Record1.Result.RESULT);
+
+			match.SetMultiMatchResult(new[] {
+				new MultiMatch.Score(Progress)});
+
+			Assert.IsFalse(match.IsFinished);
+			Assert.AreEqual(Progress, match.Record1.Result.RESULT);
+
+			match.SetMultiMatchResult(new[] {
+				new MultiMatch.Score(Win),
+				new MultiMatch.Score(Progress)});
+
+			Assert.IsFalse(match.IsFinished);
+			Assert.AreEqual(Progress, match.Record1.Result.RESULT);
+
+			match.SetMultiMatchResult(new[] {
+				new MultiMatch.Score(Win,-1,-1)});
+
+			//Assert.IsFalse(match.IsFinished);
+			//Assert.AreEqual(Progress, match.Record1.Result.RESULT);
+
+			match.SetMultiMatchResult(new[] {
+				new MultiMatch.Score(Win,0,-1)});
+
+			Assert.IsFalse(match.IsFinished);
+			Assert.AreEqual(Win, match.Record1.Result.RESULT);
+
+			match.SetMultiMatchResult(new[] {
+				new MultiMatch.Score(Progress,1,0)});
+
+			Assert.IsFalse(match.IsFinished);
+			Assert.AreEqual(Progress, match.Record1.Result.RESULT);
+			Assert.AreEqual(0, match.Record1.Result.LifePoint);
+
+		}
 
 		private void OrderTest(IRule rule) {
 			OrderTest1(rule);
