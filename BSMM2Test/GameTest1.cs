@@ -1,7 +1,6 @@
 using BSMM2.Models;
 using BSMM2.Models.Matches.MultiMatch;
 using BSMM2.Models.Matches.MultiMatch.FiveGameMatch;
-using BSMM2.Models.Matches.MultiMatch.ThreeGameMatch;
 using BSMM2.Models.Matches.MultiMatch.ThreeOnThreeMatch;
 using BSMM2.Models.Matches.SingleMatch;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -245,11 +244,11 @@ namespace BSMM2Test {
 
 		[TestMethod]
 		public void OrderTestThreeGameMatch()
-			=> OrderTest(new ThreeGameMatchRule());
+			=> OrderTest(new NthGameMatchRule());
 
 		[TestMethod]
 		public void OrderTestThreeOnThreeMatch()
-			=> OrderTest(new ThreeGameMatchRule());
+			=> OrderTest(new NthGameMatchRule());
 
 		[TestMethod]
 		public void OrderTestSingleMatch3()
@@ -275,7 +274,7 @@ namespace BSMM2Test {
 
 		[TestMethod]
 		public void èüóòÉ|ÉCÉìÉgåüèÿ() {
-			var rule = new ThreeGameMatchRule();
+			var rule = new NthGameMatchRule();
 			var game = CreateGame(rule, 8, 2);
 			var matches = game.ActiveRound;
 
@@ -337,7 +336,7 @@ namespace BSMM2Test {
 		[TestMethod]
 		public void ThreeGameMatchStatusTest()
 		{
-			var game = new FakeGame(new ThreeGameMatchRule(), 4);
+			var game = new FakeGame(new NthGameMatchRule(), 4);
 			var match = game.ActiveRound.Matches.ElementAt(0) as MultiMatch;
 			match.SetMultiMatchResult(new[] {
 				new MultiMatch.Score(Win),
@@ -377,7 +376,7 @@ namespace BSMM2Test {
 		[TestMethod]
 		public void ThreeGameMatchWithLPStatusTest()
  		{
-			var game = new FakeGame(new ThreeGameMatchRule(true), 4);
+			var game = new FakeGame(new NthGameMatchRule(true), 4);
 			var match = game.ActiveRound.Matches.ElementAt(0) as MultiMatch;
 			match.SetMultiMatchResult(new[] {
 				new MultiMatch.Score(Win),

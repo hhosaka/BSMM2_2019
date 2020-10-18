@@ -8,7 +8,7 @@ using Xamarin.Forms;
 using Xamarin.Forms.Internals;
 using static BSMM2.Models.Matches.MultiMatch.MultiMatch;
 
-namespace BSMM2.Models.Matches.MultiMatch.ThreeGameMatch {
+namespace BSMM2.Models.Matches.MultiMatch.NthGameMatch {
 
 	internal class TheConverter : IValueConverter {
 
@@ -30,9 +30,9 @@ namespace BSMM2.Models.Matches.MultiMatch.ThreeGameMatch {
 			=> throw new NotImplementedException();
 	}
 
-	internal class ThreeGameMatchViewModel : BaseViewModel {
+	internal class NthGameMatchViewModel : BaseViewModel {
 		private MultiMatch _match;
-		private ThreeGameMatchRule _rule;
+		private NthGameMatchRule _rule;
 
 		public bool EnableLifePoint => _rule.EnableLifePoint;
 
@@ -46,7 +46,7 @@ namespace BSMM2.Models.Matches.MultiMatch.ThreeGameMatch {
 
 		public ICommand DoneCommand { get; }
 
-		public ThreeGameMatchViewModel(ThreeGameMatchRule rule, MultiMatch match, Action back) {
+		public NthGameMatchViewModel(NthGameMatchRule rule, MultiMatch match, Action back) {
 			_match = match;
 			_rule = rule;
 

@@ -1,5 +1,5 @@
 using BSMM2.Models;
-using BSMM2.Models.Matches.MultiMatch.ThreeGameMatch;
+using BSMM2.Models.Matches.MultiMatch.FiveGameMatch;
 using BSMM2.Models.Matches.MultiMatch.ThreeOnThreeMatch;
 using BSMM2.Models.Matches.SingleMatch;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -299,7 +299,7 @@ namespace BSMM2Test {
 
 		[TestMethod]
 		public void LoadSaveTest9() {
-			var game = new FakeGame(new ThreeGameMatchRule(), 8);
+			var game = new FakeGame(new NthGameMatchRule(), 8);
 
 			game.StepToPlaying();
 
@@ -314,7 +314,7 @@ namespace BSMM2Test {
 
 		[TestMethod]
 		public void LoadSaveTest10() {
-			var game = new FakeGame(new ThreeGameMatchRule(true), 8);
+			var game = new FakeGame(new NthGameMatchRule(true), 8);
 
 			game.StepToPlaying();
 

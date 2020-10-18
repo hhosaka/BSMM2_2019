@@ -2,14 +2,14 @@
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace BSMM2.Models.Matches.MultiMatch.ThreeGameMatch {
+namespace BSMM2.Models.Matches.MultiMatch.NthGameMatch {
 
 	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class ThreeGameMatchPage : ContentPage {
+	public partial class NthGameMatchPage : ContentPage {
 
-		public ThreeGameMatchPage(ThreeGameMatchRule rule, Match match) {
+		public NthGameMatchPage(NthGameMatchRule rule, Match match) {
 			InitializeComponent();
-			BindingContext = new ThreeGameMatchViewModel(rule, (MultiMatch)match, Back);
+			BindingContext = new NthGameMatchViewModel(rule, (MultiMatch)match, Back);
 		}
 
 		private void Back(object sender, EventArgs e)

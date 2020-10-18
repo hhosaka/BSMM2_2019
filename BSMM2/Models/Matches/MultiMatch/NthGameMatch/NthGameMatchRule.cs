@@ -3,10 +3,10 @@ using Newtonsoft.Json;
 using System.Linq;
 using Xamarin.Forms;
 
-namespace BSMM2.Models.Matches.MultiMatch.ThreeGameMatch {
+namespace BSMM2.Models.Matches.MultiMatch.NthGameMatch {
 
 	[JsonObject]
-	public class ThreeGameMatchRule : MultiMatchRule {
+	public class NthGameMatchRule : MultiMatchRule {
 
 		private class TheMatch : MultiMatch
 		{
@@ -32,22 +32,22 @@ namespace BSMM2.Models.Matches.MultiMatch.ThreeGameMatch {
 		[JsonIgnore]
 		public override string Description => AppResources.DescriptionTreeGameMatch;
 
-		public override ContentPage CreateMatchPage(Match match) => new ThreeGameMatchPage(this, match);
+		public override ContentPage CreateMatchPage(Match match) => new NthGameMatchPage(this, match);
 
-		public override IRule Clone() => new ThreeGameMatchRule(this);
+		public override IRule Clone() => new NthGameMatchRule(this);
 
 		public override Match CreateMatch(IPlayer player1, IPlayer player2)
 			=> new TheMatch(this, player1, player2);
 
-		private ThreeGameMatchRule() {
+		private NthGameMatchRule() {
 		}
 
-		public ThreeGameMatchRule(bool enableLifePoint = false) : base(enableLifePoint)
+		public NthGameMatchRule(bool enableLifePoint = false) : base(enableLifePoint)
         {
 
         }
 
-		private ThreeGameMatchRule(MultiMatchRule src) : base(src) {
+		private NthGameMatchRule(MultiMatchRule src) : base(src) {
 		}
 	}
 }
