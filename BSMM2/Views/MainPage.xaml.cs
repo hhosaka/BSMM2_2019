@@ -13,6 +13,7 @@ namespace BSMM2.Views {
 			Children.Add(CreatePage(new PlayersPage(app), AppResources.TabPlayer));
 			Children.Add(CreatePage(new RoundPage(app), AppResources.TabRound));
 
+			app?.VersionCheck(async message => await DisplayAlert(AppResources.TextVersionCheck, message, AppResources.ButtonOK));
 			Page CreatePage(Page page, string title) {
 				var ret = new NavigationPage(page);
 				ret.Title = title;

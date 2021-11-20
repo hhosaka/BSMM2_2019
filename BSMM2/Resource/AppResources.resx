@@ -129,6 +129,9 @@
   <data name="ButtonNextRound" xml:space="preserve">
     <value>Next Round</value>
   </data>
+  <data name="ButtonOK" xml:space="preserve">
+    <value>OK</value>
+  </data>
   <data name="ButtonShuffle" xml:space="preserve">
     <value>Shuffle</value>
   </data>
@@ -261,6 +264,9 @@
   <data name="LabelRuleAcceptGapMatchDuplication" xml:space="preserve">
     <value>Accept gap match duplication</value>
   </data>
+  <data name="LabelRuleAcceptLoserGapMatchDuplication" xml:space="preserve">
+    <value>Accept gap match duplication except all winners</value>
+  </data>
   <data name="LabelRuleSetting" xml:space="preserve">
     <value>Rule Setting</value>
   </data>
@@ -363,6 +369,9 @@
   <data name="TextByeMatchCount" xml:space="preserve">
     <value>Bye Match Count</value>
   </data>
+  <data name="TextCorruptedData" xml:space="preserve">
+    <value>Due to data corruption, Initialized settings.</value>
+  </data>
   <data name="TextDropped" xml:space="preserve">
     <value>Dropped</value>
   </data>
@@ -377,6 +386,10 @@
   </data>
   <data name="TextGoToRuleSetting" xml:space="preserve">
     <value>Go to rule setting. You may modify rule setting before retry.</value>
+  </data>
+  <data name="TextLegacyVersion" xml:space="preserve">
+    <value>Version-up initialized settings.
+NOTE :  BSMM2 does not guarantee  persistency of your settings and logs.</value>
   </data>
   <data name="TextLifePoint" xml:space="preserve">
     <value>Life Point</value>
@@ -416,6 +429,9 @@
   </data>
   <data name="TextStartTimer" xml:space="preserve">
     <value>Start Timer</value>
+  </data>
+  <data name="TextVersionCheck" xml:space="preserve">
+    <value>Version Check</value>
   </data>
   <data name="TextWinPoint" xml:space="preserve">
     <value>Win Point</value>

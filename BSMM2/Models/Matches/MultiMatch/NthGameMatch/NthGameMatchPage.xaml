@@ -18,6 +18,8 @@
 				<RowDefinition Height="Auto" />
 				<RowDefinition Height="Auto" />
 				<RowDefinition Height="Auto" />
+				<RowDefinition Height="Auto" />
+				<RowDefinition Height="Auto" />
 				<RowDefinition Height="*" />
 			</Grid.RowDefinitions>
 			<Grid Grid.Row="0">
@@ -53,7 +55,7 @@
 				<Label Text="{Binding Player2Name}" Grid.Row="3"  Grid.Column="2" FontSize="Medium" VerticalTextAlignment="Center" />
 			</Grid>
 
-			<Grid Grid.Row="1" IsVisible="{Binding ResultItems, Converter={StaticResource TheConverter},ConverterParameter=1}"  BackgroundColor="LightGray">
+			<Grid Grid.Row="1" IsVisible="{Binding ResultSet, Converter={StaticResource TheConverter},ConverterParameter=1}"  BackgroundColor="LightGray">
 				<Grid.RowDefinitions>
 					<RowDefinition Height="Auto" />
 					<RowDefinition Height="Auto" />
@@ -86,7 +88,7 @@
 				<Label Text="{Binding Player2Name}" Grid.Row="3"  Grid.Column="2" FontSize="Medium" VerticalTextAlignment="Center" />
 			</Grid>
 
-			<Grid Grid.Row="2" IsVisible="{Binding ResultItems, Converter={StaticResource TheConverter},ConverterParameter=2}">
+			<Grid Grid.Row="2" IsVisible="{Binding ResultSet, Converter={StaticResource TheConverter},ConverterParameter=2}">
 				<Grid.RowDefinitions>
 					<RowDefinition Height="Auto" />
 					<RowDefinition Height="Auto" />
@@ -119,7 +121,73 @@
 				<Label Text="{Binding Player2Name}" Grid.Row="3"  Grid.Column="2" FontSize="Medium" VerticalTextAlignment="Center" />
 			</Grid>
 
-			<Button Text="Done" Grid.Row="3" Command="{Binding DoneCommand}"  HorizontalOptions="FillAndExpand" />
+			<Grid Grid.Row="3" IsVisible="{Binding ResultSet, Converter={StaticResource TheConverter},ConverterParameter=3}" BackgroundColor="LightGray">
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto" />
+					<RowDefinition Height="Auto" />
+					<RowDefinition Height="Auto" />
+					<RowDefinition Height="Auto" />
+				</Grid.RowDefinitions>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="Auto" />
+					<ColumnDefinition Width="Auto" />
+					<ColumnDefinition Width="*" />
+				</Grid.ColumnDefinitions>
+				<Label Text="{x:Static prop:AppResources.TextResult}" Grid.Row="0" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="Center" />
+				<Label Text="{x:Static prop:AppResources.TextLifePoint}" Grid.Row="0" Grid.Column="1" FontSize="Medium" VerticalTextAlignment="Center" IsVisible="{Binding EnableLifePoint}" />
+				<Label Text="{x:Static prop:AppResources.Label4thMatch}" Grid.Row="0" Grid.Column="2" FontSize="Medium" VerticalTextAlignment="Center" />
+				<Switch Grid.Row="1" Grid.Column="0" IsToggled="{Binding ResultItems[3].Player1Win}" />
+				<Picker IsVisible="{Binding EnableLifePoint}"
+					Grid.Row="1" Grid.Column="1"
+					ItemsSource ="{Binding LifePointList}"
+					SelectedItem="{Binding ResultItems[3].LifePoints[0]}"
+					ItemDisplayBinding="{Binding Label}" />
+				<Label Text="{Binding Player1Name}" Grid.Row="1" Grid.Column="2" FontSize="Medium" VerticalTextAlignment="Center" />
+				<Switch Grid.Row="2" Grid.Column="0" IsToggled="{Binding ResultItems[3].Draw}" />
+				<Label Text="Draw" Grid.Row="2"  Grid.Column="2" FontSize="Medium" VerticalTextAlignment="Center" />
+				<Switch IsToggled="{Binding ResultItems[3].Player2Win}" Grid.Row="3"  Grid.Column="0" />
+				<Picker IsVisible="{Binding EnableLifePoint}"
+					Grid.Row="3"  Grid.Column="1"
+					ItemsSource ="{Binding LifePointList}"
+					SelectedItem="{Binding ResultItems[3].LifePoints[1]}"
+					ItemDisplayBinding="{Binding Label}" />
+				<Label Text="{Binding Player2Name}" Grid.Row="3"  Grid.Column="2" FontSize="Medium" VerticalTextAlignment="Center" />
+			</Grid>
+
+			<Grid Grid.Row="4" IsVisible="{Binding ResultSet, Converter={StaticResource TheConverter},ConverterParameter=4}">
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto" />
+					<RowDefinition Height="Auto" />
+					<RowDefinition Height="Auto" />
+					<RowDefinition Height="Auto" />
+				</Grid.RowDefinitions>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="Auto" />
+					<ColumnDefinition Width="Auto" />
+					<ColumnDefinition Width="*" />
+				</Grid.ColumnDefinitions>
+				<Label Text="{x:Static prop:AppResources.TextResult}" Grid.Row="0" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="Center" />
+				<Label Text="{x:Static prop:AppResources.TextLifePoint}" Grid.Row="0" Grid.Column="1" FontSize="Medium" VerticalTextAlignment="Center" IsVisible="{Binding EnableLifePoint}" />
+				<Label Text="{x:Static prop:AppResources.Label5thMatch}" Grid.Row="0" Grid.Column="2" FontSize="Medium" VerticalTextAlignment="Center" />
+				<Switch Grid.Row="1" Grid.Column="0" IsToggled="{Binding ResultItems[4].Player1Win}" />
+				<Picker IsVisible="{Binding EnableLifePoint}"
+					Grid.Row="1" Grid.Column="1"
+					ItemsSource ="{Binding LifePointList}"
+					SelectedItem="{Binding ResultItems[4].LifePoints[0]}"
+					ItemDisplayBinding="{Binding Label}" />
+				<Label Text="{Binding Player1Name}" Grid.Row="1" Grid.Column="2" FontSize="Medium" VerticalTextAlignment="Center" />
+				<Switch Grid.Row="2" Grid.Column="0" IsToggled="{Binding ResultItems[4].Draw}" />
+				<Label Text="Draw" Grid.Row="2"  Grid.Column="2" FontSize="Medium" VerticalTextAlignment="Center" />
+				<Switch IsToggled="{Binding ResultItems[4].Player2Win}" Grid.Row="3"  Grid.Column="0" />
+				<Picker IsVisible="{Binding EnableLifePoint}"
+					Grid.Row="3"  Grid.Column="1"
+					ItemsSource ="{Binding LifePointList}"
+					SelectedItem="{Binding ResultItems[4].LifePoints[1]}"
+					ItemDisplayBinding="{Binding Label}" />
+				<Label Text="{Binding Player2Name}" Grid.Row="3"  Grid.Column="2" FontSize="Medium" VerticalTextAlignment="Center" />
+			</Grid>
+
+			<Button Text="Done" Grid.Row="5" Command="{Binding DoneCommand}"  HorizontalOptions="FillAndExpand" />
 		</Grid>
 	</ContentPage.Content>
 </ContentPage>

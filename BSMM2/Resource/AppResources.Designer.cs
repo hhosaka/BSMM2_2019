@@ -97,6 +97,15 @@ namespace BSMM2.Resource {
         }
         
         /// <summary>
+        ///   OK に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string ButtonOK {
+            get {
+                return ResourceManager.GetString("ButtonOK", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Shuffle に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string ButtonShuffle {
@@ -493,6 +502,15 @@ namespace BSMM2.Resource {
         }
         
         /// <summary>
+        ///   Accept gap match duplication except all winners に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string LabelRuleAcceptLoserGapMatchDuplication {
+            get {
+                return ResourceManager.GetString("LabelRuleAcceptLoserGapMatchDuplication", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Rule Setting に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string LabelRuleSetting {
@@ -799,6 +817,15 @@ namespace BSMM2.Resource {
         }
         
         /// <summary>
+        ///   Due to data corruption, Initialized settings. に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string TextCorruptedData {
+            get {
+                return ResourceManager.GetString("TextCorruptedData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Dropped に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string TextDropped {
@@ -840,6 +867,16 @@ namespace BSMM2.Resource {
         public static string TextGoToRuleSetting {
             get {
                 return ResourceManager.GetString("TextGoToRuleSetting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Version-up initialized settings.
+        ///NOTE :  BSMM2 does not guarantee  persistency of your settings and logs. に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string TextLegacyVersion {
+            get {
+                return ResourceManager.GetString("TextLegacyVersion", resourceCulture);
             }
         }
         
@@ -957,6 +994,15 @@ namespace BSMM2.Resource {
         public static string TextStartTimer {
             get {
                 return ResourceManager.GetString("TextStartTimer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Version Check に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string TextVersionCheck {
+            get {
+                return ResourceManager.GetString("TextVersionCheck", resourceCulture);
             }
         }
         

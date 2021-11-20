@@ -1,9 +1,10 @@
 using BSMM2.Models;
-using BSMM2.Models.Matches.MultiMatch.FiveGameMatch;
+using BSMM2.Models.Matches.MultiMatch.NthGameMatch;
 using BSMM2.Models.Matches.MultiMatch.ThreeOnThreeMatch;
 using BSMM2.Models.Matches.SingleMatch;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -299,7 +300,7 @@ namespace BSMM2Test {
 
 		[TestMethod]
 		public void LoadSaveTest9() {
-			var game = new FakeGame(new NthGameMatchRule(), 8);
+			var game = new FakeGame(new NthGameMatchRule(2), 8);
 
 			game.StepToPlaying();
 
@@ -314,7 +315,7 @@ namespace BSMM2Test {
 
 		[TestMethod]
 		public void LoadSaveTest10() {
-			var game = new FakeGame(new NthGameMatchRule(true), 8);
+			var game = new FakeGame(new NthGameMatchRule(2, true), 8);
 
 			game.StepToPlaying();
 
@@ -506,6 +507,54 @@ namespace BSMM2Test {
 			game.AcceptGapMatchDuplication = true;
 
 			Assert.IsTrue(game.StepToMatching());
+
+			game.AcceptGapMatchDuplication = false;
+			game.AcceptLosersGapMatchDuplication = true;
+
+			Assert.IsFalse(game.StepToMatching());
+		}
+
+		[TestMethod]
+		public void GapMatchTest2() {
+			var rule = new SingleMatchRule();
+			var game = new FakeGame(rule, 6);
+
+			Util.Check(new[] { 1, 2, 3, 4, 5, 6 }, game.ActiveRound);
+
+			game.StepToPlaying();
+
+			Util.SetResult(game, 0, Win);
+			Util.SetResult(game, 1, Win);
+			Util.SetResult(game, 2, Win);
+
+			Util.Check(new[] { 1, 3, 5, 2, 4, 6 }, game.Players.GetSortedSource());
+
+			game.StepToMatching();
+
+			Util.Check(new[] { 1, 3, 5, 2, 4, 6 }, game.ActiveRound);
+
+			Assert.IsFalse(game.ActiveRound.Matches.ElementAt(0).IsGapMatch);
+			Assert.IsTrue(game.ActiveRound.Matches.ElementAt(1).IsGapMatch);
+			Assert.IsFalse(game.ActiveRound.Matches.ElementAt(2).IsGapMatch);
+
+			game.StepToPlaying();
+
+			Util.SetResult(game, 0, Win);
+			Util.SetResult(game, 1, Win);
+			Util.SetResult(game, 2, Win);
+
+			Util.Check(new[] { 1, 5, 3, 4, 2, 6 }, game.Players.GetSortedSource());
+
+			Assert.IsFalse(game.StepToMatching());
+
+			//game.AcceptGapMatchDuplication = true;
+
+			//Assert.IsTrue(game.StepToMatching());
+
+			//game.AcceptGapMatchDuplication = false;
+			//game.AcceptLosersGapMatchDuplication = true;
+
+			//Assert.IsFalse(game.StepToMatching());
 		}
 
 		[TestMethod]

@@ -13,16 +13,14 @@ namespace BSMM2.Models.Matches.MultiMatch.NthGameMatch {
 	internal class TheConverter : IValueConverter {
 
 		public object Convert(object value, Type targetType, object parameter, CultureInfo culture) {
-			if (value is ResultItem[] resultItems) {
-				switch (parameter.ToString()) {
-					case "1":
-						return resultItems[0].IsFinished(false);
-
-					case "2":
-						return resultItems[0].IsFinished(false) && resultItems[1].IsFinished(false);
+			if (value is ResultSet resultset) {
+				var index = int.Parse(parameter.ToString());
+				var items = resultset.ResultItems.Take(index);
+				if (items.All(resultItem => resultItem.IsFinished(false))) {
+					int wins = items.Count(item => item.RESULT == RESULT_T.Win);
+					return wins < resultset.Count && index - wins < resultset.Count;
 				}
 			}
-
 			return false;
 		}
 
@@ -30,16 +28,26 @@ namespace BSMM2.Models.Matches.MultiMatch.NthGameMatch {
 			=> throw new NotImplementedException();
 	}
 
-	internal class NthGameMatchViewModel : BaseViewModel {
+	internal interface ResultSet
+	{
+		int Count { get; }
+		ResultItem[] ResultItems { get; }
+	}
+
+	internal class NthGameMatchViewModel : BaseViewModel, ResultSet {
 		private MultiMatch _match;
 		private NthGameMatchRule _rule;
 
 		public bool EnableLifePoint => _rule.EnableLifePoint;
 
+		public int Count => _rule.Count;
+
 		public IEnumerable<LifePointItem> LifePointList
 			=> LifePointItem.Instance;
 
 		public ResultItem[] ResultItems { get; }
+
+		public ResultSet ResultSet => this;
 
 		public string Player1Name => _match.Record1.Player.Name;
 		public string Player2Name => _match.Record2.Player.Name;
@@ -64,7 +72,12 @@ namespace BSMM2.Models.Matches.MultiMatch.NthGameMatch {
 						EnableLifePoint,
 						e1.MoveNext() ? e1.Current : null,
 						e2.MoveNext() ? e2.Current : null,
-						() => OnPropertyChanged(nameof(ResultItems)));
+						Changed);
+				}
+
+				void Changed() {
+					OnPropertyChanged(nameof(ResultItems));
+					OnPropertyChanged(nameof(ResultSet));
 				}
 			}
 

@@ -129,6 +129,9 @@
   <data name="ButtonNextRound" xml:space="preserve">
     <value>次のラウンド</value>
   </data>
+  <data name="ButtonOK" xml:space="preserve">
+    <value>OK</value>
+  </data>
   <data name="ButtonShuffle" xml:space="preserve">
     <value>再抽選</value>
   </data>
@@ -258,6 +261,9 @@
   <data name="LabelRuleAcceptGapMatchDuplication" xml:space="preserve">
     <value>階段戦の重複を認める</value>
   </data>
+  <data name="LabelRuleAcceptLoserGapMatchDuplication" xml:space="preserve">
+    <value>全勝でない者の階段戦の重複を認める</value>
+  </data>
   <data name="LabelRuleSetting" xml:space="preserve">
     <value>ルール設定</value>
   </data>
@@ -360,6 +366,9 @@
   <data name="TextByeMatchCount" xml:space="preserve">
     <value>不戦勝回数</value>
   </data>
+  <data name="TextCorruptedData" xml:space="preserve">
+    <value>保存データが破損していたため、設定を初期化しました。</value>
+  </data>
   <data name="TextDropped" xml:space="preserve">
     <value>棄権</value>
   </data>
@@ -374,6 +383,10 @@
   </data>
   <data name="TextGoToRuleSetting" xml:space="preserve">
     <value>ルール設定へ</value>
+  </data>
+  <data name="TextLegacyVersion" xml:space="preserve">
+    <value>再設定不可避のバージョンアップに伴って設定の一部が初期化されました。
+BSMM2は設定データの永続性を保証しないことをご了承ください。</value>
   </data>
   <data name="TextLifePoint" xml:space="preserve">
     <value>ライフP</value>
@@ -414,10 +427,10 @@
   <data name="TextStartTimer" xml:space="preserve">
     <value>開始</value>
   </data>
+  <data name="TextVersionCheck" xml:space="preserve">
+    <value>バージョンチェック</value>
+  </data>
   <data name="TextWinPoint" xml:space="preserve">
     <value>勝利P</value>
-  </data>
-  <data name="}ItemRuleFiveGameMatch" xml:space="preserve">
-    <value>三本取り</value>
   </data>
 </root>

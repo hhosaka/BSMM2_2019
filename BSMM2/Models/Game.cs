@@ -24,6 +24,9 @@ namespace BSMM2.Models {
 		public bool AcceptGapMatchDuplication { get; set; }
 
 		[JsonProperty]
+		public bool AcceptLosersGapMatchDuplication { get; set; }
+
+		[JsonProperty]
 		public string Title { get; private set; }
 
 		[JsonProperty]
@@ -118,7 +121,7 @@ namespace BSMM2.Models {
 		}
 
 		// UTの為にシャッフルしないルートを用意する
-		protected virtual IEnumerable<Player> RandomizePlayer(IEnumerable<Player> players)
+		protected virtual IEnumerable<Player> RandomizePlayer(IEnumerable<Player>players) 
 			=> players.OrderBy(i => Guid.NewGuid());
 
 		private IEnumerable<Match> MakeRound() {
@@ -177,12 +180,14 @@ namespace BSMM2.Models {
 						}
 
 						bool CheckGapMatch() {// 階段戦の重複は避ける
-							if (!AcceptGapMatchDuplication) {
-								if (player.Point.MatchPoint != opponent.Point.MatchPoint) {
-									return !player.HasGapMatch && !opponent.HasGapMatch;
-								}
+							if (AcceptGapMatchDuplication) return true;
+							if (IsAcceptLosersGapMatchDuplication()) return true;
+							if (player.Point.MatchPoint == opponent.Point.MatchPoint) return true;
+							return !player.HasGapMatch && !opponent.HasGapMatch;
+
+							bool IsAcceptLosersGapMatchDuplication(){
+								return AcceptLosersGapMatchDuplication && (!player.IsAllWins && !opponent.IsAllWins);
 							}
-							return true;
 						}
 					}
 					return null;//適合者なし
@@ -199,11 +204,11 @@ namespace BSMM2.Models {
 		public void Remove(Storage storage, Game game)
 			=> storage.Delete(game.Id.ToString() + ".json");
 
-		public Game() {// For Serializer
-		}
-
 		public Page CreateRulePage()
 			=> Rule.CreateRulePage(this);
+
+		public Game() {// For Serializer
+		}
 
 		public Game(IRule rule, Players players, string title = null) {
 			if (title == null)

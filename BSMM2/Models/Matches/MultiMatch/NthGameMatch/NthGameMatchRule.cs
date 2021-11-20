@@ -26,6 +26,9 @@ namespace BSMM2.Models.Matches.MultiMatch.NthGameMatch {
 			public TheMatch(MultiMatchRule rule, IPlayer player1, IPlayer player2) : base(rule, player1, player2) { }
 		}
 
+		[JsonProperty]
+		public int Count { get; private set; }
+
 		[JsonIgnore]
 		public override string Name => AppResources.ItemRuleThreeGameMatch;
 
@@ -34,7 +37,7 @@ namespace BSMM2.Models.Matches.MultiMatch.NthGameMatch {
 
 		public override ContentPage CreateMatchPage(Match match) => new NthGameMatchPage(this, match);
 
-		public override IRule Clone() => new NthGameMatchRule(this);
+		public override IRule Clone() => new NthGameMatchRule(Count, this);
 
 		public override Match CreateMatch(IPlayer player1, IPlayer player2)
 			=> new TheMatch(this, player1, player2);
@@ -42,12 +45,14 @@ namespace BSMM2.Models.Matches.MultiMatch.NthGameMatch {
 		private NthGameMatchRule() {
 		}
 
-		public NthGameMatchRule(bool enableLifePoint = false) : base(enableLifePoint)
+		public NthGameMatchRule(int count, bool enableLifePoint = false) : base(enableLifePoint)
         {
+			Count = count;
 
         }
 
-		private NthGameMatchRule(MultiMatchRule src) : base(src) {
+		private NthGameMatchRule(int count, MultiMatchRule src) : base(src) {
+			Count = count;
 		}
 	}
 }

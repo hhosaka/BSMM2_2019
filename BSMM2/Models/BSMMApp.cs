@@ -1,6 +1,6 @@
-﻿using BSMM2.Models.Matches.MultiMatch.FiveGameMatch;
-using BSMM2.Models.Matches.MultiMatch.ThreeOnThreeMatch;
+﻿using BSMM2.Models.Matches.MultiMatch.ThreeOnThreeMatch;
 using BSMM2.Models.Matches.SingleMatch;
+using BSMM2.Resource;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -16,6 +16,13 @@ namespace BSMM2.Models {
 	[JsonObject]
 	public class BSMMApp {
 
+		private const int VERSION = 1;
+
+		[JsonProperty]
+		private readonly int _version;
+
+		private static  string _information;
+
 		public static BSMMApp Create(string path, bool force) {
 			var storage = new Storage();
 
@@ -23,8 +30,16 @@ namespace BSMM2.Models {
 				return Initiate();
 			} else {
 				try {
-					return storage.Load<BSMMApp>(path, Initiate);
+					var _app =  storage.Load<BSMMApp>(path, Initiate);
+					switch (_app?._version) {
+						case VERSION:
+							return _app;
+						default:
+							_information = AppResources.TextLegacyVersion;
+							return Initiate();
+					}
 				} catch (Exception) {
+					_information = AppResources.TextCorruptedData;
 					return Initiate();
 				}
 			}
@@ -34,9 +49,9 @@ namespace BSMM2.Models {
 						path,
 						new IRule[] {
 					new SingleMatchRule(),
-					new Matches.MultiMatch.NthGameMatch.NthGameMatchRule(),
+					new Matches.MultiMatch.NthGameMatch.NthGameMatchRule(2),
 					new ThreeOnThreeMatchRule(),
-					new FiveGameMatchRule(),
+					new Matches.MultiMatch.NthGameMatch.NthGameMatchRule(3)
 						});
 				app.Save(true);
 				return app;
@@ -78,6 +93,13 @@ namespace BSMM2.Models {
 
 		[JsonProperty]
 		public string EntryTemplate { get; set; }
+
+		public void VersionCheck(Action<string>display) {
+			if (!string.IsNullOrEmpty(_information)) {
+				display?.Invoke(_information);
+				_information = null;
+			}
+		}
 
 		public bool Add(Game game, bool AsCurrentGame) {
 			if (AsCurrentGame) {
@@ -133,6 +155,7 @@ namespace BSMM2.Models {
 		}
 
 		private BSMMApp(Storage storage, string path, IRule[] rules) : this(storage) {
+			_version = VERSION;
 			Id = Guid.NewGuid();
 			Rules = rules;
 			_path = path;
