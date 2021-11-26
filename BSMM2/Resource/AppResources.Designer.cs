@@ -457,29 +457,11 @@ namespace BSMM2.Resource {
         }
         
         /// <summary>
-        ///   Point Compare - Mandatory に類似しているローカライズされた文字列を検索します。
+        ///   Point Compare に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string LabelPointCompare {
             get {
                 return ResourceManager.GetString("LabelPointCompare", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Post Compare - Mandatory に類似しているローカライズされた文字列を検索します。
-        /// </summary>
-        public static string LabelPostCompare {
-            get {
-                return ResourceManager.GetString("LabelPostCompare", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Pre Compare - Mandatory に類似しているローカライズされた文字列を検索します。
-        /// </summary>
-        public static string LabelPreCompare {
-            get {
-                return ResourceManager.GetString("LabelPreCompare", resourceCulture);
             }
         }
         
@@ -570,6 +552,15 @@ namespace BSMM2.Resource {
         public static string LabelUseWinPoint {
             get {
                 return ResourceManager.GetString("LabelUseWinPoint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Shuffle except all winners に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string LabelWinnerCompare {
+            get {
+                return ResourceManager.GetString("LabelWinnerCompare", resourceCulture);
             }
         }
         

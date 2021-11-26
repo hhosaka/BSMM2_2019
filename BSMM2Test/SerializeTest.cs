@@ -547,14 +547,13 @@ namespace BSMM2Test {
 
 			Assert.IsFalse(game.StepToMatching());
 
-			//game.AcceptGapMatchDuplication = true;
+			game.AcceptLosersGapMatchDuplication = true;//全勝者意外のギャップ戦を許容する
+			game.Players.Swap(1, 5);//この順番でなければマッチングできない。通常は乱数でなんとかなる。
+			foreach (var c in game.Rule.Comparers) c.Active=false;//設定できる比較条件を全て無効にする
 
-			//Assert.IsTrue(game.StepToMatching());
+			Assert.IsTrue(game.StepToMatching());
 
-			//game.AcceptGapMatchDuplication = false;
-			//game.AcceptLosersGapMatchDuplication = true;
-
-			//Assert.IsFalse(game.StepToMatching());
+			Util.Check(new[] { 1, 5, 6, 3, 4, 2 }, game.ActiveRound);
 		}
 
 		[TestMethod]

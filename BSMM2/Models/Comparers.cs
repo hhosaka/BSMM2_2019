@@ -58,6 +58,22 @@ namespace BSMM2.Models {
 		public string Label => AppResources.LabelPointCompare;
 
 		[JsonIgnore]
+		public bool Selectable => true;
+
+		[JsonProperty]
+		public bool Active { get; set; } = true;
+
+		public int Compare(Player p1, Player p2)
+			=> p1.Point.MatchPoint - p2.Point.MatchPoint;
+	}
+
+	public class WinnerComparer : IComparer
+	{
+
+		[JsonIgnore]
+		public string Label => AppResources.LabelWinnerCompare;
+
+		[JsonIgnore]
 		public bool Selectable => false;
 
 		public bool Active {
@@ -66,7 +82,7 @@ namespace BSMM2.Models {
 		}
 
 		public int Compare(Player p1, Player p2)
-			=> p1.Point.MatchPoint - p2.Point.MatchPoint;
+			=> (p1.IsAllWins?1:0) - (p2.IsAllWins?1:0);
 	}
 
 	[JsonObject]

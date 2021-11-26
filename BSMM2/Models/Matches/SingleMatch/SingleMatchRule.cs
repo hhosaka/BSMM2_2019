@@ -73,6 +73,7 @@ namespace BSMM2.Models.Matches.SingleMatch {
 			Prefix = AppResources.PrefixPlayer;
 			if (enableLifePoint) {
 				_comparers = new IComparer[] {
+				new WinnerComparer(),
 				new PointComparer(),
 				new LifePointComparer(),
 				new OpponentMatchPointComparer(),
@@ -83,6 +84,7 @@ namespace BSMM2.Models.Matches.SingleMatch {
 			};
 			} else {
 				_comparers = new IComparer[] {
+				new WinnerComparer(),
 				new PointComparer(),
 				new OpponentMatchPointComparer(),
 				new WinPointComparer(),

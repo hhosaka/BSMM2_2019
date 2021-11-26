@@ -250,13 +250,7 @@
     <value>Title</value>
   </data>
   <data name="LabelPointCompare" xml:space="preserve">
-    <value>Point Compare - Mandatory</value>
-  </data>
-  <data name="LabelPostCompare" xml:space="preserve">
-    <value>Post Compare - Mandatory</value>
-  </data>
-  <data name="LabelPreCompare" xml:space="preserve">
-    <value>Pre Compare - Mandatory</value>
+    <value>Point Compare</value>
   </data>
   <data name="LabelRuleAcceptByeMatchDuplication" xml:space="preserve">
     <value>Accept bye match duplication</value>
@@ -287,6 +281,9 @@
   </data>
   <data name="LabelUseWinPoint" xml:space="preserve">
     <value>Use Win point</value>
+  </data>
+  <data name="LabelWinnerCompare" xml:space="preserve">
+    <value>Shuffle except all winners</value>
   </data>
   <data name="MenuAddPlayer" xml:space="preserve">
     <value>Add Player</value>

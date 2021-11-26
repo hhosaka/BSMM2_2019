@@ -247,13 +247,7 @@
     <value>タイトル</value>
   </data>
   <data name="LabelPointCompare" xml:space="preserve">
-    <value>ポイント比較　必須</value>
-  </data>
-  <data name="LabelPostCompare" xml:space="preserve">
-    <value>事後比較　必須</value>
-  </data>
-  <data name="LabelPreCompare" xml:space="preserve">
-    <value>事前比較　必須</value>
+    <value>ポイント比較</value>
   </data>
   <data name="LabelRuleAcceptByeMatchDuplication" xml:space="preserve">
     <value>不戦勝の重複を認める</value>
@@ -284,6 +278,9 @@
   </data>
   <data name="LabelUseWinPoint" xml:space="preserve">
     <value>勝利ポイントで比較</value>
+  </data>
+  <data name="LabelWinnerCompare" xml:space="preserve">
+    <value>全勝者以外を自由に組み合わせ</value>
   </data>
   <data name="MenuAddPlayer" xml:space="preserve">
     <value>プレーヤー追加</value>

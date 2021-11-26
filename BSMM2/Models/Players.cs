@@ -98,6 +98,12 @@ namespace BSMM2.Models {
 			_players.ForEach(p => p.CalcOpponentPoint(_rule));
 		}
 
+		public void Swap(int x, int y) {
+			var temp = _players[x];
+			_players[x] = _players[y];
+			_players[y]=temp;
+		}
+
 		public void Export(TextWriter writer) {
 			_players.First()?.Export(new ExportData()).Keys.ForEach(key => writer.Write(key + ", "));
 			writer.WriteLine();
