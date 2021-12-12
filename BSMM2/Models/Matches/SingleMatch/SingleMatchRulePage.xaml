@@ -19,8 +19,9 @@
 				<Label Text="{x:Static prop:AppResources.LabelRuleAcceptGapMatchDuplication}" VerticalOptions="Center" />
 			</StackLayout>
 			<StackLayout Orientation="Horizontal">
-				<Switch IsToggled="{Binding Game.AcceptLoserGapMatchDuplication}" />
-				<Label Text="{x:Static prop:AppResources.LabelRuleAcceptLoserGapMatchDuplication}" VerticalOptions="Center" />
+				<Switch IsToggled="{Binding Game.AcceptLosersGapMatchDuplication}" />
+				<Label Text="{x:Static prop:AppResources.LabelRuleAcceptLosersGapMatchDuplication}" VerticalOptions="Center" />
+				
 			</StackLayout>
 			<ListView x:Name="ComparersView"
 				ItemsSource="{Binding Rule.Comparers}"

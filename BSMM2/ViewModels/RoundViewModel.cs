@@ -10,6 +10,13 @@ using Xamarin.Forms;
 
 namespace BSMM2.ViewModels {
 
+	public interface UI {
+		Task DisplayAlert(string title, string message, string ok);
+		Task<bool> DisplayAlert(string title, string message, string ok, string cancel);
+
+		void PushPage(Page page);
+	};
+
 	public class RoundViewModel : BaseViewModel {
 		private BSMMApp _app;
 
@@ -42,12 +49,12 @@ namespace BSMM2.ViewModels {
 		public DelegateCommand ShowRoundsLogCommand { get; }
 		public DelegateCommand StartTimerCommand { get; }
 
-		private Action<string> _failToMakeMatch;
+		private UI _ui;
 
-		public RoundViewModel(BSMMApp app, Action showRoundsLog, Action<string> failToMakeMatch) {
+		public RoundViewModel(BSMMApp app, Action showRoundsLog, UI ui) {
 			Debug.Assert(app != null);
 			_app = app;
-			_failToMakeMatch = failToMakeMatch;
+			_ui = ui;
 			ShuffleCommand = CreateShuffleCommand();
 			StartCommand = CreateStepToPlayingCommand();
 			StepToMatchingCommand = CreateStepToMatchingCommand();
@@ -102,6 +109,21 @@ namespace BSMM2.ViewModels {
 			}
 		}
 
+		private async Task<bool> SwitchSetting() {
+			var switcher = new Switcher().Get(_app.Game);
+			if (switcher != null) {
+				if (await _ui.DisplayAlert(AppResources.TextAlert, AppResources.TextFailToMakeMatch, switcher.Message, AppResources.TextGoToRuleSetting)) {
+					switcher.Execute(_app.Game);
+					return true;
+				} else {
+					_ui.PushPage(_app.Game.CreateRulePage());
+				}
+			} else {
+				_ui?.DisplayAlert(AppResources.TextAlert, AppResources.TextMatchingIncompleted, AppResources.ButtonOK);
+			}
+			return false;
+		}
+
 		private DelegateCommand CreateShuffleCommand() {
 			return new DelegateCommand(
 				Execute,
@@ -112,7 +134,7 @@ namespace BSMM2.ViewModels {
 					_app.Save(false);
 					await ExecuteRefresh();
 				} else {
-					_failToMakeMatch(AppResources.TextFailToMakeMatch);
+					await SwitchSetting();
 				}
 			}
 		}
@@ -123,13 +145,16 @@ namespace BSMM2.ViewModels {
 				() => Game.CanExecuteStepToMatching());
 
 			async void Execute() {
-				if(Game.Players.Source.Count(player => player.IsAllWins) <= 1) {
-					_failToMakeMatch(AppResources.TextEndGame);
-				} else if (Game.StepToMatching()) {
+				if (Game.IsFinished()) {
+					_ui?.DisplayAlert(AppResources.TextAlert, AppResources.TextEndGame, AppResources.ButtonOK);
+				} else {
+					while (!Game.StepToMatching()) {
+						if (!await SwitchSetting()) {
+							return;
+						}
+					}
 					_app.Save(false);
 					await ExecuteRefresh();
-				} else {
-					_failToMakeMatch(AppResources.TextFailToMakeMatch);
 				}
 			}
 		}

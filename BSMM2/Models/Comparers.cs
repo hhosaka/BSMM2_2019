@@ -45,6 +45,9 @@ namespace BSMM2.Models {
 		[JsonIgnore]
 		public bool Selectable => true;
 
+		[JsonIgnore]
+		public LEVEL Level => LEVEL.Option;
+
 		[JsonProperty]
 		public bool Active { get; set; } = true;
 
@@ -59,6 +62,9 @@ namespace BSMM2.Models {
 
 		[JsonIgnore]
 		public bool Selectable => true;
+
+		[JsonIgnore]
+		public LEVEL Level => LEVEL.Required;
 
 		[JsonProperty]
 		public bool Active { get; set; } = true;
@@ -75,6 +81,9 @@ namespace BSMM2.Models {
 
 		[JsonIgnore]
 		public bool Selectable => false;
+
+		[JsonIgnore]
+		public LEVEL Level => LEVEL.Mandatory;
 
 		public bool Active {
 			get => true;
@@ -94,6 +103,9 @@ namespace BSMM2.Models {
 		[JsonIgnore]
 		public bool Selectable => true;
 
+		[JsonIgnore]
+		public LEVEL Level => LEVEL.Option;
+
 		[JsonProperty]
 		public bool Active { get; set; } = true;
 
@@ -109,6 +121,9 @@ namespace BSMM2.Models {
 
 		[JsonIgnore]
 		public bool Selectable => true;
+
+		[JsonIgnore]
+		public LEVEL Level => LEVEL.Option;
 
 		[JsonProperty]
 		public bool Active { get; set; } = true;
@@ -126,6 +141,9 @@ namespace BSMM2.Models {
 		[JsonIgnore]
 		public bool Selectable => true;
 
+		[JsonIgnore]
+		public LEVEL Level => LEVEL.Option;
+
 		[JsonProperty]
 		public bool Active { get; set; } = true;
 
@@ -142,6 +160,9 @@ namespace BSMM2.Models {
 		[JsonIgnore]
 		public bool Selectable => true;
 
+		[JsonIgnore]
+		public LEVEL Level => LEVEL.Option;
+
 		[JsonProperty]
 		public bool Active { get; set; } = true;
 
@@ -157,6 +178,9 @@ namespace BSMM2.Models {
 
 		[JsonIgnore]
 		public bool Selectable => true;
+
+		[JsonIgnore]
+		public LEVEL Level => LEVEL.Option;
 
 		[JsonProperty]
 		public bool Active { get; set; } = true;

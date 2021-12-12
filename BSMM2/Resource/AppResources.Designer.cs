@@ -486,9 +486,9 @@ namespace BSMM2.Resource {
         /// <summary>
         ///   Accept gap match duplication except all winners に類似しているローカライズされた文字列を検索します。
         /// </summary>
-        public static string LabelRuleAcceptLoserGapMatchDuplication {
+        public static string LabelRuleAcceptLosersGapMatchDuplication {
             get {
-                return ResourceManager.GetString("LabelRuleAcceptLoserGapMatchDuplication", resourceCulture);
+                return ResourceManager.GetString("LabelRuleAcceptLosersGapMatchDuplication", resourceCulture);
             }
         }
         
@@ -556,7 +556,7 @@ namespace BSMM2.Resource {
         }
         
         /// <summary>
-        ///   Shuffle except all winners に類似しているローカライズされた文字列を検索します。
+        ///   Consider only all winners に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string LabelWinnerCompare {
             get {
@@ -835,20 +835,11 @@ namespace BSMM2.Resource {
         }
         
         /// <summary>
-        ///   Fail to make match に類似しているローカライズされた文字列を検索します。
+        ///   Fail to make match. you may re-try after modify settings. に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string TextFailToMakeMatch {
             get {
                 return ResourceManager.GetString("TextFailToMakeMatch", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Give up に類似しているローカライズされた文字列を検索します。
-        /// </summary>
-        public static string TextGiveUp {
-            get {
-                return ResourceManager.GetString("TextGiveUp", resourceCulture);
             }
         }
         
@@ -881,11 +872,56 @@ namespace BSMM2.Resource {
         }
         
         /// <summary>
+        ///   Matching Incompleted に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string TextMatchingIncompleted {
+            get {
+                return ResourceManager.GetString("TextMatchingIncompleted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Match Point に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string TextMatchPoint {
             get {
                 return ResourceManager.GetString("TextMatchPoint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Omit bye match duplication に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string TextOmitByeMatchDuplication {
+            get {
+                return ResourceManager.GetString("TextOmitByeMatchDuplication", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Omit detail comparison に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string TextOmitDetailComparison {
+            get {
+                return ResourceManager.GetString("TextOmitDetailComparison", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Omit gap match duplication に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string TextOmitGapMatchDuplication {
+            get {
+                return ResourceManager.GetString("TextOmitGapMatchDuplication", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Omit gap match on loosers duplication に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string TextOmitLoosersGapMatchDuplication {
+            get {
+                return ResourceManager.GetString("TextOmitLoosersGapMatchDuplication", resourceCulture);
             }
         }
         
@@ -994,6 +1030,15 @@ namespace BSMM2.Resource {
         public static string TextVersionCheck {
             get {
                 return ResourceManager.GetString("TextVersionCheck", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consider only all winners に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string TextWinnerOnly {
+            get {
+                return ResourceManager.GetString("TextWinnerOnly", resourceCulture);
             }
         }
         

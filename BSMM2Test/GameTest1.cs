@@ -151,6 +151,7 @@ namespace BSMM2Test {
 			Util.SetResult(game, 1, Win);
 
 			Assert.IsTrue(game.CanExecuteStepToMatching());
+			Assert.IsFalse(game.IsFinished());
 
 			game.StepToMatching();
 			Util.CheckWithOrder(new[] { 1, 3, 2, 4 }, new[] { 1, 1, 3, 3 }, game.Players.GetSortedSource());
@@ -165,7 +166,8 @@ namespace BSMM2Test {
 
 			Util.CheckWithOrder(new[] { 3, 1, 4, 2 }, new[] { 1, 2, 2, 4 }, game.Players.GetSortedSource());
 
-			Assert.IsFalse(game.CanExecuteStepToMatching());
+			Assert.IsTrue(game.CanExecuteStepToMatching());
+			Assert.IsTrue(game.IsFinished());
 		}
 
 		[TestMethod]

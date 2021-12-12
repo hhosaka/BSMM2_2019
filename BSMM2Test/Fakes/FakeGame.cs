@@ -7,22 +7,19 @@ namespace BSMM2Test {
 
 	public class FakeGame : Game {
 
-		protected override IEnumerable<Player> RandomizePlayer(IEnumerable<Player> players)
-			=> players;
-
 		public FakeGame() {
 		}
 
 		public FakeGame(IRule rule, int count)
-			: base(rule, new Players(rule, count), DateTime.Now.ToString()) {
+			: base(rule, new Players(rule, count), DateTime.Now.ToString(),p => p) {
 		}
 
 		public FakeGame(IRule rule, TextReader r)
-			: base(rule, new Players(rule, r), DateTime.Now.ToString()) {
+			: base(rule, new Players(rule, r), DateTime.Now.ToString(), p => p) {
 		}
 
 		public FakeGame(IRule rule, Players players)
-			: base(rule, new Players(players), DateTime.Now.ToString()) {
+			: base(rule, new Players(players), DateTime.Now.ToString(), p => p) {
 		}
 	}
 }

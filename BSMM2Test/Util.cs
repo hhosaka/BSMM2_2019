@@ -116,6 +116,7 @@ namespace BSMM2Test {
 			Assert.AreEqual(a.Rule.Name, b.Rule.Name);
 			Assert.AreEqual(a.AcceptByeMatchDuplication, b.AcceptByeMatchDuplication);
 			Assert.AreEqual(a.AcceptGapMatchDuplication, b.AcceptGapMatchDuplication);
+			Assert.AreEqual(a.AcceptLosersGapMatchDuplication, b.AcceptLosersGapMatchDuplication);
 			if (a.Rule is SingleMatchRule srule) {
 				Assert.AreEqual(srule.EnableLifePoint, srule.EnableLifePoint);
 			}

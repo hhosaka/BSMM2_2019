@@ -258,7 +258,7 @@
   <data name="LabelRuleAcceptGapMatchDuplication" xml:space="preserve">
     <value>Accept gap match duplication</value>
   </data>
-  <data name="LabelRuleAcceptLoserGapMatchDuplication" xml:space="preserve">
+  <data name="LabelRuleAcceptLosersGapMatchDuplication" xml:space="preserve">
     <value>Accept gap match duplication except all winners</value>
   </data>
   <data name="LabelRuleSetting" xml:space="preserve">
@@ -283,7 +283,7 @@
     <value>Use Win point</value>
   </data>
   <data name="LabelWinnerCompare" xml:space="preserve">
-    <value>Shuffle except all winners</value>
+    <value>Consider only all winners</value>
   </data>
   <data name="MenuAddPlayer" xml:space="preserve">
     <value>Add Player</value>
@@ -376,10 +376,7 @@
     <value>There is only winner.　no more create matching.</value>
   </data>
   <data name="TextFailToMakeMatch" xml:space="preserve">
-    <value>Fail to make match</value>
-  </data>
-  <data name="TextGiveUp" xml:space="preserve">
-    <value>Give up</value>
+    <value>Fail to make match. you may re-try after modify settings.</value>
   </data>
   <data name="TextGoToRuleSetting" xml:space="preserve">
     <value>Go to rule setting. You may modify rule setting before retry.</value>
@@ -391,8 +388,23 @@ NOTE :  BSMM2 does not guarantee  persistency of your settings and logs.</value>
   <data name="TextLifePoint" xml:space="preserve">
     <value>Life Point</value>
   </data>
+  <data name="TextMatchingIncompleted" xml:space="preserve">
+    <value>Matching Incompleted</value>
+  </data>
   <data name="TextMatchPoint" xml:space="preserve">
     <value>Match Point</value>
+  </data>
+  <data name="TextOmitByeMatchDuplication" xml:space="preserve">
+    <value>Omit bye match duplication</value>
+  </data>
+  <data name="TextOmitDetailComparison" xml:space="preserve">
+    <value>Omit detail comparison</value>
+  </data>
+  <data name="TextOmitGapMatchDuplication" xml:space="preserve">
+    <value>Omit gap match duplication</value>
+  </data>
+  <data name="TextOmitLoosersGapMatchDuplication" xml:space="preserve">
+    <value>Omit gap match on loosers duplication</value>
   </data>
   <data name="TextOpponent" xml:space="preserve">
     <value>Opponent</value>
@@ -429,6 +441,9 @@ NOTE :  BSMM2 does not guarantee  persistency of your settings and logs.</value>
   </data>
   <data name="TextVersionCheck" xml:space="preserve">
     <value>Version Check</value>
+  </data>
+  <data name="TextWinnerOnly" xml:space="preserve">
+    <value>Consider only all winners</value>
   </data>
   <data name="TextWinPoint" xml:space="preserve">
     <value>Win Point</value>

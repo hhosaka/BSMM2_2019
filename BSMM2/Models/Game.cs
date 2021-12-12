@@ -106,7 +106,7 @@ namespace BSMM2.Models {
 		}
 
 		public bool CanExecuteStepToMatching()
-			=> ActiveRound.IsFinished && Players.Source.Count(player => player.IsAllWins) > 1;
+			=> ActiveRound.IsFinished;
 
 		public bool StepToMatching() {
 			if (CanExecuteStepToMatching()) {
@@ -120,9 +120,11 @@ namespace BSMM2.Models {
 			return false;
 		}
 
-		// UTの為にシャッフルしないルートを用意する
-		protected virtual IEnumerable<Player> RandomizePlayer(IEnumerable<Player>players) 
-			=> players.OrderBy(i => Guid.NewGuid());
+		public bool IsFinished()
+			=> Players.Source.Count(player => player.IsAllWins) <= 1;
+
+		[JsonIgnore]
+		public Func<IEnumerable<Player>, IEnumerable<Player>> RandomizePlayer;
 
 		private IEnumerable<Match> MakeRound() {
 			Players.Reset();
@@ -208,9 +210,10 @@ namespace BSMM2.Models {
 			=> Rule.CreateRulePage(this);
 
 		public Game() {// For Serializer
+			RandomizePlayer = (p => p.OrderBy(i => Guid.NewGuid()));
 		}
 
-		public Game(IRule rule, Players players, string title = null) {
+		public Game(IRule rule, Players players, string title = null,Func<IEnumerable<Player>, IEnumerable<Player>>randomizePlayer=null):this() {
 			if (title == null)
 				Title = GameTitle;
 			else
@@ -221,6 +224,7 @@ namespace BSMM2.Models {
 			Rule = rule;
 			_rounds = new List<Round>();
 			StartTime = null;
+			if(randomizePlayer!= null) RandomizePlayer = randomizePlayer;
 			var result = CreateMatching();
 			Debug.Assert(result);
 		}

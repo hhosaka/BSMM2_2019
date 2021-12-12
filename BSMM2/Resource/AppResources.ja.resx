@@ -255,7 +255,7 @@
   <data name="LabelRuleAcceptGapMatchDuplication" xml:space="preserve">
     <value>階段戦の重複を認める</value>
   </data>
-  <data name="LabelRuleAcceptLoserGapMatchDuplication" xml:space="preserve">
+  <data name="LabelRuleAcceptLosersGapMatchDuplication" xml:space="preserve">
     <value>全勝でない者の階段戦の重複を認める</value>
   </data>
   <data name="LabelRuleSetting" xml:space="preserve">
@@ -280,7 +280,7 @@
     <value>勝利ポイントで比較</value>
   </data>
   <data name="LabelWinnerCompare" xml:space="preserve">
-    <value>全勝者以外を自由に組み合わせ</value>
+    <value>全勝だけを考慮</value>
   </data>
   <data name="MenuAddPlayer" xml:space="preserve">
     <value>プレーヤー追加</value>
@@ -373,10 +373,7 @@
     <value>全勝者が決まりました.これ以上の抽選は行いません。</value>
   </data>
   <data name="TextFailToMakeMatch" xml:space="preserve">
-    <value>抽選に失敗しました。制約を変更して再抽選できます。</value>
-  </data>
-  <data name="TextGiveUp" xml:space="preserve">
-    <value>中止</value>
+    <value>現在の設定では抽選できませんでした。条件を変えて再抽選できます。</value>
   </data>
   <data name="TextGoToRuleSetting" xml:space="preserve">
     <value>ルール設定へ</value>
@@ -388,8 +385,23 @@ BSMM2は設定データの永続性を保証しないことをご了承くださ
   <data name="TextLifePoint" xml:space="preserve">
     <value>ライフP</value>
   </data>
+  <data name="TextMatchingIncompleted" xml:space="preserve">
+    <value>抽選できませんでした。</value>
+  </data>
   <data name="TextMatchPoint" xml:space="preserve">
     <value>マッチP</value>
+  </data>
+  <data name="TextOmitByeMatchDuplication" xml:space="preserve">
+    <value>不戦勝の重複を認める</value>
+  </data>
+  <data name="TextOmitDetailComparison" xml:space="preserve">
+    <value>勝利ポイントのみで抽選</value>
+  </data>
+  <data name="TextOmitGapMatchDuplication" xml:space="preserve">
+    <value>階段戦の重複を認める</value>
+  </data>
+  <data name="TextOmitLoosersGapMatchDuplication" xml:space="preserve">
+    <value>全勝者以外の階段戦の重複を認める</value>
   </data>
   <data name="TextOpponent" xml:space="preserve">
     <value>対戦者</value>
@@ -426,6 +438,9 @@ BSMM2は設定データの永続性を保証しないことをご了承くださ
   </data>
   <data name="TextVersionCheck" xml:space="preserve">
     <value>バージョンチェック</value>
+  </data>
+  <data name="TextWinnerOnly" xml:space="preserve">
+    <value>全勝者以外を考慮しない</value>
   </data>
   <data name="TextWinPoint" xml:space="preserve">
     <value>勝利P</value>

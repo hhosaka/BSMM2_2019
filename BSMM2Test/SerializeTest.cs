@@ -547,8 +547,13 @@ namespace BSMM2Test {
 
 			Assert.IsFalse(game.StepToMatching());
 
-			game.AcceptLosersGapMatchDuplication = true;//全勝者意外のギャップ戦を許容する
+			var json = JsonConvert.SerializeObject(game, settings);// SwitcherTest3
+
 			game.Players.Swap(1, 5);//この順番でなければマッチングできない。通常は乱数でなんとかなる。
+
+			json = JsonConvert.SerializeObject(game, settings);// SwitcherTest2
+
+			game.AcceptLosersGapMatchDuplication = true;//全勝者以外のギャップ戦を許容する
 			foreach (var c in game.Rule.Comparers) c.Active=false;//設定できる比較条件を全て無効にする
 
 			Assert.IsTrue(game.StepToMatching());
