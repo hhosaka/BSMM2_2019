@@ -395,7 +395,7 @@ BSMM2は設定データの永続性を保証しないことをご了承くださ
     <value>不戦勝の重複を認める</value>
   </data>
   <data name="TextOmitDetailComparison" xml:space="preserve">
-    <value>勝利ポイントのみで抽選</value>
+    <value>ポイントのみで抽選</value>
   </data>
   <data name="TextOmitGapMatchDuplication" xml:space="preserve">
     <value>階段戦の重複を認める</value>

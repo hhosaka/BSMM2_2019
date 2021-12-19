@@ -61,7 +61,7 @@ namespace BSMM2.Models {
 		public string Label => AppResources.LabelPointCompare;
 
 		[JsonIgnore]
-		public bool Selectable => true;
+		public bool Selectable => false;
 
 		[JsonIgnore]
 		public LEVEL Level => LEVEL.Required;
