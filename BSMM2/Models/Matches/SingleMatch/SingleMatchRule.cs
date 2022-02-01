@@ -14,7 +14,7 @@ namespace BSMM2.Models.Matches.SingleMatch {
 		public bool EnableLifePoint {
 			get => _enableLifePoint;
 			set {
-				if (_enableLifePoint != value) {
+				if (_comparers==null || _enableLifePoint != value) {
 					_enableLifePoint = value;
 					if (value) {
 						_comparers = new IComparer[] {
