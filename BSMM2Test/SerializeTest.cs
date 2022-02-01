@@ -85,7 +85,7 @@ namespace BSMM2Test {
 			Util.Check(new[] { 1, 2, 3, 4, 5, 6 }, game.ActiveRound);
 			game.ActiveRound.Swap(0, 1);
 			Util.Check(new[] { 3, 2, 1, 4, 5, 6 }, game.ActiveRound);
-			Util.Check(new[] { 1, 2, 3, 4, 5, 6 }, game.Players.GetSortedSource());
+			Util.Check(new[] { 1, 2, 3, 4, 5, 6 }, game.Players.GetSortedSource(game.Rule));
 
 			var buf = new StringBuilder();
 
@@ -96,7 +96,7 @@ namespace BSMM2Test {
 			var result = new Serializer<Game>().Deserialize(new StringReader(sbuf));
 
 			Util.Check(new[] { 3, 2, 1, 4, 5, 6 }, result.ActiveRound);
-			Util.Check(new[] { 1, 2, 3, 4, 5, 6 }, result.Players.GetSortedSource());
+			Util.Check(new[] { 1, 2, 3, 4, 5, 6 }, result.Players.GetSortedSource(game.Rule));
 			Assert.AreEqual(game.Title, result.Title);
 			Assert.AreEqual(game.Id, result.Id);
 			Util.Check(game, result);
@@ -116,13 +116,13 @@ namespace BSMM2Test {
 			game.ActiveRound.Matches.ElementAt(2).SetResult(Win);
 
 			Util.Check(new[] { 1, 2, 3, 4, 5, 6 }, game.ActiveRound);
-			Util.Check(new[] { 1, 3, 5, 2, 4, 6 }, game.Players.GetSortedSource());
+			Util.Check(new[] { 1, 3, 5, 2, 4, 6 }, game.Players.GetSortedSource(game.Rule));
 
 			var json = JsonConvert.SerializeObject(game, settings);
 			var result = JsonConvert.DeserializeObject<Game>(json, settings);
 
 			Util.Check(new[] { 1, 2, 3, 4, 5, 6 }, result.ActiveRound);
-			Util.Check(new[] { 1, 3, 5, 2, 4, 6 }, result.Players.GetSortedSource());
+			Util.Check(new[] { 1, 3, 5, 2, 4, 6 }, result.Players.GetSortedSource(game.Rule));
 		}
 
 		[TestMethod]
@@ -139,7 +139,7 @@ namespace BSMM2Test {
 			game.ActiveRound.Matches.ElementAt(2).SetResult(Win);
 
 			Util.Check(new[] { 1, 2, 3, 4, 5, 6 }, game.ActiveRound);
-			Util.Check(new[] { 1, 3, 5, 2, 4, 6 }, game.Players.GetSortedSource());
+			Util.Check(new[] { 1, 3, 5, 2, 4, 6 }, game.Players.GetSortedSource(game.Rule));
 
 			var engine = new Storage();
 
@@ -148,7 +148,7 @@ namespace BSMM2Test {
 			var game2 = Game.Load(game.Id, engine);
 
 			Util.Check(new[] { 1, 2, 3, 4, 5, 6 }, game2.ActiveRound);
-			Util.Check(new[] { 1, 3, 5, 2, 4, 6 }, game2.Players.GetSortedSource());
+			Util.Check(new[] { 1, 3, 5, 2, 4, 6 }, game2.Players.GetSortedSource(game.Rule));
 			Assert.AreEqual(0, game2.Rounds.Count());
 		}
 
@@ -285,7 +285,7 @@ namespace BSMM2Test {
 			game.ActiveRound.Matches.ElementAt(0).SetResult(Win);
 
 			Util.Check(new[] { 1, 2, 3, -1 }, game.ActiveRound);
-			Util.Check(new[] { 1, 3, 2 }, game.Players.GetSortedSource());
+			Util.Check(new[] { 1, 3, 2 }, game.Players.GetSortedSource(game.Rule));
 
 			var engine = new Storage();
 
@@ -294,7 +294,7 @@ namespace BSMM2Test {
 			var game2 = Game.Load(game.Id, engine);
 
 			Util.Check(new[] { 1, 2, 3, -1 }, game2.ActiveRound);
-			Util.Check(new[] { 1, 3, 2 }, game2.Players.GetSortedSource());
+			Util.Check(new[] { 1, 3, 2 }, game2.Players.GetSortedSource(game.Rule));
 			Assert.AreEqual(0, game2.Rounds.Count());
 		}
 
@@ -374,7 +374,7 @@ namespace BSMM2Test {
 			game.ActiveRound.Matches.ElementAt(0).SetResult(Win);
 
 			Util.Check(new[] { 3, 2, 1, -1 }, game.ActiveRound);
-			Util.Check(new[] { 3, 1, 2 }, game.Players.GetSortedSource());
+			Util.Check(new[] { 3, 1, 2 }, game.Players.GetSortedSource(game.Rule));
 		}
 
 		[TestMethod]
@@ -464,7 +464,7 @@ namespace BSMM2Test {
 			Util.SetResult(game, 3, Win);
 			Util.SetResult(game, 4, Win);
 
-			Util.Check(new[] { 1, 3, 5, 7, 9, 2, 4, 6, 8, 10 }, game.Players.GetSortedSource());
+			Util.Check(new[] { 1, 3, 5, 7, 9, 2, 4, 6, 8, 10 }, game.Players.GetSortedSource(game.Rule));
 
 			game.StepToMatching();
 
@@ -527,7 +527,7 @@ namespace BSMM2Test {
 			Util.SetResult(game, 1, Win);
 			Util.SetResult(game, 2, Win);
 
-			Util.Check(new[] { 1, 3, 5, 2, 4, 6 }, game.Players.GetSortedSource());
+			Util.Check(new[] { 1, 3, 5, 2, 4, 6 }, game.Players.GetSortedSource(game.Rule));
 
 			game.StepToMatching();
 
@@ -543,7 +543,7 @@ namespace BSMM2Test {
 			Util.SetResult(game, 1, Win);
 			Util.SetResult(game, 2, Win);
 
-			Util.Check(new[] { 1, 5, 3, 4, 2, 6 }, game.Players.GetSortedSource());
+			Util.Check(new[] { 1, 5, 3, 4, 2, 6 }, game.Players.GetSortedSource(game.Rule));
 
 			Assert.IsFalse(game.StepToMatching());
 
@@ -561,9 +561,14 @@ namespace BSMM2Test {
 			Util.Check(new[] { 1, 5, 6, 3, 4, 2 }, game.ActiveRound);
 		}
 
+		private const string TESTFILE = "testdata.json";
+
 		[TestMethod]
 		public void LoadSaveAppTest1() {
 			var buf = new StringBuilder();
+
+			new Storage().Delete(TESTFILE);
+			// TODO: バージョンアップ時の検証
 
 			var app = BSMMApp.Create(TESTFILE, false);
 			app.Rule = app.Rules.ElementAt(1);
@@ -575,8 +580,6 @@ namespace BSMM2Test {
 			Assert.IsTrue(result.Rules.Count() == 4);
 			Assert.AreEqual(result.Rule, result.Rules.ElementAt(1));
 		}
-
-		private const string TESTFILE = "testdata.json";
 
 		[TestMethod]
 		public void LoadSaveAppTest2() {
@@ -603,6 +606,73 @@ namespace BSMM2Test {
 			Assert.AreEqual(app2.Rules.ElementAt(1), app2.Rule);
 			Assert.AreEqual(1, app2.Games.Count());
 			Assert.AreEqual(app.Game.Id, app2.Game.Id);
+		}
+
+		[TestMethod]
+		public void LoadSaveRuleTest1() {
+
+			var rule = new SingleMatchRule(true);
+			var src = new FakeGame(rule, 4);
+
+			src.StepToMatching();
+			src.StepToPlaying();
+			(Util.GetMatch(src, 0) as SingleMatch).SetSingleMatchResult(Win, 1, 0);
+			(Util.GetMatch(src, 1) as SingleMatch).SetSingleMatchResult(Win, 5, 5);
+
+			Util.Check(new[] { 3, 1, 4, 2 }, src.Players.GetSortedSource(rule));
+
+			var buf = new StringBuilder();
+
+			new Serializer<Game>().Serialize(new StringWriter(buf), src);
+			var dst = new Serializer<Game>().Deserialize(new StringReader(buf.ToString()));
+
+			Util.Check(new[] { 3, 1, 4, 2 }, src.Players.GetSortedSource(rule));
+		}
+
+		[TestMethod]
+		public void LoadSaveRuleTest2() {
+
+			var app = BSMMApp.Create(TESTFILE, true);
+			var rule = new SingleMatchRule(true);
+			var src = new FakeGame(rule, 4);
+			app.Add(src, true);
+
+			src.StepToMatching();
+			src.StepToPlaying();
+			(Util.GetMatch(src, 0) as SingleMatch).SetSingleMatchResult(Win, 1, 0);
+			(Util.GetMatch(src, 1) as SingleMatch).SetSingleMatchResult(Win, 5, 5);
+
+			Util.Check(new[] { 3, 1, 4, 2 }, src.Players.GetSortedSource(rule));
+
+			var buf = new StringBuilder();
+
+			app.Save(true);
+
+			var app2 = BSMMApp.Create(TESTFILE, false);
+
+			Util.Check(new[] { 3, 1, 4, 2 }, app2.Game.Players.GetSortedSource(rule));
+		}
+
+		[TestMethod]
+		public void LoadSaveRuleTest3() {
+
+			var rule = new SingleMatchRule(true);
+			var src = new FakeGame(rule, 4);
+
+			src.StepToMatching();
+			src.StepToPlaying();
+			(Util.GetMatch(src, 0) as SingleMatch).SetSingleMatchResult(Win, 1, 0);
+			(Util.GetMatch(src, 1) as SingleMatch).SetSingleMatchResult(Win, 5, 5);
+
+			Util.Check(new[] { 3, 1, 4, 2 }, src.Players.GetSortedSource(rule));
+
+			rule.EnableLifePoint = false;
+
+			Util.Check(new[] { 1, 3, 2, 4 }, src.Players.GetSortedSource(rule));
+
+			rule.EnableLifePoint = true;
+
+			Util.Check(new[] { 3, 1, 4, 2 }, src.Players.GetSortedSource(rule));
 		}
 	}
 }

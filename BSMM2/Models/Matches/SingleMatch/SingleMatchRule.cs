@@ -10,7 +10,37 @@ namespace BSMM2.Models.Matches.SingleMatch {
 	public class SingleMatchRule : IRule {
 
 		[JsonProperty]
-		public bool EnableLifePoint { get; set; }
+		bool _enableLifePoint;
+		public bool EnableLifePoint {
+			get => _enableLifePoint;
+			set {
+				if (_enableLifePoint != value) {
+					_enableLifePoint = value;
+					if (value) {
+						_comparers = new IComparer[] {
+							new WinnerComparer(),
+							new PointComparer(),
+							new LifePointComparer(),
+							new OpponentMatchPointComparer(),
+							new OpponentLifePointComparer(),
+							new WinPointComparer(),
+							new OpponentWinPointComparer(),
+							new ByeMatchComparer(),
+						};
+					} else {
+						_comparers = new IComparer[] {
+							new WinnerComparer(),
+							new PointComparer(),
+							new OpponentMatchPointComparer(),
+							new WinPointComparer(),
+							new OpponentWinPointComparer(),
+							new ByeMatchComparer(),
+						};
+					}
+				}
+			}
+
+		}
 
 		[JsonProperty]
 		public string Prefix { get; set; }
@@ -38,8 +68,8 @@ namespace BSMM2.Models.Matches.SingleMatch {
 		public virtual IRule Clone()
 			=> new SingleMatchRule(this);
 
-		public virtual Match CreateMatch(IPlayer player1, IPlayer player2)
-			=> new SingleMatch(this, player1, player2);
+		public virtual Match CreateMatch(int id, IPlayer player1, IPlayer player2)
+			=> new SingleMatch(id, player1, player2);
 
 		public IPoint Point(IEnumerable<IPoint> points)
 			=> SingleMatchResult.Total(EnableLifePoint, points);
@@ -71,27 +101,6 @@ namespace BSMM2.Models.Matches.SingleMatch {
 		public SingleMatchRule(bool enableLifePoint = false) {
 			EnableLifePoint = enableLifePoint;
 			Prefix = AppResources.PrefixPlayer;
-			if (enableLifePoint) {
-				_comparers = new IComparer[] {
-				new WinnerComparer(),
-				new PointComparer(),
-				new LifePointComparer(),
-				new OpponentMatchPointComparer(),
-				new OpponentLifePointComparer(),
-				new WinPointComparer(),
-				new OpponentWinPointComparer(),
-				new ByeMatchComparer(),
-			};
-			} else {
-				_comparers = new IComparer[] {
-				new WinnerComparer(),
-				new PointComparer(),
-				new OpponentMatchPointComparer(),
-				new WinPointComparer(),
-				new OpponentWinPointComparer(),
-				new ByeMatchComparer(),
-			};
-			}
 		}
 
 		protected SingleMatchRule(SingleMatchRule src) : this(src.EnableLifePoint) {

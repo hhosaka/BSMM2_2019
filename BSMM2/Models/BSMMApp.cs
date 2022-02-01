@@ -16,7 +16,7 @@ namespace BSMM2.Models {
 	[JsonObject]
 	public class BSMMApp {
 
-		private const int VERSION = 1;
+		private const int VERSION = 2;
 
 		[JsonProperty]
 		private readonly int _version;
@@ -142,7 +142,7 @@ namespace BSMM2.Models {
 
 		public async void ExportPlayers() {
 			var buf = new StringBuilder();
-			Game.Players.Export(new StringWriter(buf));
+			Game.Players.Export(Game.Rule, new StringWriter(buf));
 			await SendByMail(Game.Headline, buf.ToString(), new[] { MailAddress });
 		}
 

@@ -103,7 +103,7 @@ namespace BSMM2.ViewModels {
 			}
 
 			Players CreateByCurrent()
-				=> new Players(app.Game.Players);
+				=> new Players(app.Game.Rule, app.Game.Players);
 		}
 	}
 }

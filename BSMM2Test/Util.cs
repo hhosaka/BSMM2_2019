@@ -26,13 +26,13 @@ namespace BSMM2Test {
 			CollectionAssert.AreEqual(expect.ToArray(), result.ToArray(), Message(expect, result));
 		}
 
-		public static void CheckWithOrder(IEnumerable<int> expectedPlayers, IEnumerable<int> expectedOrder, IEnumerable<Player> players) {
+		public static void CheckWithOrder(IRule rule, IEnumerable<int> expectedPlayers, IEnumerable<int> expectedOrder, IEnumerable<Player> players) {
 			Check(expectedPlayers, players);
-			CheckOrder(expectedOrder, players);
+			CheckOrder(rule, expectedOrder, players);
 		}
 
-		public static void CheckOrder(IEnumerable<int> expectedOrder, IEnumerable<Player> players) {
-			var result = Players.GetOrderedPlayers(players).Select(player=>player.Order);
+		public static void CheckOrder(IRule rule, IEnumerable<int> expectedOrder, IEnumerable<Player> players) {
+			var result = Players.GetOrderedPlayers(rule, players).Select(player=>player.Order);
 			CollectionAssert.AreEqual(expectedOrder.ToArray(), result.ToArray(), Message(expectedOrder, result));
 		}
 
@@ -73,8 +73,8 @@ namespace BSMM2Test {
 
 		public static void Check(IRule rule, Players a, Players b) {
 			Assert.AreEqual(a.Count, b.Count);
-			var ita = a.GetSortedSource().GetEnumerator();
-			var itb = b.GetSortedSource().GetEnumerator();
+			var ita = a.GetSortedSource(rule).GetEnumerator();
+			var itb = b.GetSortedSource(rule).GetEnumerator();
 			while (ita.MoveNext() && itb.MoveNext()) {
 				Check(ita.Current, itb.Current);
 			}
@@ -145,14 +145,14 @@ namespace BSMM2Test {
 
 		public static string Export(Game game) {
 			var buf = new StringBuilder();
-			game.Players.Export(new StringWriter(buf));
+			game.Players.Export(game.Rule, new StringWriter(buf));
 			return buf.ToString();
 		}
 
-		public static string Export(Players players) {
+		public static string Export(IRule rule, Players players) {
 			var buf = new StringBuilder();
 			using (var writer = new StringWriter(buf)) {
-				players.Export(writer);
+				players.Export(rule, writer);
 			}
 			return buf.ToString();
 		}

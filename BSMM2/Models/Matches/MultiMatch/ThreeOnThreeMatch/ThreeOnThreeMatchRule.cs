@@ -23,7 +23,7 @@ namespace BSMM2.Models.Matches.MultiMatch.ThreeOnThreeMatch {
 			public TheMatch() {// For Serializer
 			}
 
-			public TheMatch(MultiMatchRule rule, IPlayer player1, IPlayer player2) : base(rule, player1, player2) { }
+			public TheMatch(int id, IPlayer player1, IPlayer player2) : base(id, player1, player2) { }
 		}
 
 		[JsonIgnore]
@@ -40,8 +40,8 @@ namespace BSMM2.Models.Matches.MultiMatch.ThreeOnThreeMatch {
 		public override IRule Clone()
 			=> new ThreeOnThreeMatchRule(this);
 
-		public override Match CreateMatch(IPlayer player1, IPlayer player2)
-			=> new TheMatch(this, player1, player2);
+		public override Match CreateMatch(int id, IPlayer player1, IPlayer player2)
+			=> new TheMatch(id, player1, player2);
 
 		private ThreeOnThreeMatchRule() {
 		}

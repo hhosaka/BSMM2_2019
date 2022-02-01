@@ -19,7 +19,7 @@ namespace BSMM2Test {
 		}
 
 		public FakeGame(IRule rule, Players players)
-			: base(rule, new Players(players), DateTime.Now.ToString(), p => p) {
+			: base(rule, new Players(rule, players), DateTime.Now.ToString(), p => p) {
 		}
 	}
 }

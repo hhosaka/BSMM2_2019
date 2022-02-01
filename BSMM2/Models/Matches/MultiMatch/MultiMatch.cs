@@ -22,14 +22,11 @@ namespace BSMM2.Models.Matches.MultiMatch {
 		[JsonIgnore]
 		protected abstract int MatchCount { get; }
 
-		[JsonProperty]
-		private MultiMatchRule Rule => _rule as MultiMatchRule;
-
 		public MultiMatch() {
 		}
 
-		public MultiMatch(MultiMatchRule rule, IPlayer player1, IPlayer player2)
-			: base(rule, player1, player2) {
+		public MultiMatch(int id, IPlayer player1, IPlayer player2)
+			: base(id, player1, player2) {
 		}
 
 		public override void SetResult(RESULT_T result) {

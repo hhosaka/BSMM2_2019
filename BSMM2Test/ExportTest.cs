@@ -23,7 +23,7 @@ namespace BSMM2Test {
 		[TestMethod]
 		public void ExportPlayersTest1() {
 			var game = new FakeGame(new SingleMatchRule(), 2);
-			var buf = Util.Export(game.Players);
+			var buf = Util.Export(game.Rule, game.Players);
 			Assert.AreEqual(
 				AppResources.TextPlayerName + ", " +
 				AppResources.TextDropped + ", " +
@@ -56,7 +56,7 @@ namespace BSMM2Test {
 				title +
 				"\"Player001\", False, 3, 1, 0, 0, 0, \r\n" +
 				"\"Player002\", False, 0, 0, 3, 1, 0, \r\n",
-				Util.Export(game.Players));
+				Util.Export(game.Rule, game.Players));
 
 			game.Players.Source.ElementAt(0).Dropped = true;
 
@@ -64,7 +64,7 @@ namespace BSMM2Test {
 				title +
 				"\"Player001\", True, 3, 1, 0, 0, 0, \r\n" +
 				"\"Player002\", False, 0, 0, 3, 1, 0, \r\n",
-				Util.Export(game.Players));
+				Util.Export(game.Rule, game.Players));
 
 			game.Players.Source.ElementAt(0).Dropped = false;
 			Util.SetResult(game, 0, RESULT_T.Draw);
@@ -72,13 +72,13 @@ namespace BSMM2Test {
 				title +
 				"\"Player001\", False, 1, 0.5, 1, 0.5, 0, \r\n" +
 				"\"Player002\", False, 1, 0.5, 1, 0.5, 0, \r\n",
-				Util.Export(game.Players));
+				Util.Export(game.Rule, game.Players));
 		}
 
 		[TestMethod]
 		public void ExportPlayersTest3() {
 			var game = new FakeGame(new SingleMatchRule(true), 2);
-			var buf = Util.Export(game.Players);
+			var buf = Util.Export(game.Rule, game.Players);
 			Assert.AreEqual(
 				AppResources.TextPlayerName + ", " +
 				AppResources.TextDropped + ", " +
@@ -104,7 +104,7 @@ namespace BSMM2Test {
 				AppResources.TextMatchPoint + " = 0/ " +
 				AppResources.TextWinPoint + " = 0.00/ " +
 				AppResources.TextLifePoint + " = 0",
-				game.Players.GetSortedSource().ElementAt(0).Description);
+				game.Players.GetSortedSource(game.Rule).ElementAt(0).Description(game.Rule));
 		}
 
 		[TestMethod]
@@ -116,7 +116,7 @@ namespace BSMM2Test {
 			Assert.AreEqual(
 				AppResources.TextMatchPoint + " = 0/ " +
 				AppResources.TextWinPoint + " = 0.00",
-				game.Players.GetSortedSource().ElementAt(0).Description);
+				game.Players.GetSortedSource(game.Rule).ElementAt(0).Description(game.Rule));
 		}
 	}
 }

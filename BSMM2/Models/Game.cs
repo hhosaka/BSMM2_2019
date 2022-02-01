@@ -59,7 +59,7 @@ namespace BSMM2.Models {
 		public bool AddPlayers(string data) {
 			foreach (var name in data.Split(new[] { '\r', '\n' })) {
 				if (!string.IsNullOrEmpty(name)) {
-					Players.Add(name);
+					Players.Add(Rule, name);
 				}
 			}
 			Shuffle();// TODO : 一回戦の結果が終わるまでは追加を認めたいのだが…
@@ -127,7 +127,7 @@ namespace BSMM2.Models {
 		public Func<IEnumerable<Player>, IEnumerable<Player>> RandomizePlayer;
 
 		private IEnumerable<Match> MakeRound() {
-			Players.Reset();
+			Players.Reset(Rule);
 			for (int i = 0; i < TRY_COUNT; ++i) {
 				var matchingList = Create(RandomizePlayer(Players.Source)
 					.OrderByDescending(p => p, Rule.GetComparer(false))
@@ -142,12 +142,12 @@ namespace BSMM2.Models {
 			IEnumerable<Match> Create(IEnumerable<Player> players) {
 				var results = new Queue<Match>();
 				var stack = new List<Player>();
-
+				var id = 0;
 				foreach (var p1 in players) {
 					var p2 = PickOpponent(stack, p1);
 					if (p2 != null) {
 						stack.Remove(p2);
-						results.Enqueue(Rule.CreateMatch(p2, p1));
+						results.Enqueue(Rule.CreateMatch(++id, p2, p1));
 					} else {
 						stack.Add(p1);
 					}
@@ -160,7 +160,7 @@ namespace BSMM2.Models {
 						{
 							var p = stack.First();
 							if (isByeAcceptable(p)) {
-								results.Enqueue(Rule.CreateMatch(p));
+								results.Enqueue(Rule.CreateMatch(++id, p));
 								return results;//1人不戦勝
 							}
 						}

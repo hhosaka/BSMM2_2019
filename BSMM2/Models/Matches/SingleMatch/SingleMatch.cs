@@ -5,14 +5,11 @@ namespace BSMM2.Models.Matches.SingleMatch {
 	[JsonObject]
 	public class SingleMatch : Match {
 
-		[JsonProperty]
-		private SingleMatchRule Rule => _rule as SingleMatchRule;
-
 		public SingleMatch() {
 		}
 
-		public SingleMatch(IRule rule, IPlayer player1, IPlayer player2)
-			: base(rule, player1, player2) {
+		public SingleMatch(int id, IPlayer player1, IPlayer player2)
+			: base(id, player1, player2) {
 		}
 
 		public override void SetResult(RESULT_T result)

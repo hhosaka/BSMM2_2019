@@ -12,10 +12,14 @@ namespace BSMM2.Models {
 
 		public event PropertyChangedEventHandler PropertyChanged;
 
+		[JsonProperty]
+		public int Id { get; }
+
 		[JsonObject]
 		public class Record : IRecord {
 
 			private class DefaultResult : IResult {
+
 				public RESULT_T RESULT => RESULT_T.Progress;
 
 				[JsonIgnore]
@@ -53,9 +57,6 @@ namespace BSMM2.Models {
 				Result = _defaultResult;
 			}
 		}
-
-		[JsonProperty]
-		protected IRule _rule;
 
 		[JsonProperty]
 		public Record[] _records;
@@ -116,9 +117,8 @@ namespace BSMM2.Models {
 			IsGapMatch = !IsByeMatch && (_records[0].Player as Player)?.Point.MatchPoint != (_records[1].Player as Player)?.Point.MatchPoint;
 		}
 
-		public Match(IRule rule, IPlayer player1, IPlayer player2 = null) {
-			_rule = rule;
-
+		public Match(int id, IPlayer player1, IPlayer player2 = null) {
+			Id = id;
 			if (player2 != null) {
 				_records = new[] { new Record(player1), new Record(player2) };
 				SetIsGapMatch();

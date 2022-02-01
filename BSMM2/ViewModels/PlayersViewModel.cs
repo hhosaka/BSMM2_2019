@@ -1,4 +1,5 @@
 ﻿using BSMM2.Models;
+using BSMM2.Models.WebAccess;
 using Prism.Commands;
 using System;
 using System.Collections.Generic;
@@ -26,6 +27,7 @@ namespace BSMM2.ViewModels {
 		public DelegateCommand DeleteGameCommand { get; }
 		public DelegateCommand AddPlayerCommand { get; }
 		public DelegateCommand ExportPlayersCommand { get; }
+		public DelegateCommand UploadPlayersCommand { get; }
 		public DelegateCommand SaveCommand { get; }
 		public DelegateCommand HelpCommand { get; }
 
@@ -38,6 +40,7 @@ namespace BSMM2.ViewModels {
 			DeleteGameCommand = new DelegateCommand(() => deleteGame?.Invoke(), () => _app.Games.Any());
 			AddPlayerCommand = new DelegateCommand(() => addPlayer?.Invoke(), () => _app.Game.CanAddPlayers());
 			ExportPlayersCommand = new DelegateCommand(_app.ExportPlayers);
+			UploadPlayersCommand = new DelegateCommand(()=>new Client().Upload(_app.Game));
 			SaveCommand = new DelegateCommand(() => _app.Save(true), () => !_app.AutoSave);
 
 			MessagingCenter.Subscribe<object>(this, Messages.REFRESH,
@@ -59,7 +62,7 @@ namespace BSMM2.ViewModels {
 		}
 
 		private void Refresh() {
-			Players = new ObservableCollection<OrderedPlayer>(Models.Players.GetOrderedPlayers(Game.Players.GetSortedSource()));
+			Players = new ObservableCollection<OrderedPlayer>(Models.Players.GetOrderedPlayers(Game.Rule, Game.Players.GetSortedSource(Game.Rule)));
 			Title = Game.Headline;
 			RuleCommand?.RaiseCanExecuteChanged();
 			SelectGameCommand?.RaiseCanExecuteChanged();

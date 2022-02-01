@@ -8,10 +8,7 @@ using Xamarin.Forms.Internals;
 namespace BSMM2.Models {
 
 	[JsonObject]
-	public class Player : IPlayer, IComparable<Player>{
-
-		[JsonProperty]
-		private IRule _rule;
+	public class Player : IPlayer{
 
 		[JsonProperty]
 		public String Name { get; set; }
@@ -47,9 +44,8 @@ namespace BSMM2.Models {
 		[JsonIgnore]
 		public IPoint OpponentPoint { get; private set; }
 
-		[JsonIgnore]
-		public string Description
-			=> _rule.GetDescription(this);
+		public string Description(IRule rule)
+			=> rule.GetDescription(this);
 
 		public void Commit(Match match)
 		{
@@ -78,10 +74,10 @@ namespace BSMM2.Models {
 		}
 
 		internal void CalcPoint(IRule rule)
-			=> Point = _rule.Point(_matches.Where(match=>match.IsFinished).Select(match => match.GetRecord(this).Result));
+			=> Point = rule.Point(_matches.Where(match=>match.IsFinished).Select(match => match.GetRecord(this).Result));
 
 		internal void CalcOpponentPoint(IRule rule)
-			=> OpponentPoint = _rule.Point(_matches.Where(match => match.IsFinished).Select(match => (match.GetOpponentRecord(this).Player as Player)?.Point));
+			=> OpponentPoint = rule.Point(_matches.Where(match => match.IsFinished).Select(match => (match.GetOpponentRecord(this).Player as Player)?.Point));
 
 		public Player() {// For Serializer
 		}
@@ -100,14 +96,13 @@ namespace BSMM2.Models {
 			return data;
 		}
 
-        public int CompareTo(Player obj)
-			=> _rule.GetComparer(true).Compare(this, obj);
+        public int CompareTo(IRule rule, Player obj)
+			=> rule.GetComparer(true).Compare(this, obj);
 
         public Player(IRule rule, string name) : this() {
-			_rule = rule;
 			_matches = new List<Match>();
 			Name = name;
-			Point = OpponentPoint = _rule.Point(Enumerable.Empty<IPoint>());
+			Point = OpponentPoint = rule.Point(Enumerable.Empty<IPoint>());
 		}
 	}
 }

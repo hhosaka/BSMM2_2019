@@ -4,20 +4,22 @@ namespace BSMM2.Models {
 
 	public class OrderedPlayer
 	{
-			private Player _player;
+		private Player _player;
+		private IRule _rule;
 
-			public Player Player => _player;
+		public Player Player => _player;
 
-			public string Name => _player.Name;
+		public string Name => _player.Name;
 
-			public string Description => _player.Description;
+		public string Description => _player.Description(_rule);
 
-			public int Order { get; }
+		public int Order { get; }
 
-			public OrderedPlayer(Player player, int order)
-			{
-				_player = player;
-				Order = order;
-			}
+		public OrderedPlayer(IRule rule, Player player, int order)
+		{
+			_rule = rule;
+			_player = player;
+			Order = order;
+		}
 	}
 }

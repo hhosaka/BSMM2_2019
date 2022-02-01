@@ -26,24 +26,29 @@
 				<ListView.ItemTemplate>
 					<DataTemplate>
 						<ViewCell>
-							<StackLayout Padding="10" BackgroundColor="{Binding IsFinished, Converter={StaticResource Converter}, ConverterParameter=BGCOLOR}">
-								<StackLayout Orientation="Horizontal"  HorizontalOptions="Start">
-									<Label Text="{Binding Record1, Converter={StaticResource Converter}, ConverterParameter=RESULTMARK}"
+							<Frame Padding="0" BorderColor="Black">
+								<StackLayout>
+									<Label Text="test"/>
+									<StackLayout Padding="10" BackgroundColor="{Binding IsFinished, Converter={StaticResource Converter}, ConverterParameter=BGCOLOR}">
+									<StackLayout Orientation="Horizontal"  HorizontalOptions="Start">
+										<Label Text="{Binding Record1, Converter={StaticResource Converter}, ConverterParameter=RESULTMARK}"
 									LineBreakMode="NoWrap"
 									FontSize="20" />
-									<Label Text="{Binding Record1.Player.Name}"
+										<Label Text="{Binding Record1.Player.Name}"
 									LineBreakMode="NoWrap"
 									FontSize="20" />
+									</StackLayout>
+									<StackLayout Orientation="Horizontal" HorizontalOptions="End">
+										<Label Text="{Binding Record2.Player.Name}"
+									LineBreakMode="NoWrap"
+									FontSize="20" />
+										<Label Text="{Binding Record2, Converter={StaticResource Converter}, ConverterParameter=RESULTMARK}"
+									LineBreakMode="NoWrap"
+									FontSize="20" />
+									</StackLayout>
 								</StackLayout>
-								<StackLayout Orientation="Horizontal" HorizontalOptions="End">
-									<Label Text="{Binding Record2.Player.Name}"
-									LineBreakMode="NoWrap"
-									FontSize="20" />
-									<Label Text="{Binding Record2, Converter={StaticResource Converter}, ConverterParameter=RESULTMARK}"
-									LineBreakMode="NoWrap"
-									FontSize="20" />
 								</StackLayout>
-							</StackLayout>
+							</Frame>
 						</ViewCell>
 					</DataTemplate>
 				</ListView.ItemTemplate>
