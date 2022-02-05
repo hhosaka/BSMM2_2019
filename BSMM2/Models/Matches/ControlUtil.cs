@@ -164,5 +164,14 @@ namespace BSMM2.Models.Matches {
 			}
 			return items;
 		}
+
+		public static string DecorateNumber(int num) {
+			switch (num) {
+				case 1: return "1st";
+				case 2: return "2nd";
+				case 3: return "3rd";
+				default: return num + "th";
+			}
+		}
 	}
 }

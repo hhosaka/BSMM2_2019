@@ -13,7 +13,7 @@ namespace BSMM2.Models {
 		public event PropertyChangedEventHandler PropertyChanged;
 
 		[JsonProperty]
-		public int Id { get; }
+		public int Id { get; private set; }
 
 		[JsonObject]
 		public class Record : IRecord {

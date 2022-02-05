@@ -26,10 +26,13 @@
 				<ListView.ItemTemplate>
 					<DataTemplate>
 						<ViewCell>
-							<Frame Padding="0" BorderColor="Black">
+							<Frame Padding="10" BorderColor="Black">
 								<StackLayout>
-									<Label Text="test"/>
-									<StackLayout Padding="10" BackgroundColor="{Binding IsFinished, Converter={StaticResource Converter}, ConverterParameter=BGCOLOR}">
+									<StackLayout Orientation="Horizontal" BackgroundColor="CornflowerBlue">
+										<Label Text="{Binding Id, Converter={StaticResource Converter}, ConverterParameter=ID}"/>
+										<Label Text="{Binding IsGapMatch, Converter={StaticResource Converter}, ConverterParameter=IS_GAP_MATCH}"/>
+									</StackLayout>
+									<StackLayout  BackgroundColor="{Binding IsFinished, Converter={StaticResource Converter}, ConverterParameter=BGCOLOR}">
 									<StackLayout Orientation="Horizontal"  HorizontalOptions="Start">
 										<Label Text="{Binding Record1, Converter={StaticResource Converter}, ConverterParameter=RESULTMARK}"
 									LineBreakMode="NoWrap"
