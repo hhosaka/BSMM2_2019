@@ -45,13 +45,12 @@ namespace BSMM2.Models {
 			}
 
 			BSMMApp Initiate() {
-				var app = new BSMMApp(storage,
-						path,
-						new IRule[] {
-					new SingleMatchRule(),
-					new Matches.MultiMatch.NthGameMatch.NthGameMatchRule(2),
-					new ThreeOnThreeMatchRule(),
-					new Matches.MultiMatch.NthGameMatch.NthGameMatchRule(3)
+				var app = new BSMMApp(storage, path,
+						new []{
+							new SingleMatchRule(),
+							new Matches.MultiMatch.NthGameMatch.NthGameMatchRule(2),
+							new ThreeOnThreeMatchRule(),
+							new Matches.MultiMatch.NthGameMatch.NthGameMatchRule(3)
 						});
 				app.Save(true);
 				return app;
@@ -77,10 +76,15 @@ namespace BSMM2.Models {
 		public IEnumerable<Game> Games => _games;
 
 		[JsonProperty]
-		public IEnumerable<IRule> Rules { get; private set; }
+		public List<IRule> Rules { get; private set; }
 
 		[JsonProperty]
-		public IRule Rule { get; set; }
+		int _rule;
+		[JsonIgnore]
+		public IRule Rule {
+			get => Rules.ElementAt(_rule);
+			set =>_rule=Rules.IndexOf(value);
+		}
 
 		[JsonProperty]
 		public Game Game { get; set; }
@@ -154,13 +158,13 @@ namespace BSMM2.Models {
 		public BSMMApp() : this(new Storage()) {// for Serializer
 		}
 
-		private BSMMApp(Storage storage, string path, IRule[] rules) : this(storage) {
+		private BSMMApp(Storage storage, string path,IEnumerable<IRule>rules) : this(storage) {
 			_version = VERSION;
 			Id = Guid.NewGuid();
-			Rules = rules;
 			_path = path;
+			Rules = new List<IRule>(rules);
 			Rule = Rules.First();
-			_games = new List<Game>() { new Game(rules[0], new Players(rules[0], 8)) };
+			_games = new List<Game>() { new Game(Rule, new Players(Rule, 8)) };
 			Game = _games.Last();
 			AutoSave = true;
 		}

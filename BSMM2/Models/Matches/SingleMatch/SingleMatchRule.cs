@@ -10,7 +10,9 @@ namespace BSMM2.Models.Matches.SingleMatch {
 	public class SingleMatchRule : IRule {
 
 		[JsonProperty]
-		bool _enableLifePoint;
+		private bool _enableLifePoint;
+
+		[JsonIgnore]
 		public bool EnableLifePoint {
 			get => _enableLifePoint;
 			set {
