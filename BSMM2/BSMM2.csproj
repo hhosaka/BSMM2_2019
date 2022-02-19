@@ -11,6 +11,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Services\**" />
+    <EmbeddedResource Remove="Services\**" />
+    <None Remove="Services\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="ViewModels\RoundViewModel.cs~RF267bde.TMP" />
   </ItemGroup>
 
@@ -83,7 +89,6 @@
 
   <ItemGroup>
     <Folder Include="Properties\" />
-    <Folder Include="Services\" />
     <Folder Include="ViewModels\Matches\" />
     <Folder Include="Views\Matches\" />
   </ItemGroup>

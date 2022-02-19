@@ -26,13 +26,13 @@ namespace BSMM2Test {
 			CollectionAssert.AreEqual(expect.ToArray(), result.ToArray(), Message(expect, result));
 		}
 
-		public static void CheckWithOrder(IRule rule, IEnumerable<int> expectedPlayers, IEnumerable<int> expectedOrder, IEnumerable<Player> players) {
+		public static void CheckWithOrder(Game game, IEnumerable<int> expectedPlayers, IEnumerable<int> expectedOrder, IEnumerable<Player> players) {
 			Check(expectedPlayers, players);
-			CheckOrder(rule, expectedOrder, players);
+			CheckOrder(game, game.Rule, expectedOrder, players);
 		}
 
-		public static void CheckOrder(IRule rule, IEnumerable<int> expectedOrder, IEnumerable<Player> players) {
-			var result = Players.GetOrderedPlayers(rule, players).Select(player=>player.Order);
+		public static void CheckOrder(Game game, IRule rule, IEnumerable<int> expectedOrder, IEnumerable<Player> players) {
+			var result = Players.GetOrderedPlayers(game, rule, players).Select(player=>player.Order);
 			CollectionAssert.AreEqual(expectedOrder.ToArray(), result.ToArray(), Message(expectedOrder, result));
 		}
 
@@ -61,51 +61,42 @@ namespace BSMM2Test {
 			Assert.AreEqual(a.WinPoint, b.WinPoint);
 		}
 
-		public static void Check(IPlayer a, IPlayer b) {
+		public static void Check(Game ga, IPlayer a, Game gb, IPlayer b) {
 			if (a is Player pa && b is Player pb) {
 				Assert.AreEqual(pa.Dropped, pb.Dropped);
-				Assert.AreEqual(pa.ByeMatchCount, pb.ByeMatchCount);
-				Assert.AreEqual(pa.HasGapMatch, pb.HasGapMatch);
+				Assert.AreEqual(ga.ByeMatchCount(pa), gb.ByeMatchCount(pb));
+				Assert.AreEqual(ga.HasGapMatch(pa), gb.HasGapMatch(pb));
 				Check(pa.Point, pb.Point);
 			}
 			Assert.AreEqual(a.Name, b.Name);
 		}
 
-		public static void Check(IRule rule, Players a, Players b) {
-			Assert.AreEqual(a.Count, b.Count);
-			var ita = a.GetSortedSource(rule).GetEnumerator();
-			var itb = b.GetSortedSource(rule).GetEnumerator();
-			while (ita.MoveNext() && itb.MoveNext()) {
-				Check(ita.Current, itb.Current);
-			}
-		}
-
-		public static void Check(Match a, Match b) {
-			Check(a.Record1.Player, b.Record1.Player);
-			Check(a.Record2.Player, b.Record2.Player);
+		public static void Check(Game ga, Match a, Game gb, Match b) {
+			Check(ga, a.Record1.Player, gb, b.Record1.Player);
+			Check(ga, a.Record2.Player, gb, b.Record2.Player);
 			Check(a.Record1.Result, b.Record1.Result);
 			Check(a.Record2.Result, b.Record2.Result);
 		}
 
-		public static void Check(Round a, Round b) {
+		public static void Check(Game ga, Round a, Game gb, Round b) {
 			Assert.AreEqual(a.IsFinished, b.IsFinished);
 			Assert.AreEqual(a.IsPlaying, b.IsPlaying);
-			Check(a.Matches, b.Matches);
+			Check(ga, a.Matches, gb, b.Matches);
 		}
 
-		public static void Check(IEnumerable<Match> a, IEnumerable<Match> b) {
+		public static void Check(Game ga, IEnumerable<Match> a, Game gb, IEnumerable<Match> b) {
 			var ita = a.GetEnumerator();
 			var itb = b.GetEnumerator();
 			while (ita.MoveNext() && itb.MoveNext()) {
-				Check(ita.Current as Match, itb.Current as Match);
+				Check(ga, ita.Current as Match, gb, itb.Current as Match);
 			}
 		}
 
-		public static void Check(IEnumerable<Round> a, IEnumerable<Round> b) {
+		public static void Check(Game ga, IEnumerable<Round> a, Game gb, IEnumerable<Round> b) {
 			var ita = a.GetEnumerator();
 			var itb = b.GetEnumerator();
 			while (ita.MoveNext() && itb.MoveNext()) {
-				Check(ita.Current as Round, itb.Current as Round);
+				Check(ga, ita.Current as Round, gb, itb.Current as Round);
 			}
 		}
 
@@ -120,9 +111,14 @@ namespace BSMM2Test {
 			if (a.Rule is SingleMatchRule srule) {
 				Assert.AreEqual(srule.EnableLifePoint, srule.EnableLifePoint);
 			}
-			Check(a.Rule, a.Players, b.Players);
-			Check(a.ActiveRound, b.ActiveRound);
-			Check(a.Rounds, b.Rounds);
+			Assert.AreEqual(a.Players.Count, b.Players.Count);
+			var ita = a.GetSortedSource().GetEnumerator();
+			var itb = b.GetSortedSource().GetEnumerator();
+			while (ita.MoveNext() && itb.MoveNext()) {
+				Check(a, ita.Current, b, itb.Current);
+			}
+			Check(a, a.ActiveRound, b, b.ActiveRound);
+			Check(a, a.Rounds, b, b.Rounds);
 		}
 
 		private static String Message(IEnumerable<int> expect, IEnumerable<int> result) {
@@ -145,14 +141,14 @@ namespace BSMM2Test {
 
 		public static string Export(Game game) {
 			var buf = new StringBuilder();
-			game.Players.Export(game.Rule, new StringWriter(buf));
+			game.Players.Export(game, game.Rule, new StringWriter(buf));
 			return buf.ToString();
 		}
 
-		public static string Export(IRule rule, Players players) {
+		public static string Export(Game game, IRule rule, Players players) {
 			var buf = new StringBuilder();
 			using (var writer = new StringWriter(buf)) {
-				players.Export(rule, writer);
+				players.Export(game, rule, writer);
 			}
 			return buf.ToString();
 		}

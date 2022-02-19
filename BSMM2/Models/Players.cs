@@ -12,14 +12,14 @@ namespace BSMM2.Models {
 	public class Players {
 		private const String DEFAULT_PREFIX = "Player";
 
-		public static IEnumerable<OrderedPlayer> GetOrderedPlayers(IRule rule, IEnumerable<Player> players)
+		public static IEnumerable<OrderedPlayer> GetOrderedPlayers(Game game, IRule rule, IEnumerable<Player> players)
 		{
 			Player prev = null;
 			int order = 0;
 			int count = 0;
 			foreach (var p in players)
 			{
-				if (prev == null || prev.CompareTo(rule, p) != 0)
+				if (prev == null || prev.CompareTo(game, rule, p) != 0)
 				{
 					order = count;
 					prev = p;
@@ -36,7 +36,7 @@ namespace BSMM2.Models {
 		private List<Player> _players;
 
 		[JsonIgnore]
-		public IEnumerable<Player> Source => _players;
+		public List<Player> Source => _players;
 
 		[JsonIgnore]
 		public int Count => _players.Count;
@@ -81,29 +81,30 @@ namespace BSMM2.Models {
 		public void Add(IRule rule, String name)
 			=> _players.Add(new Player(rule, name));
 
-		public void Remove(int index)
-			=> _players.RemoveAt(index);
+		//public void Remove(int index)
+		//	=> _players.RemoveAt(index);
 
-		public void Remove(Player player)
-			=> _players.Remove(player);
+		//public void Remove(Player player)
+		//	=> _players.Remove(player);
 
-		public void Reset(IRule rule) {
-			_players.ForEach(p => p.CalcPoint(rule));
-			_players.ForEach(p => p.CalcOpponentPoint(rule));
+		public void Reset(Game game, IRule rule) {
+			_players.ForEach(p => p.CalcPoint(game, rule));
+			_players.ForEach(p => p.CalcOpponentPoint(game, rule));
 		}
 
+		// For Debug
 		public void Swap(int x, int y) {
 			var temp = _players[x];
 			_players[x] = _players[y];
 			_players[y]=temp;
 		}
 
-		public void Export(IRule rule, TextWriter writer) {
-			_players.First()?.Export(new ExportData()).Keys.ForEach(key => writer.Write(key + ", "));
+		public void Export(Game game, IRule rule, TextWriter writer) {
+			_players.First()?.Export(game, new ExportData()).Keys.ForEach(key => writer.Write(key + ", "));
 			writer.WriteLine();
-			Reset(rule);
+			Reset(game, rule);
 			foreach (var player in _players) {
-				foreach (var param in player.Export(new ExportData())) {
+				foreach (var param in player.Export(game, new ExportData())) {
 					switch (param.Value) {
 						case string str:
 							writer.Write(string.Format("\"{0}\", ", str));
@@ -117,7 +118,7 @@ namespace BSMM2.Models {
 				writer.WriteLine();
 			}
 		}
-		public IEnumerable<Player> GetSortedSource(IRule rule)
+		public IEnumerable<Player> GetSortedSource(Game game, IRule rule)
 		{
 			if (_players == null)
 			{
@@ -125,8 +126,8 @@ namespace BSMM2.Models {
 			}
 			else
 			{
-				Reset(rule);
-				return _players.OrderByDescending(p => p, rule.GetComparer(true));
+				Reset(game, rule);
+				return _players.OrderByDescending(p => p, rule.GetComparer(game, true));
 			}
 		}
 	}

@@ -39,7 +39,7 @@ namespace BSMM2.ViewModels {
 		public PlayerViewModel(BSMMApp app, Player player) {
 			_app = app;
 			Player = player;
-			Opponents = player.Matches.Select(match => match.GetOpponentRecord(player));
+			Opponents = app.Game.GetMatches(player).Select(match => match.GetOpponentRecord(player));
 		}
 	}
 }

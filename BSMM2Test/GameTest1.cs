@@ -18,27 +18,27 @@ namespace BSMM2Test {
 
 		[TestMethod]
 		public void RuleTest() {
-			var rule = new SingleMatchRule();
-			var players = new Players(rule, 4).GetSortedSource(rule).ToArray();// new[] { new Player("player1"), new Player("player2"), new Player("player3"), new Player("player4") };
-			var matches = new[] { new SingleMatch(1, players[0], players[1]), new SingleMatch(2, players[2], players[3]) };
+			//var rule = new SingleMatchRule();
+			//var players = new Players(rule, 4).GetSortedSource(rule).ToArray();// new[] { new Player("player1"), new Player("player2"), new Player("player3"), new Player("player4") };
+			//var matches = new[] { new SingleMatch(1, players[0], players[1]), new SingleMatch(2, players[2], players[3]) };
 
-			Assert.IsTrue(players.SequenceEqual(players.OrderByDescending(player => player, rule.GetComparer(true))));
+			//Assert.IsTrue(players.SequenceEqual(players.OrderByDescending(player => player, rule.GetComparer(true))));
 
-			matches.ForEach(match => match.Commit());
+			//matches.ForEach(match => match.Commit());
 
-			CollectionAssert.Equals(players, players.OrderByDescending(p => p, rule.GetComparer(true)));
+			//CollectionAssert.Equals(players, players.OrderByDescending(p => p, rule.GetComparer(true)));
 
-			matches[0].SetResult(Win);
-			matches[1].SetResult(Win);
+			//matches[0].SetResult(Win);
+			//matches[1].SetResult(Win);
 
-			CollectionAssert.Equals(new[] { players[0], players[2], players[1], players[3] },
-				players.OrderByDescending(p => p, rule.GetComparer(true)));
+			//CollectionAssert.Equals(new[] { players[0], players[2], players[1], players[3] },
+			//	players.OrderByDescending(p => p, rule.GetComparer(true)));
 
-			matches[0].SetResult(Lose);
-			matches[1].SetResult(Lose);
+			//matches[0].SetResult(Lose);
+			//matches[1].SetResult(Lose);
 
-			CollectionAssert.Equals(new[] { players[1], players[3], players[0], players[2] },
-				players.OrderByDescending(p => p, rule.GetComparer(true)));
+			//CollectionAssert.Equals(new[] { players[1], players[3], players[0], players[2] },
+			//	players.OrderByDescending(p => p, rule.GetComparer(true)));
 		}
 
 		[TestMethod]
@@ -46,19 +46,19 @@ namespace BSMM2Test {
 			var rule = new SingleMatchRule();
 			var game = new FakeGame(rule, 4);
 
-			Util.CheckWithOrder(rule, new[] { 1, 2, 3, 4 }, new[] { 1, 1, 1, 1 }, game.Players.GetSortedSource(rule));
+			Util.CheckWithOrder(game, new[] { 1, 2, 3, 4 }, new[] { 1, 1, 1, 1 }, game.GetSortedSource());
 
 			game.Players.Add(rule, "Player006");
-			Util.CheckWithOrder(rule, new[] { 1, 2, 3, 4, 6 }, new[] { 1, 1, 1, 1, 1 }, game.Players.GetSortedSource(rule));
+			Util.CheckWithOrder(game, new[] { 1, 2, 3, 4, 6 }, new[] { 1, 1, 1, 1, 1 }, game.GetSortedSource());
 
 			game.Players.Add(rule, "Player005");
-			Util.CheckWithOrder(rule, new[] { 1, 2, 3, 4, 6, 5 }, new[] { 1, 1, 1, 1, 1, 1 }, game.Players.GetSortedSource(rule));
+			Util.CheckWithOrder(game, new[] { 1, 2, 3, 4, 6, 5 }, new[] { 1, 1, 1, 1, 1, 1 }, game.GetSortedSource());
 
 			//game.Players.Remove(1);
-			//Util.CheckWithOrder(rule, new[] { 1, 3, 4, 6, 5 }, new[] { 1, 1, 1, 1, 1 }, game.Players.GetSortedSource(game.Rule));
+			//Util.CheckWithOrder(game, new[] { 1, 3, 4, 6, 5 }, new[] { 1, 1, 1, 1, 1 }, game.GetSortedSource());
 
 			//game.Players.Add();
-			//Util.CheckWithOrder(rule, new[] { 1, 3, 4, 6, 5, 6 }, new[] { 1, 1, 1, 1, 1, 1 }, game.Players.GetSortedSource(game.Rule));
+			//Util.CheckWithOrder(game, new[] { 1, 3, 4, 6, 5, 6 }, new[] { 1, 1, 1, 1, 1, 1 }, game.GetSortedSource());
 		}
 
 		[TestMethod]
@@ -67,10 +67,10 @@ namespace BSMM2Test {
 			var rule = new SingleMatchRule();
 			var game = new FakeGame(rule, new StringReader(buf));
 
-			Util.CheckWithOrder(rule, new[] { 1, 2, 3, 4 }, new[] { 1, 1, 1, 1 }, game.Players.GetSortedSource(rule));
+			Util.CheckWithOrder(game, new[] { 1, 2, 3, 4 }, new[] { 1, 1, 1, 1 }, game.GetSortedSource());
 
 			game.Players.Add(rule, "Player006");
-			Util.CheckWithOrder(rule, new[] { 1, 2, 3, 4, 6 }, new[] { 1, 1, 1, 1, 1 }, game.Players.GetSortedSource(rule));
+			Util.CheckWithOrder(game, new[] { 1, 2, 3, 4, 6 }, new[] { 1, 1, 1, 1, 1 }, game.GetSortedSource());
 		}
 
 		[TestMethod]
@@ -83,33 +83,33 @@ namespace BSMM2Test {
 			Assert.IsFalse(game.CanExecuteStepToMatching());
 
 			Util.Check(new[] { 1, 2, 3, 4 }, game.ActiveRound);
-			Util.CheckWithOrder(rule, new[] { 1, 2, 3, 4 }, new[] { 1, 1, 1, 1 }, game.Players.GetSortedSource(game.Rule));
+			Util.CheckWithOrder(game, new[] { 1, 2, 3, 4 }, new[] { 1, 1, 1, 1 }, game.GetSortedSource());
 
 			game.StepToPlaying();
 
 			Util.Check(new[] { 1, 2, 3, 4 }, game.ActiveRound);
-			Util.CheckWithOrder(rule, new[] { 1, 2, 3, 4 }, new[] { 1, 1, 1, 1 }, game.Players.GetSortedSource(game.Rule));
+			Util.CheckWithOrder(game, new[] { 1, 2, 3, 4 }, new[] { 1, 1, 1, 1 }, game.GetSortedSource());
 
 			Util.SetResult(game, 0, Win);
 
-			Util.CheckWithOrder(rule, new[] { 1, 2, 3, 4 }, new[] { 1, 2, 3, 3 }, game.Players.GetSortedSource(game.Rule));
+			Util.CheckWithOrder(game, new[] { 1, 2, 3, 4 }, new[] { 1, 2, 3, 3 }, game.GetSortedSource());
 
 			Util.SetResult(game, 1, Win);
-			Util.CheckWithOrder(rule, new[] { 1, 3, 2, 4 }, new[] { 1, 1, 3, 3 }, game.Players.GetSortedSource(game.Rule));
+			Util.CheckWithOrder(game, new[] { 1, 3, 2, 4 }, new[] { 1, 1, 3, 3 }, game.GetSortedSource());
 
 			Util.SetResult(game, 0, Lose);
 			Util.SetResult(game, 1, Lose);
 
-			Util.CheckWithOrder(rule, new[] { 2, 4, 1, 3 }, new[] { 1, 1, 3, 3 }, game.Players.GetSortedSource(game.Rule));
+			Util.CheckWithOrder(game, new[] { 2, 4, 1, 3 }, new[] { 1, 1, 3, 3 }, game.GetSortedSource());
 
 			game.StepToMatching();
-			game.Players.GetSortedSource(game.Rule).ToArray()[0].Dropped = true;
+			game.GetSortedSource().ToArray()[0].Dropped = true;
 
-			Util.CheckWithOrder(rule, new[] { 4, 1, 3, 2 }, new[] { 1, 2, 2, 4 }, game.Players.GetSortedSource(game.Rule));
+			Util.CheckWithOrder(game, new[] { 4, 1, 3, 2 }, new[] { 1, 2, 2, 4 }, game.GetSortedSource());
 
 			game.Shuffle();
 
-			Util.CheckWithOrder(rule, new[] { 4, 1, 3, 2 }, new[] { 1, 2, 2, 4 }, game.Players.GetSortedSource(game.Rule));
+			Util.CheckWithOrder(game, new[] { 4, 1, 3, 2 }, new[] { 1, 2, 2, 4 }, game.GetSortedSource());
 			Util.Check(new[] { 4, 1, 3, -1 }, game.ActiveRound);
 		}
 
@@ -154,7 +154,7 @@ namespace BSMM2Test {
 			Assert.IsFalse(game.IsFinished());
 
 			game.StepToMatching();
-			Util.CheckWithOrder(rule, new[] { 1, 3, 2, 4 }, new[] { 1, 1, 3, 3 }, game.Players.GetSortedSource(game.Rule));
+			Util.CheckWithOrder(game, new[] { 1, 3, 2, 4 }, new[] { 1, 1, 3, 3 }, game.GetSortedSource());
 			Util.Check(new[] { 1, 3, 2, 4 }, game.ActiveRound);
 			Assert.AreEqual(1, game.Rounds.Count());
 			Util.Check(new[] { 1, 2, 3, 4 }, game.Rounds.First());
@@ -164,7 +164,7 @@ namespace BSMM2Test {
 			Util.SetResult(game, 0, Lose);
 			Util.SetResult(game, 1, Lose);
 
-			Util.CheckWithOrder(rule, new[] { 3, 1, 4, 2 }, new[] { 1, 2, 2, 4 }, game.Players.GetSortedSource(game.Rule));
+			Util.CheckWithOrder(game, new[] { 3, 1, 4, 2 }, new[] { 1, 2, 2, 4 }, game.GetSortedSource());
 
 			Assert.IsTrue(game.CanExecuteStepToMatching());
 			Assert.IsTrue(game.IsFinished());
@@ -186,19 +186,19 @@ namespace BSMM2Test {
 
 			Assert.IsTrue(game.CanExecuteStepToMatching());
 
-			Util.CheckWithOrder(rule, new[] { 1, 3, 2, 4 }, new[] { 1, 1, 3, 3 }, game.Players.GetSortedSource(game.Rule));
+			Util.CheckWithOrder(game, new[] { 1, 3, 2, 4 }, new[] { 1, 1, 3, 3 }, game.GetSortedSource());
 
 			(Util.GetMatch(game, 1) as SingleMatch).SetSingleMatchResult(Win, 5, 5);
 
 			Assert.IsTrue(game.CanExecuteStepToMatching());
 
-			Util.CheckWithOrder(rule, new[] { 1, 3, 2, 4 }, new[] { 1, 1, 3, 3 }, game.Players.GetSortedSource(game.Rule));
+			Util.CheckWithOrder(game, new[] { 1, 3, 2, 4 }, new[] { 1, 1, 3, 3 }, game.GetSortedSource());
 
 			(Util.GetMatch(game, 0) as SingleMatch).SetSingleMatchResult(Win, 0, 0);
 
 			Assert.IsTrue(game.CanExecuteStepToMatching());
 
-			Util.CheckWithOrder(rule, new[] { 3, 1, 4, 2 }, new[] { 1, 2, 3, 4 }, game.Players.GetSortedSource(game.Rule));
+			Util.CheckWithOrder(game, new[] { 3, 1, 4, 2 }, new[] { 1, 2, 3, 4 }, game.GetSortedSource());
 		}
 
 		[TestMethod]
@@ -212,7 +212,7 @@ namespace BSMM2Test {
 			Util.SetResult(game, 0, Win);
 			Util.SetResult(game, 1, Win);
 
-			Util.CheckWithOrder(rule, new[] { 1, 3, 2, 4 }, new[] { 1, 1, 3, 3 }, game.Players.GetSortedSource(game.Rule));
+			Util.CheckWithOrder(game, new[] { 1, 3, 2, 4 }, new[] { 1, 1, 3, 3 }, game.GetSortedSource());
 
 			game.StepToMatching();
 			game.StepToPlaying();
@@ -220,7 +220,7 @@ namespace BSMM2Test {
 			Util.SetResult(game, 0, Win);
 			Util.SetResult(game, 1, Win);
 
-			Util.CheckWithOrder(rule, new[] { 1, 2, 3, 4 }, new[] { 1, 2, 2, 4 }, game.Players.GetSortedSource(game.Rule));
+			Util.CheckWithOrder(game, new[] { 1, 2, 3, 4 }, new[] { 1, 2, 2, 4 }, game.GetSortedSource());
 			Assert.AreEqual(1, game.Rounds.Count());
 
 			var game2 = new FakeGame(rule, new Players(game.Rule, game.Players));
@@ -236,8 +236,8 @@ namespace BSMM2Test {
 			rule.Prefix = origin;
 			var game = new FakeGame( rule, 2);
 
-			Assert.AreEqual(origin + "001", game.Players.GetSortedSource(game.Rule).ElementAt(0).Name);
-			Assert.AreEqual(origin + "002", game.Players.GetSortedSource(game.Rule).ElementAt(1).Name);
+			Assert.AreEqual(origin + "001", game.GetSortedSource().ElementAt(0).Name);
+			Assert.AreEqual(origin + "002", game.GetSortedSource().ElementAt(1).Name);
 		}
 
 		[TestMethod]
@@ -255,13 +255,15 @@ namespace BSMM2Test {
 		[TestMethod]
 		public void OrderTestSingleMatch3() {
 			var rule = new SingleMatchRule();
-			Util.CheckWithOrder(rule, new[] { 1, 5, 2, 6, 3, 7, 4, 8 }, new[] { 1, 2, 3, 4, 5, 6, 7, 8 }, CreateGame(rule, 8, 3).Players.GetSortedSource(rule));
+			var game = CreateGame(rule, 8, 3);
+			Util.CheckWithOrder(game, new[] { 1, 5, 2, 6, 3, 7, 4, 8 }, new[] { 1, 2, 3, 4, 5, 6, 7, 8 }, game.GetSortedSource());
 		}
 
 		[TestMethod]
 		public void OrderTestSingleMatch4() {
 			var rule = new SingleMatchRule();
-			Util.CheckWithOrder(rule, new[] { 1, 5, 2, 6, 3, 7, 4 }, new[] { 1, 2, 3, 4, 5, 6, 7 }, CreateGame(rule, 7, 3).Players.GetSortedSource(rule));
+			var game = CreateGame(rule, 7, 3);
+			Util.CheckWithOrder(game, new[] { 1, 5, 2, 6, 3, 7, 4 }, new[] { 1, 2, 3, 4, 5, 6, 7 }, game.GetSortedSource());
 		}
 
 		[TestMethod]
@@ -271,11 +273,11 @@ namespace BSMM2Test {
 			var matches = game.ActiveRound;
 
 			Util.Check(new[] { 1, 3, 5, 7, 2, 4, 6, 8 }, game.ActiveRound);
-			Util.CheckWithOrder(rule, new[] { 1, 5, 2, 3, 6, 7, 4, 8 }, new[] { 1, 1, 3, 3, 3, 3, 7, 7 }, game.Players.GetSortedSource(game.Rule));
+			Util.CheckWithOrder(game, new[] { 1, 5, 2, 3, 6, 7, 4, 8 }, new[] { 1, 1, 3, 3, 3, 3, 7, 7 }, game.GetSortedSource());
 
 			(Util.GetMatch(game, 0) as SingleMatch).SetSingleMatchResult(Win, 4, 5);
 
-			Util.CheckWithOrder(rule, new[] { 5, 1, 6, 7, 2, 3, 4, 8 }, new[] { 1, 2, 3, 3, 5, 5, 7, 7 }, game.Players.GetSortedSource(game.Rule));
+			Util.CheckWithOrder(game, new[] { 5, 1, 6, 7, 2, 3, 4, 8 }, new[] { 1, 2, 3, 3, 5, 5, 7, 7 }, game.GetSortedSource());
 		}
 
 		[TestMethod]
@@ -285,14 +287,14 @@ namespace BSMM2Test {
 			var matches = game.ActiveRound;
 
 			Util.Check(new[] { 1, 3, 5, 7, 2, 4, 6, 8 }, game.ActiveRound);
-			Util.CheckWithOrder(rule, new[] { 1, 5, 2, 3, 6, 7, 4, 8 }, new[] { 1, 1, 3, 3, 3, 3, 7, 7 }, game.Players.GetSortedSource(game.Rule));
+			Util.CheckWithOrder(game, new[] { 1, 5, 2, 3, 6, 7, 4, 8 }, new[] { 1, 1, 3, 3, 3, 3, 7, 7 }, game.GetSortedSource());
 
 			(matches.Matches.ElementAt(0) as MultiMatch).SetMultiMatchResult(new[] {
 				new MultiMatch.Score(Win),
 				new MultiMatch.Score(Lose),
 				new MultiMatch.Score(Win) });
 
-			Util.CheckWithOrder(rule, new[] { 5, 1, 3, 6, 7, 2, 4, 8 }, new[] { 1, 2, 3, 4, 4, 6, 7, 8 }, game.Players.GetSortedSource(game.Rule));
+			Util.CheckWithOrder(game, new[] { 5, 1, 3, 6, 7, 2, 4, 8 }, new[] { 1, 2, 3, 4, 4, 6, 7, 8 }, game.GetSortedSource());
 		}
 
 		[TestMethod]
@@ -565,33 +567,33 @@ namespace BSMM2Test {
 			game.StepToPlaying();
 
 			// 対戦開始時
-			Util.CheckWithOrder(rule, new[] { 1, 2, 3, 4, 5, 6, 7, 8 }, new[] { 1, 1, 1, 1, 1, 1, 1, 1 }, game.Players.GetSortedSource(game.Rule));
+			Util.CheckWithOrder(game, new[] { 1, 2, 3, 4, 5, 6, 7, 8 }, new[] { 1, 1, 1, 1, 1, 1, 1, 1 }, game.GetSortedSource());
 
 			// 3 win 4 lose
 			Util.SetResult(game, 1, Win);
 
-			Util.CheckWithOrder(rule, new[] { 3, 4, 1, 2, 5, 6, 7, 8 }, new[] { 1, 2, 3, 3, 3, 3, 3, 3 }, game.Players.GetSortedSource(game.Rule));
+			Util.CheckWithOrder(game, new[] { 3, 4, 1, 2, 5, 6, 7, 8 }, new[] { 1, 2, 3, 3, 3, 3, 3, 3 }, game.GetSortedSource());
 
 			// 1 win 2 lose
 			Util.SetResult(game, 0, Win);
-			Util.CheckWithOrder(rule, new[] { 1, 3, 2, 4, 5, 6, 7, 8 }, new[] { 1, 1, 3, 3, 5, 5, 5, 5 }, game.Players.GetSortedSource(game.Rule));
+			Util.CheckWithOrder(game, new[] { 1, 3, 2, 4, 5, 6, 7, 8 }, new[] { 1, 1, 3, 3, 5, 5, 5, 5 }, game.GetSortedSource());
 
 			// 5  6 draw
 			Util.SetResult(game, 2, Draw);
-			Util.CheckWithOrder(rule, new[] { 1, 3, 5, 6, 2, 4, 7, 8 }, new[] { 1, 1, 3, 3, 5, 5, 7, 7 }, game.Players.GetSortedSource(game.Rule));
+			Util.CheckWithOrder(game, new[] { 1, 3, 5, 6, 2, 4, 7, 8 }, new[] { 1, 1, 3, 3, 5, 5, 7, 7 }, game.GetSortedSource());
 
 			// 8 win 7 lose
 			Util.SetResult(game, 3, Lose);
 
-			Util.CheckWithOrder(rule, new[] { 1, 3, 8, 5, 6, 2, 4, 7 }, new[] { 1, 1, 1, 4, 4, 6, 6, 6 }, game.Players.GetSortedSource(game.Rule));
+			Util.CheckWithOrder(game, new[] { 1, 3, 8, 5, 6, 2, 4, 7 }, new[] { 1, 1, 1, 4, 4, 6, 6, 6 }, game.GetSortedSource());
 
 			// 7 win 8 lose
 			Util.SetResult(game, 3, Win);
-			Util.CheckWithOrder(rule, new[] { 1, 3, 7, 5, 6, 2, 4, 8 }, new[] { 1, 1, 1, 4, 4, 6, 6, 6 }, game.Players.GetSortedSource(game.Rule));
+			Util.CheckWithOrder(game, new[] { 1, 3, 7, 5, 6, 2, 4, 8 }, new[] { 1, 1, 1, 4, 4, 6, 6, 6 }, game.GetSortedSource());
 
 			// 5 win 6 lose
 			Util.SetResult(game, 2, Win);
-			Util.CheckWithOrder(rule, new[] { 1, 3, 5, 7, 2, 4, 6, 8 }, new[] { 1, 1, 1, 1, 5, 5, 5, 5 }, game.Players.GetSortedSource(game.Rule));
+			Util.CheckWithOrder(game, new[] { 1, 3, 5, 7, 2, 4, 6, 8 }, new[] { 1, 1, 1, 1, 5, 5, 5, 5 }, game.GetSortedSource());
 
 			// 2回戦目
 			game.StepToMatching();
@@ -605,10 +607,10 @@ namespace BSMM2Test {
 			Util.SetResult(game, 2, Win);
 			game.StepToMatching();//無効であることを確認
 			Util.SetResult(game, 3, Win);
-			Util.CheckWithOrder(rule, new[] { 5, 3, 1, 6, 7, 2, 4, 8 }, new[] { 1, 2, 3, 4, 4, 6, 7, 8 }, game.Players.GetSortedSource(game.Rule));
+			Util.CheckWithOrder(game, new[] { 5, 3, 1, 6, 7, 2, 4, 8 }, new[] { 1, 2, 3, 4, 4, 6, 7, 8 }, game.GetSortedSource());
 
 			Util.SetResult(game, 0, Win);
-			Util.CheckWithOrder(rule, new[] { 1, 5, 2, 3, 6, 7, 4, 8 }, new[] { 1, 1, 3, 3, 3, 3, 7, 7 }, game.Players.GetSortedSource(game.Rule));
+			Util.CheckWithOrder(game, new[] { 1, 5, 2, 3, 6, 7, 4, 8 }, new[] { 1, 1, 3, 3, 3, 3, 7, 7 }, game.GetSortedSource());
 
 			// 3回戦目
 			game.StepToMatching();
@@ -618,7 +620,7 @@ namespace BSMM2Test {
 			Util.SetResult(game, 1, Win);
 			Util.SetResult(game, 2, Win);
 			Util.SetResult(game, 3, Win);
-			Util.CheckWithOrder(rule, new[] { 1, 5, 2, 6, 3, 7, 4, 8 }, new[] { 1, 2, 3, 4, 5, 6, 7, 8 }, game.Players.GetSortedSource(game.Rule));
+			Util.CheckWithOrder(game, new[] { 1, 5, 2, 6, 3, 7, 4, 8 }, new[] { 1, 2, 3, 4, 5, 6, 7, 8 }, game.GetSortedSource());
 		}
 
 		//
@@ -633,13 +635,13 @@ namespace BSMM2Test {
 			game.StepToPlaying();
 
 			// 対戦開始時
-			Util.CheckWithOrder(rule, new[] { 7, 1, 2, 3, 4, 5, 6 }, new[] { 1, 2, 2, 2, 2, 2, 2 }, game.Players.GetSortedSource(game.Rule));
+			Util.CheckWithOrder(game, new[] { 7, 1, 2, 3, 4, 5, 6 }, new[] { 1, 2, 2, 2, 2, 2, 2 }, game.GetSortedSource());
 
 			Util.SetResult(game, 0, Win);
 			Util.SetResult(game, 1, Win);
 			Util.SetResult(game, 2, Win);
 
-			Util.CheckWithOrder(rule, new[] { 1, 3, 5, 7, 2, 4, 6 }, new[] { 1, 1, 1, 4, 5, 5, 5 }, game.Players.GetSortedSource(game.Rule));
+			Util.CheckWithOrder(game, new[] { 1, 3, 5, 7, 2, 4, 6 }, new[] { 1, 1, 1, 4, 5, 5, 5 }, game.GetSortedSource());
 
 			game.StepToMatching();
 			game.StepToPlaying();
@@ -651,8 +653,8 @@ namespace BSMM2Test {
 			Util.SetResult(game, 2, Win);
 
 			var buf = Util.Export(game);
-			Util.CheckOrder(rule, new[] { 1, 1, 3, 3, 5, 5, 7 },game.Players.GetSortedSource(game.Rule));
-			Util.CheckWithOrder(rule, new[] { 1, 5, 2, 3, 6, 7, 4 }, new[] { 1, 1, 3, 3, 5, 5, 7 }, game.Players.GetSortedSource(game.Rule));
+			Util.CheckOrder(game, rule, new[] { 1, 1, 3, 3, 5, 5, 7 },game.GetSortedSource());
+			Util.CheckWithOrder(game, new[] { 1, 5, 2, 3, 6, 7, 4 }, new[] { 1, 1, 3, 3, 5, 5, 7 }, game.GetSortedSource());
 
 			game.StepToMatching();
 			game.StepToPlaying();
@@ -663,10 +665,10 @@ namespace BSMM2Test {
 			Util.SetResult(game, 1, Win);
 			Util.SetResult(game, 2, Win);
 
-			var points = game.Players.GetSortedSource(game.Rule).Select(p => p.Point);
-			var opponentPoints = game.Players.GetSortedSource(game.Rule).Select(p => p.OpponentPoint);
+			var points = game.GetSortedSource().Select(p => p.Point);
+			var opponentPoints = game.GetSortedSource().Select(p => p.OpponentPoint);
 
-			Util.CheckWithOrder(rule, new[] { 1, 5, 2, 6, 3, 7, 4 }, new[] { 1, 2, 3, 4, 5, 6, 7 }, game.Players.GetSortedSource(game.Rule));
+			Util.CheckWithOrder(game, new[] { 1, 5, 2, 6, 3, 7, 4 }, new[] { 1, 2, 3, 4, 5, 6, 7 }, game.GetSortedSource());
 		}
 
 		//
@@ -681,7 +683,7 @@ namespace BSMM2Test {
 			game.StepToPlaying();
 
 			// 対戦開始時
-			Util.CheckWithOrder(rule, new[] { 11, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 }, new[] { 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2 }, game.Players.GetSortedSource(game.Rule));
+			Util.CheckWithOrder(game, new[] { 11, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 }, new[] { 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2 }, game.GetSortedSource());
 
 			Util.SetResult(game, 0, Win);
 			Util.SetResult(game, 1, Win);
@@ -689,7 +691,7 @@ namespace BSMM2Test {
 			Util.SetResult(game, 3, Win);
 			Util.SetResult(game, 4, Win);
 
-			Util.CheckWithOrder(rule, new[] { 1, 3, 5, 7, 9, 11, 2, 4, 6, 8, 10 }, new[] { 1, 1, 1, 1, 1, 6, 7, 7, 7, 7, 7 }, game.Players.GetSortedSource(game.Rule));
+			Util.CheckWithOrder(game, new[] { 1, 3, 5, 7, 9, 11, 2, 4, 6, 8, 10 }, new[] { 1, 1, 1, 1, 1, 6, 7, 7, 7, 7, 7 }, game.GetSortedSource());
 
 			game.StepToMatching();
 			game.StepToPlaying();
@@ -702,7 +704,7 @@ namespace BSMM2Test {
 			Util.SetResult(game, 3, Win);
 			Util.SetResult(game, 4, Win);
 
-			Util.CheckWithOrder(rule, new[] { 1, 5, 9, 2, 3, 6, 7, 10, 11, 4, 8 }, new[] { 1, 1, 1, 4, 4, 4, 4, 8, 8, 10, 10 }, game.Players.GetSortedSource(game.Rule));
+			Util.CheckWithOrder(game, new[] { 1, 5, 9, 2, 3, 6, 7, 10, 11, 4, 8 }, new[] { 1, 1, 1, 4, 4, 4, 4, 8, 8, 10, 10 }, game.GetSortedSource());
 
 			game.StepToMatching();
 			game.StepToPlaying();
@@ -715,15 +717,15 @@ namespace BSMM2Test {
 			Util.SetResult(game, 3, Win);
 			Util.SetResult(game, 4, Lose);
 
-			Util.CheckWithOrder(rule, new[] { 1, 9, 5, 3, 7, 2, 6, 10, 4, 11, 8 }, new[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 }, game.Players.GetSortedSource(game.Rule));
+			Util.CheckWithOrder(game, new[] { 1, 9, 5, 3, 7, 2, 6, 10, 4, 11, 8 }, new[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 }, game.GetSortedSource());
 
 			Assert.IsFalse(game.StepToMatching());
 			game.AcceptByeMatchDuplication = true;
 			Assert.IsTrue(game.StepToMatching());
 			game.StepToPlaying();
 
-			var points = game.Players.GetSortedSource(game.Rule).Select(p => p.Point);
-			var opponentPoints = game.Players.GetSortedSource(game.Rule).Select(p => p.OpponentPoint);
+			var points = game.GetSortedSource().Select(p => p.Point);
+			var opponentPoints = game.GetSortedSource().Select(p => p.OpponentPoint);
 
 			Util.Check(new[] { 1, 9, 5, 3, 7, 6, 2, 10, 4, 8, 11, -1 }, game.ActiveRound);
 		}

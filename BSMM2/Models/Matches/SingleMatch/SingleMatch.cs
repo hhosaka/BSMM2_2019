@@ -12,6 +12,11 @@ namespace BSMM2.Models.Matches.SingleMatch {
 			: base(id, player1, player2) {
 		}
 
+		public SingleMatch(int id, Record record1, Record record2)
+			: base(id, record1, record2) {
+
+		}
+
 		public override void SetResult(RESULT_T result)
 			=> SetSingleMatchResult(result, RESULTUtil.DEFAULT_LIFE_POINT, RESULTUtil.DEFAULT_LIFE_POINT);
 

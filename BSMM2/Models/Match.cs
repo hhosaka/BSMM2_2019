@@ -52,9 +52,9 @@ namespace BSMM2.Models {
 			private Record() {
 			}
 
-			public Record(IPlayer player) {
+			public Record(IPlayer player,IResult result=null) {
 				Player = player;
-				Result = _defaultResult;
+				Result = result??_defaultResult;
 			}
 		}
 
@@ -81,6 +81,9 @@ namespace BSMM2.Models {
 
 		[JsonIgnore]
 		public IRecord Record2 => _records[1];
+
+		public bool HasPlayer(Player player)
+			=>_records.Any(record => record.Player.Name == player.Name);// TODO tentative. It will be compared by id
 
 		public abstract void SetResult(RESULT_T result);
 
@@ -125,6 +128,11 @@ namespace BSMM2.Models {
 			} else {
 				_records = new[] { new Record(player1), new Record(BYE) };
 			}
+		}
+		public Match(int id, Record record1, Record record2) {
+			Id = id;
+			_records = new[] { record1, record2 };
+			SetIsGapMatch();
 		}
 	}
 }

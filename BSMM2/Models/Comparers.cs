@@ -13,10 +13,12 @@ namespace BSMM2.Models {
 	}
 
 	internal class TheComparer : Comparer<Player> {
+		Game _game;
 		private IEnumerable<IComparer> _compareres;
 		private bool _force;
 
-		public TheComparer(IEnumerable<IComparer> compareres, bool force) {
+		public TheComparer(Game game, IEnumerable<IComparer> compareres, bool force) {
+			_game = game;
 			_compareres = compareres;
 			_force = force;
 		}
@@ -26,10 +28,10 @@ namespace BSMM2.Models {
 				var ret = CompUtil.Comp2Factor(p1.Dropped, p2.Dropped);
 				if (ret == 0) {
 					foreach (var c in _compareres.Where(c => _force || c.Active)) {
-						ret = c.Compare(p1, p2);
+						ret = c.Compare(_game, p1, p2);
 						if (ret != 0) return ret;
 					}
-					return p1.GetResult(p2) ?? 0;
+					return _game.GetResult(p1, p2) ?? 0;
 				}
 				return ret;
 			}
@@ -51,8 +53,8 @@ namespace BSMM2.Models {
 		[JsonProperty]
 		public bool Active { get; set; } = true;
 
-		public int Compare(Player p1, Player p2)
-			=> p2.ByeMatchCount - p1.ByeMatchCount;
+		public int Compare(Game game, Player p1, Player p2)
+			=> game.ByeMatchCount(p2) - game.ByeMatchCount(p1);
 	}
 
 	public class PointComparer : IComparer {
@@ -69,7 +71,7 @@ namespace BSMM2.Models {
 		[JsonProperty]
 		public bool Active { get; set; } = true;
 
-		public int Compare(Player p1, Player p2)
+		public int Compare(Game game, Player p1, Player p2)
 			=> p1.Point.MatchPoint - p2.Point.MatchPoint;
 	}
 
@@ -90,8 +92,8 @@ namespace BSMM2.Models {
 			set { }
 		}
 
-		public int Compare(Player p1, Player p2)
-			=> (p1.IsAllWins?1:0) - (p2.IsAllWins?1:0);
+		public int Compare(Game game, Player p1, Player p2)
+			=> (game.IsAllWins(p1) ?1:0) - (game.IsAllWins(p2) ?1:0);
 	}
 
 	[JsonObject]
@@ -109,7 +111,7 @@ namespace BSMM2.Models {
 		[JsonProperty]
 		public bool Active { get; set; } = true;
 
-		public int Compare(Player p1, Player p2)
+		public int Compare(Game game, Player p1, Player p2)
 			=> CompUtil.CompResult(p1.Point.LifePoint - p2.Point.LifePoint);
 	}
 
@@ -128,7 +130,7 @@ namespace BSMM2.Models {
 		[JsonProperty]
 		public bool Active { get; set; } = true;
 
-		public int Compare(Player p1, Player p2)
+		public int Compare(Game game, Player p1, Player p2)
 			=> p1.OpponentPoint.MatchPoint - p2.OpponentPoint.MatchPoint;
 	}
 
@@ -147,7 +149,7 @@ namespace BSMM2.Models {
 		[JsonProperty]
 		public bool Active { get; set; } = true;
 
-		public int Compare(Player p1, Player p2)
+		public int Compare(Game game, Player p1, Player p2)
 			=> CompUtil.CompResult(p1.OpponentPoint.LifePoint - p2.OpponentPoint.LifePoint);
 	}
 
@@ -166,7 +168,7 @@ namespace BSMM2.Models {
 		[JsonProperty]
 		public bool Active { get; set; } = true;
 
-		public int Compare(Player p1, Player p2)
+		public int Compare(Game game, Player p1, Player p2)
 			=> CompUtil.CompResult(p1.Point.WinPoint - p2.Point.WinPoint);
 	}
 
@@ -185,7 +187,7 @@ namespace BSMM2.Models {
 		[JsonProperty]
 		public bool Active { get; set; } = true;
 
-		public int Compare(Player p1, Player p2)
+		public int Compare(Game game, Player p1, Player p2)
 			=> CompUtil.CompResult(p1.OpponentPoint.WinPoint - p2.OpponentPoint.WinPoint);
 	}
 }
