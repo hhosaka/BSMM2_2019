@@ -65,7 +65,7 @@ namespace BSMM2.Models.Matches.SingleMatch {
         {
         }
 
-		public SingleMatchResult(RESULT_T result, int lifePoint) {
+		public SingleMatchResult(RESULT_T result, int lifePoint=0) {
 			RESULT = result;
 			LifePoint = lifePoint;
 		}

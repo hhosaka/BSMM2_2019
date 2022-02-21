@@ -16,8 +16,8 @@ namespace BSMM2.Models {
 		[JsonProperty]
 		public virtual bool Dropped { get; set; }
 
-		[JsonProperty]
-		private IList<Match> _matches;
+		//[JsonProperty]
+		//private IList<Match> _matches;
 
 //		[JsonIgnore]
 //		public IEnumerable<Match> Matches => _matches;

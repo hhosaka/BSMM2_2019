@@ -101,7 +101,7 @@ namespace BSMM2Test {
 		}
 
 		public static void Check(Game a, Game b) {
-			Assert.AreEqual(a.Title, b.Title);
+			Assert.AreEqual(a.Title, b.Title);//TODO
 			Assert.AreEqual(a.Id, b.Id);
 			Assert.AreEqual(a.StartTime, b.StartTime);
 			Assert.AreEqual(a.Rule.Name, b.Rule.Name);
@@ -152,5 +152,23 @@ namespace BSMM2Test {
 			}
 			return buf.ToString();
 		}
+
+		public static void CreateSingleMatchRound(Game game, int[] playerlist) {
+			game.AddRound(CreateSingleMatches());
+
+			IEnumerable<Match> CreateSingleMatches() {
+				var id = 0;
+				for (int i = 0; i < playerlist.Count(); i += 2) {
+					yield return
+						new SingleMatch(
+							++id,
+							new Match.Record(game.GetPlayer(playerlist[i]-1), new SingleMatchResult(RESULT_T.Win)),
+							new Match.Record(game.GetPlayer(playerlist[i + 1]-1), new SingleMatchResult(RESULT_T.Lose))
+							);
+				}
+			}
+		}
+
+
 	}
 }

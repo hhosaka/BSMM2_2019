@@ -566,45 +566,27 @@ namespace BSMM2Test {
 			var rule = new SingleMatchRule();
 			var game = new FakeGame(rule, 6);
 
-			//game.CreateMatching(new[] {
-			//	new SingleMatch(
-			//		1,
-			//		new Match.Record(game.GetPlayer(0),new SingleMatchResult(RESULT_T.Win, 0)),
-			//		new Match.Record(game.GetPlayer(1),new SingleMatchResult(RESULT_T.Lose, 0))
-			//		) });
-			Util.Check(new[] { 1, 2, 3, 4, 5, 6 }, game.ActiveRound);
-
-			game.StepToPlaying();
-
-			Util.SetResult(game, 0, Win);
-			Util.SetResult(game, 1, Win);
-			Util.SetResult(game, 2, Win);
+			Util.CreateSingleMatchRound(game, new[] { 1, 2, 3, 4, 5, 6 });
+			Assert.IsTrue(game.StepToMatching());
 
 			Util.Check(new[] { 1, 3, 5, 2, 4, 6 }, game.GetSortedSource());
-
-			game.StepToMatching();
-
 			Util.Check(new[] { 1, 3, 5, 2, 4, 6 }, game.ActiveRound);
+
+			Util.CreateSingleMatchRound(game, new[] {1, 3, 5, 2, 4, 6});
 
 			Assert.IsFalse(game.ActiveRound.Matches.ElementAt(0).IsGapMatch);
 			Assert.IsTrue(game.ActiveRound.Matches.ElementAt(1).IsGapMatch);
 			Assert.IsFalse(game.ActiveRound.Matches.ElementAt(2).IsGapMatch);
 
-			game.StepToPlaying();
-
-			Util.SetResult(game, 0, Win);
-			Util.SetResult(game, 1, Win);
-			Util.SetResult(game, 2, Win);
-
 			Util.Check(new[] { 1, 5, 3, 4, 2, 6 }, game.GetSortedSource());
 
 			Assert.IsFalse(game.StepToMatching());
 
-			var json = JsonConvert.SerializeObject(game, settings);// SwitcherTest3
+			// var json = JsonConvert.SerializeObject(game, settings);// SwitcherTest3
 
-			game.Players.Swap(1, 5);//この順番でなければマッチングできない。通常は乱数でなんとかなる。
+			 game.Players.Swap(1, 5);//この順番でなければマッチングできない。通常は乱数でなんとかなる。
 
-			json = JsonConvert.SerializeObject(game, settings);// SwitcherTest2
+			// json = JsonConvert.SerializeObject(game, settings);// SwitcherTest2
 
 			game.AcceptLosersGapMatchDuplication = true;//全勝者以外のギャップ戦を許容する
 			foreach (var c in game.Rule.Comparers) c.Active = false;//設定できる比較条件を全て無効にする

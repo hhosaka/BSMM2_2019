@@ -110,6 +110,11 @@ namespace BSMM2.Models {
 		public ContentPage CreateMatchPage(Match match)
 			=> Rule.CreateMatchPage(match);
 
+		public void AddRound(IEnumerable<Match> matches) {
+			if (CreateMatching(matches)) {
+				StepToPlaying();
+			}
+		}
 		public bool CreateMatching(IEnumerable<Match>matches=null) {
 			if(matches==null)
 				matches = CreateMatches();
@@ -171,6 +176,12 @@ namespace BSMM2.Models {
 
 		[JsonIgnore]
 		public Func<IEnumerable<Player>, IEnumerable<Player>> RandomizePlayer;
+
+		public static IEnumerable<Player> DefaultRandomizer(IEnumerable<Player> players)
+			=> players.OrderBy(i => Guid.NewGuid());
+
+		public static IEnumerable<Player> FixedRandomizer(IEnumerable<Player> players)
+			=> players;
 
 		private IEnumerable<Match> CreateMatches() {
 			Players.Reset(this, Rule);
@@ -256,7 +267,7 @@ namespace BSMM2.Models {
 			=> Rule.CreateRulePage(this);
 
 		public Game() {// For Serializer
-			RandomizePlayer = (p => p.OrderBy(i => Guid.NewGuid()));
+			RandomizePlayer = DefaultRandomizer;
 		}
 
 		public Game(IRule rule, Players players, string title = null,Func<IEnumerable<Player>, IEnumerable<Player>>randomizePlayer=null):this() {
