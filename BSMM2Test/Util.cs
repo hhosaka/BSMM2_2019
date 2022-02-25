@@ -28,11 +28,11 @@ namespace BSMM2Test {
 
 		public static void CheckWithOrder(Game game, IEnumerable<int> expectedPlayers, IEnumerable<int> expectedOrder, IEnumerable<Player> players) {
 			Check(expectedPlayers, players);
-			CheckOrder(game, game.Rule, expectedOrder, players);
+			CheckOrder(game, expectedOrder, players);
 		}
 
-		public static void CheckOrder(Game game, IRule rule, IEnumerable<int> expectedOrder, IEnumerable<Player> players) {
-			var result = Players.GetOrderedPlayers(game, rule, players).Select(player=>player.Order);
+		public static void CheckOrder(Game game, IEnumerable<int> expectedOrder, IEnumerable<Player> players) {
+			var result = Players.GetOrderedPlayers(game, players).Select(player => player.Order);
 			CollectionAssert.AreEqual(expectedOrder.ToArray(), result.ToArray(), Message(expectedOrder, result));
 		}
 
@@ -92,14 +92,6 @@ namespace BSMM2Test {
 			}
 		}
 
-		public static void Check(Game ga, IEnumerable<Round> a, Game gb, IEnumerable<Round> b) {
-			var ita = a.GetEnumerator();
-			var itb = b.GetEnumerator();
-			while (ita.MoveNext() && itb.MoveNext()) {
-				Check(ga, ita.Current as Round, gb, itb.Current as Round);
-			}
-		}
-
 		public static void Check(Game a, Game b) {
 			Assert.AreEqual(a.Title, b.Title);//TODO
 			Assert.AreEqual(a.Id, b.Id);
@@ -118,7 +110,15 @@ namespace BSMM2Test {
 				Check(a, ita.Current, b, itb.Current);
 			}
 			Check(a, a.ActiveRound, b, b.ActiveRound);
-			Check(a, a.Rounds, b, b.Rounds);
+			CheckRounds();
+
+			void CheckRounds() {
+				var it1 = a.Rounds.GetEnumerator();
+				var it2 = b.Rounds.GetEnumerator();
+				while (it1.MoveNext() && it2.MoveNext()) {
+					Check(a, it1.Current as Round, b, it2.Current as Round);
+				}
+			}
 		}
 
 		private static String Message(IEnumerable<int> expect, IEnumerable<int> result) {
@@ -141,14 +141,14 @@ namespace BSMM2Test {
 
 		public static string Export(Game game) {
 			var buf = new StringBuilder();
-			game.Players.Export(game, game.Rule, new StringWriter(buf));
+			game.Players.Export(game, new StringWriter(buf));
 			return buf.ToString();
 		}
 
-		public static string Export(Game game, IRule rule, Players players) {
+		public static string Export(Game game, Players players) {
 			var buf = new StringBuilder();
 			using (var writer = new StringWriter(buf)) {
-				players.Export(game, rule, writer);
+				players.Export(game, writer);
 			}
 			return buf.ToString();
 		}

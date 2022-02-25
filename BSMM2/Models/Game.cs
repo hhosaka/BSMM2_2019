@@ -54,6 +54,9 @@ namespace BSMM2.Models {
 		[JsonIgnore]
 		public string Headline => "(Round " + (Rounds?.Count() + 1 ?? 0) + ")"　+ Title;
 
+		public Comparer<Player> GetComparer( bool force)
+			=>Rule.GetComparer(this, force);
+
 		public IEnumerable<Match>GetMatches(Player player) {
 			foreach(var round in _rounds) {
 				yield return round.Matches.First(m => m.HasPlayer(player));

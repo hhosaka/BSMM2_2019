@@ -12,19 +12,19 @@ namespace BSMM2.Models {
 	public class Players {
 		private const String DEFAULT_PREFIX = "Player";
 
-		public static IEnumerable<OrderedPlayer> GetOrderedPlayers(Game game, IRule rule, IEnumerable<Player> players)
+		public static IEnumerable<OrderedPlayer> GetOrderedPlayers(Game game, IEnumerable<Player> players)
 		{
 			Player prev = null;
 			int order = 0;
 			int count = 0;
 			foreach (var p in players)
 			{
-				if (prev == null || prev.CompareTo(game, rule, p) != 0)
+				if (prev == null || prev.CompareTo(game, p) != 0)
 				{
 					order = count;
 					prev = p;
 				}
-				yield return new OrderedPlayer(rule, p, order + 1);
+				yield return new OrderedPlayer(game.Rule, p, order + 1);
 				++count;
 			}
 		}
@@ -99,10 +99,10 @@ namespace BSMM2.Models {
 			_players[y]=temp;
 		}
 
-		public void Export(Game game, IRule rule, TextWriter writer) {
+		public void Export(Game game, TextWriter writer) {
 			_players.First()?.Export(game, new ExportData()).Keys.ForEach(key => writer.Write(key + ", "));
 			writer.WriteLine();
-			Reset(game, rule);
+			Reset(game, game.Rule);
 			foreach (var player in _players) {
 				foreach (var param in player.Export(game, new ExportData())) {
 					switch (param.Value) {

@@ -17,31 +17,6 @@ namespace BSMM2Test {
 	public class BSMM2Test {
 
 		[TestMethod]
-		public void RuleTest() {
-			//var rule = new SingleMatchRule();
-			//var players = new Players(rule, 4).GetSortedSource(rule).ToArray();// new[] { new Player("player1"), new Player("player2"), new Player("player3"), new Player("player4") };
-			//var matches = new[] { new SingleMatch(1, players[0], players[1]), new SingleMatch(2, players[2], players[3]) };
-
-			//Assert.IsTrue(players.SequenceEqual(players.OrderByDescending(player => player, rule.GetComparer(true))));
-
-			//matches.ForEach(match => match.Commit());
-
-			//CollectionAssert.Equals(players, players.OrderByDescending(p => p, rule.GetComparer(true)));
-
-			//matches[0].SetResult(Win);
-			//matches[1].SetResult(Win);
-
-			//CollectionAssert.Equals(new[] { players[0], players[2], players[1], players[3] },
-			//	players.OrderByDescending(p => p, rule.GetComparer(true)));
-
-			//matches[0].SetResult(Lose);
-			//matches[1].SetResult(Lose);
-
-			//CollectionAssert.Equals(new[] { players[1], players[3], players[0], players[2] },
-			//	players.OrderByDescending(p => p, rule.GetComparer(true)));
-		}
-
-		[TestMethod]
 		public void GameAddPlayerTest() {
 			var rule = new SingleMatchRule();
 			var game = new FakeGame(rule, 4);
@@ -653,7 +628,7 @@ namespace BSMM2Test {
 			Util.SetResult(game, 2, Win);
 
 			var buf = Util.Export(game);
-			Util.CheckOrder(game, rule, new[] { 1, 1, 3, 3, 5, 5, 7 },game.GetSortedSource());
+			Util.CheckOrder(game, new[] { 1, 1, 3, 3, 5, 5, 7 },game.GetSortedSource());
 			Util.CheckWithOrder(game, new[] { 1, 5, 2, 3, 6, 7, 4 }, new[] { 1, 1, 3, 3, 5, 5, 7 }, game.GetSortedSource());
 
 			game.StepToMatching();

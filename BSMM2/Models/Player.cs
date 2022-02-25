@@ -96,8 +96,8 @@ namespace BSMM2.Models {
 			return data;
 		}
 
-        public int CompareTo(Game game, IRule rule, Player obj)
-			=> rule.GetComparer(game, true).Compare(this, obj);
+        public int CompareTo(Game game, Player obj)
+			=> game.GetComparer(true).Compare(this, obj);
 
         public Player(IRule rule, string name) : this() {
 			//_matches = new List<Match>();
