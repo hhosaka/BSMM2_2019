@@ -79,7 +79,7 @@ namespace BSMM2Test {
 		}
 		[TestMethod]
 		public void LoadSaveTest1() {
-			var game = new FakeGame(new SingleMatchRule(), 6);
+			var game = new SingleMatchFakeGame(6);
 
 			game.Shuffle();
 			Util.Check(new[] { 1, 2, 3, 4, 5, 6 }, game.ActiveRound);
@@ -104,8 +104,7 @@ namespace BSMM2Test {
 
 		[TestMethod]
 		public void LoadSaveTest2() {
-			var rule = new SingleMatchRule();
-			var game = new FakeGame(rule, 6);
+			var game = new SingleMatchFakeGame(6);
 
 			Util.Check(new[] { 1, 2, 3, 4, 5, 6 }, game.ActiveRound);
 
@@ -127,8 +126,7 @@ namespace BSMM2Test {
 
 		[TestMethod]
 		public void LoadSaveTest3() {
-			var rule = new SingleMatchRule();
-			var game = new FakeGame(rule, 6);
+			var game = new SingleMatchFakeGame(6);
 
 			Util.Check(new[] { 1, 2, 3, 4, 5, 6 }, game.ActiveRound);
 
@@ -154,8 +152,7 @@ namespace BSMM2Test {
 
 		[TestMethod]
 		public void LoadSaveTest5() {
-			var rule = new SingleMatchRule();
-			var src = new FakeGame(rule, 8);
+			var src = new SingleMatchFakeGame(8);
 
 			src.StepToPlaying();
 
@@ -275,8 +272,7 @@ namespace BSMM2Test {
 
 		[TestMethod]
 		public void LoadSaveTest8() {
-			var rule = new SingleMatchRule();
-			var game = new FakeGame(rule, 3);
+			var game = new SingleMatchFakeGame(3);
 
 			Util.Check(new[] { 1, 2, 3, -1 }, game.ActiveRound);
 
@@ -360,8 +356,7 @@ namespace BSMM2Test {
 
 		[TestMethod]
 		public void ByeMatchTest() {
-			var rule = new SingleMatchRule();
-			var game = new FakeGame(rule, 3);
+			var game = new SingleMatchFakeGame(3);
 
 			Util.Check(new[] { 1, 2, 3, -1 }, game.ActiveRound);
 
@@ -379,8 +374,7 @@ namespace BSMM2Test {
 
 		[TestMethod]
 		public void ByeMatchTest2() {
-			var rule = new SingleMatchRule();
-			var game = new FakeGame(rule, 7);
+			var game = new SingleMatchFakeGame(7);
 
 			Util.Check(new[] { 1, 2, 3, 4, 5, 6, 7, -1 }, game.ActiveRound);
 
@@ -451,8 +445,7 @@ namespace BSMM2Test {
 
 		[TestMethod]
 		public void GapMatchTest() {
-			var rule = new SingleMatchRule();
-			var game = new FakeGame(rule, 10);
+			var game = new SingleMatchFakeGame(10);
 
 			Util.Check(new[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 }, game.ActiveRound);
 
@@ -516,8 +509,7 @@ namespace BSMM2Test {
 
 		[TestMethod]
 		public void GapMatchTest2() {
-			var rule = new SingleMatchRule();
-			var game = new FakeGame(rule, 6);
+			var game = new SingleMatchFakeGame(6);
 
 			Util.Check(new[] { 1, 2, 3, 4, 5, 6 }, game.ActiveRound);
 
@@ -563,8 +555,7 @@ namespace BSMM2Test {
 
 		[TestMethod]
 		public void GapMatchTest2_2() {
-			var rule = new SingleMatchRule();
-			var game = new FakeGame(rule, 6);
+			var game = new SingleMatchFakeGame(6);
 
 			Util.CreateSingleMatchRound(game, new[] { 1, 2, 3, 4, 5, 6 });
 			Assert.IsTrue(game.StepToMatching());
@@ -646,8 +637,7 @@ namespace BSMM2Test {
 		[TestMethod]
 		public void LoadSaveRuleTest1() {
 
-			var rule = new SingleMatchRule(true);
-			var src = new FakeGame(rule, 4);
+			var src = new FakeGame(new SingleMatchRule(true), 4);
 
 			src.StepToMatching();
 			src.StepToPlaying();
@@ -668,8 +658,7 @@ namespace BSMM2Test {
 		public void LoadSaveRuleTest2() {
 
 			var app = BSMMApp.Create(TESTFILE, true);
-			var rule = new SingleMatchRule(true);
-			var src = new FakeGame(rule, 4);
+			var src = new FakeGame(new SingleMatchRule(true), 4);
 			app.Add(src, true);
 
 			src.StepToMatching();

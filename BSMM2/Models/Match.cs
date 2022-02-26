@@ -41,6 +41,9 @@ namespace BSMM2.Models {
 			private static readonly IResult _defaultResult = new DefaultResult();
 
 			[JsonProperty]
+			private int _player_id;
+
+			[JsonProperty]
 			public IPlayer Player { get; private set; }
 
 			[JsonProperty]

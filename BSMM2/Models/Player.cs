@@ -16,28 +16,6 @@ namespace BSMM2.Models {
 		[JsonProperty]
 		public virtual bool Dropped { get; set; }
 
-		//[JsonProperty]
-		//private IList<Match> _matches;
-
-//		[JsonIgnore]
-//		public IEnumerable<Match> Matches => _matches;
-
-		//[JsonIgnore]
-		//public int ByeMatchCount
-		//	=> _matches.Count(match => match.IsByeMatch);
-
-		//[JsonIgnore]
-		//public bool HasGapMatch
-		//	=> _matches.Any(match => match.IsGapMatch);
-
-		//[JsonIgnore]
-		//public bool IsAllWins
-		//	=> _matches.Count() > 0 && !_matches.Any(match => match.GetRecord(this).Result.RESULT != RESULT_T.Win);
-
-		//[JsonIgnore]
-		//public bool IsAllLoses
-		//	=> _matches.Count() > 0 && !_matches.Any(match => match.GetRecord(this).Result.RESULT != RESULT_T.Lose);
-
 		[JsonIgnore]
 		public IPoint Point { get; private set; }
 
@@ -49,29 +27,11 @@ namespace BSMM2.Models {
 
 		public void Commit(Match match)
 		{
-			//_matches.Add(match);
             if (match.IsByeMatch)
             {
 				match.SetResult(RESULT_T.Win);
             }
 		}
-
-		//public int? GetResult(Game game, Player player) {
-		//	var result = game.GetMatches(this).FirstOrDefault(m => m.GetOpponentRecord(this).Player == player)?.GetRecord(this).Result.RESULT;
-		//	switch (result) {
-		//		case null:
-		//			return null;
-
-		//		case RESULT_T.Win:
-		//			return 1;
-
-		//		case RESULT_T.Lose:
-		//			return -1;
-
-		//		default:
-		//			return 0;
-		//	}
-		//}
 
 		internal void CalcPoint(Game game, IRule rule)
 			=> Point = rule.Point(game.GetMatches(this).Where(match=>match.IsFinished).Select(match => match.GetRecord(this).Result));
@@ -100,7 +60,6 @@ namespace BSMM2.Models {
 			=> game.GetComparer(true).Compare(this, obj);
 
         public Player(IRule rule, string name) : this() {
-			//_matches = new List<Match>();
 			Name = name;
 			Point = OpponentPoint = rule.Point(Enumerable.Empty<IPoint>());
 		}
