@@ -25,7 +25,7 @@ namespace BSMM2.Models.Matches.MultiMatch {
 		public MultiMatch() {
 		}
 
-		public MultiMatch(int id, IPlayer player1, IPlayer player2)
+		public MultiMatch(int id, Player player1, Player player2)
 			: base(id, player1, player2) {
 		}
 

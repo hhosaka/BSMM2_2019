@@ -61,7 +61,7 @@ namespace BSMM2Test {
 			Assert.AreEqual(a.WinPoint, b.WinPoint);
 		}
 
-		public static void Check(Game ga, IPlayer a, Game gb, IPlayer b) {
+		public static void Check(Game ga, Player a, Game gb, Player b) {
 			if (a is Player pa && b is Player pb) {
 				Assert.AreEqual(pa.Dropped, pb.Dropped);
 				Assert.AreEqual(ga.ByeMatchCount(pa), gb.ByeMatchCount(pb));

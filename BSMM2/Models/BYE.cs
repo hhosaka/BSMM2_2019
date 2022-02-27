@@ -1,12 +1,19 @@
 ﻿using BSMM2.Resource;
 using Newtonsoft.Json;
 
-namespace BSMM2.Models {
+namespace BSMM2.Models
+{
 
 	[JsonObject]
-	internal class BYE : IPlayer {
+	internal class BYE : Player
+	{
+		private static Player _instance;
 
-		[JsonIgnore]
-		public string Name => AppResources.TextBYE;
+		public static Player Instance
+			=> _instance ??(_instance = new BYE());
+
+		private BYE()
+			:base(null, AppResources.TextBYE) {
+		}
 	}
 }

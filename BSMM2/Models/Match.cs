@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using BSMM2.Resource;
+using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -8,7 +9,6 @@ namespace BSMM2.Models {
 
 	[JsonObject]
 	public abstract class Match : INotifyPropertyChanged {
-		private static IPlayer BYE = new BYE();
 
 		public event PropertyChangedEventHandler PropertyChanged;
 
@@ -44,7 +44,7 @@ namespace BSMM2.Models {
 			private int _player_id;
 
 			[JsonProperty]
-			public IPlayer Player { get; private set; }
+			public Player Player { get; private set; }
 
 			[JsonProperty]
 			public IResult Result { get; private set; }
@@ -55,7 +55,7 @@ namespace BSMM2.Models {
 			private Record() {
 			}
 
-			public Record(IPlayer player,IResult result=null) {
+			public Record(Player player,IResult result=null) {
 				Player = player;
 				Result = result??_defaultResult;
 			}
@@ -73,7 +73,7 @@ namespace BSMM2.Models {
 
 		[JsonIgnore]
 		public bool IsByeMatch
-			=> _records.Any(result => result.Player is BYE);
+			=> _records.Any(result => result.Player == BYE.Instance);
 
 		[JsonIgnore]
 		public IEnumerable<string> PlayerNames
@@ -110,10 +110,10 @@ namespace BSMM2.Models {
 		public void Commit()
 			=> _records.ForEach(result => (result.Player as Player)?.Commit(this));
 
-		public Record GetRecord(IPlayer player)
+		public Record GetRecord(Player player)
 			=> _records.First(r => r.Player == player);
 
-		public Record GetOpponentRecord(IPlayer player)
+		public Record GetOpponentRecord(Player player)
 			=> _records.First(r => r.Player != player);
 
 		public Match() {// For Serializer
@@ -123,13 +123,13 @@ namespace BSMM2.Models {
 			IsGapMatch = !IsByeMatch && (_records[0].Player as Player)?.Point.MatchPoint != (_records[1].Player as Player)?.Point.MatchPoint;
 		}
 
-		public Match(int id, IPlayer player1, IPlayer player2 = null) {
+		public Match(int id, Player player1, Player player2 = null) {
 			Id = id;
 			if (player2 != null) {
 				_records = new[] { new Record(player1), new Record(player2) };
 				SetIsGapMatch();
 			} else {
-				_records = new[] { new Record(player1), new Record(BYE) };
+				_records = new[] { new Record(player1), new Record(BYE.Instance) };
 			}
 		}
 		public Match(int id, Record record1, Record record2) {

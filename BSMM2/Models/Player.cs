@@ -8,7 +8,7 @@ using Xamarin.Forms.Internals;
 namespace BSMM2.Models {
 
 	[JsonObject]
-	public class Player : IPlayer{
+	public class Player {
 
 		[JsonProperty]
 		public String Name { get; set; }
@@ -61,7 +61,7 @@ namespace BSMM2.Models {
 
         public Player(IRule rule, string name) : this() {
 			Name = name;
-			Point = OpponentPoint = rule.Point(Enumerable.Empty<IPoint>());
+			Point = OpponentPoint = rule?.Point(Enumerable.Empty<IPoint>());
 		}
 	}
 }

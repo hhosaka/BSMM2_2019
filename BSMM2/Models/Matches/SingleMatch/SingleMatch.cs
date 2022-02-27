@@ -8,7 +8,7 @@ namespace BSMM2.Models.Matches.SingleMatch {
 		public SingleMatch() {
 		}
 
-		public SingleMatch(int id, IPlayer player1, IPlayer player2)
+		public SingleMatch(int id, Player player1, Player player2)
 			: base(id, player1, player2) {
 		}
 
