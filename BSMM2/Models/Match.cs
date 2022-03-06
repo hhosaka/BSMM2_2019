@@ -41,13 +41,24 @@ namespace BSMM2.Models {
 			private static readonly IResult _defaultResult = new DefaultResult();
 
 			[JsonProperty]
-			private int _player_id;
+			private Player _player;
+
+			[JsonIgnore]
+			public Player Player {
+				get
+					=>_player??BYE.Instance;
+				private set
+					=>_player=value;
+			}
 
 			[JsonProperty]
-			public Player Player { get; private set; }
+			IResult _result;
 
-			[JsonProperty]
-			public IResult Result { get; private set; }
+			[JsonIgnore]
+			public IResult Result {
+				get => _result ?? _defaultResult;
+				private set =>_result = value;
+			}
 
 			public void SetResult(IResult result)
 				=> Result = result;
@@ -57,7 +68,7 @@ namespace BSMM2.Models {
 
 			public Record(Player player,IResult result=null) {
 				Player = player;
-				Result = result??_defaultResult;
+				Result = result;
 			}
 		}
 
@@ -107,9 +118,6 @@ namespace BSMM2.Models {
 			other.SetIsGapMatch();
 		}
 
-		public void Commit()
-			=> _records.ForEach(result => (result.Player as Player)?.Commit(this));
-
 		public Record GetRecord(Player player)
 			=> _records.First(r => r.Player == player);
 
@@ -123,16 +131,10 @@ namespace BSMM2.Models {
 			IsGapMatch = !IsByeMatch && (_records[0].Player as Player)?.Point.MatchPoint != (_records[1].Player as Player)?.Point.MatchPoint;
 		}
 
-		public Match(int id, Player player1, Player player2 = null) {
-			Id = id;
-			if (player2 != null) {
-				_records = new[] { new Record(player1), new Record(player2) };
-				SetIsGapMatch();
-			} else {
-				_records = new[] { new Record(player1), new Record(BYE.Instance) };
-			}
+		public Match(int id, Player player1, Player player2 = null)
+			: this(id, new Record(player1), new Record(player2)) {
 		}
-		public Match(int id, Record record1, Record record2) {
+		protected Match(int id, Record record1, Record record2) {
 			Id = id;
 			_records = new[] { record1, record2 };
 			SetIsGapMatch();

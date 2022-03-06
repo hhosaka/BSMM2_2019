@@ -31,9 +31,12 @@ namespace BSMM2.Models {
 			return false;
 		}
 
-		public void Commit() {
+		public void StepToPlaying() {
 			IsPlaying = true;
-			_matches.ForEach(match => match.Commit());
+			foreach (var m in Matches) {
+				if (m.IsByeMatch)
+					m.SetResult(RESULT_T.Win);
+			}
 		}
 
 		public Round() {

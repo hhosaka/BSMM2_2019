@@ -25,14 +25,6 @@ namespace BSMM2.Models {
 		public string Description(IRule rule)
 			=> rule.GetDescription(this);
 
-		public void Commit(Match match)
-		{
-            if (match.IsByeMatch)
-            {
-				match.SetResult(RESULT_T.Win);
-            }
-		}
-
 		internal void CalcPoint(Game game, IRule rule)
 			=> Point = rule.Point(game.GetMatches(this).Where(match=>match.IsFinished).Select(match => match.GetRecord(this).Result));
 

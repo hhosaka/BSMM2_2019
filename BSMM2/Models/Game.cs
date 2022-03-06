@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using Xamarin.Forms;
+using Xamarin.Forms.Internals;
 
 namespace BSMM2.Models {
 
@@ -129,8 +130,8 @@ namespace BSMM2.Models {
 			return false;
 		}
 
-		public Player GetPlayer(int index)=>
-			Players.Source.ElementAt(index);
+		public Player GetPlayer(int index)
+			=>index == BYE.Id?BYE.Instance : Players.Source.ElementAt(index);
 
 		public bool CanExecuteShuffle()
 			=> !ActiveRound.IsPlaying;
@@ -147,7 +148,7 @@ namespace BSMM2.Models {
 
 		public void StepToPlaying() {
 			if (CanExecuteStepToPlaying()) {
-				ActiveRound.Commit();
+				ActiveRound.StepToPlaying();
 			}
 		}
 

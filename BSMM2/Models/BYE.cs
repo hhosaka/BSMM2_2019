@@ -8,7 +8,7 @@ namespace BSMM2.Models
 	internal class BYE : Player
 	{
 		private static Player _instance;
-
+		public const int Id = -1;
 		public static Player Instance
 			=> _instance ??(_instance = new BYE());
 
