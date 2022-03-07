@@ -39,7 +39,7 @@ namespace BSMM2.Models {
 						{AppResources.TextWinPoint,AppResources.TextOpponentWinPoint },
 						{AppResources.TextLifePoint,AppResources.TextOpponentLifePoint }};
 
-		public IExportData Export(Game game, IExportData data) {
+		public ExportData Export(Game game, ExportData data) {
 			data[AppResources.TextPlayerName] = Name;
 			data[AppResources.TextDropped] = Dropped;
 			Point.Export(data);

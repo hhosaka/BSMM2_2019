@@ -18,7 +18,7 @@ namespace BSMM2.Models.Matches.SingleMatch {
 
 			public double WinPoint { get; }
 
-			public IExportData Export(IExportData data) {
+			public ExportData Export(ExportData data) {
 				data[AppResources.TextMatchPoint] = MatchPoint;
 				data[AppResources.TextWinPoint] = WinPoint;
 				if (_enableLifePoint) data[AppResources.TextLifePoint] = LifePoint;
@@ -41,7 +41,7 @@ namespace BSMM2.Models.Matches.SingleMatch {
 		public static IPoint Total(bool enableLifePoint, IEnumerable<IPoint> points)
 			=> new TheResult(enableLifePoint, points);
 
-		public IExportData Export(IExportData data)
+		public ExportData Export(ExportData data)
 			=> throw new System.NotImplementedException();
 
 		[JsonIgnore]

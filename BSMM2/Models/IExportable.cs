@@ -2,12 +2,10 @@
 
 namespace BSMM2.Models {
 
-	public interface IExportData : IDictionary<string, object> { }
-
-	public class ExportData : Dictionary<string, object>, IExportData { }
+	public class ExportData : Dictionary<string, object> { }
 
 	public interface IExportable {
 
-		IExportData Export(IExportData data);
+		ExportData Export(ExportData data);
 	}
 }
