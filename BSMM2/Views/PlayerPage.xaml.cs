@@ -18,7 +18,7 @@ namespace BSMM2.Views {
 			BindingContext = new PlayerViewModel(app, player);
 
 			int i = 2;
-			foreach (var param in player.Export(app.Game, new ExportData()).Where(param => !_excludes.Any(key => key == param.Key))) {
+			foreach (var param in player.Export(new ExportData()).Where(param => !_excludes.Any(key => key == param.Key))) {
 				CreateLabel(i, 0, param.Key);
 				CreateLabel(i++, 1, param.Value);
 				grid.RowDefinitions.Add(new RowDefinition() { Height = GridLength.Auto });

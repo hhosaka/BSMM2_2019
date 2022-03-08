@@ -11,6 +11,6 @@
 
 		bool Active { get; set; }
 
-		int Compare(Game game, Player p1, Player p2);
+		int Compare(Player p1, Player p2);
 	}
 }

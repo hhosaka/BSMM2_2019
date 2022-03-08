@@ -76,8 +76,8 @@ namespace BSMM2.Models.Matches.SingleMatch {
 		public IPoint Point(IEnumerable<IPoint> points)
 			=> SingleMatchResult.Total(EnableLifePoint, points);
 
-		public virtual Comparer<Player> GetComparer(Game game, bool force)
-			=> new TheComparer(game, Comparers, force);
+		public virtual Comparer<Player> GetComparer( bool force)
+			=> new TheComparer(Comparers, force);
 
 		public virtual string GetDescription(Player player) {
 			var buf = new StringBuilder();

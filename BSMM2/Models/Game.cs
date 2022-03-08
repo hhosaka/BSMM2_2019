@@ -55,8 +55,8 @@ namespace BSMM2.Models {
 		[JsonIgnore]
 		public string Headline => "(Round " + (Rounds?.Count() + 1 ?? 0) + ")"　+ Title;
 
-		public Comparer<Player> GetComparer( bool force)
-			=>Rule.GetComparer(this, force);
+		//public Comparer<Player> GetComparer( bool force)
+		//	=>Rule.GetComparer(force);
 
 		public IEnumerable<Match>GetMatches(Player player) {
 			foreach(var round in _rounds) {
@@ -67,37 +67,8 @@ namespace BSMM2.Models {
 			}
 		}
 
-		public int? GetResult(Player player,Player opponent) {
-			var result = GetMatches(player).FirstOrDefault(m => m.GetOpponentRecord(player).Player == opponent)?.GetRecord(player).Result.RESULT;
-			switch (result) {
-				case null:
-					return null;
-
-				case RESULT_T.Win:
-					return 1;
-
-				case RESULT_T.Lose:
-					return -1;
-
-				default:
-					return 0;
-			}
-		}
-
-		public bool IsAllWins(Player player)
-			=> GetMatches(player).Count() > 0 && !GetMatches(player).Any(match => match.GetRecord(player).Result.RESULT != RESULT_T.Win);
-
-		public bool IsAllLoses(Player player)
-			=> GetMatches(player).Count() > 0 && !GetMatches(player).Any(match => match.GetRecord(player).Result.RESULT != RESULT_T.Lose);
-
-		public int ByeMatchCount(Player player)
-			=> GetMatches(player).Count(match => match.IsByeMatch);
-
-		public bool HasGapMatch(Player player)
-			=> GetMatches(player).Any(match => match.IsGapMatch);
-
 		public IEnumerable<Player> GetSortedSource()
-			=> Players.GetSortedSource(this, Rule);
+			=> Players.GetSortedSource(Rule);
 
 		public bool CanAddPlayers() => !ActiveRound.IsPlaying && !_rounds.Any();
 
@@ -148,7 +119,7 @@ namespace BSMM2.Models {
 
 		public void StepToPlaying() {
 			if (CanExecuteStepToPlaying()) {
-				ActiveRound.StepToPlaying();
+				Players.StepToPlaying(ActiveRound.StepToPlaying());
 			}
 		}
 
@@ -176,7 +147,7 @@ namespace BSMM2.Models {
 		}
 
 		public bool IsFinished()
-			=> Players.Source.Count(player => IsAllWins(player)) <= 1;
+			=> Players.Source.Count(player => player.IsAllWins()) <= 1;
 
 		[JsonIgnore]
 		public Func<IEnumerable<Player>, IEnumerable<Player>> RandomizePlayer;
@@ -188,10 +159,10 @@ namespace BSMM2.Models {
 			=> players;
 
 		private IEnumerable<Match> CreateMatches() {
-			Players.Reset(this, Rule);
+			Players.Reset(Rule);
 			for (int i = 0; i < TRY_COUNT; ++i) {
 				var matchingList = Create(RandomizePlayer(Players.Source)
-					.OrderByDescending(p => p, Rule.GetComparer(this, false))
+					.OrderByDescending(p => p, Rule.GetComparer(false))
 					.Where(p => !p.Dropped));
 
 				if (matchingList != null) {
@@ -230,13 +201,13 @@ namespace BSMM2.Models {
 				return null;//組み合わせを作れなかった。
 
 				bool isByeAcceptable(Player p) {
-					if (IsAllWins(p)) return false;
-					return IsAllLoses(p) || (AcceptByeMatchDuplication || ByeMatchCount(p) == 0);
+					if (p.IsAllWins()) return false;
+					return p.IsAllLoses() || (AcceptByeMatchDuplication || p.ByeMatchCount() == 0);
 				}
 
 				Player PickOpponent(IEnumerable<Player> opponents, Player player) {
 					foreach (var opponent in opponents) {
-						if (GetResult(player, opponent) == null) {//対戦履歴なし
+						if (player.GetResult(opponent) == null) {//対戦履歴なし
 							if (CheckGapMatch()) {
 								return opponent;//対戦者認定
 							}
@@ -246,10 +217,10 @@ namespace BSMM2.Models {
 							if (AcceptGapMatchDuplication) return true;
 							if (IsAcceptLosersGapMatchDuplication()) return true;
 							if (player.Point.MatchPoint == opponent.Point.MatchPoint) return true;
-							return !HasGapMatch(player) && !HasGapMatch(opponent);
+							return !player.HasGapMatch() && !opponent.HasGapMatch();
 
 							bool IsAcceptLosersGapMatchDuplication(){
-								return AcceptLosersGapMatchDuplication && (!IsAllWins(player) && !IsAllWins(opponent));
+								return AcceptLosersGapMatchDuplication && (!player.IsAllWins() && !opponent.IsAllWins());
 							}
 						}
 					}

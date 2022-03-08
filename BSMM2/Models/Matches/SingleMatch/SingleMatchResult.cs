@@ -31,8 +31,8 @@ namespace BSMM2.Models.Matches.SingleMatch {
 			public TheResult(bool enableLifePoint, IEnumerable<IPoint> source) {
 				_enableLifePoint = enableLifePoint;
 
-				MatchPoint = source.Sum(p => p?.MatchPoint??0);
-				WinPoint = source.DefaultIfEmpty().Average(p => p?.WinPoint??0);
+				MatchPoint = source?.Sum(p => p?.MatchPoint??0)??0;
+				WinPoint = source?.DefaultIfEmpty().Average(p => p?.WinPoint??0)??0;
 				if (enableLifePoint)
 					LifePoint = source.DefaultIfEmpty().Average(p => p?.LifePoint ?? 0);
 			}

@@ -31,12 +31,13 @@ namespace BSMM2.Models {
 			return false;
 		}
 
-		public void StepToPlaying() {
+		public IEnumerable<Match> StepToPlaying() {
 			IsPlaying = true;
 			foreach (var m in Matches) {
 				if (m.IsByeMatch)
 					m.SetResult(RESULT_T.Win);
 			}
+			return _matches;
 		}
 
 		public Round() {

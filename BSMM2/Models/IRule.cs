@@ -26,6 +26,6 @@ namespace BSMM2.Models {
 
 		IPoint Point(IEnumerable<IPoint> results);
 
-		Comparer<Player> GetComparer(Game game, bool force);
+		Comparer<Player> GetComparer(bool force);
 	}
 }

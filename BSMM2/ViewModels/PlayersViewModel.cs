@@ -62,7 +62,7 @@ namespace BSMM2.ViewModels {
 		}
 
 		private void Refresh() {
-			Players = new ObservableCollection<OrderedPlayer>(Models.Players.GetOrderedPlayers(Game, Game.GetSortedSource()));
+			Players = new ObservableCollection<OrderedPlayer>(Game.Players.GetOrderedPlayers(Game.Rule));
 			Title = Game.Headline;
 			RuleCommand?.RaiseCanExecuteChanged();
 			SelectGameCommand?.RaiseCanExecuteChanged();
