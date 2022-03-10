@@ -26,13 +26,13 @@ namespace BSMM2Test {
 			CollectionAssert.AreEqual(expect.ToArray(), result.ToArray(), Message(expect, result));
 		}
 
-		public static void CheckWithOrder(IRule rule, IEnumerable<int> expectedPlayers, IEnumerable<int> expectedOrder, IEnumerable<Player> players) {
-			Check(expectedPlayers, players);
+		public static void CheckWithOrder(IRule rule, IEnumerable<int> expectedPlayers, IEnumerable<int> expectedOrder, IEnumerable<OrderedPlayer> players) {
+			Check(expectedPlayers, players.Select(p=>p.Player));
 			CheckOrder(rule, expectedOrder, players);
 		}
 
-		public static void CheckOrder(IRule rule, IEnumerable<int> expectedOrder, IEnumerable<Player> players) {
-			var result = Players.GetOrderedPlayers(rule, players).Select(player => player.Order);
+		public static void CheckOrder(IRule rule, IEnumerable<int> expectedOrder, IEnumerable<OrderedPlayer> players) {
+			var result = players.Select(player => player.Order);
 			CollectionAssert.AreEqual(expectedOrder.ToArray(), result.ToArray(), Message(expectedOrder, result));
 		}
 

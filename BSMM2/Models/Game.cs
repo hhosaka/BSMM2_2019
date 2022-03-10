@@ -68,7 +68,7 @@ namespace BSMM2.Models {
 		}
 
 		public IEnumerable<Player> GetSortedSource()
-			=> Players.GetSortedSource();
+			=> Players.GetSortedPlayers();
 
 		public bool CanAddPlayers() => !ActiveRound.IsPlaying && !_rounds.Any();
 

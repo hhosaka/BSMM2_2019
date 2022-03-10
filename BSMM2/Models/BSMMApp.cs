@@ -16,7 +16,7 @@ namespace BSMM2.Models {
 	[JsonObject]
 	public class BSMMApp {
 
-		private const int VERSION = 2;
+		private const int VERSION = 3;
 
 		[JsonProperty]
 		private readonly int _version;
@@ -79,12 +79,7 @@ namespace BSMM2.Models {
 		public List<IRule> Rules { get; private set; }
 
 		[JsonProperty]
-		int _rule;
-		[JsonIgnore]
-		public IRule Rule {
-			get => Rules.ElementAt(_rule);
-			set =>_rule=Rules.IndexOf(value);
-		}
+		public IRule Rule { get; set; }
 
 		[JsonProperty]
 		public Game Game { get; set; }

@@ -14,20 +14,6 @@ namespace BSMM2.Models
 	{
 		private const String DEFAULT_PREFIX = "Player";
 
-		public static IEnumerable<OrderedPlayer> GetOrderedPlayers(IRule rule, IEnumerable<Player> players) {
-			Player prev = null;
-			int order = 0;
-			int count = 0;
-			foreach (var p in players) {
-				if (prev == null || prev.CompareTo(p) != 0) {
-					order = count;
-					prev = p;
-				}
-				yield return new OrderedPlayer(rule, p, order + 1);
-				++count;
-			}
-		}
-
 		[JsonProperty]
 		private IRule _rule;
 
@@ -128,7 +114,7 @@ namespace BSMM2.Models
 				writer.WriteLine();
 			}
 		}
-		public IEnumerable<Player> GetSortedSource() {
+		public IEnumerable<Player> GetSortedPlayers() {
 			if (_players == null) {
 				return Enumerable.Empty<Player>();
 			} else {
@@ -137,7 +123,18 @@ namespace BSMM2.Models
 			}
 		}
 
-		public IEnumerable<OrderedPlayer> GetOrderedPlayers()
-			=> GetOrderedPlayers(_rule, GetSortedSource());
+		public IEnumerable<OrderedPlayer> GetOrderedPlayers() {
+			Player prev = null;
+			int order = 0;
+			int count = 0;
+			foreach (var p in GetSortedPlayers()) {
+				if (prev == null || prev.CompareTo(p) != 0) {
+					order = count;
+					prev = p;
+				}
+				yield return new OrderedPlayer(_rule, p, order + 1);
+				++count;
+			}
+		}
 	}
 }
