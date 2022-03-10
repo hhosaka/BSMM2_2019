@@ -23,10 +23,10 @@ namespace BSMM2Test {
 
 			Util.CheckWithOrder(rule, new[] { 1, 2, 3, 4 }, new[] { 1, 1, 1, 1 }, game.GetSortedSource());
 
-			game.Players.Add(rule, "Player006");
+			game.Players.Add("Player006");
 			Util.CheckWithOrder(rule, new[] { 1, 2, 3, 4, 6 }, new[] { 1, 1, 1, 1, 1 }, game.GetSortedSource());
 
-			game.Players.Add(rule, "Player005");
+			game.Players.Add("Player005");
 			Util.CheckWithOrder(rule, new[] { 1, 2, 3, 4, 6, 5 }, new[] { 1, 1, 1, 1, 1, 1 }, game.GetSortedSource());
 
 			//game.Players.Remove(1);
@@ -44,7 +44,7 @@ namespace BSMM2Test {
 
 			Util.CheckWithOrder(rule, new[] { 1, 2, 3, 4 }, new[] { 1, 1, 1, 1 }, game.GetSortedSource());
 
-			game.Players.Add(rule, "Player006");
+			game.Players.Add("Player006");
 			Util.CheckWithOrder(rule, new[] { 1, 2, 3, 4, 6 }, new[] { 1, 1, 1, 1, 1 }, game.GetSortedSource());
 		}
 

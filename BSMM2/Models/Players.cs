@@ -19,7 +19,7 @@ namespace BSMM2.Models
 			int order = 0;
 			int count = 0;
 			foreach (var p in players) {
-				if (prev == null || prev.CompareTo(rule, p) != 0) {
+				if (prev == null || prev.CompareTo(p) != 0) {
 					order = count;
 					prev = p;
 				}
@@ -27,6 +27,9 @@ namespace BSMM2.Models
 				++count;
 			}
 		}
+
+		[JsonProperty]
+		private IRule _rule;
 
 		[JsonProperty]
 		private String _prefix;
@@ -40,10 +43,10 @@ namespace BSMM2.Models
 		[JsonIgnore]
 		public int Count => _players.Count;
 
-		private IEnumerable<Player> Generate(IRule rule, int start, string prefix, int count = 1) {
+		private IEnumerable<Player> Generate(int start, string prefix, int count = 1) {
 			Debug.Assert(count > 0);
 			for (int i = 0; i < count; ++i) {
-				yield return new Player(rule, string.Format("{0}{1:000}", prefix, start + i));
+				yield return new Player(_rule, string.Format("{0}{1:000}", prefix, start + i));
 			}
 		}
 
@@ -56,15 +59,18 @@ namespace BSMM2.Models
 		}
 
 		public Players(IRule rule, Players players) {
+			_rule = rule;
 			_prefix = players._prefix;
 			_players = players.Source.Select(player => new Player(rule, player.Name)).ToList();
 		}
 
 		public Players(IRule rule, int count) {
-			_players = Generate(rule, 1, rule.Prefix, count).ToList();
+			_rule = rule;
+			_players = Generate(1, rule.Prefix, count).ToList();
 		}
 
 		public Players(IRule rule, TextReader r, String prefix = DEFAULT_PREFIX) {
+			_rule = rule;
 			_prefix = prefix;
 			_players = Generate().ToList();
 
@@ -77,23 +83,23 @@ namespace BSMM2.Models
 			}
 		}
 
-		public void Add(IRule rule, int count = 1, String prefix = DEFAULT_PREFIX) {
+		public void Add(int count = 1, String prefix = DEFAULT_PREFIX) {
 			int start = _players.Count() + 1;
-			_players.AddRange(Generate(rule, start, prefix, count));
+			_players.AddRange(Generate(start, prefix, count));
 		}
 
-		public void Add(IRule rule, String name)
-			=> _players.Add(new Player(rule, name));
+		public void Add(String name)
+			=> _players.Add(new Player(_rule, name));
 
-		//public void Remove(int index)
-		//	=> _players.RemoveAt(index);
+		public void Remove(int index)
+			=> _players.RemoveAt(index);
 
-		//public void Remove(Player player)
-		//	=> _players.Remove(player);
+		public void Remove(Player player)
+			=> _players.Remove(player);
 
-		public void Reset(IRule rule) {
-			_players.ForEach(p => p.CalcPoint(rule));
-			_players.ForEach(p => p.CalcOpponentPoint(rule));
+		public void Reset() {
+			_players.ForEach(p => p.CalcPoint());
+			_players.ForEach(p => p.CalcOpponentPoint());
 		}
 
 		// For Debug
@@ -103,10 +109,10 @@ namespace BSMM2.Models
 			_players[y] = temp;
 		}
 
-		public void Export(IRule rule, TextWriter writer) {
+		public void Export(TextWriter writer) {
 			_players.First()?.Export(new ExportData()).Keys.ForEach(key => writer.Write(key + ", "));
 			writer.WriteLine();
-			Reset(rule);
+			Reset();
 			foreach (var player in _players) {
 				foreach (var param in player.Export(new ExportData())) {
 					switch (param.Value) {
@@ -122,16 +128,16 @@ namespace BSMM2.Models
 				writer.WriteLine();
 			}
 		}
-		public IEnumerable<Player> GetSortedSource(IRule rule) {
+		public IEnumerable<Player> GetSortedSource() {
 			if (_players == null) {
 				return Enumerable.Empty<Player>();
 			} else {
-				Reset(rule);
-				return _players.OrderByDescending(p => p, rule.GetComparer(true));
+				Reset();
+				return _players.OrderByDescending(p => p, _rule.GetComparer(true));
 			}
 		}
 
-		public IEnumerable<OrderedPlayer> GetOrderedPlayers(IRule rule)
-			=> GetOrderedPlayers(rule, GetSortedSource(rule));
+		public IEnumerable<OrderedPlayer> GetOrderedPlayers()
+			=> GetOrderedPlayers(_rule, GetSortedSource());
 	}
 }

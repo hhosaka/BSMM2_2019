@@ -17,6 +17,9 @@ namespace BSMM2.Models {
 		public virtual bool Dropped { get; set; }
 
 		[JsonProperty]
+		private IRule _rule;
+
+		[JsonProperty]
 		private List<Match> _matches;
 
 		[JsonIgnore]
@@ -25,17 +28,18 @@ namespace BSMM2.Models {
 		[JsonIgnore]
 		public IPoint OpponentPoint { get; private set; }
 
-		public string Description(IRule rule)
-			=> rule.GetDescription(this);
+		[JsonIgnore]
+		public string Description
+			=> _rule.GetDescription(this);
 
 		public void StepToPlaying(Match match)
 			=>_matches.Add(match);
 
-		internal void CalcPoint(IRule rule)
-			=> Point = rule.Point(_matches.Where(match=>match.IsFinished).Select(match => match.GetRecord(this).Result));
+		internal void CalcPoint()
+			=> Point = _rule.Point(_matches.Where(match=>match.IsFinished).Select(match => match.GetRecord(this).Result));
 
-		internal void CalcOpponentPoint(IRule rule)
-			=> OpponentPoint = rule.Point(_matches.Where(match => match.IsFinished).Select(match => (match.GetOpponentRecord(this).Player as Player)?.Point));
+		internal void CalcOpponentPoint()
+			=> OpponentPoint = _rule.Point(_matches.Where(match => match.IsFinished).Select(match => (match.GetOpponentRecord(this).Player as Player)?.Point));
 
 		public bool IsAllWins()
 			=> _matches.Count() > 0 && !_matches.Any(match => match.GetRecord(this).Result.RESULT != RESULT_T.Win);
@@ -80,14 +84,15 @@ namespace BSMM2.Models {
 			return data;
 		}
 
-        public int CompareTo(IRule rule, Player obj)
-			=> rule.GetComparer(true).Compare(this, obj);
+        public int CompareTo(Player obj)
+			=> _rule.GetComparer(true).Compare(this, obj);
 
 		public Player() {// For Serializer
 			_matches = new List<Match>();
 		}
 
 		public Player(IRule rule, string name):this() {
+			_rule = rule;
 			Name = name;
 			Point = OpponentPoint = rule?.Point(Enumerable.Empty<IPoint>());
 		}

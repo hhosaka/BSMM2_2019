@@ -11,7 +11,7 @@ namespace BSMM2.Models {
 
 		public string Name => _player.Name;
 
-		public string Description => _player.Description(_rule);
+		public string Description => _player.Description;
 
 		public int Order { get; }
 

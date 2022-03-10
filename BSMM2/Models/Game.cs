@@ -68,14 +68,14 @@ namespace BSMM2.Models {
 		}
 
 		public IEnumerable<Player> GetSortedSource()
-			=> Players.GetSortedSource(Rule);
+			=> Players.GetSortedSource();
 
 		public bool CanAddPlayers() => !ActiveRound.IsPlaying && !_rounds.Any();
 
 		public bool AddPlayers(string data) {
 			foreach (var name in data.Split(new[] { '\r', '\n' })) {
 				if (!string.IsNullOrEmpty(name)) {
-					Players.Add(Rule, name);
+					Players.Add(name);
 				}
 			}
 			Shuffle();// TODO : 一回戦の結果が終わるまでは追加を認めたいのだが…
@@ -159,7 +159,7 @@ namespace BSMM2.Models {
 			=> players;
 
 		private IEnumerable<Match> CreateMatches() {
-			Players.Reset(Rule);
+			Players.Reset();
 			for (int i = 0; i < TRY_COUNT; ++i) {
 				var matchingList = Create(RandomizePlayer(Players.Source)
 					.OrderByDescending(p => p, Rule.GetComparer(false))

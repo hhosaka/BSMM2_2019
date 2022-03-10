@@ -141,14 +141,14 @@ namespace BSMM2Test {
 
 		public static string Export(Game game) {
 			var buf = new StringBuilder();
-			game.Players.Export(game.Rule, new StringWriter(buf));
+			game.Players.Export(new StringWriter(buf));
 			return buf.ToString();
 		}
 
 		public static string Export(IRule rule, Players players) {
 			var buf = new StringBuilder();
 			using (var writer = new StringWriter(buf)) {
-				players.Export(rule, writer);
+				players.Export(writer);
 			}
 			return buf.ToString();
 		}
