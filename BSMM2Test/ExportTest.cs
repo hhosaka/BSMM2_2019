@@ -2,7 +2,9 @@
 using BSMM2.Models.Matches.SingleMatch;
 using BSMM2.Resource;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.IO;
 using System.Linq;
+using System.Text;
 
 namespace BSMM2Test {
 
@@ -118,6 +120,19 @@ namespace BSMM2Test {
 				AppResources.TextMatchPoint + " = 0/ " +
 				AppResources.TextWinPoint + " = 0.00",
 				game.GetSortedSource().ElementAt(0).Description);
+		}
+
+		[TestMethod]
+		public void ExportPlayerTest1() {
+			var game = new FakeGame(new SingleMatchRule(), 4);
+
+
+			var players = game.Rule.GetExporter().ExportPlayers(game);
+
+			var buf = new StringBuilder();
+			new Serializer<object>().Serialize(new StringWriter(buf), players);
+
+			var str = buf.ToString();
 		}
 	}
 }

@@ -24,6 +24,7 @@ namespace BSMM2.Models {
 
 		string GetDescription(Player player);
 
+		IExporter GetExporter();
 		IPoint Point(IEnumerable<IPoint> results);
 
 		Comparer<Player> GetComparer(bool force);
