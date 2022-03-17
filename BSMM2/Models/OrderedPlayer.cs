@@ -1,15 +1,17 @@
 ﻿using Newtonsoft.Json;
 using System;
+using System.IO;
 
 namespace BSMM2.Models {
 
 	[JsonObject]
-	public class OrderedPlayer
-	{
-		private Player _player;
+	public class OrderedPlayer:IExportableObject{
 
-		[JsonIgnore]
-		public Player Player => _player;
+		public const string TITLE_ORDER = "order";
+		public const string TITLE_NAME = "name";
+
+		[JsonProperty]
+		public int Order { get; }
 
 		[JsonProperty]
 		public string Name { get; }
@@ -17,15 +19,31 @@ namespace BSMM2.Models {
 		[JsonProperty]
 		public IPoint Point { get; }
 
-		[JsonProperty]
-		public int Order { get; }
+		[JsonIgnore]
+		public Player Player { get; }
 
 		public OrderedPlayer(IRule rule, Player player, int order)
 		{
-			_player = player;
+			Player = player;
 			Order = order;
-			Name = _player.Name;
-			Point = _player.Point;
+			Name = Player.Name;
+			Point = Player.Point;
+		}
+
+		public bool ExportData(TextWriter writer) {
+			writer.Write(Order);
+			writer.Write(",");
+			writer.Write(Name);
+			writer.Write(",");
+			return Point.ExportData(writer);
+		}
+
+		public bool ExportTitle(TextWriter writer) {
+			writer.Write(TITLE_ORDER);
+			writer.Write(",");
+			writer.Write(TITLE_NAME);
+			writer.Write(",");
+			return Point.ExportData(writer);
 		}
 	}
 }

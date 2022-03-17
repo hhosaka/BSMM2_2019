@@ -2,11 +2,11 @@
 
 namespace BSMM2.Models {
 
-	public interface IPoint : IExportable {
+	public interface IPoint : IExportable,IExportableObject {
 		int MatchPoint { get; }
 
 		double WinPoint { get; }
 
-		double LifePoint { get; }
+		double?LifePoint { get; }
 	}
 }

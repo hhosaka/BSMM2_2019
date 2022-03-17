@@ -1,6 +1,7 @@
 ﻿using BSMM2.Models.Matches.SingleMatch;
 using Newtonsoft.Json;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using static BSMM2.Models.RESULT_T;
 
@@ -16,7 +17,7 @@ namespace BSMM2.Models.Matches.MultiMatch {
 		private RESULT_T _RESULT;
 
 		[JsonIgnore]
-		public double LifePoint
+		public double?LifePoint
 			=> _results.Where(r=>r.IsFinished).DefaultIfEmpty().Average(p => p?.LifePoint??0);
 
 		[JsonIgnore]
@@ -63,6 +64,14 @@ namespace BSMM2.Models.Matches.MultiMatch {
 
 		public ExportData Export(ExportData data)
 			=> throw new System.NotImplementedException();
+
+		public bool ExportData(TextWriter writer) {
+			throw new System.NotImplementedException();
+		}
+
+		public bool ExportTitle(TextWriter writer) {
+			throw new System.NotImplementedException();
+		}
 
 		public MultiMatchResult() {
 			_results = new List<IResult>();

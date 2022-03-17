@@ -110,7 +110,7 @@ namespace BSMM2.Models {
 		public bool Active { get; set; } = true;
 
 		public int Compare(Player p1, Player p2)
-			=> CompUtil.CompResult(p1.Point.LifePoint - p2.Point.LifePoint);
+			=> CompUtil.CompResult(p1.Point.LifePoint - p2.Point.LifePoint??0);//TODO TBD
 	}
 
 	[JsonObject]
@@ -148,7 +148,7 @@ namespace BSMM2.Models {
 		public bool Active { get; set; } = true;
 
 		public int Compare(Player p1, Player p2)
-			=> CompUtil.CompResult(p1.OpponentPoint.LifePoint - p2.OpponentPoint.LifePoint);
+			=> CompUtil.CompResult(p1.OpponentPoint.LifePoint - p2.OpponentPoint.LifePoint??0);//TODO TBD
 	}
 
 	[JsonObject]

@@ -48,10 +48,12 @@ namespace BSMM2.ViewModels {
 							buf.Append(AppResources.TextWinPoint);
 							buf.Append(" = ");
 							buf.Append(string.Format("{0:F}", point.WinPoint));
-							buf.Append("/ ");
-							buf.Append(AppResources.TextLifePoint);
-							buf.Append(" = ");
-							buf.Append(point.LifePoint >= 0 ? point.LifePoint.ToString() : "-");
+							if (point.LifePoint != null) {
+								buf.Append("/ ");
+								buf.Append(AppResources.TextLifePoint);
+								buf.Append(" = ");
+								buf.Append(point.LifePoint >= 0 ? point.LifePoint.ToString() : "-");
+							}
 							return buf.ToString();
 						}
 						return "---";

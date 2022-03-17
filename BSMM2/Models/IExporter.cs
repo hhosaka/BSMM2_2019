@@ -1,14 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 
 namespace BSMM2.Models
 {
-	interface IExportableObject {
+	public interface IExportableObject {
+		bool ExportTitle(TextWriter writer);
+		bool ExportData(TextWriter writer);
 	}
 
 	public interface IExporter
 	{
-		object ExportPlayers(Game game);
+		IExportableObject ExportPlayers(Game game);
 	}
 }

@@ -62,7 +62,7 @@ namespace BSMM2.Models.Matches {
 		public RESULT_T RESULT { get; private set; }
 
 		public bool IsFinished(bool AcceptDraw)
-			=> (RESULT == RESULT_T.Win || RESULT == RESULT_T.Lose || (AcceptDraw && RESULT == RESULT_T.Draw)) && LifePoint1>=0 && LifePoint2 >= 0;
+			=> (RESULT == RESULT_T.Win || RESULT == RESULT_T.Lose || (AcceptDraw && RESULT == RESULT_T.Draw)) && LifePoint1 >= 0 && LifePoint2 >= 0;
 
 		public bool IsEmpty => RESULT == RESULT_T.Progress && (LifePoints==null || (LifePoint1 == -1 && LifePoint2 == -1));
 

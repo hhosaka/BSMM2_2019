@@ -18,7 +18,7 @@ namespace BSMM2.Models.Matches.SingleMatch {
 		public KeyValuePair<string, RESULT_T> RESULT {
 			get => _result;
 			set {
-				_match.SetSingleMatchResult(value.Value, 0, 0);
+				_match.SetSingleMatchResult(value.Value, null, null);
 				MessagingCenter.Send<object>(this, Messages.REFRESH);
 				_back?.Invoke();
 			}

@@ -5,6 +5,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.IO;
 using System.Linq;
 using System.Text;
+using static BSMM2.Models.RESULT_T;
 
 namespace BSMM2Test {
 
@@ -101,25 +102,45 @@ namespace BSMM2Test {
 		public void DescriptionPlayerTest() {
 			var game = new FakeGame(new SingleMatchRule(true), 4);
 
-			game.Shuffle();
+			var point = game.GetSortedSource().ElementAt(0).Point;
 
-			Assert.AreEqual(
-				AppResources.TextMatchPoint + " = 0/ " +
-				AppResources.TextWinPoint + " = 0.00/ " +
-				AppResources.TextLifePoint + " = 0",
-				game.GetSortedSource().ElementAt(0).Description);
+			Assert.AreEqual(0, point.MatchPoint);
+			Assert.AreEqual(0, point.WinPoint);
+			Assert.AreEqual(0, point.LifePoint);
 		}
 
 		[TestMethod]
 		public void DescriptionPlayerTest2() {
 			var game = new FakeGame(new SingleMatchRule(), 4);
 
-			game.Shuffle();
+			var point = game.GetSortedSource().ElementAt(0).Point;
 
-			Assert.AreEqual(
-				AppResources.TextMatchPoint + " = 0/ " +
-				AppResources.TextWinPoint + " = 0.00",
-				game.GetSortedSource().ElementAt(0).Description);
+			Assert.AreEqual(0, point.MatchPoint);
+			Assert.AreEqual(0, point.WinPoint);
+			Assert.IsNull(point.LifePoint);
+		}
+
+		[TestMethod]
+		public void DescriptionPlayerTest3() {
+			var game = new FakeGame(new SingleMatchRule(), 4);
+
+			game.StepToPlaying();
+
+			Util.SetResult(game, 0, Win);
+			Util.SetResult(game, 1, Win);
+
+			var point = game.GetSortedSource().ElementAt(0).Point;
+
+			Assert.AreEqual(3, point.MatchPoint);
+			Assert.AreEqual(1.0, point.WinPoint);
+			Assert.IsNull(point.LifePoint);
+
+			point = game.GetSortedSource().ElementAt(2).Point;
+
+			Assert.AreEqual(0, point.MatchPoint);
+			Assert.AreEqual(0, point.WinPoint);
+			Assert.IsNull(point.LifePoint);
+
 		}
 
 		[TestMethod]

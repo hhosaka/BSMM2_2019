@@ -22,7 +22,7 @@ namespace BSMM2.Models {
 
 		IRule Clone();
 
-		string GetDescription(Player player);
+		//string GetDescription(Player player);
 
 		IExporter GetExporter();
 		IPoint Point(IEnumerable<IPoint> results);

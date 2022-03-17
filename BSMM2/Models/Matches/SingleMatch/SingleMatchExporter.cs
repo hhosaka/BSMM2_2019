@@ -1,13 +1,15 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using System.Text;
 
 namespace BSMM2.Models.Matches.SingleMatch
 {
 	internal class SingleMatchExporter : IExporter {
 		[JsonObject]
-		class ThePlayer {
+		class ThePlayer:IExportableObject {
 			[JsonProperty]
 			public int Order { get; }
 
@@ -22,10 +24,28 @@ namespace BSMM2.Models.Matches.SingleMatch
 				Name = player.Name;
 				Result = player.Player.Point;
 			}
+
+			public bool ExportData(TextWriter writer) {
+				writer.Write(Order);
+				writer.Write(",");
+				writer.Write(Name);
+				writer.Write(",");
+				return Result.ExportData(writer);
+			}
+
+			public const string TITLE_ORDER = "order";
+			public const string TITLE_NAME = "name";
+			public bool ExportTitle(TextWriter writer) {
+				writer.Write(TITLE_ORDER);
+				writer.Write(",");
+				writer.Write(TITLE_NAME);
+				writer.Write(",");
+				return Result.ExportTitle(writer);
+			}
 		}
 
 		[JsonObject]
-		class ThePlayers {
+		class ThePlayers:IExportableObject {
 			[JsonProperty]
 			public string Title { get; }
 
@@ -45,8 +65,22 @@ namespace BSMM2.Models.Matches.SingleMatch
 				Players = game.Players.GetOrderedPlayers();
 			}
 
+			public bool ExportData(TextWriter writer) {
+				//writer.WriteLine(Title);
+				//writer.WriteLine(Owner);
+				//writer.WriteLine(Date);
+				foreach (var player in Players) {
+					player.ExportData(writer);
+					writer.WriteLine();
+				}
+				return true;
+			}
+
+			public bool ExportTitle(TextWriter writer) {
+				return Players.FirstOrDefault()?.ExportTitle(writer)??false;
+			}
 		}
-		public object ExportPlayers(Game game) {
+		public IExportableObject ExportPlayers(Game game) {
 			return new ThePlayers(game);
 		}
 	}

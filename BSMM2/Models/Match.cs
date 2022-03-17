@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using Xamarin.Forms.Internals;
 
@@ -26,7 +27,7 @@ namespace BSMM2.Models {
 				public int MatchPoint => 0;
 
 				[JsonIgnore]
-				public double LifePoint => -1;
+				public double?LifePoint => null;
 
 				[JsonIgnore]
 				public double WinPoint => 0;
@@ -36,6 +37,14 @@ namespace BSMM2.Models {
 
 				public ExportData Export(ExportData data)
 					=> throw new System.NotImplementedException();
+
+				public bool ExportData(TextWriter writer) {
+					throw new System.NotImplementedException();
+				}
+
+				public bool ExportTitle(TextWriter writer) {
+					throw new System.NotImplementedException();
+				}
 			}
 
 			private static readonly IResult _defaultResult = new DefaultResult();
@@ -97,7 +106,7 @@ namespace BSMM2.Models {
 		public IRecord Record2 => _records[1];
 
 		public bool HasPlayer(Player player)
-			=>_records.Any(record => record.Player.Name == player.Name);// TODO tentative. It will be compared by id
+			=>_records.Any(record => record.Player.Id == player.Id);
 
 		public abstract void SetResult(RESULT_T result);
 

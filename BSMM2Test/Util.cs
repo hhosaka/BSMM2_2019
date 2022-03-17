@@ -162,8 +162,8 @@ namespace BSMM2Test {
 					yield return
 						new SingleMatch(
 							++id,
-							new Match.Record(game.GetPlayer(playerlist[i]-1), new SingleMatchResult(RESULT_T.Win)),
-							new Match.Record(game.GetPlayer(playerlist[i + 1]-1), new SingleMatchResult(RESULT_T.Lose))
+							new Match.Record(game.GetPlayer(playerlist[i]-1), new SingleMatchResult(RESULT_T.Win, null)),
+							new Match.Record(game.GetPlayer(playerlist[i + 1]-1), new SingleMatchResult(RESULT_T.Lose, null))
 							);
 				}
 			}

@@ -11,6 +11,9 @@ namespace BSMM2.Models {
 	public class Player {
 
 		[JsonProperty]
+		public Guid Id { get; set; }
+
+		[JsonProperty]
 		public String Name { get; set; }
 
 		[JsonProperty]
@@ -28,9 +31,9 @@ namespace BSMM2.Models {
 		[JsonIgnore]
 		public IPoint OpponentPoint { get; private set; }
 
-		[JsonIgnore]
-		public string Description
-			=> _rule.GetDescription(this);
+		//[JsonIgnore]
+		//public string Description
+		//	=> _rule.GetDescription(this);
 
 		public void StepToPlaying(Match match)
 			=>_matches.Add(match);
@@ -92,6 +95,7 @@ namespace BSMM2.Models {
 		}
 
 		public Player(IRule rule, string name):this() {
+			Id = Guid.NewGuid();
 			_rule = rule;
 			Name = name;
 			Point = OpponentPoint = rule?.Point(Enumerable.Empty<IPoint>());
