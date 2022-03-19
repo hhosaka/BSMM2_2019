@@ -6,7 +6,7 @@ using System.Text;
 namespace BSMM2.Models
 {
 	public interface IExportableObject {
-		bool ExportTitle(TextWriter writer);
+		bool ExportTitle(TextWriter writer, string origin="");
 		bool ExportData(TextWriter writer);
 	}
 

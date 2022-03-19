@@ -2,13 +2,19 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using Xamarin.Forms.Internals;
 
 namespace BSMM2.Models {
 
 	[JsonObject]
-	public class Player {
+	public class Player:IExportableObject{
+
+		public const string TITLE_NAME = "name";
+		public const string TITLE_DROPPED = "dropped";
+		public const string TITLE_BYE_MATCH_COUNT = "bymatchcount";
+		public const string TITLE_ORIGIN_OPPONENT = "opponent_";
 
 		[JsonProperty]
 		public Guid Id { get; set; }
@@ -25,11 +31,17 @@ namespace BSMM2.Models {
 		[JsonProperty]
 		private List<Match> _matches;
 
-		[JsonIgnore]
-		public IPoint Point { get; private set; }
+		[JsonProperty]
+		IPoint _point;
 
 		[JsonIgnore]
-		public IPoint OpponentPoint { get; private set; }
+		public IPoint Point => _point = CalcPoint();
+
+		[JsonProperty]
+		IPoint _opponent_point;
+
+		[JsonIgnore]
+		public IPoint OpponentPoint => _opponent_point = CalcOpponentPoint();
 
 		//[JsonIgnore]
 		//public string Description
@@ -38,11 +50,11 @@ namespace BSMM2.Models {
 		public void StepToPlaying(Match match)
 			=>_matches.Add(match);
 
-		internal void CalcPoint()
-			=> Point = _rule.Point(_matches.Where(match=>match.IsFinished).Select(match => match.GetRecord(this).Result));
+		internal IPoint CalcPoint()
+			=> _rule?.Point(_matches.Where(match=>match.IsFinished).Select(match => match.GetRecord(this).Result));
 
-		internal void CalcOpponentPoint()
-			=> OpponentPoint = _rule.Point(_matches.Where(match => match.IsFinished).Select(match => (match.GetOpponentRecord(this).Player as Player)?.Point));
+		internal IPoint CalcOpponentPoint()
+			=> _rule?.Point(_matches.Where(match => match.IsFinished).Select(match => (match.GetOpponentRecord(this).Player as Player)?.Point));
 
 		public bool IsAllWins()
 			=> _matches.Count() > 0 && !_matches.Any(match => match.GetRecord(this).Result.RESULT != RESULT_T.Win);
@@ -90,6 +102,37 @@ namespace BSMM2.Models {
         public int CompareTo(Player obj)
 			=> _rule.GetComparer(true).Compare(this, obj);
 
+		public bool ExportTitle(TextWriter writer, string origin) {
+			writer.Write(origin + TITLE_NAME);
+			writer.Write(",");
+			writer.Write(origin + TITLE_DROPPED);
+			writer.Write(",");
+			Point.ExportTitle(writer, origin);
+			OpponentPoint.ExportTitle(writer, origin + TITLE_ORIGIN_OPPONENT);
+			writer.Write(TITLE_BYE_MATCH_COUNT);
+			writer.Write(",");
+			return true;
+		}
+
+		public bool ExportData(TextWriter writer) {
+			writer.Write("\""+Name+ "\"");
+			writer.Write(",");
+			writer.Write(Dropped);
+			writer.Write(",");
+			Point.ExportData(writer);
+			OpponentPoint.ExportData(writer);
+			writer.Write(ByeMatchCount());
+			writer.Write(",");
+			return true;
+
+			//data[AppResources.TextPlayerName] = Name;
+			//data[AppResources.TextDropped] = Dropped;
+			//Point.Export(data);
+			//OpponentPoint.Export(new ExportData()).ForEach(pair => data[_dic[pair.Key]] = pair.Value);
+			//data[AppResources.TextByeMatchCount] = ByeMatchCount();
+			//return data;
+		}
+
 		public Player() {// For Serializer
 			_matches = new List<Match>();
 		}
@@ -98,7 +141,7 @@ namespace BSMM2.Models {
 			Id = Guid.NewGuid();
 			_rule = rule;
 			Name = name;
-			Point = OpponentPoint = rule?.Point(Enumerable.Empty<IPoint>());
+//			Point = OpponentPoint = rule?.Point(Enumerable.Empty<IPoint>());
 		}
 	}
 }

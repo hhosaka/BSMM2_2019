@@ -69,7 +69,7 @@ namespace BSMM2.Models.Matches.MultiMatch {
 			throw new System.NotImplementedException();
 		}
 
-		public bool ExportTitle(TextWriter writer) {
+		public bool ExportTitle(TextWriter writer, string origin) {
 			throw new System.NotImplementedException();
 		}
 

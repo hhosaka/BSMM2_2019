@@ -9,11 +9,11 @@ namespace BSMM2.Models.Matches.SingleMatch {
 
 	[JsonObject]
 	public class SingleMatchResult : IResult {
+		public const string TITLE_MATCH_POINT = "matchpoint";
+		public const string TITLE_WIN_POINT = "winpoint";
+		public const string TITLE_LIFE_POINT = "lifepoint";
 
 		private class TheResult : IPoint, IExportableObject {
-			public const string TITLE_MATCH_POINT = "match_point";
-			public const string TITLE_WIN_POINT = "win_point";
-			public const string TITLE_LIFE_POINT = "life_point";
 
 			private bool _enableLifePoint;
 
@@ -42,13 +42,13 @@ namespace BSMM2.Models.Matches.SingleMatch {
 				return true;
 			}
 
-			public bool ExportTitle(TextWriter writer) {
-				writer.Write(TITLE_MATCH_POINT);
+			public bool ExportTitle(TextWriter writer, string origin) {
+				writer.Write(origin + TITLE_MATCH_POINT);
 				writer.Write(",");
-				writer.Write(TITLE_WIN_POINT);
+				writer.Write(origin + TITLE_WIN_POINT);
 				writer.Write(",");
 				if (LifePoint != null) {
-					writer.Write(TITLE_LIFE_POINT);
+					writer.Write(origin + TITLE_LIFE_POINT);
 					writer.Write(",");
 				}
 				return true;
@@ -77,7 +77,7 @@ namespace BSMM2.Models.Matches.SingleMatch {
 			throw new System.NotImplementedException();
 		}
 
-		public bool ExportTitle(TextWriter writer) {
+		public bool ExportTitle(TextWriter writer, string origin) {
 			throw new System.NotImplementedException();
 		}
 

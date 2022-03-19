@@ -37,9 +37,9 @@
 							<StackLayout Padding="10">
 								<StackLayout Orientation="Horizontal">
 									<Label Text="{Binding Order}" FontSize="16" />
-									<Label Text="{Binding Name}" FontSize="16" />
+									<Label Text="{Binding Player.Name}" FontSize="16" />
 								</StackLayout>
-								<Label Text="{Binding Point, Converter={StaticResource Converter}, ConverterParameter=DESCRIPTION}" FontSize="13"/>
+								<Label Text="{Binding Player.Point, Converter={StaticResource Converter}, ConverterParameter=DESCRIPTION}" FontSize="13"/>
 							</StackLayout>
 						</ViewCell>
 					</DataTemplate>

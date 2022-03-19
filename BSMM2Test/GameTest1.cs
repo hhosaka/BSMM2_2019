@@ -211,8 +211,8 @@ namespace BSMM2Test {
 			rule.Prefix = origin;
 			var game = new FakeGame( rule, 2);
 
-			Assert.AreEqual(origin + "001", game.Players.GetOrderedPlayers().ElementAt(0).Name);
-			Assert.AreEqual(origin + "002", game.Players.GetOrderedPlayers().ElementAt(1).Name);
+			Assert.AreEqual(origin + "001", game.Players.GetOrderedPlayers().ElementAt(0).Player.Name);
+			Assert.AreEqual(origin + "002", game.Players.GetOrderedPlayers().ElementAt(1).Player.Name);
 		}
 
 		[TestMethod]

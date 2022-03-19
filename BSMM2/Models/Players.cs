@@ -83,11 +83,6 @@ namespace BSMM2.Models
 		public void Remove(Player player)
 			=> _players.Remove(player);
 
-		public void Reset() {
-			_players.ForEach(p => p.CalcPoint());
-			_players.ForEach(p => p.CalcOpponentPoint());
-		}
-
 		// For Debug
 		public void Swap(int x, int y) {
 			var temp = _players[x];
@@ -98,7 +93,6 @@ namespace BSMM2.Models
 		public void Export(TextWriter writer) {
 			_players.First()?.Export(new ExportData()).Keys.ForEach(key => writer.Write(key + ", "));
 			writer.WriteLine();
-			Reset();
 			foreach (var player in _players) {
 				foreach (var param in player.Export(new ExportData())) {
 					switch (param.Value) {
@@ -118,7 +112,6 @@ namespace BSMM2.Models
 			if (_players == null) {
 				return Enumerable.Empty<Player>();
 			} else {
-				Reset();
 				return _players.OrderByDescending(p => p, _rule.GetComparer(true));
 			}
 		}

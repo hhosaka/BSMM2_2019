@@ -151,6 +151,24 @@ namespace BSMM2Test {
 			var players = game.Rule.GetExporter().ExportPlayers(game);
 
 			var buf = new StringBuilder();
+			players.ExportTitle(new StringWriter(buf));
+			Assert.AreEqual(
+				OrderedPlayer.TITLE_ORDER + "," +
+				Player.TITLE_NAME + "," + Player.TITLE_DROPPED + "," +
+				SingleMatchResult.TITLE_MATCH_POINT + "," + SingleMatchResult.TITLE_WIN_POINT + "," +
+				Player.TITLE_ORIGIN_OPPONENT + SingleMatchResult.TITLE_MATCH_POINT + "," + Player.TITLE_ORIGIN_OPPONENT + SingleMatchResult.TITLE_WIN_POINT + "," +
+				Player.TITLE_BYE_MATCH_COUNT + ",",
+				buf.ToString());
+			buf.Clear();
+			players.ExportData(new StringWriter(buf));
+			Assert.AreEqual("1,\"Player001\",False,0,0,0,0,0,\r\n"+
+							"1,\"Player002\",False,0,0,0,0,0,\r\n" +
+							"1,\"Player003\",False,0,0,0,0,0,\r\n" +
+							"1,\"Player004\",False,0,0,0,0,0,\r\n",
+							buf.ToString());
+
+
+
 			new Serializer<object>().Serialize(new StringWriter(buf), players);
 
 			var str = buf.ToString();

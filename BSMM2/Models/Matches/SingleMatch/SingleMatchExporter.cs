@@ -8,41 +8,41 @@ using System.Text;
 namespace BSMM2.Models.Matches.SingleMatch
 {
 	internal class SingleMatchExporter : IExporter {
-		[JsonObject]
-		class ThePlayer:IExportableObject {
-			[JsonProperty]
-			public int Order { get; }
+		//[JsonObject]
+		//class ThePlayer:IExportableObject {
+		//	[JsonProperty]
+		//	public int Order { get; }
 
-			[JsonProperty]
-			public string Name { get; }
+		//	[JsonProperty]
+		//	public string Name { get; }
 
-			[JsonProperty]
-			public IPoint Result { get; }
+		//	[JsonProperty]
+		//	public IPoint Result { get; }
 
-			public ThePlayer(OrderedPlayer player) {
-				Order = player.Order;
-				Name = player.Name;
-				Result = player.Player.Point;
-			}
+		//	public ThePlayer(OrderedPlayer player) {
+		//		Order = player.Order;
+		//		Name = player.Name;
+		//		Result = player.Player.Point;
+		//	}
 
-			public bool ExportData(TextWriter writer) {
-				writer.Write(Order);
-				writer.Write(",");
-				writer.Write(Name);
-				writer.Write(",");
-				return Result.ExportData(writer);
-			}
+		//	public bool ExportData(TextWriter writer) {
+		//		writer.Write(Order);
+		//		writer.Write(",");
+		//		writer.Write(Name);
+		//		writer.Write(",");
+		//		return Result.ExportData(writer);
+		//	}
 
-			public const string TITLE_ORDER = "order";
-			public const string TITLE_NAME = "name";
-			public bool ExportTitle(TextWriter writer) {
-				writer.Write(TITLE_ORDER);
-				writer.Write(",");
-				writer.Write(TITLE_NAME);
-				writer.Write(",");
-				return Result.ExportTitle(writer);
-			}
-		}
+		//	public const string TITLE_ORDER = "order";
+		//	public const string TITLE_NAME = "name";
+		//	public bool ExportTitle(TextWriter writer) {
+		//		writer.Write(TITLE_ORDER);
+		//		writer.Write(",");
+		//		writer.Write(TITLE_NAME);
+		//		writer.Write(",");
+		//		return Result.ExportTitle(writer);
+		//	}
+		//}
 
 		[JsonObject]
 		class ThePlayers:IExportableObject {
@@ -76,8 +76,8 @@ namespace BSMM2.Models.Matches.SingleMatch
 				return true;
 			}
 
-			public bool ExportTitle(TextWriter writer) {
-				return Players.FirstOrDefault()?.ExportTitle(writer)??false;
+			public bool ExportTitle(TextWriter writer,  string origin) {
+				return Players.FirstOrDefault()?.ExportTitle(writer, origin) ??false;
 			}
 		}
 		public IExportableObject ExportPlayers(Game game) {

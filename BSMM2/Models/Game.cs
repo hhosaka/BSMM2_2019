@@ -159,7 +159,6 @@ namespace BSMM2.Models {
 			=> players;
 
 		private IEnumerable<Match> CreateMatches() {
-			Players.Reset();
 			for (int i = 0; i < TRY_COUNT; ++i) {
 				var matchingList = Create(RandomizePlayer(Players.Source)
 					.OrderByDescending(p => p, Rule.GetComparer(false))
