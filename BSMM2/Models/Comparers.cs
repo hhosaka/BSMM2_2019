@@ -52,7 +52,7 @@ namespace BSMM2.Models {
 		public bool Active { get; set; } = true;
 
 		public int Compare(Player p1, Player p2)
-			=> p2.ByeMatchCount() - p1.ByeMatchCount();
+			=> p2.ByeMatchCount - p1.ByeMatchCount;
 	}
 
 	public class PointComparer : IComparer {

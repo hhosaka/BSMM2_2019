@@ -2,7 +2,7 @@
 
 namespace BSMM2.Models {
 
-	public interface IPoint : IExportable,IExportableObject {
+	public interface IPoint : IExportableObject {
 		int MatchPoint { get; }
 
 		double WinPoint { get; }

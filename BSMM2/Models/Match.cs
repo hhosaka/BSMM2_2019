@@ -35,8 +35,9 @@ namespace BSMM2.Models {
 				[JsonIgnore]
 				public bool IsFinished => false;
 
-				public ExportData Export(ExportData data)
-					=> throw new System.NotImplementedException();
+				public ExportSource Export(ExportSource data, string origin = "") {
+					throw new System.NotImplementedException();
+				}
 
 				public bool ExportData(TextWriter writer) {
 					throw new System.NotImplementedException();

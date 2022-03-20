@@ -27,6 +27,8 @@
 				<Entry Text="{Binding Player.Name}"  Grid.Row="0" Grid.Column="1" />
 				<Label Text="{x:Static prop:AppResources.LabelDrop}" Grid.Row="1" Grid.Column="0" VerticalTextAlignment="Center" />
 				<Switch IsToggled="{Binding Dropped , Mode=TwoWay}" IsEnabled="{Binding IsMatching}" Grid.Row="1" Grid.Column="1" />
+				<Label Text="{x:Static prop:AppResources.TextByeMatchCount}" Grid.Row="2" Grid.Column="0" VerticalTextAlignment="Center" />
+				<Label Text="{Binding Player.ByeMatchCount}" Grid.Row="2" Grid.Column="1" />
 			</Grid>
 			<Label Text="{x:Static prop:AppResources.LabelMatchLog}" />
 			<ListView x:Name="RoundListView"

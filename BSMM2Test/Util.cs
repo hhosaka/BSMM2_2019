@@ -64,7 +64,7 @@ namespace BSMM2Test {
 		public static void Check(Game ga, Player a, Game gb, Player b) {
 			if (a is Player pa && b is Player pb) {
 				Assert.AreEqual(pa.Dropped, pb.Dropped);
-				Assert.AreEqual(pa.ByeMatchCount(), pb.ByeMatchCount());
+				Assert.AreEqual(pa.ByeMatchCount, pb.ByeMatchCount);
 				Assert.AreEqual(pa.HasGapMatch(), pb.HasGapMatch());
 				Check(pa.Point, pb.Point);
 			}
@@ -138,20 +138,6 @@ namespace BSMM2Test {
 
 		public static void SetResult(Game game, int index, RESULT_T result)
 			=> GetMatch(game, index).SetResult(result);
-
-		public static string Export(Game game) {
-			var buf = new StringBuilder();
-			game.Players.Export(new StringWriter(buf));
-			return buf.ToString();
-		}
-
-		public static string Export(IRule rule, Players players) {
-			var buf = new StringBuilder();
-			using (var writer = new StringWriter(buf)) {
-				players.Export(writer);
-			}
-			return buf.ToString();
-		}
 
 		public static void CreateSingleMatchRound(Game game, int[] playerlist) {
 			game.AddRound(CreateSingleMatches());

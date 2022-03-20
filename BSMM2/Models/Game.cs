@@ -201,7 +201,7 @@ namespace BSMM2.Models {
 
 				bool isByeAcceptable(Player p) {
 					if (p.IsAllWins()) return false;
-					return p.IsAllLoses() || (AcceptByeMatchDuplication || p.ByeMatchCount() == 0);
+					return p.IsAllLoses() || (AcceptByeMatchDuplication || p.ByeMatchCount == 0);
 				}
 
 				Player PickOpponent(IEnumerable<Player> opponents, Player player) {

@@ -1,11 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Text;
 
-namespace BSMM2.Models {
+namespace BSMM2.Models
+{
+	public class ExportSource : Dictionary<string, object> { }
 
-	public class ExportData : Dictionary<string, object> { }
-
-	public interface IExportable {
-
-		ExportData Export(ExportData data);
+	public interface IExportableObject {
+		ExportSource Export(ExportSource src, string origin = "");
 	}
 }

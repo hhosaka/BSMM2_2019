@@ -23,35 +23,11 @@ namespace BSMM2.Models.Matches.SingleMatch {
 
 			public double WinPoint { get; }
 
-			public ExportData Export(ExportData data) {
-				data[AppResources.TextMatchPoint] = MatchPoint;
-				data[AppResources.TextWinPoint] = WinPoint;
-				if (_enableLifePoint) data[AppResources.TextLifePoint] = LifePoint;
+			public ExportSource Export(ExportSource data, string origin="") {
+				data.Add(origin + TITLE_MATCH_POINT,MatchPoint);
+				data.Add(origin + TITLE_WIN_POINT, WinPoint);
+				if(LifePoint!=null)data.Add(origin + TITLE_LIFE_POINT, MatchPoint);
 				return data;
-			}
-
-			public bool ExportData(TextWriter writer) {
-				writer.Write(MatchPoint);
-				writer.Write(",");
-				writer.Write(WinPoint);
-				writer.Write(",");
-				if (LifePoint != null) {
-					writer.Write(LifePoint);
-					writer.Write(",");
-				}
-				return true;
-			}
-
-			public bool ExportTitle(TextWriter writer, string origin) {
-				writer.Write(origin + TITLE_MATCH_POINT);
-				writer.Write(",");
-				writer.Write(origin + TITLE_WIN_POINT);
-				writer.Write(",");
-				if (LifePoint != null) {
-					writer.Write(origin + TITLE_LIFE_POINT);
-					writer.Write(",");
-				}
-				return true;
 			}
 
 			public TheResult() {
@@ -70,14 +46,7 @@ namespace BSMM2.Models.Matches.SingleMatch {
 		public static IPoint Total(bool enableLifePoint, IEnumerable<IPoint> points)
 			=> new TheResult(enableLifePoint, points);
 
-		public ExportData Export(ExportData data)
-			=> throw new System.NotImplementedException();
-
-		public bool ExportData(TextWriter writer) {
-			throw new System.NotImplementedException();
-		}
-
-		public bool ExportTitle(TextWriter writer, string origin) {
+		public ExportSource Export(ExportSource src, string origin = "") {
 			throw new System.NotImplementedException();
 		}
 

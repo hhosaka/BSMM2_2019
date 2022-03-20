@@ -11,14 +11,17 @@ namespace BSMM2.Views {
 
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class PlayerPage : ContentPage {
+		private const int ADDTIONAL_ROW_POSITION = 3;// Under the ByeMatchCount
 		private IEnumerable<string> _excludes = new[] { AppResources.TextPlayerName, AppResources.TextDropped };
 
 		public PlayerPage(BSMMApp app, Player player) {
 			InitializeComponent();
 			BindingContext = new PlayerViewModel(app, player);
 
-			int i = 2;
-			foreach (var param in player.Export(new ExportData()).Where(param => !_excludes.Any(key => key == param.Key))) {
+			int i = ADDTIONAL_ROW_POSITION;
+			var data = player.Point.Export(new ExportSource())
+				.Union(player.OpponentPoint.Export(new ExportSource(),"opponent_"));
+			foreach (var param in data) {
 				CreateLabel(i, 0, param.Key);
 				CreateLabel(i++, 1, param.Value);
 				grid.RowDefinitions.Add(new RowDefinition() { Height = GridLength.Auto });

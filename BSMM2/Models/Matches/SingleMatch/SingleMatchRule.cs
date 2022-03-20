@@ -96,12 +96,6 @@ namespace BSMM2.Models.Matches.SingleMatch {
 			}
 			return buf.ToString();
 		}
-
-		private IExporter _exporter;
-		public IExporter GetExporter() {
-			return _exporter??(_exporter=new SingleMatchExporter());
-		}
-
 		private SingleMatchRule() {
 		}
 

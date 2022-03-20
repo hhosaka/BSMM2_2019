@@ -10,9 +10,10 @@ using Xamarin.Forms.Internals;
 namespace BSMM2.Models
 {
 
-	public class Players
+	public class Players : IExportableObject
 	{
-		private const String DEFAULT_PREFIX = "Player";
+		private const string TITLE_PLAYER = "player{0:000}";
+		private const string DEFAULT_PREFIX = "Player";
 
 		[JsonProperty]
 		private IRule _rule;
@@ -90,24 +91,6 @@ namespace BSMM2.Models
 			_players[y] = temp;
 		}
 
-		public void Export(TextWriter writer) {
-			_players.First()?.Export(new ExportData()).Keys.ForEach(key => writer.Write(key + ", "));
-			writer.WriteLine();
-			foreach (var player in _players) {
-				foreach (var param in player.Export(new ExportData())) {
-					switch (param.Value) {
-						case string str:
-							writer.Write(string.Format("\"{0}\", ", str));
-							break;
-
-						default:
-							writer.Write(param.Value + ", ");
-							break;
-					}
-				}
-				writer.WriteLine();
-			}
-		}
 		public IEnumerable<Player> GetSortedPlayers() {
 			if (_players == null) {
 				return Enumerable.Empty<Player>();
@@ -128,6 +111,14 @@ namespace BSMM2.Models
 				yield return new OrderedPlayer(_rule, p, order + 1);
 				++count;
 			}
+		}
+
+		public ExportSource Export(ExportSource src, string origin = "") {
+			int i = 0;
+			foreach (var player in GetOrderedPlayers()) {
+				src.Add(string.Format(TITLE_PLAYER, ++i), player.Export(new ExportSource(), origin));
+			}
+			return src;
 		}
 	}
 }

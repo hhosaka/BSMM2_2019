@@ -25,6 +25,10 @@ namespace BSMM2.Models {
 		[JsonProperty]
 		public virtual bool Dropped { get; set; }
 
+		[JsonIgnore]
+		public int ByeMatchCount
+			=> _matches.Count(match => match.IsByeMatch);
+
 		[JsonProperty]
 		private IRule _rule;
 
@@ -43,17 +47,13 @@ namespace BSMM2.Models {
 		[JsonIgnore]
 		public IPoint OpponentPoint => _opponent_point = CalcOpponentPoint();
 
-		//[JsonIgnore]
-		//public string Description
-		//	=> _rule.GetDescription(this);
-
 		public void StepToPlaying(Match match)
 			=>_matches.Add(match);
 
-		internal IPoint CalcPoint()
+		private IPoint CalcPoint()
 			=> _rule?.Point(_matches.Where(match=>match.IsFinished).Select(match => match.GetRecord(this).Result));
 
-		internal IPoint CalcOpponentPoint()
+		private IPoint CalcOpponentPoint()
 			=> _rule?.Point(_matches.Where(match => match.IsFinished).Select(match => (match.GetOpponentRecord(this).Player as Player)?.Point));
 
 		public bool IsAllWins()
@@ -61,9 +61,6 @@ namespace BSMM2.Models {
 
 		public bool IsAllLoses()
 			=> _matches.Count() > 0 && !_matches.Any(match => match.GetRecord(this).Result.RESULT != RESULT_T.Lose);
-
-		public int ByeMatchCount()
-			=> _matches.Count(match => match.IsByeMatch);
 
 		public bool HasGapMatch()
 			=> _matches.Any(match => match.IsGapMatch);
@@ -90,47 +87,16 @@ namespace BSMM2.Models {
 						{AppResources.TextWinPoint,AppResources.TextOpponentWinPoint },
 						{AppResources.TextLifePoint,AppResources.TextOpponentLifePoint }};
 
-		public ExportData Export(ExportData data) {
-			data[AppResources.TextPlayerName] = Name;
-			data[AppResources.TextDropped] = Dropped;
-			Point.Export(data);
-			OpponentPoint.Export(new ExportData()).ForEach(pair => data[_dic[pair.Key]] = pair.Value);
-			data[AppResources.TextByeMatchCount] = ByeMatchCount();
-			return data;
-		}
-
         public int CompareTo(Player obj)
 			=> _rule.GetComparer(true).Compare(this, obj);
 
-		public bool ExportTitle(TextWriter writer, string origin) {
-			writer.Write(origin + TITLE_NAME);
-			writer.Write(",");
-			writer.Write(origin + TITLE_DROPPED);
-			writer.Write(",");
-			Point.ExportTitle(writer, origin);
-			OpponentPoint.ExportTitle(writer, origin + TITLE_ORIGIN_OPPONENT);
-			writer.Write(TITLE_BYE_MATCH_COUNT);
-			writer.Write(",");
-			return true;
-		}
-
-		public bool ExportData(TextWriter writer) {
-			writer.Write("\""+Name+ "\"");
-			writer.Write(",");
-			writer.Write(Dropped);
-			writer.Write(",");
-			Point.ExportData(writer);
-			OpponentPoint.ExportData(writer);
-			writer.Write(ByeMatchCount());
-			writer.Write(",");
-			return true;
-
-			//data[AppResources.TextPlayerName] = Name;
-			//data[AppResources.TextDropped] = Dropped;
-			//Point.Export(data);
-			//OpponentPoint.Export(new ExportData()).ForEach(pair => data[_dic[pair.Key]] = pair.Value);
-			//data[AppResources.TextByeMatchCount] = ByeMatchCount();
-			//return data;
+		public ExportSource Export(ExportSource src, string origin = "") {
+			src.Add(TITLE_NAME, Name);
+			src.Add(TITLE_DROPPED, Dropped);
+			Point.Export(src, origin);
+			OpponentPoint.Export(src, origin+"opponent_");
+			src.Add(TITLE_BYE_MATCH_COUNT, ByeMatchCount);
+			return src;
 		}
 
 		public Player() {// For Serializer

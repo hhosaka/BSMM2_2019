@@ -141,7 +141,7 @@ namespace BSMM2.Models {
 
 		public async void ExportPlayers() {
 			var buf = new StringBuilder();
-			Game.Players.Export(new StringWriter(buf));
+			CSVConverter.Convert(Game.Players.Export(new ExportSource()), new StringWriter(buf));
 			await SendByMail(Game.Headline, buf.ToString(), new[] { MailAddress });
 		}
 

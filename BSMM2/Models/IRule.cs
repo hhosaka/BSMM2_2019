@@ -22,9 +22,6 @@ namespace BSMM2.Models {
 
 		IRule Clone();
 
-		//string GetDescription(Player player);
-
-		IExporter GetExporter();
 		IPoint Point(IEnumerable<IPoint> results);
 
 		Comparer<Player> GetComparer(bool force);

@@ -627,7 +627,6 @@ namespace BSMM2Test {
 			Util.SetResult(game, 1, Win);
 			Util.SetResult(game, 2, Win);
 
-			var buf = Util.Export(game);
 			Util.CheckOrder(rule, new[] { 1, 1, 3, 3, 5, 5, 7 },game.Players.GetOrderedPlayers());
 			Util.CheckWithOrder(rule, new[] { 1, 5, 2, 3, 6, 7, 4 }, new[] { 1, 1, 3, 3, 5, 5, 7 }, game.Players.GetOrderedPlayers());
 

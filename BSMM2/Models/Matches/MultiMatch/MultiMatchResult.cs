@@ -62,14 +62,7 @@ namespace BSMM2.Models.Matches.MultiMatch {
 			return RESULT_T.Progress;
 		}
 
-		public ExportData Export(ExportData data)
-			=> throw new System.NotImplementedException();
-
-		public bool ExportData(TextWriter writer) {
-			throw new System.NotImplementedException();
-		}
-
-		public bool ExportTitle(TextWriter writer, string origin) {
+		public ExportSource Export(ExportSource src, string origin = "") {
 			throw new System.NotImplementedException();
 		}
 
