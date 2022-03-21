@@ -249,6 +249,9 @@
   <data name="LabelNewGameTitle" xml:space="preserve">
     <value>Title</value>
   </data>
+  <data name="LabelPassword" xml:space="preserve">
+    <value>Password for web service</value>
+  </data>
   <data name="LabelPointCompare" xml:space="preserve">
     <value>Point Compare</value>
   </data>
@@ -311,6 +314,12 @@
   </data>
   <data name="MenuNewGame" xml:space="preserve">
     <value>New Game</value>
+  </data>
+  <data name="MenuQRCode2Matches" xml:space="preserve">
+    <value>QR Code to Matches page</value>
+  </data>
+  <data name="MenuQRCode2Players" xml:space="preserve">
+    <value>QR Code to Players page</value>
   </data>
   <data name="MenuRoundLog" xml:space="preserve">
     <value>Log</value>

@@ -23,6 +23,11 @@ namespace BSMM2.Views {
 
 		private void OpenHelpPage(object sender, EventArgs e) => Navigation.PushModalAsync(new WebPage("https://sites.google.com/site/hhosaka183/bs-match-maker-2"));
 
+		private void OpenQRCode2PlayersPage(object sender, EventArgs e) {
+			string urlEnc = System.Web.HttpUtility.UrlEncode(BSMMApp.WebURL+"matches");
+			Navigation.PushModalAsync(new WebPage($"https://chart.googleapis.com/chart?cht=qr&chl={urlEnc}&chs=300x300&chld=H|1"));
+		}
+
 		private async void OnMatchTapped(object sender, ItemTappedEventArgs args) {
 			if (args.Item is Match match && viewModel.Game.ActiveRound.IsPlaying && !match.IsByeMatch)
 				await Navigation.PushModalAsync(new NavigationPage(viewModel.Game.CreateMatchPage(match)));

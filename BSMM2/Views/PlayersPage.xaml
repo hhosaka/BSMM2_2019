@@ -13,10 +13,9 @@
 		<ToolbarItem Text="{x:Static prop:AppResources.MenuDeleteGame}" Command ="{Binding DeleteGameCommand}" Order="Secondary" />
 		<ToolbarItem Text="{x:Static prop:AppResources.MenuAddPlayer}" Command="{Binding AddPlayerCommand}" Order="Secondary" />
 		<ToolbarItem Text="{x:Static prop:AppResources.MenuExport}" Command="{Binding ExportPlayersCommand}" Order="Secondary" />
-		<ToolbarItem Text="Upload" Command="{Binding UploadPlayersCommand}" Order="Secondary" />
 		<ToolbarItem Text="{x:Static prop:AppResources.MenuSave}" Command="{Binding SaveCommand}" Order="Secondary" />
         <ToolbarItem Text="{x:Static prop:AppResources.MenuSetting}" Clicked="OpenSettingsPage" Order="Secondary" />
-		<!--ToolbarItem Text="Log" Clicked="Log" Order="Secondary" /-->
+		<ToolbarItem Text="{x:Static prop:AppResources.MenuQRCode2Players}" Clicked="OpenQRCode2PlayersPage" Order="Secondary" />
 		<ToolbarItem Text="{x:Static prop:AppResources.MenuHelp}" Clicked="OpenHelpPage" Order="Secondary" />
 	</ContentPage.ToolbarItems>
 	<ContentPage.Resources>

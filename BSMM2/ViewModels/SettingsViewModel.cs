@@ -35,6 +35,12 @@ namespace BSMM2.ViewModels {
 			set => SetProperty(ref _mailAddress, value, nameof(MailAddress), () => _app.MailAddress = value);
 		}
 
+		private string _password;
+		public string Password {
+			get => _password;
+			set => SetProperty(ref _password, value, nameof(Password), () => _app.Password = value);
+		}
+
 		private void SetAutoSave(bool value)
         {
 			_app.AutoSave = value;
@@ -49,6 +55,7 @@ namespace BSMM2.ViewModels {
 			_app = app;
 			AutoSave = app.AutoSave;
 			MailAddress = app.MailAddress;
+			Password = app.Password;
 			IsDebugMode = app.IsDebugMode;
 
 			ExportAppCommand = new Command(Export);

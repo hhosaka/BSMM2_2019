@@ -246,6 +246,9 @@
   <data name="LabelNewGameTitle" xml:space="preserve">
     <value>タイトル</value>
   </data>
+  <data name="LabelPassword" xml:space="preserve">
+    <value>連携パスワード</value>
+  </data>
   <data name="LabelPointCompare" xml:space="preserve">
     <value>ポイント比較</value>
   </data>
@@ -308,6 +311,12 @@
   </data>
   <data name="MenuNewGame" xml:space="preserve">
     <value>新しいゲーム</value>
+  </data>
+  <data name="MenuQRCode2Matches" xml:space="preserve">
+    <value>対戦表ページへのQRコード</value>
+  </data>
+  <data name="MenuQRCode2Players" xml:space="preserve">
+    <value>プレーヤページへのQRコード</value>
   </data>
   <data name="MenuRoundLog" xml:space="preserve">
     <value>対戦履歴</value>

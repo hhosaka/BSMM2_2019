@@ -35,26 +35,16 @@ namespace BSMM2.Models {
 		[JsonProperty]
 		private List<Match> _matches;
 
-		[JsonProperty]
-		IPoint _point;
+		[JsonIgnore]
+		public IPoint Point
+			=> _rule?.Point(_matches.Where(match => match.IsFinished).Select(match => match.GetRecord(this).Result.Point));
 
 		[JsonIgnore]
-		public IPoint Point => _point = CalcPoint();
-
-		[JsonProperty]
-		IPoint _opponent_point;
-
-		[JsonIgnore]
-		public IPoint OpponentPoint => _opponent_point = CalcOpponentPoint();
+		public IPoint OpponentPoint
+			=> _rule?.Point(_matches.Where(match => match.IsFinished).Select(match => (match.GetOpponentRecord(this).Player as Player)?.Point));
 
 		public void StepToPlaying(Match match)
 			=>_matches.Add(match);
-
-		private IPoint CalcPoint()
-			=> _rule?.Point(_matches.Where(match=>match.IsFinished).Select(match => match.GetRecord(this).Result));
-
-		private IPoint CalcOpponentPoint()
-			=> _rule?.Point(_matches.Where(match => match.IsFinished).Select(match => (match.GetOpponentRecord(this).Player as Player)?.Point));
 
 		public bool IsAllWins()
 			=> _matches.Count() > 0 && !_matches.Any(match => match.GetRecord(this).Result.RESULT != RESULT_T.Win);

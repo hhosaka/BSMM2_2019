@@ -1,5 +1,6 @@
 ﻿using BSMM2.Models.Matches.MultiMatch.ThreeOnThreeMatch;
 using BSMM2.Models.Matches.SingleMatch;
+using BSMM2.Models.WebAccess;
 using BSMM2.Resource;
 using Newtonsoft.Json;
 using System;
@@ -15,6 +16,8 @@ namespace BSMM2.Models {
 
 	[JsonObject]
 	public class BSMMApp {
+
+		public const string WebURL = "http://localhost/bsmm2svr/";//TODO TBD
 
 		private const int VERSION = 3;
 
@@ -91,7 +94,13 @@ namespace BSMM2.Models {
 		public string MailAddress { get; set; }
 
 		[JsonProperty]
+		public string Password { get; set; }
+
+		[JsonProperty]
 		public string EntryTemplate { get; set; }
+
+		[JsonProperty]
+		public string Owner { get; set; }
 
 		public void VersionCheck(Action<string>display) {
 			if (!string.IsNullOrEmpty(_information)) {
@@ -118,9 +127,12 @@ namespace BSMM2.Models {
 			return false;
 		}
 
-		public void Save(bool force) {
-			if (force || AutoSave)
+		public async Task<bool> Save(bool force) {
+			if (force || AutoSave) {
 				_storage.Save(this, _path);
+				return await new WebClient().Upload(WebURL, MailAddress, Password, Game);
+			}
+			return false;
 		}
 
 		public async Task SendByMail(string subject, string body)

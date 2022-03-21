@@ -17,7 +17,9 @@
 			</StackLayout>
 			<Label Text="{x:Static prop:AppResources.LabelMailAddress}" />
 			<Entry Text="{Binding MailAddress}" />
-            <Button Text="Export App" Command="{Binding ExportAppCommand}" IsVisible="{Binding IsDebugMode}"/>
+			<Label Text="{x:Static prop:AppResources.LabelPassword}" />
+			<Entry Text="{Binding Password}" />
+			<Button Text="Export App" Command="{Binding ExportAppCommand}" IsVisible="{Binding IsDebugMode}"/>
             <Button Text="Import App" Command="{Binding ImportAppCommand}" IsVisible="{Binding IsDebugMode}"/>
         </StackLayout>
 	</ContentPage.Content>

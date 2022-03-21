@@ -8,7 +8,7 @@ using System.Linq;
 namespace BSMM2.Models.Matches.SingleMatch {
 
 	[JsonObject]
-	public class SingleMatchResult : IResult {
+	public class SingleMatchResult : IResult, IPoint {
 		public const string TITLE_MATCH_POINT = "matchpoint";
 		public const string TITLE_WIN_POINT = "winpoint";
 		public const string TITLE_LIFE_POINT = "lifepoint";
@@ -67,7 +67,11 @@ namespace BSMM2.Models.Matches.SingleMatch {
 		[JsonIgnore]
 		public bool IsFinished => RESULT != RESULT_T.Progress && !(LifePoint < 0);
 
-        public SingleMatchResult()
+
+		[JsonIgnore]
+		public IPoint Point => this;
+
+		public SingleMatchResult()
         {
         }
 

@@ -71,8 +71,8 @@ namespace BSMM2.Models.Matches {
 			InitialRESULT(result1?.RESULT??RESULT_T.Progress);
 			if (enableLifePoint) {
 				LifePoints = new LifePointItems(onPropertyChanged);
-				LifePoints[0] = Matches.LifePointItem.GetItem(result1?.LifePoint);
-				LifePoints[1] = Matches.LifePointItem.GetItem(result2?.LifePoint);
+				LifePoints[0] = Matches.LifePointItem.GetItem(result1?.Point?.LifePoint);
+				LifePoints[1] = Matches.LifePointItem.GetItem(result2?.Point?.LifePoint);
 			}
 			_onPropertyChanged = onPropertyChanged;
 

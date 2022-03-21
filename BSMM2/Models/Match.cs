@@ -35,17 +35,9 @@ namespace BSMM2.Models {
 				[JsonIgnore]
 				public bool IsFinished => false;
 
-				public ExportSource Export(ExportSource data, string origin = "") {
-					throw new System.NotImplementedException();
-				}
+				[JsonIgnore]
+				public IPoint Point => null;
 
-				public bool ExportData(TextWriter writer) {
-					throw new System.NotImplementedException();
-				}
-
-				public bool ExportTitle(TextWriter writer, string origin) {
-					throw new System.NotImplementedException();
-				}
 			}
 
 			private static readonly IResult _defaultResult = new DefaultResult();

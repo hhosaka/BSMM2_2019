@@ -8,7 +8,7 @@ using static BSMM2.Models.RESULT_T;
 namespace BSMM2.Models.Matches.MultiMatch {
 
 	[JsonObject]
-	public abstract class MultiMatchResult : IResult {
+	public abstract class MultiMatchResult : IResult,IPoint {
 
 		[JsonProperty]
 		protected List<IResult> _results;
@@ -18,11 +18,11 @@ namespace BSMM2.Models.Matches.MultiMatch {
 
 		[JsonIgnore]
 		public double?LifePoint
-			=> _results.Where(r=>r.IsFinished).DefaultIfEmpty().Average(p => p?.LifePoint??0);
+			=> _results.Where(r=>r.IsFinished).DefaultIfEmpty().Average(p => p?.Point.LifePoint ??0);
 
 		[JsonIgnore]
 		public double WinPoint
-			=> _results.Sum(p => p.WinPoint) / _results.Count();
+			=> _results.Sum(p => p.Point.WinPoint) / _results.Count();
 
 		[JsonIgnore]
 		public RESULT_T RESULT
@@ -35,6 +35,8 @@ namespace BSMM2.Models.Matches.MultiMatch {
 
 		[JsonIgnore]
 		internal IEnumerable<SingleMatchResult> Results => _results.Cast<SingleMatchResult>();
+
+		public IPoint Point => this;
 
 		public void Clear()
 			=> _results.Clear();

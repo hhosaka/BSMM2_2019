@@ -461,7 +461,7 @@ namespace BSMM2Test {
 
             Assert.IsFalse(match.IsFinished);
             Assert.AreEqual(Progress, match.Record1.Result.RESULT);
-            Assert.AreEqual(0, match.Record1.Result.LifePoint);
+            Assert.AreEqual(0, match.Record1.Result.Point.LifePoint);
 
         }
 
@@ -520,7 +520,7 @@ namespace BSMM2Test {
 
 			Assert.IsFalse(match.IsFinished);
 			Assert.AreEqual(Progress, match.Record1.Result.RESULT);
-			Assert.AreEqual(0, match.Record1.Result.LifePoint);
+			Assert.AreEqual(0, match.Record1.Result.Point.LifePoint);
 
 		}
 

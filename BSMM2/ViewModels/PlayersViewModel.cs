@@ -27,7 +27,6 @@ namespace BSMM2.ViewModels {
 		public DelegateCommand DeleteGameCommand { get; }
 		public DelegateCommand AddPlayerCommand { get; }
 		public DelegateCommand ExportPlayersCommand { get; }
-		public DelegateCommand UploadPlayersCommand { get; }
 		public DelegateCommand SaveCommand { get; }
 		public DelegateCommand HelpCommand { get; }
 
@@ -40,7 +39,6 @@ namespace BSMM2.ViewModels {
 			DeleteGameCommand = new DelegateCommand(() => deleteGame?.Invoke(), () => _app.Games.Any());
 			AddPlayerCommand = new DelegateCommand(() => addPlayer?.Invoke(), () => _app.Game.CanAddPlayers());
 			ExportPlayersCommand = new DelegateCommand(_app.ExportPlayers);
-			UploadPlayersCommand = new DelegateCommand(()=>new Client().Upload(_app.Game));
 			SaveCommand = new DelegateCommand(() => _app.Save(true), () => !_app.AutoSave);
 
 			MessagingCenter.Subscribe<object>(this, Messages.REFRESH,
