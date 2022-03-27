@@ -252,6 +252,9 @@
   <data name="LabelPassword" xml:space="preserve">
     <value>Password for web service</value>
   </data>
+  <data name="LabelPasswordConfirmation" xml:space="preserve">
+    <value>Confirmation</value>
+  </data>
   <data name="LabelPointCompare" xml:space="preserve">
     <value>Point Compare</value>
   </data>
@@ -282,8 +285,14 @@
   <data name="LabelUseOpponentWinPoint" xml:space="preserve">
     <value>Use Opponent win point</value>
   </data>
+  <data name="LabelUseUniqueId4WebService" xml:space="preserve">
+    <value>Use unique id for Web Service</value>
+  </data>
   <data name="LabelUseWinPoint" xml:space="preserve">
     <value>Use Win point</value>
+  </data>
+  <data name="LabelWebServiceURL" xml:space="preserve">
+    <value>URL for WebService</value>
   </data>
   <data name="LabelWinnerCompare" xml:space="preserve">
     <value>Consider only all winners</value>
@@ -451,10 +460,20 @@ NOTE :  BSMM2 does not guarantee  persistency of your settings and logs.</value>
   <data name="TextVersionCheck" xml:space="preserve">
     <value>Version Check</value>
   </data>
+  <data name="TextWebLinkHelp" xml:space="preserve">
+    <value>Enter your email and password for utilizing web service.
+Internet service is required.</value>
+  </data>
+  <data name="TextWebServiceHelp4User" xml:space="preserve">
+    <value>Please use this QR code for access the Web service.</value>
+  </data>
   <data name="TextWinnerOnly" xml:space="preserve">
     <value>Consider only all winners</value>
   </data>
   <data name="TextWinPoint" xml:space="preserve">
     <value>Win Point</value>
+  </data>
+  <data name="TitleWebService" xml:space="preserve">
+    <value>WebService</value>
   </data>
 </root>

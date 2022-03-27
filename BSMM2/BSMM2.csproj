@@ -17,7 +17,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Resource\image.jpg" />
     <None Remove="ViewModels\RoundViewModel.cs~RF267bde.TMP" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Resource\image.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
   </ItemGroup>
 
   <ItemGroup>
@@ -52,6 +59,9 @@
     </Compile>
     <Compile Update="Views\RoundLogPage.xaml.cs">
       <DependentUpon>RoundLogPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\WebServicePage.xaml.cs">
+      <DependentUpon>WebServicePage.xaml</DependentUpon>
     </Compile>
     <Compile Update="Views\SettingsPage.xaml.cs">
       <DependentUpon>SettingsPage.xaml</DependentUpon>

@@ -466,6 +466,15 @@ namespace BSMM2.Resource {
         }
         
         /// <summary>
+        ///   Confirmation に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string LabelPasswordConfirmation {
+            get {
+                return ResourceManager.GetString("LabelPasswordConfirmation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Point Compare に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string LabelPointCompare {
@@ -556,11 +565,29 @@ namespace BSMM2.Resource {
         }
         
         /// <summary>
+        ///   Use unique id for Web Service に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string LabelUseUniqueId4WebService {
+            get {
+                return ResourceManager.GetString("LabelUseUniqueId4WebService", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Use Win point に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string LabelUseWinPoint {
             get {
                 return ResourceManager.GetString("LabelUseWinPoint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   URL for WebService に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string LabelWebServiceURL {
+            get {
+                return ResourceManager.GetString("LabelWebServiceURL", resourceCulture);
             }
         }
         
@@ -1061,6 +1088,25 @@ namespace BSMM2.Resource {
         }
         
         /// <summary>
+        ///   Enter your email and password for utilizing web service.
+        ///Internet service is required. に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string TextWebLinkHelp {
+            get {
+                return ResourceManager.GetString("TextWebLinkHelp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Please use this QR code for access the Web service. に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string TextWebServiceHelp4User {
+            get {
+                return ResourceManager.GetString("TextWebServiceHelp4User", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consider only all winners に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string TextWinnerOnly {
@@ -1075,6 +1121,15 @@ namespace BSMM2.Resource {
         public static string TextWinPoint {
             get {
                 return ResourceManager.GetString("TextWinPoint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   WebService に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string TitleWebService {
+            get {
+                return ResourceManager.GetString("TitleWebService", resourceCulture);
             }
         }
     }

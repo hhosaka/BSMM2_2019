@@ -59,6 +59,11 @@ namespace BSMM2.ViewModels {
 		public string EntrySheet { get; set; }
 		public bool AsCurrentGame { get; set; }
 
+		public bool UseUniqueId4WebService {
+			get=>_app.UseUniqueId4WebService;
+			set=> _app.UseUniqueId4WebService=value;
+		}
+
 		private PlayerCreator _playerMode;
 
 		public PlayerCreator PlayerMode {
@@ -86,7 +91,7 @@ namespace BSMM2.ViewModels {
 			CreateCommand = new DelegateCommand(ExecuteCreate);
 
 			void ExecuteCreate() {
-				if (app.Add(new Game(Rule.Clone(), PlayerMode.Create(), GameName), AsCurrentGame)) {
+				if (app.Add(new Game(PlayerMode.Create(), UseUniqueId4WebService ? (Guid?)null:app.Id, GameName), AsCurrentGame)) {
 					MessagingCenter.Send<object>(this, Messages.REFRESH);
 				}// TODO : Error handling is required?
 				close?.Invoke();

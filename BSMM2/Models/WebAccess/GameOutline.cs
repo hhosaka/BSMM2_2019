@@ -22,7 +22,9 @@ namespace BSMM2.Models.WebAccess
 		[JsonProperty]
 		public string RuleName => _game.Rule.Name;
 		[JsonProperty]
-		public bool EnableLifePoint => true;
+		public string Id => _game.WebServiceId.ToString();
+		[JsonProperty]
+		public bool EnableLifePoint => true;//TODO: TBD
 		public GameOutline(Game game) {
 			_game = game;
 		}

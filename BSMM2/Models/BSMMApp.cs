@@ -24,9 +24,10 @@ namespace BSMM2.Models {
 		[JsonProperty]
 		private readonly int _version;
 
+		[JsonIgnore]
 		private static  string _information;
 
-		public static BSMMApp Create(string path, bool force) {
+		public static BSMMApp Create(string path, bool force) {// TODO: Separate to Load and Create
 			var storage = new Storage();
 
 			if (force) {
@@ -55,13 +56,12 @@ namespace BSMM2.Models {
 							new ThreeOnThreeMatchRule(),
 							new Matches.MultiMatch.NthGameMatch.NthGameMatchRule(3)
 						});
-				app.Save(true);
 				return app;
 			}
 		}
 
 		[JsonProperty]
-		public Guid Id { get; private set; }
+		public Guid Id { get; }
 
 		[JsonProperty]
 		public bool IsDebugMode { get; set; }
@@ -101,6 +101,9 @@ namespace BSMM2.Models {
 
 		[JsonProperty]
 		public string Owner { get; set; }
+
+		[JsonProperty]
+		public bool UseUniqueId4WebService { get; set; }
 
 		public void VersionCheck(Action<string>display) {
 			if (!string.IsNullOrEmpty(_information)) {
@@ -171,7 +174,7 @@ namespace BSMM2.Models {
 			_path = path;
 			Rules = new List<IRule>(rules);
 			Rule = Rules.First();
-			_games = new List<Game>() { new Game(Rule, new Players(Rule, 8)) };
+			_games = new List<Game>() { new Game(new Players(Rule, 8)) };
 			Game = _games.Last();
 			AutoSave = true;
 		}

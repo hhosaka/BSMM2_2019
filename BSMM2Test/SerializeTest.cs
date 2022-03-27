@@ -625,7 +625,7 @@ namespace BSMM2Test {
 			var rule = app.Rules.ElementAt(1);
 			app.Rule = rule;
 			var title = "test";
-			app.Add(new Game(rule, new Players(app.Rule, 8), title), true);
+			app.Add(new Game(new Players(rule, 8), null, title), true);
 			app.Save(true);
 			var app2 = BSMMApp.Create(TESTFILE, false);
 			Assert.IsTrue(app2.Rules.Count() == 4);

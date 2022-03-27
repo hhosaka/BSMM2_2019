@@ -1,5 +1,7 @@
 ﻿using BSMM2.Models;
+using BSMM2.Models.WebAccess;
 using Plugin.Clipboard;
+using Prism.Commands;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -32,13 +34,25 @@ namespace BSMM2.ViewModels {
 		public string MailAddress
 		{
 			get => _mailAddress;
-			set => SetProperty(ref _mailAddress, value, nameof(MailAddress), () => _app.MailAddress = value);
+			set => SetProperty(ref _mailAddress, value, nameof(MailAddress), () => { _app.MailAddress = value; RefreshButton(); });
 		}
 
 		private string _password;
 		public string Password {
 			get => _password;
-			set => SetProperty(ref _password, value, nameof(Password), () => _app.Password = value);
+			set => SetProperty(ref _password, value, nameof(Password), () => { _app.Password = value; RefreshButton(); });
+		}
+
+		private string _passwordConfirmation;
+		public string PasswordConfirmation {
+			get => _passwordConfirmation;
+			set => SetProperty(ref _passwordConfirmation, value, nameof(PasswordConfirmation),()=> RefreshButton());
+		}
+
+		public DelegateCommand CreateAccountCommand { get; }
+
+		private void RefreshButton() {
+			CreateAccountCommand? .RaiseCanExecuteChanged();
 		}
 
 		private void SetAutoSave(bool value)
@@ -60,11 +74,14 @@ namespace BSMM2.ViewModels {
 
 			ExportAppCommand = new Command(Export);
 			ImportAppCommand = new Command(Import);
+			CreateAccountCommand = new DelegateCommand(
+				async ()=> await new WebClient().Upload(BSMMApp.WebURL,MailAddress,Password,app.Game),
+				() => (!string.IsNullOrEmpty(MailAddress)) && (!string.IsNullOrEmpty(Password)) && (Password==PasswordConfirmation));
 
 			void Export()
 			{
-                try
-                {
+				var flag= (!string.IsNullOrEmpty(MailAddress)) && (!string.IsNullOrEmpty(Password)) && (Password == PasswordConfirmation);
+				try {
 					var buf = new StringBuilder();
 					new Serializer<Game>().Serialize(new StringWriter(buf), app.Game);
 					CrossClipboard.Current.SetText(buf.ToString());

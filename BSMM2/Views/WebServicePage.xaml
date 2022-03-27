@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+			 xmlns:prop="clr-namespace:BSMM2.Resource"
+			 x:Class="BSMM2.Views.WebServicePage"
+			 xmlns:local="clr-namespace:BSMM2.ViewModels"
+			 Title="{x:Static prop:AppResources.TitleWebService}">
+	<ContentPage.ToolbarItems>
+		<ToolbarItem Text="{x:Static prop:AppResources.MenuBack}" Clicked="Back" Order="Secondary" />
+	</ContentPage.ToolbarItems>
+	<ContentPage.Content>
+		<StackLayout Grid.Row="0">
+			<Label Text="{x:Static prop:AppResources.TextWebServiceHelp4User}"/>
+			<Image Grid.Row="1" BackgroundColor="AliceBlue" Source="{Binding ImageSource}" VerticalOptions="CenterAndExpand"/>
+			<Label Text="{x:Static prop:AppResources.LabelWebServiceURL}" />
+			<Entry Text="{Binding URL}" />
+		</StackLayout>
+	</ContentPage.Content>
+</ContentPage>

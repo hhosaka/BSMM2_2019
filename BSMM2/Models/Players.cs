@@ -18,6 +18,9 @@ namespace BSMM2.Models
 		[JsonProperty]
 		private IRule _rule;
 
+		[JsonIgnore]
+		public IRule Rule => _rule;
+
 		[JsonProperty]
 		private String _prefix;
 
@@ -32,6 +35,7 @@ namespace BSMM2.Models
 
 		private IEnumerable<Player> Generate(int start, string prefix, int count = 1) {
 			Debug.Assert(count > 0);
+			Debug.Assert(_rule != null);
 			for (int i = 0; i < count; ++i) {
 				yield return new Player(_rule, string.Format("{0}{1:000}", prefix, start + i));
 			}
@@ -75,8 +79,10 @@ namespace BSMM2.Models
 			_players.AddRange(Generate(start, prefix, count));
 		}
 
-		public void Add(String name)
-			=> _players.Add(new Player(_rule, name));
+		public void Add(String name) {
+			Debug.Assert(_rule != null);
+			_players.Add(new Player(_rule, name));
+		}
 
 		public void Remove(int index)
 			=> _players.RemoveAt(index);
@@ -92,6 +98,7 @@ namespace BSMM2.Models
 		}
 
 		public IEnumerable<Player> GetSortedPlayers() {
+			Debug.Assert(_rule != null);
 			if (_players == null) {
 				return Enumerable.Empty<Player>();
 			} else {
@@ -100,6 +107,7 @@ namespace BSMM2.Models
 		}
 
 		public IEnumerable<OrderedPlayer> GetOrderedPlayers() {
+			Debug.Assert(_rule != null);
 			Player prev = null;
 			int order = 0;
 			int count = 0;

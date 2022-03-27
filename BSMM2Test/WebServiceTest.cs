@@ -17,8 +17,12 @@ namespace BSMM2Test
 	public class WebServiceTest {
 		[TestMethod]
 		public void WebServiceTest1() {
-			// TBD
-			var game = new FakeGame(new SingleMatchRule(), 6);
+			var app= BSMMApp.Create("",true);
+			var id=Guid.NewGuid();
+			app.Add(new Game(new Players(app.Rule,8),id),true);
+			Assert.AreEqual(app.Game.WebServiceId, id);
+			app.Add(new Game(new Players(app.Rule, 8)), true);
+			Assert.AreNotEqual(app.Game.WebServiceId, id);
 		}
 	}
 }

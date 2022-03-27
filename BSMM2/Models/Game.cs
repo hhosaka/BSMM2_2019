@@ -37,6 +37,9 @@ namespace BSMM2.Models {
 		public Guid Id { get; private set; }
 
 		[JsonProperty]
+		public Guid WebServiceId { get; private set; }
+
+		[JsonProperty]
 		public IRule Rule { get; private set; }
 
 		[JsonProperty]
@@ -247,15 +250,16 @@ namespace BSMM2.Models {
 			RandomizePlayer = DefaultRandomizer;
 		}
 
-		public Game(IRule rule, Players players, string title = null,Func<IEnumerable<Player>, IEnumerable<Player>>randomizePlayer=null):this() {
+		public Game(Players players, Guid?webServiceId=null, string title = null, Func<IEnumerable<Player>, IEnumerable<Player>>randomizePlayer=null):this() {
 			if (title == null)
 				Title = GameTitle;
 			else
 				Title = title;
 
 			Id = Guid.NewGuid();
+			WebServiceId = webServiceId?? Id;
 			Players = players;
-			Rule = rule;
+			Rule = players.Rule;
 			_rounds = new List<Round>();
 			StartTime = null;
 			if(randomizePlayer!= null) RandomizePlayer = randomizePlayer;

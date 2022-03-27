@@ -14,6 +14,8 @@ namespace BSMM2.Views {
 			Children.Add(CreatePage(new RoundPage(app), AppResources.TabRound));
 
 			app?.VersionCheck(async message => await DisplayAlert(AppResources.TextVersionCheck, message, AppResources.ButtonOK));
+			app?.Save(true);
+
 			Page CreatePage(Page page, string title) {
 				var ret = new NavigationPage(page);
 				ret.Title = title;

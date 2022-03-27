@@ -249,6 +249,9 @@
   <data name="LabelPassword" xml:space="preserve">
     <value>連携パスワード</value>
   </data>
+  <data name="LabelPasswordConfirmation" xml:space="preserve">
+    <value>パスワード確認</value>
+  </data>
   <data name="LabelPointCompare" xml:space="preserve">
     <value>ポイント比較</value>
   </data>
@@ -279,8 +282,14 @@
   <data name="LabelUseOpponentWinPoint" xml:space="preserve">
     <value>オポネント勝利ポイントで比較</value>
   </data>
+  <data name="LabelUseUniqueId4WebService" xml:space="preserve">
+    <value>ウェブサービスIdをゲーム毎に更新する</value>
+  </data>
   <data name="LabelUseWinPoint" xml:space="preserve">
     <value>勝利ポイントで比較</value>
+  </data>
+  <data name="LabelWebServiceURL" xml:space="preserve">
+    <value>ウェブサービスURL</value>
   </data>
   <data name="LabelWinnerCompare" xml:space="preserve">
     <value>全勝だけを考慮</value>
@@ -448,10 +457,24 @@ BSMM2は設定データの永続性を保証しないことをご了承くださ
   <data name="TextVersionCheck" xml:space="preserve">
     <value>バージョンチェック</value>
   </data>
+  <data name="TextWebServiceHelp" xml:space="preserve">
+    <value>BSMM2はサーバを介してアクティブなゲームの順位表、組合せ表を公開することができます。
+この機能をウェブサービスと呼びます。
+BSMM2ユーザは本サービスを無料で使用することができます。
+本サービスを利用するためにはメールアドレスとパスワードの登録が必要です。
+本サービスの登録と利用はネットワークを使用しますので、ネットワークアクセスを有効にしてください。
+プレイヤーにはPlayers、Roundsそれぞれのメニューの「QRコード」を提示してください。</value>
+  </data>
+  <data name="TextWebServiceHelp4User" xml:space="preserve">
+    <value>以下のリンクから対戦情報を確認できます。</value>
+  </data>
   <data name="TextWinnerOnly" xml:space="preserve">
     <value>全勝者以外を考慮しない</value>
   </data>
   <data name="TextWinPoint" xml:space="preserve">
     <value>勝利P</value>
+  </data>
+  <data name="TitleWebService" xml:space="preserve">
+    <value>ウェブサービス</value>
   </data>
 </root>

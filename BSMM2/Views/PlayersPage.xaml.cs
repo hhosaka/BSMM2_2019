@@ -57,10 +57,9 @@ namespace BSMM2.Views {
 
 		private void OpenHelpPage(object sender, EventArgs e)
 			=> Navigation.PushModalAsync(new WebPage("https://sites.google.com/site/hhosaka183/bs-match-maker-2"));
-
+		
 		private void OpenQRCode2PlayersPage(object sender, EventArgs e) {
-			string urlEnc = System.Web.HttpUtility.UrlEncode(BSMMApp.WebURL+"players");
-			Navigation.PushModalAsync(new WebPage($"https://chart.googleapis.com/chart?cht=qr&chl={urlEnc}&chs=300x300&chld=H|1"));
+			Navigation.PushModalAsync(new NavigationPage(new WebServicePage(_app, "users/players/")));
 		}
 
 		private async void OnPlayerTapped(object sender, ItemTappedEventArgs args) {

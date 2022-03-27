@@ -11,8 +11,9 @@ namespace BSMM2.Views {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class RoundPage : ContentPage, UI {
 		private RoundViewModel viewModel;
-
+		private BSMMApp _app;
 		public RoundPage(BSMMApp app) {
+			_app = app;
 			InitializeComponent();
 
 			BindingContext = viewModel = new RoundViewModel(app, showRoundsLog,  this);
@@ -24,7 +25,7 @@ namespace BSMM2.Views {
 		private void OpenHelpPage(object sender, EventArgs e) => Navigation.PushModalAsync(new WebPage("https://sites.google.com/site/hhosaka183/bs-match-maker-2"));
 
 		private void OpenQRCode2PlayersPage(object sender, EventArgs e) {
-			string urlEnc = System.Web.HttpUtility.UrlEncode(BSMMApp.WebURL+"matches");
+			string urlEnc = System.Web.HttpUtility.UrlEncode(BSMMApp.WebURL+"matches/" + _app.Game.Id);
 			Navigation.PushModalAsync(new WebPage($"https://chart.googleapis.com/chart?cht=qr&chl={urlEnc}&chs=300x300&chld=H|1"));
 		}
 

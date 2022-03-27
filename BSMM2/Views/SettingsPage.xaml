@@ -19,6 +19,10 @@
 			<Entry Text="{Binding MailAddress}" />
 			<Label Text="{x:Static prop:AppResources.LabelPassword}" />
 			<Entry Text="{Binding Password}" />
+			<Label Text="{x:Static prop:AppResources.LabelPasswordConfirmation}" />
+			<Entry Text="{Binding PasswordConfirmation}" />
+			<Label Text="{x:Static prop:AppResources.TextWebLinkHelp}"/>
+			<Button Text="Create Web Service Account" Command="{Binding CreateAccountCommand}"/>
 			<Button Text="Export App" Command="{Binding ExportAppCommand}" IsVisible="{Binding IsDebugMode}"/>
             <Button Text="Import App" Command="{Binding ImportAppCommand}" IsVisible="{Binding IsDebugMode}"/>
         </StackLayout>

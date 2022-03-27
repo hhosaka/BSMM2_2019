@@ -42,6 +42,10 @@
 				<Switch IsToggled="{Binding AsCurrentGame}" />
 				<Label Text="{x:Static prop:AppResources.LabelNewGameAsCurrentGame}" VerticalOptions="Center" />
 			</StackLayout>
+			<StackLayout Orientation="Horizontal">
+				<Switch IsToggled="{Binding UseUniqueId4WebService}" />
+				<Label Text="{x:Static prop:AppResources.LabelUseUniqueId4WebService}" VerticalOptions="Center" />
+			</StackLayout>
 			<Button Text="{x:Static prop:AppResources.ButtonCreate}" Command="{Binding CreateCommand}" />
 		</StackLayout>
 	</ContentPage.Content>
