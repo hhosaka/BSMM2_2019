@@ -322,6 +322,15 @@ namespace BSMM2.Resource {
         }
         
         /// <summary>
+        ///   Activate Web Service に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string LabelActiveWebService {
+            get {
+                return ResourceManager.GetString("LabelActiveWebService", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   BS Match Maker 2 に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string LabelAppTitle {
@@ -1088,12 +1097,11 @@ namespace BSMM2.Resource {
         }
         
         /// <summary>
-        ///   Enter your email and password for utilizing web service.
-        ///Internet service is required. に類似しているローカライズされた文字列を検索します。
+        ///   Web service requires your mail address. に類似しているローカライズされた文字列を検索します。
         /// </summary>
-        public static string TextWebLinkHelp {
+        public static string TextWebServiceHelp {
             get {
-                return ResourceManager.GetString("TextWebLinkHelp", resourceCulture);
+                return ResourceManager.GetString("TextWebServiceHelp", resourceCulture);
             }
         }
         

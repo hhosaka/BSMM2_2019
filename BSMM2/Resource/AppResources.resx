@@ -204,6 +204,9 @@
   <data name="Label5thMatch" xml:space="preserve">
     <value>5th Match</value>
   </data>
+  <data name="LabelActiveWebService" xml:space="preserve">
+    <value>Activate Web Service</value>
+  </data>
   <data name="LabelAppTitle" xml:space="preserve">
     <value>BS Match Maker 2</value>
   </data>
@@ -460,9 +463,8 @@ NOTE :  BSMM2 does not guarantee  persistency of your settings and logs.</value>
   <data name="TextVersionCheck" xml:space="preserve">
     <value>Version Check</value>
   </data>
-  <data name="TextWebLinkHelp" xml:space="preserve">
-    <value>Enter your email and password for utilizing web service.
-Internet service is required.</value>
+  <data name="TextWebServiceHelp" xml:space="preserve">
+    <value>Web service requires your mail address.</value>
   </data>
   <data name="TextWebServiceHelp4User" xml:space="preserve">
     <value>Please use this QR code for access the Web service.</value>

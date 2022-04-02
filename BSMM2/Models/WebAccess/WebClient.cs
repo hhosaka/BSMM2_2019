@@ -10,14 +10,25 @@ namespace BSMM2.Models.WebAccess
 {
 	public class WebClient
 	{
+		private class AccountInfo
+		{
+			public string Key => "BSMM2Svr";
+			public string MailAddress { get; }
+			public string Password { get; }
+
+			public AccountInfo(string mailAddress, string password) {
+				MailAddress = mailAddress;
+				Password = password;
+			}
+		}
+
 		public async Task<bool> Upload(string url, string mailAddress, string password, Game game) 
 		{
-
             var cc = await LoginAsync(url, mailAddress, password);
 			if (cc != null) {
-				if(await SendDataAsync<GameOutline>(cc, url+"users/uploadGame", GameOutline.Create(game))) {
-					if(await SendDataAsync<IEnumerable<OrderedPlayer>>(cc, url + "users/uploadPlayers", game.Players.GetOrderedPlayers())) {
-						return await SendDataAsync<IEnumerable<MatchOutline>>(cc, url + "users/uploadMatches", MatchOutline.Create(game.ActiveRound.Matches));
+				if(await SendDataAsync<GameOutline>(cc, url+"games/uploadOutline/"+game.WebServiceId.ToString(), GameOutline.Create(game))) {
+					if(await SendDataAsync<IEnumerable<OrderedPlayer>>(cc, url + "games/uploadPlayers/" + game.WebServiceId, game.Players.GetOrderedPlayers())) {
+						return await SendDataAsync<IEnumerable<MatchOutline>>(cc, url + "games/uploadMatches/" + game.WebServiceId, MatchOutline.Create(game.ActiveRound.Matches));
 					}
 				}
 			}

@@ -39,7 +39,7 @@ namespace BSMM2.ViewModels {
 			DeleteGameCommand = new DelegateCommand(() => deleteGame?.Invoke(), () => _app.Games.Any());
 			AddPlayerCommand = new DelegateCommand(() => addPlayer?.Invoke(), () => _app.Game.CanAddPlayers());
 			ExportPlayersCommand = new DelegateCommand(_app.ExportPlayers);
-			SaveCommand = new DelegateCommand(() => _app.Save(true), () => !_app.AutoSave);
+			SaveCommand = new DelegateCommand(async () => await _app.Save(true), () => !_app.AutoSave);
 
 			MessagingCenter.Subscribe<object>(this, Messages.REFRESH,
 				async (sender) => await ExecuteRefresh());
