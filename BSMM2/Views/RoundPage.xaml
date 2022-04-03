@@ -8,7 +8,7 @@
 			 x:Name="BrowseItemsPage">
 	<ContentPage.ToolbarItems>
 		<ToolbarItem Text="{x:Static prop:AppResources.MenuRoundLog}" Command="{Binding ShowRoundsLogCommand}" Order="Secondary" />
-		<ToolbarItem Text="{x:Static prop:AppResources.MenuQRCode2Matches}" Clicked="OpenQRCode2MatchesPage" Order="Secondary" />
+		<ToolbarItem Text="{x:Static prop:AppResources.MenuQRCode2Matches}" Command="{Binding ShowQRCodeCommand}" Order="Secondary" />
 		<ToolbarItem Text="{x:Static prop:AppResources.MenuHelp}" Clicked="OpenHelpPage" Order="Secondary" />
 	</ContentPage.ToolbarItems>
 	<ContentPage.Resources>

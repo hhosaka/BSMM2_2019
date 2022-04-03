@@ -16,10 +16,13 @@ namespace BSMM2.Views {
 			_app = app;
 			InitializeComponent();
 
-			BindingContext = viewModel = new RoundViewModel(app, showRoundsLog,  this);
+			BindingContext = viewModel = new RoundViewModel(app, ShowRoundsLog, ShowQRCode, this);
 
-			void showRoundsLog()
+			void ShowRoundsLog()
 				=> Navigation.PushModalAsync(new RoundsLogPage(app));
+			void ShowQRCode()
+				=> Navigation.PushModalAsync(new NavigationPage(new WebServicePage(_app, "games/matches/")));
+
 		}
 
 		private void OpenHelpPage(object sender, EventArgs e) => Navigation.PushModalAsync(new WebPage("https://sites.google.com/site/hhosaka183/bs-match-maker-2"));

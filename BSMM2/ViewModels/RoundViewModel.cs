@@ -48,10 +48,11 @@ namespace BSMM2.ViewModels {
 		public DelegateCommand StepToMatchingCommand { get; }
 		public DelegateCommand ShowRoundsLogCommand { get; }
 		public DelegateCommand StartTimerCommand { get; }
+		public DelegateCommand ShowQRCodeCommand { get; }
 
 		private UI _ui;
 
-		public RoundViewModel(BSMMApp app, Action showRoundsLog, UI ui) {
+		public RoundViewModel(BSMMApp app, Action showRoundsLog, Action showQRCode, UI ui) {
 			Debug.Assert(app != null);
 			_app = app;
 			_ui = ui;
@@ -60,6 +61,7 @@ namespace BSMM2.ViewModels {
 			StepToMatchingCommand = CreateStepToMatchingCommand();
 			ShowRoundsLogCommand = new DelegateCommand(showRoundsLog, () => app.Game.Rounds.Any());
 			StartTimerCommand = new DelegateCommand(ExecuteStartTimer, () => Game.CanExecuteStartTimer());
+			ShowQRCodeCommand = new DelegateCommand(showQRCode, () => app.ActiveWebService);
 			MessagingCenter.Subscribe<object>(this, Messages.REFRESH,
 				async (sender) => await ExecuteRefresh());
 
@@ -69,7 +71,7 @@ namespace BSMM2.ViewModels {
 			async void ExecuteStartTimer()
             {
 				Game.StartTimer();
-				_app.Save(false);
+				await _app.Save(false);
 				await ExecuteRefresh();
 			}
 		}
@@ -95,6 +97,7 @@ namespace BSMM2.ViewModels {
 			StepToMatchingCommand?.RaiseCanExecuteChanged();
 			ShowRoundsLogCommand?.RaiseCanExecuteChanged();
 			StartTimerCommand?.RaiseCanExecuteChanged();
+			ShowQRCodeCommand?.RaiseCanExecuteChanged();
 		}
 
 		private DelegateCommand CreateStepToPlayingCommand() {

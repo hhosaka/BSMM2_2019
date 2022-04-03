@@ -14,6 +14,8 @@ namespace BSMM2.Models {
 
 		string Prefix { get; set; }
 
+		bool EnableLifePoint { get; }
+
 		Match CreateMatch(int id, Player player1, Player player2 = null);
 
 		ContentPage CreateMatchPage(Match match);

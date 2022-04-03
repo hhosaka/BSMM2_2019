@@ -28,9 +28,9 @@ namespace BSMM2.ViewModels {
 		public DelegateCommand AddPlayerCommand { get; }
 		public DelegateCommand ExportPlayersCommand { get; }
 		public DelegateCommand SaveCommand { get; }
-		public DelegateCommand HelpCommand { get; }
+		public DelegateCommand ShowQRCodeCommand { get; }
 
-		public PlayersViewModel(BSMMApp app, Action newGame = null, Action selectGame = null, Action deleteGame = null, Action addPlayer = null) {
+		public PlayersViewModel(BSMMApp app, Action newGame = null, Action selectGame = null, Action deleteGame = null, Action addPlayer = null, Action showQRPage=null) {
 			_app = app;
 			Players = new ObservableCollection<OrderedPlayer>();
 
@@ -40,7 +40,7 @@ namespace BSMM2.ViewModels {
 			AddPlayerCommand = new DelegateCommand(() => addPlayer?.Invoke(), () => _app.Game.CanAddPlayers());
 			ExportPlayersCommand = new DelegateCommand(_app.ExportPlayers);
 			SaveCommand = new DelegateCommand(async () => await _app.Save(true), () => !_app.AutoSave);
-
+			ShowQRCodeCommand = new DelegateCommand(() => showQRPage?.Invoke(), () => _app.ActiveWebService);
 			MessagingCenter.Subscribe<object>(this, Messages.REFRESH,
 				async (sender) => await ExecuteRefresh());
 
@@ -67,6 +67,7 @@ namespace BSMM2.ViewModels {
 			DeleteGameCommand?.RaiseCanExecuteChanged();
 			AddPlayerCommand?.RaiseCanExecuteChanged();
 			SaveCommand?.RaiseCanExecuteChanged();
+			ShowQRCodeCommand?.RaiseCanExecuteChanged();
 		}
 	}
 }

@@ -29,7 +29,7 @@ namespace BSMM2.Models.WebAccess
 		[JsonProperty]
 		public string MailAddress => _app.MailAddress;
 		[JsonProperty]
-		public bool EnableLifePoint => true;//TODO: TBD
+		public bool EnableLifePoint => Game.Rule.EnableLifePoint;
 		public GameOutline(BSMMApp app) {
 			_app = app;
 		}

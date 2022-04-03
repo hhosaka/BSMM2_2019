@@ -16,7 +16,7 @@ namespace BSMM2.Views {
 			_app = app;
 			InitializeComponent();
 
-			BindingContext = viewModel = new PlayersViewModel(app, NewGame, SelectGame, DeleteGame, AddPlayer);
+			BindingContext = viewModel = new PlayersViewModel(app, NewGame, SelectGame, DeleteGame, AddPlayer,showQRCode);
 
 			void NewGame()
 				=> Navigation.PushModalAsync(new NavigationPage(new NewGamePage(_app)));
@@ -28,6 +28,8 @@ namespace BSMM2.Views {
 					new NavigationPage(new GamesPage(_app, "Delete Item", deleteGame)));
 			void AddPlayer()
 				=> Navigation.PushModalAsync(new NavigationPage(new AddPlayerPage(_app)));
+			void showQRCode()
+				=> Navigation.PushModalAsync(new NavigationPage(new WebServicePage(_app, "games/players/")));
 
 			async void selectGame(Game game) {
 				Debug.Assert(game != null);
@@ -58,9 +60,6 @@ namespace BSMM2.Views {
 		private void OpenHelpPage(object sender, EventArgs e)
 			=> Navigation.PushModalAsync(new WebPage("https://sites.google.com/site/hhosaka183/bs-match-maker-2"));
 		
-		private void OpenQRCode2PlayersPage(object sender, EventArgs e)
-			=>Navigation.PushModalAsync(new NavigationPage(new WebServicePage(_app, "games/players/")));
-
 		private async void OnPlayerTapped(object sender, ItemTappedEventArgs args) {
 			if (args.Item is OrderedPlayer player)
 				await Navigation.PushModalAsync(new NavigationPage(new PlayerPage(_app, player.Player)));
