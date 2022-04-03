@@ -58,9 +58,8 @@ namespace BSMM2.Views {
 		private void OpenHelpPage(object sender, EventArgs e)
 			=> Navigation.PushModalAsync(new WebPage("https://sites.google.com/site/hhosaka183/bs-match-maker-2"));
 		
-		private void OpenQRCode2PlayersPage(object sender, EventArgs e) {
-			Navigation.PushModalAsync(new NavigationPage(new WebServicePage(_app, "users/players/")));
-		}
+		private void OpenQRCode2PlayersPage(object sender, EventArgs e)
+			=>Navigation.PushModalAsync(new NavigationPage(new WebServicePage(_app, "games/players/")));
 
 		private async void OnPlayerTapped(object sender, ItemTappedEventArgs args) {
 			if (args.Item is OrderedPlayer player)

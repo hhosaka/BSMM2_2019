@@ -31,9 +31,6 @@ namespace BSMM2.Models {
 		public string Title { get; private set; }
 
 		[JsonProperty]
-		public string Owner { get; private set; }
-
-		[JsonProperty]
 		public Guid Id { get; private set; }
 
 		[JsonProperty]

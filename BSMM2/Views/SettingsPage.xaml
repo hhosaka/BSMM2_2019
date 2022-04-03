@@ -3,7 +3,7 @@
 			 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
 			 xmlns:prop="clr-namespace:BSMM2.Resource"
 			 x:Class="BSMM2.Views.SettingsPage"
-			 xmlns:local="clr-namespace:BSMM2.ViewModels"
+			 xmlns:local="clr-namespace:BSMM2.ViewModels" x:DataType="local:SettingsViewModel"
 			 Disappearing="OnClosing"
 			 Title="{x:Static prop:AppResources.MenuSetting}">
 	<ContentPage.ToolbarItems>
@@ -17,8 +17,10 @@
 			</StackLayout>
 			<Label Text="{x:Static prop:AppResources.LabelMailAddress}" />
 			<Entry Text="{Binding MailAddress}" />
-			<StackLayout Orientation="Horizontal">
-				<Switch IsToggled="{Binding ActiveWebService}" />
+			<Label Text="{x:Static prop:AppResources.LabelOwner}" />
+			<Entry Text="{Binding App.Owner}" />
+			<StackLayout Orientation="Horizontal" IsVisible="{Binding IsEnableActiveWebService}">
+				<Switch IsToggled="{Binding ActiveWebService}"/>
 				<Label Text="{x:Static prop:AppResources.LabelActiveWebService}" VerticalOptions="Center" />
 			</StackLayout>
 			<Label Text="{x:Static prop:AppResources.TextWebServiceHelp}"/>

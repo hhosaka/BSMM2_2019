@@ -466,6 +466,15 @@ namespace BSMM2.Resource {
         }
         
         /// <summary>
+        ///   Owner Name に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string LabelOwner {
+            get {
+                return ResourceManager.GetString("LabelOwner", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Password for web service に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string LabelPassword {

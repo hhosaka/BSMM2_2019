@@ -8,25 +8,30 @@ namespace BSMM2.Models.WebAccess
 	[JsonObject]
 	public class GameOutline
 	{
-		public static GameOutline Create(Game game)
-			=> new GameOutline(game);
+		public static GameOutline Create(BSMMApp app)
+			=> new GameOutline(app);
 
 		[JsonIgnore]
-		private Game _game;
+		private BSMMApp _app;
+		[JsonIgnore]
+		private Game Game => _app.Game;
+
 		[JsonProperty]
-		public string Title => _game.Title;
+		public string Title => Game.Title;
 		[JsonProperty]
-		public string Owner => _game.Owner;
+		public string Owner => _app.Owner;
 		[JsonProperty]
-		public DateTime?Started => _game.StartTime;
+		public string ElapseTime => (DateTime.Now - Game.StartTime)?.ToString(@"hh\:mm\:ss");
 		[JsonProperty]
-		public string RuleName => _game.Rule.Name;
+		public string RuleName => Game.Rule.Name;
 		[JsonProperty]
-		public string Id => _game.WebServiceId.ToString();
+		public string Id => Game.WebServiceId.ToString();
+		[JsonProperty]
+		public string MailAddress => _app.MailAddress;
 		[JsonProperty]
 		public bool EnableLifePoint => true;//TODO: TBD
-		public GameOutline(Game game) {
-			_game = game;
+		public GameOutline(BSMMApp app) {
+			_app = app;
 		}
 	}
 }

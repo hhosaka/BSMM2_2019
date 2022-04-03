@@ -18,7 +18,7 @@ namespace BSMM2.Models {
 	public class BSMMApp {
 
 		public const string WebURL = "http://localhost/bsmm2svr/";//TODO TBD
-		private const string _mailAddress = "hhosaka183@gmail.com";
+		private const string _webServiceAccount = "hhosaka183@gmail.com";
 		private const string _password = "manbowBSMM28";
 
 		private const int VERSION = 3;
@@ -63,7 +63,7 @@ namespace BSMM2.Models {
 		}
 
 		[JsonProperty]
-		public Guid Id { get; }
+		public Guid Id { get; private set; }
 
 		[JsonProperty]
 		public bool IsDebugMode { get; set; }
@@ -136,7 +136,7 @@ namespace BSMM2.Models {
 			if (force || AutoSave) {
 				_storage.Save(this, _path);
 				if (ActiveWebService) {
-					return await new WebClient().Upload(WebURL, _mailAddress, _password, Game);
+					return await new WebClient().Upload(WebURL, _webServiceAccount, _password, this);
 				}
 				return true;
 			}
@@ -144,7 +144,7 @@ namespace BSMM2.Models {
 		}
 
 		public async Task SendByMail(string subject, string body)
-			=> await SendByMail(subject, body, new[] { _mailAddress });
+			=> await SendByMail(subject, body, new[] { MailAddress });
 
 		public async Task SendByMail(string subject, string body, IEnumerable<string> recipients) {
 			try {
@@ -162,7 +162,7 @@ namespace BSMM2.Models {
 		public async void ExportPlayers() {
 			var buf = new StringBuilder();
 			CSVConverter.Convert(Game.Players.Export(new ExportSource()), new StringWriter(buf));
-			await SendByMail(Game.Headline, buf.ToString(), new[] { _mailAddress });
+			await SendByMail(Game.Headline, buf.ToString(), new[] { _webServiceAccount });
 		}
 
 		private BSMMApp(Storage storage) {

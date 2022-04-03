@@ -252,6 +252,9 @@
   <data name="LabelNewGameTitle" xml:space="preserve">
     <value>Title</value>
   </data>
+  <data name="LabelOwner" xml:space="preserve">
+    <value>Owner Name</value>
+  </data>
   <data name="LabelPassword" xml:space="preserve">
     <value>Password for web service</value>
   </data>

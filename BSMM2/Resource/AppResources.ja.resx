@@ -249,6 +249,9 @@
   <data name="LabelNewGameTitle" xml:space="preserve">
     <value>タイトル</value>
   </data>
+  <data name="LabelOwner" xml:space="preserve">
+    <value>オーナー名</value>
+  </data>
   <data name="LabelPassword" xml:space="preserve">
     <value>連携パスワード</value>
   </data>
