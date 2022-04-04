@@ -17,43 +17,64 @@ namespace BSMM2.ViewModels {
 
 		private int _count = 0;
 
-		private bool _autoSave;
 		public bool AutoSave {
-			get => _autoSave;
-			set => SetProperty(ref _autoSave, value, nameof(AutoSave), () => SetAutoSave(value));
+			get => App.AutoSave;
+			set {
+				App.AutoSave = value;
+				if (++_count > 10) {
+					_count = 0;
+					IsDebugMode = !IsDebugMode;
+				}
+				OnPropertyChanged(nameof(App.AutoSave));
+			}
 		}
 
-		private string _mailAddress;
+		private void SetAutoSave(bool value) {
+		}
+
 		public string MailAddress{
-			get=>_mailAddress;
-			set	=> SetProperty(ref _mailAddress, value, nameof(MailAddress),()=>SetMailAddress(value));
+			get=> App.MailAddress;
+			set {
+				if (App.MailAddress != value) {
+					App.MailAddress = value;
+					if (string.IsNullOrEmpty(value)) {
+						ActiveWebService = false;
+						IsEnableActiveWebService = false;
+					} else {
+						IsEnableActiveWebService = true;
+					}
+					OnPropertyChanged(nameof(MailAddress));
+				}
+			}
 		}
 
 		private bool _isEnableActiveWebService;
 		public bool IsEnableActiveWebService {
 			get => _isEnableActiveWebService;
-			set => SetProperty(ref _isEnableActiveWebService, value, nameof(IsEnableActiveWebService));
+			set {
+				_isEnableActiveWebService = value;
+				OnPropertyChanged(nameof(IsEnableActiveWebService));
+			}
 		}
 
-		private bool _activeWebService;
 		public bool ActiveWebService {
 			get => App.ActiveWebService;
-			set => SetProperty(ref _activeWebService, value, nameof(ActiveWebService),()=>App.ActiveWebService=value);
+			set {
+				if (App.ActiveWebService != value) {
+					App.ActiveWebService = value;
+					OnPropertyChanged(nameof(ActiveWebService));
+				}
+			}
 		}
 
-		private bool _isDebugMode;
 		public bool IsDebugMode
         {
-			get => _isDebugMode;
-			set => SetProperty(ref _isDebugMode, value, nameof(IsDebugMode), () => App.IsDebugMode=value);
+			get => App.IsDebugMode;
+			set {
+				App.IsDebugMode = value;
+				OnPropertyChanged(nameof(IsDebugMode));
+			}
 		}
-
-		private void SetAutoSave(bool value)
-        {
-			App.AutoSave = value;
-            if (++_count > 10)
-				IsDebugMode = !IsDebugMode;
-        }
 
 		private void SetMailAddress(string value) {
 			App.MailAddress = value;
@@ -70,10 +91,8 @@ namespace BSMM2.ViewModels {
 
 		public SettingsViewModel(BSMMApp app, Action<string> displayAlert) {
 			App = app;
-			AutoSave = app.AutoSave;
-			MailAddress = app.MailAddress;
-			ActiveWebService = app.ActiveWebService;
-			IsDebugMode = app.IsDebugMode;
+			IsDebugMode = App.IsDebugMode;
+			IsEnableActiveWebService = !string.IsNullOrEmpty(MailAddress);
 
 			ExportAppCommand = new Command(Export);
 			ImportAppCommand = new Command(Import);
