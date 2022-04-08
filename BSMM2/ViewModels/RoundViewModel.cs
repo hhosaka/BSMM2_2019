@@ -3,6 +3,7 @@ using BSMM2.Resource;
 using Prism.Commands;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
@@ -17,14 +18,44 @@ namespace BSMM2.ViewModels {
 		void PushPage(Page page);
 	};
 
+	public class DelegateMatch : INotifyPropertyChanged
+	{
+		public Match Match { get; }
+		public IRecord Record1 => Match.Record1;
+		public IRecord Record2 => Match.Record2;
+		public bool IsFinished => Match.IsFinished;
+		public DelegateMatch(Match match) {
+			Match = match;
+		}
+
+		private event PropertyChangedEventHandler _propertyChanged;
+		public event PropertyChangedEventHandler PropertyChanged {
+			add {
+				Match.PropertyChanged += OnPropertyChanged;
+				_propertyChanged += value;
+			}
+
+			remove {
+				Match.PropertyChanged -= OnPropertyChanged;
+				_propertyChanged -= value;
+			}
+		}
+
+		private void OnPropertyChanged(object sender, PropertyChangedEventArgs e) {
+			_propertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Record1)));
+			_propertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Record2)));
+			_propertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsFinished)));
+		}
+
+	}
 	public class RoundViewModel : BaseViewModel {
 		private BSMMApp _app;
 
 		public Game Game => _app.Game;
 
-		private IEnumerable<Match> _matches;
+		private IEnumerable<DelegateMatch> _matches;
 
-		public IEnumerable<Match> Matches {
+		public IEnumerable<DelegateMatch> Matches {
 			get => _matches;
 			set { SetProperty(ref _matches, value); }
 		}
@@ -90,7 +121,7 @@ namespace BSMM2.ViewModels {
 		private void Refresh() {
 			IsTimerVisible = (Game.StartTime != null);
 
-			Matches = Game.ActiveRound.Matches;
+			Matches = Game.ActiveRound.Matches.Select(match=>new DelegateMatch(match)).ToList();
 			Title = Game.Headline;
 			StartCommand?.RaiseCanExecuteChanged();
 			ShuffleCommand?.RaiseCanExecuteChanged();
@@ -107,7 +138,7 @@ namespace BSMM2.ViewModels {
 
 			async void Execute() {
 				Game.StepToPlaying();
-				_app.Save(false);
+				await _app.Save(false);
 				await ExecuteRefresh();
 			}
 		}
@@ -134,7 +165,7 @@ namespace BSMM2.ViewModels {
 
 			async void Execute() {
 				if (Game.Shuffle()) {
-					_app.Save(false);
+					await _app.Save(false);
 					await ExecuteRefresh();
 				} else {
 					await SwitchSetting();
@@ -156,7 +187,7 @@ namespace BSMM2.ViewModels {
 							return;
 						}
 					}
-					_app.Save(false);
+					await _app.Save(false);
 					await ExecuteRefresh();
 				}
 			}

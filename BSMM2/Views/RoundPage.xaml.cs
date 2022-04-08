@@ -30,9 +30,9 @@ namespace BSMM2.Views {
 		private void OpenQRCode2MatchesPage(object sender, EventArgs e)
 						=>Navigation.PushModalAsync(new NavigationPage(new WebServicePage(_app, "games/matches/")));
 
-		private async void OnMatchTapped(object sender, ItemTappedEventArgs args) {
-			if (args.Item is Match match && viewModel.Game.ActiveRound.IsPlaying && !match.IsByeMatch)
-				await Navigation.PushModalAsync(new NavigationPage(viewModel.Game.CreateMatchPage(match)));
+		private async void OnDelegateMatchTapped(object sender, ItemTappedEventArgs args) {
+			if (args.Item is DelegateMatch match && viewModel.Game.ActiveRound.IsPlaying && !match.Match.IsByeMatch)
+				await Navigation.PushModalAsync(new NavigationPage(viewModel.Game.CreateMatchPage(match.Match)));
 
 			RoundListView.SelectedItem = null;
 		}

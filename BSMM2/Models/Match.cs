@@ -9,7 +9,7 @@ using Xamarin.Forms.Internals;
 namespace BSMM2.Models {
 
 	[JsonObject]
-	public abstract class Match : INotifyPropertyChanged {
+	public abstract class Match {
 
 		public event PropertyChangedEventHandler PropertyChanged;
 
@@ -106,9 +106,10 @@ namespace BSMM2.Models {
 		protected void SetResults(IResult result1, IResult result2) {
 			_records[0].SetResult(result1);
 			_records[1].SetResult(result2);
-			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Record1)));
-			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Record2)));
-			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsFinished)));
+			PropertyChanged?.Invoke(this, null);
+			//PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Record1)));
+			//PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Record2)));
+			//PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsFinished)));
 		}
 
 		public void Swap(Match other) {

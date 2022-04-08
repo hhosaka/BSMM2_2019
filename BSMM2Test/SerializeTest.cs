@@ -193,7 +193,7 @@ namespace BSMM2Test {
 		}
 
 		[TestMethod]
-		public void LoadSaveTest6() {
+		public async void LoadSaveTest6() {
 			var app = BSMMApp.Create("test.json", true);
 
 			app.Game.StepToPlaying();
@@ -210,7 +210,7 @@ namespace BSMM2Test {
 			Assert.AreEqual(1, app.Game.Rounds.Count());
 			Assert.AreEqual(1, app.Games.Count());
 
-			app.Save(true);
+			await app.Save(true);
 
 			Assert.AreEqual(1, app.Game.Rounds.Count());
 			Assert.AreEqual(1, app.Games.Count());
@@ -222,14 +222,14 @@ namespace BSMM2Test {
 		}
 
 		[TestMethod]
-		public void LoadSaveTest7() {
+		public async void LoadSaveTest7() {
 			var index = 3;
 			var app = BSMMApp.Create("test.json", true);
 			Assert.AreEqual(true, app.Game.Rule.Comparers.ElementAt(index).Active);
 			app.Game.Rule.Comparers.ElementAt(index).Active = false;
 			Assert.AreEqual(false, app.Game.Rule.Comparers.ElementAt(index).Active);
 
-			app.Save(true);
+			await app.Save(true);
 			var dst = BSMMApp.Create("test.json", false);
 
 			Assert.AreEqual(false, dst.Game.Rule.Comparers.ElementAt(index).Active);
@@ -608,10 +608,10 @@ namespace BSMM2Test {
 		}
 
 		[TestMethod]
-		public void LoadSaveAppTest2() {
+		public async void LoadSaveAppTest2() {
 			var app = BSMMApp.Create(TESTFILE, true);
 			app.Rule = app.Rules.ElementAt(0);
-			app.Save(true);
+			await app.Save(true);
 			var app2 = BSMMApp.Create(TESTFILE, false);
 			Assert.IsTrue(app2.Rules.Count() == 4);
 			Assert.AreEqual(app2.Rules.ElementAt(0), app2.Rule);
@@ -620,13 +620,13 @@ namespace BSMM2Test {
 		}
 
 		[TestMethod]
-		public void LoadSaveAppTest3() {
+		public async void LoadSaveAppTest3() {
 			var app = BSMMApp.Create(TESTFILE, true);
 			var rule = app.Rules.ElementAt(1);
 			app.Rule = rule;
 			var title = "test";
 			app.Add(new Game(new Players(rule, 8), null, title), true);
-			app.Save(true);
+			await app.Save(true);
 			var app2 = BSMMApp.Create(TESTFILE, false);
 			Assert.IsTrue(app2.Rules.Count() == 4);
 			Assert.AreEqual(app2.Rules.ElementAt(1), app2.Rule);
@@ -655,7 +655,7 @@ namespace BSMM2Test {
 		}
 
 		[TestMethod]
-		public void LoadSaveRuleTest2() {
+		public async void LoadSaveRuleTest2() {
 
 			var app = BSMMApp.Create(TESTFILE, true);
 			var src = new FakeGame(new SingleMatchRule(true), 4);
@@ -670,7 +670,7 @@ namespace BSMM2Test {
 
 			var buf = new StringBuilder();
 
-			app.Save(true);
+			await app.Save(true);
 
 			var app2 = BSMMApp.Create(TESTFILE, false);
 

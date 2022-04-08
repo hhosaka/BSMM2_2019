@@ -23,14 +23,15 @@
 				HasUnevenRows="true"
 				IsRefreshing="{Binding IsBusy, Mode=OneWay}"
 				CachingStrategy="RecycleElement"
-				ItemTapped="OnMatchTapped">
+				SelectionMode="Single"
+				ItemTapped="OnDelegateMatchTapped">
 				<ListView.ItemTemplate>
 					<DataTemplate>
 						<ViewCell>
 							<Frame Padding="10" BorderColor="Black">
 								<StackLayout>
 									<StackLayout Orientation="Horizontal" BackgroundColor="CornflowerBlue">
-										<Label Text="{Binding Id, Converter={StaticResource Converter}, ConverterParameter=ID}"/>
+										<Label Text="{Binding Match.Id, Converter={StaticResource Converter}, ConverterParameter=ID}"/>
 										<Label Text="{Binding IsGapMatch, Converter={StaticResource Converter}, ConverterParameter=IS_GAP_MATCH}"/>
 									</StackLayout>
 									<StackLayout  BackgroundColor="{Binding IsFinished, Converter={StaticResource Converter}, ConverterParameter=BGCOLOR}">

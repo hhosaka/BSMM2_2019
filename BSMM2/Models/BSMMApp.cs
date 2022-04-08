@@ -167,7 +167,7 @@ namespace BSMM2.Models {
 
 		private BSMMApp(Storage storage) {
 			_storage = storage;
-			MessagingCenter.Subscribe<object>(this, Messages.REFRESH, (sender) => Save(false));
+			MessagingCenter.Subscribe<object>(this, Messages.REFRESH, async(sender) => await Save(false));
 		}
 
 		public BSMMApp() : this(new Storage()) {// for Serializer
