@@ -8,12 +8,12 @@ namespace BSMM2.Models.Matches.SingleMatch {
 		public SingleMatch() {
 		}
 
-		public SingleMatch(int id, Player player1, Player player2)
-			: base(id, player1, player2) {
+		public SingleMatch(Player player1, Player player2)
+			: base(player1, player2) {
 		}
 
-		public SingleMatch(int id, Record record1, Record record2)
-			: base(id, record1, record2) {
+		public SingleMatch(Record record1, Record record2)
+			: base(record1, record2) {
 
 		}
 

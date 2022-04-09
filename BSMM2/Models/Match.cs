@@ -13,9 +13,6 @@ namespace BSMM2.Models {
 
 		public event PropertyChangedEventHandler PropertyChanged;
 
-		[JsonProperty]
-		public int Id { get; private set; }
-
 		[JsonObject]
 		public class Record : IRecord {
 
@@ -134,11 +131,10 @@ namespace BSMM2.Models {
 			IsGapMatch = !IsByeMatch && (_records[0].Player as Player)?.Point.MatchPoint != (_records[1].Player as Player)?.Point.MatchPoint;
 		}
 
-		public Match(int id, Player player1, Player player2 = null)
-			: this(id, new Record(player1), new Record(player2)) {
+		public Match(Player player1, Player player2 = null)
+			: this(new Record(player1), new Record(player2)) {
 		}
-		protected Match(int id, Record record1, Record record2) {
-			Id = id;
+		protected Match(Record record1, Record record2) {
 			_records = new[] { record1, record2 };
 			SetIsGapMatch();
 		}

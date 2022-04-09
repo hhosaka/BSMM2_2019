@@ -70,8 +70,8 @@ namespace BSMM2.Models.Matches.SingleMatch {
 		public virtual IRule Clone()
 			=> new SingleMatchRule(this);
 
-		public virtual Match CreateMatch(int id, Player player1, Player player2)
-			=> new SingleMatch(id, player1, player2);
+		public virtual Match CreateMatch(Player player1, Player player2)
+			=> new SingleMatch(player1, player2);
 
 		public IPoint Point(IEnumerable<IPoint> points)
 			=> SingleMatchResult.Total(EnableLifePoint, points);

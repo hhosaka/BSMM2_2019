@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace BSMM2.Models.WebAccess
@@ -9,13 +10,12 @@ namespace BSMM2.Models.WebAccess
 	public class MatchOutline
 	{
 		public static IEnumerable<MatchOutline> Create(IEnumerable<Match> matches) {
-			foreach (var match in matches) {
-				yield return new MatchOutline(match);
-			}
+			int id=0;
+			return matches.Select(match => new MatchOutline(match, ++id));
 		}
 
 		[JsonProperty]
-		public int Id => _match.Id;
+		public int Id { get; }
 		[JsonProperty]
 		public bool Status => _match.IsFinished;
 		[JsonProperty]
@@ -31,8 +31,9 @@ namespace BSMM2.Models.WebAccess
 
 		[JsonIgnore]
 		private Match _match;
-		private MatchOutline(Match match) {
+		private MatchOutline(Match match,int id) {
 			_match = match;
+			Id = id;
 		}
 	}
 }

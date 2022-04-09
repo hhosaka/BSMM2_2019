@@ -5,6 +5,8 @@ using System.Runtime.CompilerServices;
 
 namespace BSMM2.ViewModels {
 
+	public delegate void ViewActionHandler();
+
 	public class BaseViewModel : INotifyPropertyChanged {
 		private bool isBusy = false;
 

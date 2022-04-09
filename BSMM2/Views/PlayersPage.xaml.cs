@@ -8,44 +8,52 @@ using Xamarin.Forms.Xaml;
 namespace BSMM2.Views {
 
 	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class PlayersPage : ContentPage {
-		private PlayersViewModel viewModel;
+	public partial class PlayersPage : ContentPage, IDisposable {
 		private BSMMApp _app;
-
+		private PlayersViewModel _viewModel;
 		public PlayersPage(BSMMApp app) {
 			_app = app;
 			InitializeComponent();
 
-			BindingContext = viewModel = new PlayersViewModel(app, NewGame, SelectGame, DeleteGame, AddPlayer,showQRCode);
-
-			void NewGame()
-				=> Navigation.PushModalAsync(new NavigationPage(new NewGamePage(_app)));
-			void SelectGame()
-				=> Navigation.PushModalAsync(
-					new NavigationPage(new GamesPage(_app, "Select Item", selectGame)));
-			void DeleteGame()
-				=> Navigation.PushModalAsync(
-					new NavigationPage(new GamesPage(_app, "Delete Item", deleteGame)));
-			void AddPlayer()
-				=> Navigation.PushModalAsync(new NavigationPage(new AddPlayerPage(_app)));
-			void showQRCode()
-				=> Navigation.PushModalAsync(new NavigationPage(new WebServicePage(_app, "games/players/")));
+			_viewModel = new PlayersViewModel(app);
+			_viewModel.OnNewGame+= NewGame;
+			_viewModel.OnSelectGame += SelectGame;
+			_viewModel.OnDeleteGame += DeleteGame;
+			_viewModel.OnAddPlayer += AddPlayer;
+			_viewModel.OnShowQRCode += ShowQRCode;
+			BindingContext = _viewModel;
+		}
+		private void NewGame()
+			=> Navigation.PushModalAsync(new NavigationPage(new NewGamePage(_app)));
+		void SelectGame() {
+			Navigation.PushModalAsync(
+				new NavigationPage(new GamesPage(_app, "Select Item", selectGame)));
 
 			async void selectGame(Game game) {
 				Debug.Assert(game != null);
-				app.Game = game;
+				_app.Game = game;
 				MessagingCenter.Send<object>(this, Messages.REFRESH);
 				await Navigation.PopModalAsync();
 			}
+		}
+
+		void DeleteGame() {
+			Navigation.PushModalAsync(
+				new NavigationPage(new GamesPage(_app, "Delete Item", deleteGame)));
 
 			async void deleteGame(Game game) {
 				Debug.Assert(game != null);
-				if (app.Remove(game)) {
+				if (_app.Remove(game)) {
 					MessagingCenter.Send<object>(this, Messages.REFRESH);
 					await Navigation.PopModalAsync();
 				}
 			}
 		}
+		void AddPlayer()
+			=> Navigation.PushModalAsync(new NavigationPage(new AddPlayerPage(_app)));
+
+		void ShowQRCode()
+			=> Navigation.PushModalAsync(new NavigationPage(new WebServicePage(_app, "games/players/")));
 
 		private void Log(object sender, EventArgs e) {
 			DisplayAlert("log", new Storage().Log(), "Finish");
@@ -64,6 +72,10 @@ namespace BSMM2.Views {
 			if (args.Item is OrderedPlayer player)
 				await Navigation.PushModalAsync(new NavigationPage(new PlayerPage(_app, player.Player)));
 			PlayersListView.SelectedItem = null;
+		}
+
+		public void Dispose() {
+			_viewModel.OnNewGame -= NewGame;
 		}
 	}
 }

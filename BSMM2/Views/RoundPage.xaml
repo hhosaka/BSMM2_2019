@@ -31,7 +31,7 @@
 							<Frame Padding="10" BorderColor="Black">
 								<StackLayout>
 									<StackLayout Orientation="Horizontal" BackgroundColor="CornflowerBlue">
-										<Label Text="{Binding Match.Id, Converter={StaticResource Converter}, ConverterParameter=ID}"/>
+										<Label Text="{Binding Id, Converter={StaticResource Converter}, ConverterParameter=ID}"/>
 										<Label Text="{Binding IsGapMatch, Converter={StaticResource Converter}, ConverterParameter=IS_GAP_MATCH}"/>
 									</StackLayout>
 									<StackLayout  BackgroundColor="{Binding IsFinished, Converter={StaticResource Converter}, ConverterParameter=BGCOLOR}">

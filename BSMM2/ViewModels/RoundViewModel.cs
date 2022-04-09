@@ -24,8 +24,11 @@ namespace BSMM2.ViewModels {
 		public IRecord Record1 => Match.Record1;
 		public IRecord Record2 => Match.Record2;
 		public bool IsFinished => Match.IsFinished;
-		public DelegateMatch(Match match) {
+		public int Id { get; }
+
+		public DelegateMatch(Match match, int id) {
 			Match = match;
+			Id = id;
 		}
 
 		private event PropertyChangedEventHandler _propertyChanged;
@@ -83,16 +86,19 @@ namespace BSMM2.ViewModels {
 
 		private UI _ui;
 
-		public RoundViewModel(BSMMApp app, Action showRoundsLog, Action showQRCode, UI ui) {
+		public event ViewActionHandler OnShowRoundsLog;
+		public event ViewActionHandler OnShowQRCode;
+
+		public RoundViewModel(BSMMApp app, UI ui) {
 			Debug.Assert(app != null);
 			_app = app;
 			_ui = ui;
 			ShuffleCommand = CreateShuffleCommand();
 			StartCommand = CreateStepToPlayingCommand();
 			StepToMatchingCommand = CreateStepToMatchingCommand();
-			ShowRoundsLogCommand = new DelegateCommand(showRoundsLog, () => app.Game.Rounds.Any());
+			ShowRoundsLogCommand = new DelegateCommand(()=>OnShowRoundsLog(), () => app.Game.Rounds.Any());
 			StartTimerCommand = new DelegateCommand(ExecuteStartTimer, () => Game.CanExecuteStartTimer());
-			ShowQRCodeCommand = new DelegateCommand(showQRCode, () => app.ActiveWebService);
+			ShowQRCodeCommand = new DelegateCommand(()=>OnShowQRCode(), () => app.ActiveWebService);
 			MessagingCenter.Subscribe<object>(this, Messages.REFRESH,
 				async (sender) => await ExecuteRefresh());
 
@@ -120,8 +126,8 @@ namespace BSMM2.ViewModels {
 
 		private void Refresh() {
 			IsTimerVisible = (Game.StartTime != null);
-
-			Matches = Game.ActiveRound.Matches.Select(match=>new DelegateMatch(match)).ToList();
+			int id = 0;
+			Matches = Game.ActiveRound.Matches.Select(match=>new DelegateMatch(match, ++id)).ToList();
 			Title = Game.Headline;
 			StartCommand?.RaiseCanExecuteChanged();
 			ShuffleCommand?.RaiseCanExecuteChanged();

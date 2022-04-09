@@ -22,6 +22,16 @@
 				<Grid.RowDefinitions>
 					<RowDefinition Height="Auto" />
 					<RowDefinition Height="Auto" />
+					<!-- tentative solution -->
+					<RowDefinition Height="Auto" />
+					<RowDefinition Height="Auto" />
+					<RowDefinition Height="Auto" />
+					<RowDefinition Height="Auto" />
+					<RowDefinition Height="Auto" />
+					<RowDefinition Height="Auto" />
+					<RowDefinition Height="Auto" />
+					<RowDefinition Height="Auto" />
+					<!-- tentative solution -->
 				</Grid.RowDefinitions>
 				<Label Text="{x:Static prop:AppResources.TextPlayerName}" Grid.Row="0" Grid.Column="0" VerticalTextAlignment="Center" />
 				<Entry Text="{Binding Player.Name}"  Grid.Row="0" Grid.Column="1" />

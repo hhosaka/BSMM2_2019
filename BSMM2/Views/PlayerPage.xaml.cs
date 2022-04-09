@@ -16,16 +16,17 @@ namespace BSMM2.Views {
 
 		public PlayerPage(BSMMApp app, Player player) {
 			InitializeComponent();
-			BindingContext = new PlayerViewModel(app, player);
 
 			int i = ADDTIONAL_ROW_POSITION;
 			var data = player.Point.Export(new ExportSource())
 				.Union(player.OpponentPoint.Export(new ExportSource(),"opponent_"));
 			foreach (var param in data) {
+				grid.RowDefinitions.Add(new RowDefinition() { Height = GridLength.Auto });
 				CreateLabel(i, 0, param.Key);
 				CreateLabel(i++, 1, param.Value);
-				grid.RowDefinitions.Add(new RowDefinition() { Height = GridLength.Auto });
 			}
+
+			BindingContext = new PlayerViewModel(app, player);
 
 			void CreateLabel(int row, int col, object text) {
 				var label = new Label() { Text = text.ToString(), BackgroundColor = row % 2 == 1 ? Color.LightGray : Color.White };

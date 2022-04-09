@@ -136,7 +136,7 @@ namespace BSMM2.Models {
 			if (force || AutoSave) {
 				_storage.Save(this, _path);
 				if (ActiveWebService) {
-					return await new WebClient().Upload(WebURL, _webServiceAccount, _password, this);
+					_ = new WebClient().Upload(WebURL, _webServiceAccount, _password, this);//TODO to be setting avairable
 				}
 				return true;
 			}

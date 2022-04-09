@@ -10,7 +10,14 @@ using Xamarin.Forms;
 
 namespace BSMM2.ViewModels {
 
-    public class PlayersViewModel : BaseViewModel {
+    public class PlayersViewModel : BaseViewModel
+	{
+		public event ViewActionHandler OnNewGame;
+		public event ViewActionHandler OnSelectGame;
+		public event ViewActionHandler OnDeleteGame;
+		public event ViewActionHandler OnAddPlayer;
+		public event ViewActionHandler OnShowQRCode;
+
 		private BSMMApp _app;
 		private Game Game => _app.Game;
 
@@ -30,17 +37,17 @@ namespace BSMM2.ViewModels {
 		public DelegateCommand SaveCommand { get; }
 		public DelegateCommand ShowQRCodeCommand { get; }
 
-		public PlayersViewModel(BSMMApp app, Action newGame = null, Action selectGame = null, Action deleteGame = null, Action addPlayer = null, Action showQRPage=null) {
+		public PlayersViewModel(BSMMApp app) {
 			_app = app;
 			Players = new ObservableCollection<OrderedPlayer>();
 
-			NewGameCommand = new DelegateCommand(() => newGame?.Invoke());
-			SelectGameCommand = new DelegateCommand(() => selectGame?.Invoke(), () => _app.Games.Any());
-			DeleteGameCommand = new DelegateCommand(() => deleteGame?.Invoke(), () => _app.Games.Any());
-			AddPlayerCommand = new DelegateCommand(() => addPlayer?.Invoke(), () => _app.Game.CanAddPlayers());
+			NewGameCommand = new DelegateCommand(() => OnNewGame.Invoke());
+			SelectGameCommand = new DelegateCommand(() => OnSelectGame.Invoke(), () => _app.Games.Any());
+			DeleteGameCommand = new DelegateCommand(() => OnDeleteGame.Invoke(), () => _app.Games.Any());
+			AddPlayerCommand = new DelegateCommand(() => OnAddPlayer.Invoke(), () => _app.Game.CanAddPlayers());
 			ExportPlayersCommand = new DelegateCommand(_app.ExportPlayers);
 			SaveCommand = new DelegateCommand(async () => await _app.Save(true), () => !_app.AutoSave);
-			ShowQRCodeCommand = new DelegateCommand(() => showQRPage?.Invoke(), () => _app.ActiveWebService);
+			ShowQRCodeCommand = new DelegateCommand(() => OnShowQRCode.Invoke(), () => _app.ActiveWebService);
 			MessagingCenter.Subscribe<object>(this, Messages.REFRESH,
 				async (sender) => await ExecuteRefresh());
 
