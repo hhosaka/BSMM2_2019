@@ -31,11 +31,11 @@ namespace BSMM2.Models {
 			return false;
 		}
 
-		public IEnumerable<Match> StepToPlaying() {
+		public IEnumerable<Match> StepToPlaying(IRule rule) {
 			IsPlaying = true;
 			foreach (var m in Matches) {
 				if (m.IsByeMatch)
-					m.SetResult(RESULT_T.Win);
+					m.SetResult(rule, RESULT_T.Win);
 			}
 			return _matches;
 		}

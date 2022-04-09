@@ -34,6 +34,8 @@
 			<Label Text="{x:Static prop:AppResources.LabelNewGameEntrySheet}" IsVisible="{Binding PlayerMode, Converter={StaticResource PlayerControlConverter},ConverterParameter=EntrySheet}" />
 			<Label Text="{x:Static prop:AppResources.DescriptionEntrySheet}" IsVisible="{Binding PlayerMode, Converter={StaticResource PlayerControlConverter},ConverterParameter=EntrySheet}" />
 			<Editor Text="{Binding EntrySheet}" HeightRequest="256"  IsVisible="{Binding PlayerMode, Converter={StaticResource PlayerControlConverter},ConverterParameter=EntrySheet}" />
+			<Label Text="{x:Static prop:AppResources.LabelNewGameDrawPoint}" VerticalOptions="Center" />
+			<Entry Text="{Binding Rule.DrawPoint}" Keyboard="Numeric" Margin="0"/>
 			<StackLayout Orientation="Horizontal">
 				<Switch IsToggled="{Binding Rule.EnableLifePoint}" />
 				<Label Text="{x:Static prop:AppResources.LabelNewGameEnableLifePoint}" VerticalOptions="Center" />

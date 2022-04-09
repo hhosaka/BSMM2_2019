@@ -228,6 +228,9 @@
   <data name="LabelNewGameAsCurrentGame" xml:space="preserve">
     <value>現在のゲームに上書き</value>
   </data>
+  <data name="LabelNewGameDrawPoint" xml:space="preserve">
+    <value>引き分けのポイント</value>
+  </data>
   <data name="LabelNewGameEnableLifePoint" xml:space="preserve">
     <value>ライフポイントを有効にする</value>
   </data>

@@ -16,9 +16,12 @@ namespace BSMM2.Models.Matches.MultiMatch.ThreeOnThreeMatch {
 			class TheResult : MultiMatchResult
 			{
 				public override bool IsFinished => _results.Count(result => result.IsFinished) == 3;
+
+				public TheResult(int drawPoint):base(drawPoint) {
+				}
 			}
-			protected override MultiMatchResult CreateResult()
-				=> new TheResult();
+			protected override MultiMatchResult CreateResult(int drawPoint)
+				=> new TheResult(drawPoint);
 
 			public TheMatch() {// For Serializer
 			}
@@ -46,7 +49,7 @@ namespace BSMM2.Models.Matches.MultiMatch.ThreeOnThreeMatch {
 		private ThreeOnThreeMatchRule() {
 		}
 
-		public ThreeOnThreeMatchRule(bool enableLifePoint=false):base(enableLifePoint)
+		public ThreeOnThreeMatchRule(bool enableLifePoint=false, int drawPoint=1):base(enableLifePoint, drawPoint)
 		{
 		}
 

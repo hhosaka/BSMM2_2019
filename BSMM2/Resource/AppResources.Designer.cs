@@ -403,6 +403,15 @@ namespace BSMM2.Resource {
         }
         
         /// <summary>
+        ///   Point on Draw に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string LabelNewGameDrawPoint {
+            get {
+                return ResourceManager.GetString("LabelNewGameDrawPoint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Enable Life Point に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string LabelNewGameEnableLifePoint {

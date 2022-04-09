@@ -10,7 +10,7 @@ namespace BSMM2Test {
 	internal class BasicTest {
 
 		[TestMethod]
-		private void BasicTest1() {
+		public void BasicTest1() {
 			//Game game(SingleMatchRule(), Player.Create(4));
 			//Match match(Player.Create(4));
 		}

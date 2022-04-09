@@ -46,7 +46,7 @@ namespace BSMM2.Models.Matches.MultiMatch.ThreeOnThreeMatch {
 
 			void Done() {
 
-				match.SetMultiMatchResult(ResultItems);
+				match.SetMultiMatchResult(rule, ResultItems);
 				MessagingCenter.Send<object>(this, Messages.REFRESH);
 				back?.Invoke();
 

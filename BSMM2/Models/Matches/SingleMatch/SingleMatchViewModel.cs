@@ -31,7 +31,7 @@ namespace BSMM2.Models.Matches.SingleMatch {
 			ResultItem = new ResultItem(EnableLifePoint, match.Record1.Result, match.Record2.Result,() => OnPropertyChanged(nameof(ResultItem)));
 
 			void Done() {
-				match.SetSingleMatchResult(ResultItem.RESULT, ResultItem.LifePoint1, ResultItem.LifePoint2);
+				match.SetSingleMatchResult(rule, ResultItem.RESULT, ResultItem.LifePoint1, ResultItem.LifePoint2);
 				MessagingCenter.Send<object>(this, Messages.REFRESH);
 				back?.Invoke();
 			}

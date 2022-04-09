@@ -17,7 +17,11 @@ namespace BSMM2.Models {
 	[JsonObject]
 	public class BSMMApp {
 
-		public const string WebURL = "http://localhost/bsmm2svr/";//TODO TBD
+#if DEBUG
+		public const string WebURL = "http://localhost/bsmm2svr/";
+#else
+		public const string WebURL = "http://plumbline.xsrv.jp/bsmm2svr/";
+#endif
 		private const string _webServiceAccount = "hhosaka183@gmail.com";
 		private const string _password = "manbowBSMM28";
 

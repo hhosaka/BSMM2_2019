@@ -61,6 +61,8 @@ namespace BSMM2.Models.Matches.SingleMatch {
 		public virtual string Description
 			=> AppResources.DescriptionSingleMatch;
 
+		public int DrawPoint { get; set; }
+
 		public virtual ContentPage CreateMatchPage(Match match)
 			=> EnableLifePoint ? (ContentPage)new SingleMatchPage(this, (SingleMatch)match) : (ContentPage)new SingleMatchSimplePage(this, (SingleMatch)match);
 
@@ -79,32 +81,16 @@ namespace BSMM2.Models.Matches.SingleMatch {
 		public virtual Comparer<Player> GetComparer( bool force)
 			=> new TheComparer(Comparers, force);
 
-		public virtual string GetDescription(Player player) {
-			var buf = new StringBuilder();
-			buf.Append(AppResources.TextMatchPoint);
-			buf.Append(" = ");
-			buf.Append(player.Point.MatchPoint);
-			buf.Append("/ ");
-			buf.Append(AppResources.TextWinPoint);
-			buf.Append(" = ");
-			buf.Append(string.Format("{0:F}",player.Point.WinPoint));
-			if (EnableLifePoint) {
-				buf.Append("/ ");
-				buf.Append(AppResources.TextLifePoint);
-				buf.Append(" = ");
-				buf.Append(player.Point.LifePoint >= 0 ? player.Point.LifePoint.ToString() : "-");
-			}
-			return buf.ToString();
-		}
 		private SingleMatchRule() {
 		}
 
-		public SingleMatchRule(bool enableLifePoint = false) {
+		public SingleMatchRule(bool enableLifePoint = false, int drawPoint=1) {
 			EnableLifePoint = enableLifePoint;
+			DrawPoint = drawPoint;
 			Prefix = AppResources.PrefixPlayer;
 		}
 
-		protected SingleMatchRule(SingleMatchRule src) : this(src.EnableLifePoint) {
+		protected SingleMatchRule(SingleMatchRule src) : this(src.EnableLifePoint, src.DrawPoint) {
 		}
 	}
 }

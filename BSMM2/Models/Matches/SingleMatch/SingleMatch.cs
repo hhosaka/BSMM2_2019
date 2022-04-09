@@ -17,13 +17,14 @@ namespace BSMM2.Models.Matches.SingleMatch {
 
 		}
 
-		public override void SetResult(RESULT_T result)
-			=> SetSingleMatchResult(result, RESULTUtil.DEFAULT_LIFE_POINT, RESULTUtil.DEFAULT_LIFE_POINT);
+		public override void SetResult(IRule rule, RESULT_T result)
+			=> SetSingleMatchResult(rule, result, RESULTUtil.DEFAULT_LIFE_POINT, RESULTUtil.DEFAULT_LIFE_POINT);
 
-		public void SetSingleMatchResult(RESULT_T result, int?lp1, int?lp2) {
+		public void SetSingleMatchResult(IRule rule, RESULT_T result, int?lp1, int?lp2) {
 			SetResults(
-				new SingleMatchResult(result, lp1),
-				new SingleMatchResult(RESULTUtil.ToOpponents(result), lp2));
+				rule,
+				new SingleMatchResult(result, lp1, rule.DrawPoint),
+				new SingleMatchResult(RESULTUtil.ToOpponents(result), lp2, rule.DrawPoint));
 		}
 	}
 }

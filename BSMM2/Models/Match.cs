@@ -59,7 +59,7 @@ namespace BSMM2.Models {
 				private set =>_result = value;
 			}
 
-			public void SetResult(IResult result)
+			public void SetResult(IRule rule, IResult result)
 				=> Result = result;
 
 			private Record() {
@@ -98,11 +98,11 @@ namespace BSMM2.Models {
 		public bool HasPlayer(Player player)
 			=>_records.Any(record => record.Player.Id == player.Id);
 
-		public abstract void SetResult(RESULT_T result);
+		public abstract void SetResult(IRule rule, RESULT_T result);
 
-		protected void SetResults(IResult result1, IResult result2) {
-			_records[0].SetResult(result1);
-			_records[1].SetResult(result2);
+		protected void SetResults(IRule rule, IResult result1, IResult result2) {
+			_records[0].SetResult(rule, result1);
+			_records[1].SetResult(rule, result2);
 			PropertyChanged?.Invoke(this, null);
 			//PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Record1)));
 			//PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Record2)));

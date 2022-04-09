@@ -8,7 +8,7 @@ namespace BSMM2.Models.Matches.MultiMatch {
 		protected MultiMatchRule() {
 		}
 
-		protected MultiMatchRule(bool enableLifePoint=false):base(enableLifePoint)
+		protected MultiMatchRule(bool enableLifePoint=false,int drawPoint=1):base(enableLifePoint, drawPoint)
 		{
 		}
 

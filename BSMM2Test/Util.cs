@@ -137,7 +137,7 @@ namespace BSMM2Test {
 			=> game.ActiveRound.Matches.ElementAt(index);
 
 		public static void SetResult(Game game, int index, RESULT_T result)
-			=> GetMatch(game, index).SetResult(result);
+			=> GetMatch(game, index).SetResult(game.Rule, result);
 
 		public static void CreateSingleMatchRound(Game game, int[] playerlist) {
 			game.AddRound(CreateSingleMatches());

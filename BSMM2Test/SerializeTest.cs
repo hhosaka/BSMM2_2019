@@ -110,9 +110,9 @@ namespace BSMM2Test {
 
 			game.StepToPlaying();
 
-			game.ActiveRound.Matches.ElementAt(0).SetResult(Win);
-			game.ActiveRound.Matches.ElementAt(1).SetResult(Win);
-			game.ActiveRound.Matches.ElementAt(2).SetResult(Win);
+			game.ActiveRound.Matches.ElementAt(0).SetResult(game.Rule, Win);
+			game.ActiveRound.Matches.ElementAt(1).SetResult(game.Rule, Win);
+			game.ActiveRound.Matches.ElementAt(2).SetResult(game.Rule, Win);
 
 			Util.Check(new[] { 1, 2, 3, 4, 5, 6 }, game.ActiveRound);
 			Util.Check(new[] { 1, 3, 5, 2, 4, 6 }, game.GetSortedSource());
@@ -132,9 +132,9 @@ namespace BSMM2Test {
 
 			game.StepToPlaying();
 
-			game.ActiveRound.Matches.ElementAt(0).SetResult(Win);
-			game.ActiveRound.Matches.ElementAt(1).SetResult(Win);
-			game.ActiveRound.Matches.ElementAt(2).SetResult(Win);
+			game.ActiveRound.Matches.ElementAt(0).SetResult(game.Rule, Win);
+			game.ActiveRound.Matches.ElementAt(1).SetResult(game.Rule, Win);
+			game.ActiveRound.Matches.ElementAt(2).SetResult(game.Rule, Win);
 
 			Util.Check(new[] { 1, 2, 3, 4, 5, 6 }, game.ActiveRound);
 			Util.Check(new[] { 1, 3, 5, 2, 4, 6 }, game.GetSortedSource());
@@ -156,10 +156,10 @@ namespace BSMM2Test {
 
 			src.StepToPlaying();
 
-			src.ActiveRound.Matches.ElementAt(0).SetResult(Win);
-			src.ActiveRound.Matches.ElementAt(1).SetResult(Win);
-			src.ActiveRound.Matches.ElementAt(2).SetResult(Win);
-			src.ActiveRound.Matches.ElementAt(3).SetResult(Win);
+			src.ActiveRound.Matches.ElementAt(0).SetResult(src.Rule, Win);
+			src.ActiveRound.Matches.ElementAt(1).SetResult(src.Rule, Win);
+			src.ActiveRound.Matches.ElementAt(2).SetResult(src.Rule, Win);
+			src.ActiveRound.Matches.ElementAt(3).SetResult(src.Rule, Win);
 
 			var engine = new Storage();
 
@@ -173,13 +173,13 @@ namespace BSMM2Test {
 			Assert.AreEqual(1, dst.Rounds.Count());
 
 			dst.StepToPlaying();
-			dst.ActiveRound.Matches.ElementAt(0).SetResult(Win);
+			dst.ActiveRound.Matches.ElementAt(0).SetResult(dst.Rule, Win);
 
 			Assert.AreEqual(1, dst.Rounds.Count());
 
-			dst.ActiveRound.Matches.ElementAt(1).SetResult(Win);
-			dst.ActiveRound.Matches.ElementAt(2).SetResult(Win);
-			dst.ActiveRound.Matches.ElementAt(3).SetResult(Win);
+			dst.ActiveRound.Matches.ElementAt(1).SetResult(dst.Rule, Win);
+			dst.ActiveRound.Matches.ElementAt(2).SetResult(dst.Rule, Win);
+			dst.ActiveRound.Matches.ElementAt(3).SetResult(dst.Rule, Win);
 
 			Assert.AreEqual(1, dst.Rounds.Count());
 
@@ -200,10 +200,10 @@ namespace BSMM2Test {
 
 			Assert.AreEqual(0, app.Game.Rounds.Count());
 
-			app.Game.ActiveRound.Matches.ElementAt(0).SetResult(Win);
-			app.Game.ActiveRound.Matches.ElementAt(1).SetResult(Win);
-			app.Game.ActiveRound.Matches.ElementAt(2).SetResult(Win);
-			app.Game.ActiveRound.Matches.ElementAt(3).SetResult(Win);
+			app.Game.ActiveRound.Matches.ElementAt(0).SetResult(app.Game.Rule, Win);
+			app.Game.ActiveRound.Matches.ElementAt(1).SetResult(app.Game.Rule, Win);
+			app.Game.ActiveRound.Matches.ElementAt(2).SetResult(app.Game.Rule, Win);
+			app.Game.ActiveRound.Matches.ElementAt(3).SetResult(app.Game.Rule, Win);
 
 			app.Game.StepToMatching();
 
@@ -278,7 +278,7 @@ namespace BSMM2Test {
 
 			game.StepToPlaying();
 
-			game.ActiveRound.Matches.ElementAt(0).SetResult(Win);
+			game.ActiveRound.Matches.ElementAt(0).SetResult(game.Rule, Win);
 
 			Util.Check(new[] { 1, 2, 3, -1 }, game.ActiveRound);
 			Util.Check(new[] { 1, 3, 2 }, game.GetSortedSource());
@@ -366,7 +366,7 @@ namespace BSMM2Test {
 
 			game.StepToPlaying();
 
-			game.ActiveRound.Matches.ElementAt(0).SetResult(Win);
+			game.ActiveRound.Matches.ElementAt(0).SetResult(game.Rule, Win);
 
 			Util.Check(new[] { 3, 2, 1, -1 }, game.ActiveRound);
 			Util.Check(new[] { 3, 1, 2 }, game.GetSortedSource());
@@ -641,8 +641,8 @@ namespace BSMM2Test {
 
 			src.StepToMatching();
 			src.StepToPlaying();
-			(Util.GetMatch(src, 0) as SingleMatch).SetSingleMatchResult(Win, 1, 0);
-			(Util.GetMatch(src, 1) as SingleMatch).SetSingleMatchResult(Win, 5, 5);
+			(Util.GetMatch(src, 0) as SingleMatch).SetSingleMatchResult(src.Rule, Win, 1, 0);
+			(Util.GetMatch(src, 1) as SingleMatch).SetSingleMatchResult(src.Rule, Win, 5, 5);
 
 			Util.Check(new[] { 3, 1, 4, 2 }, src.GetSortedSource());
 
@@ -663,8 +663,8 @@ namespace BSMM2Test {
 
 			src.StepToMatching();
 			src.StepToPlaying();
-			(Util.GetMatch(src, 0) as SingleMatch).SetSingleMatchResult(Win, 1, 0);
-			(Util.GetMatch(src, 1) as SingleMatch).SetSingleMatchResult(Win, 5, 5);
+			(Util.GetMatch(src, 0) as SingleMatch).SetSingleMatchResult(src.Rule, Win, 1, 0);
+			(Util.GetMatch(src, 1) as SingleMatch).SetSingleMatchResult(src.Rule, Win, 5, 5);
 
 			Util.Check(new[] { 3, 1, 4, 2 }, src.GetSortedSource());
 
@@ -685,8 +685,8 @@ namespace BSMM2Test {
 
 			src.StepToMatching();
 			src.StepToPlaying();
-			(Util.GetMatch(src, 0) as SingleMatch).SetSingleMatchResult(Win, 1, 0);
-			(Util.GetMatch(src, 1) as SingleMatch).SetSingleMatchResult(Win, 5, 5);
+			(Util.GetMatch(src, 0) as SingleMatch).SetSingleMatchResult(rule, Win, 1, 0);
+			(Util.GetMatch(src, 1) as SingleMatch).SetSingleMatchResult(rule, Win, 5, 5);
 
 			Util.Check(new[] { 3, 1, 4, 2 }, src.GetSortedSource());
 

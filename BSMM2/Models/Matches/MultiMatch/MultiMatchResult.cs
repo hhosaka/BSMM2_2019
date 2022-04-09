@@ -13,6 +13,9 @@ namespace BSMM2.Models.Matches.MultiMatch {
 		[JsonProperty]
 		protected List<IResult> _results;
 
+		[JsonProperty]
+		private int _drawPoint;
+
 		[JsonIgnore]
 		private RESULT_T _RESULT;
 
@@ -29,7 +32,7 @@ namespace BSMM2.Models.Matches.MultiMatch {
 			=> _RESULT = GetResult();
 
 		public int MatchPoint
-			=> RESULT == Win ? 3 : RESULT == Lose ? 0 : 1;
+			=> RESULT == Win ? 3 : RESULT == Lose ? 0 : _drawPoint;
 
 		public abstract bool IsFinished { get; }
 
@@ -68,7 +71,8 @@ namespace BSMM2.Models.Matches.MultiMatch {
 			throw new System.NotImplementedException();
 		}
 
-		public MultiMatchResult() {
+		public MultiMatchResult(int drawPoint) {
+			_drawPoint = drawPoint;
 			_results = new List<IResult>();
 		}
 	}

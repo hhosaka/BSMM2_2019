@@ -29,24 +29,24 @@ namespace BSMM2.Models.Matches.MultiMatch {
 			: base(player1, player2) {
 		}
 
-		public override void SetResult(RESULT_T result) {
+		public override void SetResult(IRule rule, RESULT_T result) {
 			var scores = new List<Score>();
 			for (int i = 0; i < MatchCount; ++i) {
 				scores.Add(new Score(result));
 			}
-			SetMultiMatchResult(scores);
+			SetMultiMatchResult(rule, scores);
 		}
 
-		protected abstract MultiMatchResult CreateResult();
+		protected abstract MultiMatchResult CreateResult(int drawPoint);
 
-		public void SetMultiMatchResult(IEnumerable<IScore> scores) {
-			var result1 = CreateResult();
-			var result2 = CreateResult();
+		public void SetMultiMatchResult(IRule rule, IEnumerable<IScore> scores) {
+			var result1 = CreateResult(rule.DrawPoint);
+			var result2 = CreateResult(rule.DrawPoint);
 			foreach (var score in scores) {
-				result1.Add(new SingleMatchResult(score.RESULT, score.LifePoint1));
-				result2.Add(new SingleMatchResult(RESULTUtil.ToOpponents(score.RESULT), score.LifePoint2));
+				result1.Add(new SingleMatchResult(score.RESULT, score.LifePoint1, rule.DrawPoint));
+				result2.Add(new SingleMatchResult(RESULTUtil.ToOpponents(score.RESULT), score.LifePoint2, rule.DrawPoint));
 			}
-			SetResults(result1, result2);
+			SetResults(rule, result1, result2);
 		}
 	}
 }

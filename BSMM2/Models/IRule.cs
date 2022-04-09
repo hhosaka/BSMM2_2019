@@ -6,15 +6,23 @@ namespace BSMM2.Models {
 
 	[JsonObject]
 	public interface IRule {
+		[JsonProperty]
 		IEnumerable<IComparer> Comparers { get; }
 
+		[JsonProperty]
 		string Name { get; }
 
+		[JsonProperty]
 		string Description { get; }
 
+		[JsonProperty]
 		string Prefix { get; set; }
 
+		[JsonProperty]
 		bool EnableLifePoint { get; }
+
+		[JsonProperty]
+		int DrawPoint { get; }
 
 		Match CreateMatch(Player player1, Player player2 = null);
 

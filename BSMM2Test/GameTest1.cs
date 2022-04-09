@@ -154,7 +154,7 @@ namespace BSMM2Test {
 			game.StepToPlaying();
 
 			Util.SetResult(game, 0, Win);
-			(Util.GetMatch(game, 1) as SingleMatch).SetSingleMatchResult(Win, -1, -1);
+			(Util.GetMatch(game, 1) as SingleMatch).SetSingleMatchResult(rule, Win, -1, -1);
 			Assert.IsFalse(game.CanExecuteStepToMatching());
 
 			Util.SetResult(game, 1, Win);
@@ -163,13 +163,13 @@ namespace BSMM2Test {
 
 			Util.CheckWithOrder(rule, new[] { 1, 3, 2, 4 }, new[] { 1, 1, 3, 3 }, game.Players.GetOrderedPlayers());
 
-			(Util.GetMatch(game, 1) as SingleMatch).SetSingleMatchResult(Win, 5, 5);
+			(Util.GetMatch(game, 1) as SingleMatch).SetSingleMatchResult(rule, Win, 5, 5);
 
 			Assert.IsTrue(game.CanExecuteStepToMatching());
 
 			Util.CheckWithOrder(rule, new[] { 1, 3, 2, 4 }, new[] { 1, 1, 3, 3 }, game.Players.GetOrderedPlayers());
 
-			(Util.GetMatch(game, 0) as SingleMatch).SetSingleMatchResult(Win, 0, 0);
+			(Util.GetMatch(game, 0) as SingleMatch).SetSingleMatchResult(rule, Win, 0, 0);
 
 			Assert.IsTrue(game.CanExecuteStepToMatching());
 
@@ -250,7 +250,7 @@ namespace BSMM2Test {
 			Util.Check(new[] { 1, 3, 5, 7, 2, 4, 6, 8 }, game.ActiveRound);
 			Util.CheckWithOrder(rule, new[] { 1, 5, 2, 3, 6, 7, 4, 8 }, new[] { 1, 1, 3, 3, 3, 3, 7, 7 }, game.Players.GetOrderedPlayers());
 
-			(Util.GetMatch(game, 0) as SingleMatch).SetSingleMatchResult(Win, 4, 5);
+			(Util.GetMatch(game, 0) as SingleMatch).SetSingleMatchResult(rule, Win, 4, 5);
 
 			Util.CheckWithOrder(rule, new[] { 5, 1, 6, 7, 2, 3, 4, 8 }, new[] { 1, 2, 3, 3, 5, 5, 7, 7 }, game.Players.GetOrderedPlayers());
 		}
@@ -264,7 +264,8 @@ namespace BSMM2Test {
 			Util.Check(new[] { 1, 3, 5, 7, 2, 4, 6, 8 }, game.ActiveRound);
 			Util.CheckWithOrder(rule, new[] { 1, 5, 2, 3, 6, 7, 4, 8 }, new[] { 1, 1, 3, 3, 3, 3, 7, 7 }, game.Players.GetOrderedPlayers());
 
-			(matches.Matches.ElementAt(0) as MultiMatch).SetMultiMatchResult(new[] {
+			(matches.Matches.ElementAt(0) as MultiMatch).SetMultiMatchResult(rule,
+				new[] {
 				new MultiMatch.Score(Win),
 				new MultiMatch.Score(Lose),
 				new MultiMatch.Score(Win) });
@@ -275,9 +276,11 @@ namespace BSMM2Test {
 		[TestMethod]
 		public void ThreeOnThreeMatchStatusTest()
 		{
-			var game = new FakeGame(new ThreeOnThreeMatchRule(), 4);
+			var rule = new ThreeOnThreeMatchRule();
+			var game = new FakeGame(rule, 4);
 			var match = game.ActiveRound.Matches.ElementAt(0) as MultiMatch;
-			match.SetMultiMatchResult(new[] {
+			match.SetMultiMatchResult(rule,
+				new[] {
 				new MultiMatch.Score(Win),
 				new MultiMatch.Score(Lose),
 				new MultiMatch.Score(Win) });
@@ -285,7 +288,8 @@ namespace BSMM2Test {
 			Assert.IsTrue(match.IsFinished);
 			Assert.AreEqual(Win, match.Record1.Result.RESULT);
 
-			match.SetMultiMatchResult(new[] {
+			match.SetMultiMatchResult(rule,
+				new[] {
 				new MultiMatch.Score(Win),
 				new MultiMatch.Score(Progress),
 				new MultiMatch.Score(Win) });
@@ -319,9 +323,11 @@ namespace BSMM2Test {
 		[TestMethod]
 		public void ThreeGameMatchStatusTest()
 		{
-			var game = new FakeGame(new NthGameMatchRule(2), 4);
+			var rule = new NthGameMatchRule(2);
+			var game = new FakeGame(rule, 4);
 			var match = game.ActiveRound.Matches.ElementAt(0) as MultiMatch;
-			match.SetMultiMatchResult(new[] {
+			match.SetMultiMatchResult(rule,
+				new[] {
 				new MultiMatch.Score(Win),
 				new MultiMatch.Score(Lose),
 				new MultiMatch.Score(Win) });
@@ -329,26 +335,30 @@ namespace BSMM2Test {
 			Assert.IsTrue(match.IsFinished);
 			Assert.AreEqual(Win, match.Record1.Result.RESULT);
 
-			match.SetMultiMatchResult(new[] {
+			match.SetMultiMatchResult(rule,
+				new[] {
 				new MultiMatch.Score(Win),
 				new MultiMatch.Score(Lose)});
 
 			Assert.IsTrue(match.IsFinished);
 			Assert.AreEqual(Draw, match.Record1.Result.RESULT);
 
-			match.SetMultiMatchResult(new[] {
+			match.SetMultiMatchResult(rule,
+				new[] {
 				new MultiMatch.Score(Win)});
 
 			Assert.IsTrue(match.IsFinished);
 			Assert.AreEqual(Win, match.Record1.Result.RESULT);
 
-			match.SetMultiMatchResult(new[] {
+			match.SetMultiMatchResult(rule,
+				new[] {
 				new MultiMatch.Score(Progress)});
 
 			Assert.IsFalse(match.IsFinished);
 			Assert.AreEqual(Progress, match.Record1.Result.RESULT);
 
-			match.SetMultiMatchResult(new[] {
+			match.SetMultiMatchResult(rule,
+				new[] {
 				new MultiMatch.Score(Win),
 				new MultiMatch.Score(Progress)});
 
@@ -359,9 +369,11 @@ namespace BSMM2Test {
 		[TestMethod]
 		public void ThreeGameMatchWithLPStatusTest()
  		{
-			var game = new FakeGame(new NthGameMatchRule(2, true), 4);
+			var rule = new NthGameMatchRule(2, true);
+			var game = new FakeGame(rule, 4);
 			var match = game.ActiveRound.Matches.ElementAt(0) as MultiMatch;
-			match.SetMultiMatchResult(new[] {
+			match.SetMultiMatchResult(rule,
+				new[] {
 				new MultiMatch.Score(Win),
 				new MultiMatch.Score(Lose),
 				new MultiMatch.Score(Win) });
@@ -369,7 +381,8 @@ namespace BSMM2Test {
 			Assert.IsTrue(match.IsFinished);
 			Assert.AreEqual(Win, match.Record1.Result.RESULT);
 
-			match.SetMultiMatchResult(new[] {
+			match.SetMultiMatchResult(rule,
+				new[] {
 				new MultiMatch.Score(Win),
 				new MultiMatch.Score(Lose),
 				new MultiMatch.Score(Lose),
@@ -378,7 +391,8 @@ namespace BSMM2Test {
 			Assert.IsTrue(match.IsFinished);
 			Assert.AreEqual(Draw, match.Record1.Result.RESULT);
 
-			match.SetMultiMatchResult(new[] {
+			match.SetMultiMatchResult(rule,
+				new[] {
 				new MultiMatch.Score(Win),
 				new MultiMatch.Score(Lose),
 				new MultiMatch.Score(Lose),
@@ -388,7 +402,8 @@ namespace BSMM2Test {
 			Assert.IsTrue(match.IsFinished);
 			Assert.AreEqual(Win, match.Record1.Result.RESULT);
 
-			match.SetMultiMatchResult(new[] {
+			match.SetMultiMatchResult(rule,
+				new[] {
 				new MultiMatch.Score(Win),
 				new MultiMatch.Score(Lose),
 				new MultiMatch.Score(Win),
@@ -398,7 +413,8 @@ namespace BSMM2Test {
 			Assert.IsTrue(match.IsFinished);
 			Assert.AreEqual(Win, match.Record1.Result.RESULT);
 
-			match.SetMultiMatchResult(new[] {
+			match.SetMultiMatchResult(rule,
+				new[] {
 				new MultiMatch.Score(Win),
 				new MultiMatch.Score(Lose),
 				new MultiMatch.Score(Lose),
@@ -408,7 +424,8 @@ namespace BSMM2Test {
 			Assert.IsTrue(match.IsFinished);
 			Assert.AreEqual(Lose, match.Record1.Result.RESULT);
 
-			match.SetMultiMatchResult(new[] {
+			match.SetMultiMatchResult(rule,
+				new[] {
 				new MultiMatch.Score(Win),
 				new MultiMatch.Score(Lose),
 				new MultiMatch.Score(Progress),
@@ -418,45 +435,52 @@ namespace BSMM2Test {
 			Assert.IsFalse(match.IsFinished);
 			Assert.AreEqual(Progress, match.Record1.Result.RESULT);
 
-			match.SetMultiMatchResult(new[] {
+			match.SetMultiMatchResult(rule,
+				new[] {
 				new MultiMatch.Score(Win),
 				new MultiMatch.Score(Lose)});
 
 			Assert.IsTrue(match.IsFinished);
 			Assert.AreEqual(Draw, match.Record1.Result.RESULT);
 
-			match.SetMultiMatchResult(new[] {
+			match.SetMultiMatchResult(rule,
+				new[] {
 				new MultiMatch.Score(Win)});
 
 			Assert.IsTrue(match.IsFinished);
 			Assert.AreEqual(Win, match.Record1.Result.RESULT);
 
-			match.SetMultiMatchResult(new[] {
+			match.SetMultiMatchResult(rule,
+				new[] {
 				new MultiMatch.Score(Progress)});
 
 			Assert.IsFalse(match.IsFinished);
 			Assert.AreEqual(Progress, match.Record1.Result.RESULT);
 
-			match.SetMultiMatchResult(new[] {
+			match.SetMultiMatchResult(rule,
+				new[] {
 				new MultiMatch.Score(Win),
 				new MultiMatch.Score(Progress)});
 
 			Assert.IsFalse(match.IsFinished);
 			Assert.AreEqual(Progress, match.Record1.Result.RESULT);
 
-			match.SetMultiMatchResult(new[] {
+			match.SetMultiMatchResult(rule,
+				new[] {
 				new MultiMatch.Score(Win,-1,-1)});
 
 			//Assert.IsFalse(match.IsFinished);
 			//Assert.AreEqual(Progress, match.Record1.Result.RESULT);
 
-			match.SetMultiMatchResult(new[] {
+			match.SetMultiMatchResult(rule,
+				new[] {
 				new MultiMatch.Score(Win,0,-1)});
 
 			Assert.IsFalse(match.IsFinished);
 			Assert.AreEqual(Win, match.Record1.Result.RESULT);
 
-            match.SetMultiMatchResult(new[] {
+            match.SetMultiMatchResult(rule,
+				new[] {
                 new MultiMatch.Score(Progress,1,0)});
 
             Assert.IsFalse(match.IsFinished);
@@ -467,9 +491,11 @@ namespace BSMM2Test {
 
 		[TestMethod]
 		public void FiveGameMatchWithLPStatusTest() {
-			var game = new FakeGame(new NthGameMatchRule(3, true), 4);
+			var rule = new NthGameMatchRule(3, true);
+			var game = new FakeGame(rule, 4);
 			var match = game.ActiveRound.Matches.ElementAt(0) as MultiMatch;
-			match.SetMultiMatchResult(new[] {
+			match.SetMultiMatchResult(rule,
+				new[] {
 				new MultiMatch.Score(Win),
 				new MultiMatch.Score(Lose),
 				new MultiMatch.Score(Win) });
@@ -477,45 +503,52 @@ namespace BSMM2Test {
 			Assert.IsTrue(match.IsFinished);
 			Assert.AreEqual(Win, match.Record1.Result.RESULT);
 
-			match.SetMultiMatchResult(new[] {
+			match.SetMultiMatchResult(rule,
+				new[] {
 				new MultiMatch.Score(Win),
 				new MultiMatch.Score(Lose)});
 
 			Assert.IsTrue(match.IsFinished);
 			Assert.AreEqual(Draw, match.Record1.Result.RESULT);
 
-			match.SetMultiMatchResult(new[] {
+			match.SetMultiMatchResult(rule,
+				new[] {
 				new MultiMatch.Score(Win)});
 
 			Assert.IsTrue(match.IsFinished);
 			Assert.AreEqual(Win, match.Record1.Result.RESULT);
 
-			match.SetMultiMatchResult(new[] {
+			match.SetMultiMatchResult(rule,
+				new[] {
 				new MultiMatch.Score(Progress)});
 
 			Assert.IsFalse(match.IsFinished);
 			Assert.AreEqual(Progress, match.Record1.Result.RESULT);
 
-			match.SetMultiMatchResult(new[] {
+			match.SetMultiMatchResult(rule,
+				new[] {
 				new MultiMatch.Score(Win),
 				new MultiMatch.Score(Progress)});
 
 			Assert.IsFalse(match.IsFinished);
 			Assert.AreEqual(Progress, match.Record1.Result.RESULT);
 
-			match.SetMultiMatchResult(new[] {
+			match.SetMultiMatchResult(rule,
+				new[] {
 				new MultiMatch.Score(Win,-1,-1)});
 
 			//Assert.IsFalse(match.IsFinished);
 			//Assert.AreEqual(Progress, match.Record1.Result.RESULT);
 
-			match.SetMultiMatchResult(new[] {
+			match.SetMultiMatchResult(rule,
+				new[] {
 				new MultiMatch.Score(Win,0,-1)});
 
 			Assert.IsFalse(match.IsFinished);
 			Assert.AreEqual(Win, match.Record1.Result.RESULT);
 
-			match.SetMultiMatchResult(new[] {
+			match.SetMultiMatchResult(rule,
+				new[] {
 				new MultiMatch.Score(Progress,1,0)});
 
 			Assert.IsFalse(match.IsFinished);
@@ -710,7 +743,7 @@ namespace BSMM2Test {
 			for (int i = 0; i < round; ++i) {
 				game.StepToMatching();
 				game.StepToPlaying();
-				game.ActiveRound.Matches.ForEach(m => m.SetResult(Win));
+				game.ActiveRound.Matches.ForEach(m => m.SetResult(rule, Win));
 			}
 			return game;
 		}
@@ -728,5 +761,104 @@ namespace BSMM2Test {
 			Assert.IsNotNull(a.Comparers);
 		}
 
+		[TestMethod]
+		public void DrawPointTest1() {
+			var game = new FakeGame(new SingleMatchRule(false, 0), 4);
+
+			game.StepToPlaying();
+
+			Util.SetResult(game, 0, Draw);
+			Util.SetResult(game, 1, Draw);
+
+			Assert.IsTrue(game.Players.Source.All(p => p.Point.MatchPoint == 0));
+
+			game.StepToMatching();
+			game.StepToPlaying();
+
+			Util.SetResult(game, 0, Draw);
+			Util.SetResult(game, 1, Draw);
+
+			Assert.IsTrue(game.Players.Source.All(p => p.Point.MatchPoint == 0));
+		}
+
+		[TestMethod]
+		public void DrawPointTest2() {
+			var game = new FakeGame(new SingleMatchRule(false, 1), 4);
+
+			game.StepToPlaying();
+
+			Util.SetResult(game, 0, Draw);
+			Util.SetResult(game, 1, Draw);
+
+			Assert.IsTrue(game.Players.Source.All(p => p.Point.MatchPoint == 1));
+
+			game.StepToMatching();
+			game.StepToPlaying();
+
+			Util.SetResult(game, 0, Draw);
+			Util.SetResult(game, 1, Draw);
+
+			Assert.IsTrue(game.Players.Source.All(p => p.Point.MatchPoint == 2));
+		}
+
+		[TestMethod]
+		public void DrawPointTest3() {
+			var game = new FakeGame(new NthGameMatchRule(2,false, 0), 4);
+
+			game.StepToPlaying();
+
+			Util.SetResult(game, 0, Draw);
+			Util.SetResult(game, 1, Draw);
+
+			Assert.IsTrue(game.Players.Source.All(p => p.Point.MatchPoint == 0));
+
+			game.StepToMatching();
+			game.StepToPlaying();
+
+			Util.SetResult(game, 0, Draw);
+			Util.SetResult(game, 1, Draw);
+
+			Assert.IsTrue(game.Players.Source.All(p => p.Point.MatchPoint == 0));
+		}
+
+		[TestMethod]
+		public void DrawPointTest4() {
+			var game = new FakeGame(new NthGameMatchRule(3, false, 0), 4);
+
+			game.StepToPlaying();
+
+			Util.SetResult(game, 0, Draw);
+			Util.SetResult(game, 1, Draw);
+
+			Assert.IsTrue(game.Players.Source.All(p => p.Point.MatchPoint == 0));
+
+			game.StepToMatching();
+			game.StepToPlaying();
+
+			Util.SetResult(game, 0, Draw);
+			Util.SetResult(game, 1, Draw);
+
+			Assert.IsTrue(game.Players.Source.All(p => p.Point.MatchPoint == 0));
+		}
+
+		[TestMethod]
+		public void DrawPointTest5() {
+			var game = new FakeGame(new ThreeOnThreeMatchRule(false, 0), 4);
+
+			game.StepToPlaying();
+
+			Util.SetResult(game, 0, Draw);
+			Util.SetResult(game, 1, Draw);
+
+			Assert.IsTrue(game.Players.Source.All(p => p.Point.MatchPoint == 0));
+
+			game.StepToMatching();
+			game.StepToPlaying();
+
+			Util.SetResult(game, 0, Draw);
+			Util.SetResult(game, 1, Draw);
+
+			Assert.IsTrue(game.Players.Source.All(p => p.Point.MatchPoint == 0));
+		}
 	}
 }

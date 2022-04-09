@@ -83,7 +83,7 @@ namespace BSMM2.Models.Matches.MultiMatch.NthGameMatch {
 
 			void Done() {
 
-				match.SetMultiMatchResult(CreateScores());
+				match.SetMultiMatchResult(rule, CreateScores());
 				MessagingCenter.Send<object>(this, Messages.REFRESH);
 				back?.Invoke();
 

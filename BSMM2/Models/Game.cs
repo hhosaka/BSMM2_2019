@@ -122,7 +122,7 @@ namespace BSMM2.Models {
 
 		public void StepToPlaying() {
 			if (CanExecuteStepToPlaying()) {
-				Players.StepToPlaying(ActiveRound.StepToPlaying());
+				Players.StepToPlaying(ActiveRound.StepToPlaying(Rule));
 			}
 		}
 

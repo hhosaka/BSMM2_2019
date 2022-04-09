@@ -231,6 +231,9 @@
   <data name="LabelNewGameAsCurrentGame" xml:space="preserve">
     <value>As Current Game</value>
   </data>
+  <data name="LabelNewGameDrawPoint" xml:space="preserve">
+    <value>Point on Draw</value>
+  </data>
   <data name="LabelNewGameEnableLifePoint" xml:space="preserve">
     <value>Enable Life Point</value>
   </data>

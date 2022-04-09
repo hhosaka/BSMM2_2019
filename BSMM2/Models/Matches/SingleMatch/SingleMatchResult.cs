@@ -52,7 +52,7 @@ namespace BSMM2.Models.Matches.SingleMatch {
 
 		[JsonIgnore]
 		public int MatchPoint
-			=> RESULT == Models.RESULT_T.Win ? 3 : RESULT == Models.RESULT_T.Lose ? 0 : 1;
+			=> RESULT == Models.RESULT_T.Win ? 3 : RESULT == Models.RESULT_T.Lose ? 0 : _drawPoint;
 
 		[JsonIgnore]
 		public double WinPoint
@@ -60,6 +60,9 @@ namespace BSMM2.Models.Matches.SingleMatch {
 
 		[JsonProperty]
 		public double?LifePoint { get; set; }
+
+		[JsonProperty]
+		public int _drawPoint { get; private set; }
 
 		[JsonProperty]
 		public RESULT_T RESULT { get; set; }
@@ -75,9 +78,10 @@ namespace BSMM2.Models.Matches.SingleMatch {
         {
         }
 
-		public SingleMatchResult(RESULT_T result, int?lifePoint) {
+		public SingleMatchResult(RESULT_T result, int?lifePoint, int drawPoint=1) {
 			RESULT = result;
 			LifePoint = lifePoint;
+			_drawPoint = drawPoint;
 		}
 	}
 }
