@@ -403,11 +403,20 @@ namespace BSMM2.Resource {
         }
         
         /// <summary>
-        ///   Point on Draw に類似しているローカライズされた文字列を検索します。
+        ///   Match Point of draw game に類似しているローカライズされた文字列を検索します。
         /// </summary>
-        public static string LabelNewGameDrawPoint {
+        public static string LabelNewGameDrawMatchPoint {
             get {
-                return ResourceManager.GetString("LabelNewGameDrawPoint", resourceCulture);
+                return ResourceManager.GetString("LabelNewGameDrawMatchPoint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Win Point of draw game に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string LabelNewGameDrawWinPoint {
+            get {
+                return ResourceManager.GetString("LabelNewGameDrawWinPoint", resourceCulture);
             }
         }
         

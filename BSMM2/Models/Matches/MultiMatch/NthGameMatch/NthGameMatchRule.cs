@@ -47,7 +47,7 @@ namespace BSMM2.Models.Matches.MultiMatch.NthGameMatch {
 		private NthGameMatchRule() {
 		}
 
-		public NthGameMatchRule(int count, bool enableLifePoint = false, int drawPoint=1) : base(enableLifePoint, drawPoint)
+		public NthGameMatchRule(int count, bool enableLifePoint, int drawMatchPoint=1, double drawWinPoint=0.5) : base(enableLifePoint, drawMatchPoint,drawWinPoint)
         {
 			Count = count;
 

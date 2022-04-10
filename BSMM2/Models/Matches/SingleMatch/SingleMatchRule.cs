@@ -50,6 +50,11 @@ namespace BSMM2.Models.Matches.SingleMatch {
 		[JsonProperty]
 		private IEnumerable<IComparer> _comparers;
 
+		[JsonProperty]
+		public int DrawMatchPoint { get; set; }
+		[JsonProperty]
+		public double DrawWinPoint { get; set; }
+
 		[JsonIgnore]
 		public IEnumerable<IComparer> Comparers => _comparers;
 
@@ -60,8 +65,6 @@ namespace BSMM2.Models.Matches.SingleMatch {
 		[JsonIgnore]
 		public virtual string Description
 			=> AppResources.DescriptionSingleMatch;
-
-		public int DrawPoint { get; set; }
 
 		public virtual ContentPage CreateMatchPage(Match match)
 			=> EnableLifePoint ? (ContentPage)new SingleMatchPage(this, (SingleMatch)match) : (ContentPage)new SingleMatchSimplePage(this, (SingleMatch)match);
@@ -84,13 +87,14 @@ namespace BSMM2.Models.Matches.SingleMatch {
 		private SingleMatchRule() {
 		}
 
-		public SingleMatchRule(bool enableLifePoint = false, int drawPoint=1) {
+		public SingleMatchRule(bool enableLifePoint=false, int drawMatchPoint=1, double drawWinPoint=0.5) {
 			EnableLifePoint = enableLifePoint;
-			DrawPoint = drawPoint;
+			DrawMatchPoint = drawMatchPoint;
+			DrawWinPoint = drawWinPoint;
 			Prefix = AppResources.PrefixPlayer;
 		}
 
-		protected SingleMatchRule(SingleMatchRule src) : this(src.EnableLifePoint, src.DrawPoint) {
+		protected SingleMatchRule(SingleMatchRule src) : this(src.EnableLifePoint, src.DrawMatchPoint, src.DrawWinPoint) {
 		}
 	}
 }

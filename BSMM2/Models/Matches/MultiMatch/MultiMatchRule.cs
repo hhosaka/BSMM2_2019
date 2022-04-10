@@ -5,10 +5,8 @@ namespace BSMM2.Models.Matches.MultiMatch {
 
 	[JsonObject]
 	public abstract class MultiMatchRule : SingleMatchRule {
-		protected MultiMatchRule() {
-		}
 
-		protected MultiMatchRule(bool enableLifePoint=false,int drawPoint=1):base(enableLifePoint, drawPoint)
+		protected MultiMatchRule(bool enableLifePoint=false,int drawMatchPoint=1,double drawWinPoint=0.5):base(enableLifePoint, drawMatchPoint,drawWinPoint)
 		{
 		}
 

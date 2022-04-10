@@ -49,7 +49,7 @@ namespace BSMM2.Models.Matches.MultiMatch.ThreeOnThreeMatch {
 		private ThreeOnThreeMatchRule() {
 		}
 
-		public ThreeOnThreeMatchRule(bool enableLifePoint=false, int drawPoint=1):base(enableLifePoint, drawPoint)
+		public ThreeOnThreeMatchRule(bool enableLifePoint, int drawMatchPoint, double drawWinPoint):base(enableLifePoint, drawMatchPoint, drawWinPoint)
 		{
 		}
 

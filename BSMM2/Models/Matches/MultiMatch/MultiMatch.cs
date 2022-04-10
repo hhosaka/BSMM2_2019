@@ -40,11 +40,11 @@ namespace BSMM2.Models.Matches.MultiMatch {
 		protected abstract MultiMatchResult CreateResult(int drawPoint);
 
 		public void SetMultiMatchResult(IRule rule, IEnumerable<IScore> scores) {
-			var result1 = CreateResult(rule.DrawPoint);
-			var result2 = CreateResult(rule.DrawPoint);
+			var result1 = CreateResult(rule.DrawMatchPoint);
+			var result2 = CreateResult(rule.DrawMatchPoint);
 			foreach (var score in scores) {
-				result1.Add(new SingleMatchResult(score.RESULT, score.LifePoint1, rule.DrawPoint));
-				result2.Add(new SingleMatchResult(RESULTUtil.ToOpponents(score.RESULT), score.LifePoint2, rule.DrawPoint));
+				result1.Add(new SingleMatchResult(score.RESULT, score.LifePoint1, rule.DrawMatchPoint));
+				result2.Add(new SingleMatchResult(RESULTUtil.ToOpponents(score.RESULT), score.LifePoint2, rule.DrawMatchPoint));
 			}
 			SetResults(rule, result1, result2);
 		}

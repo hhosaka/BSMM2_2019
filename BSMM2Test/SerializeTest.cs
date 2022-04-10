@@ -193,7 +193,7 @@ namespace BSMM2Test {
 		}
 
 		[TestMethod]
-		public async void LoadSaveTest6() {
+		public void LoadSaveTest6() {
 			var app = BSMMApp.Create("test.json", true);
 
 			app.Game.StepToPlaying();
@@ -210,7 +210,7 @@ namespace BSMM2Test {
 			Assert.AreEqual(1, app.Game.Rounds.Count());
 			Assert.AreEqual(1, app.Games.Count());
 
-			await app.Save(true);
+			_=app.Save(true);
 
 			Assert.AreEqual(1, app.Game.Rounds.Count());
 			Assert.AreEqual(1, app.Games.Count());
@@ -222,14 +222,14 @@ namespace BSMM2Test {
 		}
 
 		[TestMethod]
-		public async void LoadSaveTest7() {
+		public void LoadSaveTest7() {
 			var index = 3;
 			var app = BSMMApp.Create("test.json", true);
 			Assert.AreEqual(true, app.Game.Rule.Comparers.ElementAt(index).Active);
 			app.Game.Rule.Comparers.ElementAt(index).Active = false;
 			Assert.AreEqual(false, app.Game.Rule.Comparers.ElementAt(index).Active);
 
-			await app.Save(true);
+			_=app.Save(true);
 			var dst = BSMMApp.Create("test.json", false);
 
 			Assert.AreEqual(false, dst.Game.Rule.Comparers.ElementAt(index).Active);
@@ -296,7 +296,7 @@ namespace BSMM2Test {
 
 		[TestMethod]
 		public void LoadSaveTest9() {
-			var game = new FakeGame(new NthGameMatchRule(2), 8);
+			var game = new FakeGame(new NthGameMatchRule(2, false, 1, 0.5), 8);
 
 			game.StepToPlaying();
 
@@ -326,7 +326,7 @@ namespace BSMM2Test {
 
 		[TestMethod]
 		public void LoadSaveTest11() {
-			var game = new FakeGame(new ThreeOnThreeMatchRule(), 8);
+			var game = new FakeGame(new ThreeOnThreeMatchRule(false, 1, 0.5), 8);
 
 			game.StepToPlaying();
 
@@ -341,7 +341,22 @@ namespace BSMM2Test {
 
 		[TestMethod]
 		public void LoadSaveTest12() {
-			var game = new FakeGame(new ThreeOnThreeMatchRule(true), 8);
+			var game = new FakeGame(new ThreeOnThreeMatchRule(true, 1, 0.5), 8);
+
+			game.StepToPlaying();
+
+			var buf = new StringBuilder();
+			var serializer = new Serializer<Game>();
+			serializer.Serialize(new StringWriter(buf), game);
+			var dst = serializer.Deserialize(new StringReader(buf.ToString()));
+
+			Assert.IsFalse(dst.ActiveRound.Matches.Any(match => match == null));
+			Assert.IsFalse(dst.Players.Source.Any(player => game.GetMatches(player).Any(match => match == null)));
+		}
+
+		[TestMethod]
+		public void LoadSaveTest13() {
+			var game = new FakeGame(new SingleMatchRule(true, 0), 8);
 
 			game.StepToPlaying();
 
@@ -608,10 +623,10 @@ namespace BSMM2Test {
 		}
 
 		[TestMethod]
-		public async void LoadSaveAppTest2() {
+		public void LoadSaveAppTest2() {
 			var app = BSMMApp.Create(TESTFILE, true);
 			app.Rule = app.Rules.ElementAt(0);
-			await app.Save(true);
+			_=app.Save(true);
 			var app2 = BSMMApp.Create(TESTFILE, false);
 			Assert.IsTrue(app2.Rules.Count() == 4);
 			Assert.AreEqual(app2.Rules.ElementAt(0), app2.Rule);
@@ -620,13 +635,13 @@ namespace BSMM2Test {
 		}
 
 		[TestMethod]
-		public async void LoadSaveAppTest3() {
+		public void LoadSaveAppTest3() {
 			var app = BSMMApp.Create(TESTFILE, true);
 			var rule = app.Rules.ElementAt(1);
 			app.Rule = rule;
 			var title = "test";
 			app.Add(new Game(new Players(rule, 8), null, title), true);
-			await app.Save(true);
+			_=app.Save(true);
 			var app2 = BSMMApp.Create(TESTFILE, false);
 			Assert.IsTrue(app2.Rules.Count() == 4);
 			Assert.AreEqual(app2.Rules.ElementAt(1), app2.Rule);
@@ -655,7 +670,7 @@ namespace BSMM2Test {
 		}
 
 		[TestMethod]
-		public async void LoadSaveRuleTest2() {
+		public void LoadSaveRuleTest2() {
 
 			var app = BSMMApp.Create(TESTFILE, true);
 			var src = new FakeGame(new SingleMatchRule(true), 4);
@@ -670,7 +685,7 @@ namespace BSMM2Test {
 
 			var buf = new StringBuilder();
 
-			await app.Save(true);
+			_=app.Save(true);
 
 			var app2 = BSMMApp.Create(TESTFILE, false);
 

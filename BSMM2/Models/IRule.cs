@@ -22,7 +22,10 @@ namespace BSMM2.Models {
 		bool EnableLifePoint { get; }
 
 		[JsonProperty]
-		int DrawPoint { get; }
+		int DrawMatchPoint { get; }
+
+		[JsonProperty]
+		double DrawWinPoint { get; }
 
 		Match CreateMatch(Player player1, Player player2 = null);
 

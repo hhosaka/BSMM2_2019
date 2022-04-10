@@ -92,6 +92,15 @@ namespace BSMM2Test {
 			}
 		}
 
+		public static void Check(IRule a, IRule b) {
+			Assert.AreEqual(a.Name, b.Name);
+			Assert.AreEqual(a.Description, b.Description);
+			CollectionAssert.AreEqual(a.Comparers.ToArray(), a.Comparers.ToArray(), "Comparer has diff");
+			Assert.AreEqual(a.Description, b.Description);
+			Assert.AreEqual(a.EnableLifePoint, b.EnableLifePoint);
+			Assert.AreEqual(a.DrawMatchPoint, b.DrawMatchPoint);
+		}
+
 		public static void Check(Game a, Game b) {
 			Assert.AreEqual(a.Title, b.Title);//TODO
 			Assert.AreEqual(a.Id, b.Id);
@@ -100,9 +109,7 @@ namespace BSMM2Test {
 			Assert.AreEqual(a.AcceptByeMatchDuplication, b.AcceptByeMatchDuplication);
 			Assert.AreEqual(a.AcceptGapMatchDuplication, b.AcceptGapMatchDuplication);
 			Assert.AreEqual(a.AcceptLosersGapMatchDuplication, b.AcceptLosersGapMatchDuplication);
-			if (a.Rule is SingleMatchRule srule) {
-				Assert.AreEqual(srule.EnableLifePoint, srule.EnableLifePoint);
-			}
+			Check(a.Rule, b.Rule);
 			Assert.AreEqual(a.Players.Count, b.Players.Count);
 			var ita = a.GetSortedSource().GetEnumerator();
 			var itb = b.GetSortedSource().GetEnumerator();
