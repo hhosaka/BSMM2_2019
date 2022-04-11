@@ -43,8 +43,8 @@ namespace BSMM2.Models.Matches.MultiMatch {
 			var result1 = CreateResult(rule.PointRule.MatchPoint_Draw);
 			var result2 = CreateResult(rule.PointRule.MatchPoint_Draw);
 			foreach (var score in scores) {
-				result1.Add(new SingleMatchResult(score.RESULT, score.LifePoint1, rule.PointRule.MatchPoint_Draw));
-				result2.Add(new SingleMatchResult(RESULTUtil.ToOpponents(score.RESULT), score.LifePoint2, rule.PointRule.MatchPoint_Draw));
+				result1.Add(new SingleMatchResult(rule.PointRule, score.RESULT, score.LifePoint1));
+				result2.Add(new SingleMatchResult(rule.PointRule, RESULTUtil.ToOpponents(score.RESULT), score.LifePoint2));
 			}
 			SetResults(rule, result1, result2);
 		}

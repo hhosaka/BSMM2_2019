@@ -67,7 +67,7 @@ namespace BSMM2Test {
 		[TestMethod]
 		public void JsonTest2()
 		{
-			var src = new SingleMatchResult(RESULT_T.Win, 5);
+			var src = new SingleMatchResult(PointRule.Default, RESULT_T.Win, 5);
 
 			var buf = new StringBuilder();
 			var serializer = new Serializer<SingleMatchResult>();

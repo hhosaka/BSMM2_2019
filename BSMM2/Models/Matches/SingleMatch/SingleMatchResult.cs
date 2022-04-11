@@ -78,10 +78,10 @@ namespace BSMM2.Models.Matches.SingleMatch {
         {
         }
 
-		public SingleMatchResult(RESULT_T result, int?lifePoint, int drawPoint=1) {
+		public SingleMatchResult(PointRule pointRule, RESULT_T result, int?lifePoint) {
 			RESULT = result;
 			LifePoint = lifePoint;
-			_drawPoint = drawPoint;
+			_drawPoint = pointRule.MatchPoint_Draw;
 		}
 	}
 }
