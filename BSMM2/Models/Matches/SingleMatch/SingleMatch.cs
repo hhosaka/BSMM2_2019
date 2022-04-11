@@ -23,8 +23,8 @@ namespace BSMM2.Models.Matches.SingleMatch {
 		public void SetSingleMatchResult(IRule rule, RESULT_T result, int?lp1, int?lp2) {
 			SetResults(
 				rule,
-				new SingleMatchResult(result, lp1, rule.DrawMatchPoint),
-				new SingleMatchResult(RESULTUtil.ToOpponents(result), lp2, rule.DrawMatchPoint));
+				new SingleMatchResult(result, lp1, rule.PointRule.MatchPoint_Draw),
+				new SingleMatchResult(RESULTUtil.ToOpponents(result), lp2, rule.PointRule.MatchPoint_Draw));
 		}
 	}
 }

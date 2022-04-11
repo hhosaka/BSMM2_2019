@@ -32,9 +32,9 @@ namespace BSMM2Test {
 
 			Export();
 			Assert.AreEqual(title + 
-							"1,\"Player001\",False,0,0,0,0,0,\r\n" +
-							"1,\"Player002\",False,0,0,0,0,0,\r\n",
-							buf.ToString());
+				"1,\"Player001\",False,0,0,0,0,0,\r\n" +
+				"1,\"Player002\",False,0,0,0,0,0,\r\n",
+				buf.ToString());
 
 			game.StepToPlaying();
 			Util.SetResult(game, 0, RESULT_T.Win);
@@ -70,7 +70,7 @@ namespace BSMM2Test {
 
 		[TestMethod]
 		public void PlayerPointTest() {
-			var game = new FakeGame(new SingleMatchRule(true), 4);
+			var game = new FakeGame(new SingleMatchRule(PointRule.EnableLP), 4);
 
 			var point = game.GetSortedSource().ElementAt(0).Point;
 

@@ -147,7 +147,7 @@ namespace BSMM2Test {
 
 		[TestMethod]
 		public void GameSequence3Test() {
-			var rule = new SingleMatchRule(true);
+			var rule = new SingleMatchRule(new PointRule(true));
 			var game = new FakeGame(rule, 4);
 
 			game.Shuffle();
@@ -221,11 +221,11 @@ namespace BSMM2Test {
 
 		[TestMethod]
 		public void OrderTestThreeGameMatch()
-			=> OrderTest(new NthGameMatchRule(2, false, 1, 0.5));
+			=> OrderTest(new NthGameMatchRule(2));
 
 		[TestMethod]
 		public void OrderTestThreeOnThreeMatch()
-			=> OrderTest(new NthGameMatchRule(2, false, 1, 0.5));
+			=> OrderTest(new NthGameMatchRule(2));
 
 		[TestMethod]
 		public void OrderTestSingleMatch3() {
@@ -243,7 +243,7 @@ namespace BSMM2Test {
 
 		[TestMethod]
 		public void ライフポイント検証() {
-			var rule = new SingleMatchRule(true);
+			var rule = new SingleMatchRule(new PointRule(true));
 			var game = CreateGame(rule, 8, 2);
 			var matches = game.ActiveRound;
 
@@ -257,7 +257,7 @@ namespace BSMM2Test {
 
 		[TestMethod]
 		public void 勝利ポイント検証() {
-			var rule = new NthGameMatchRule(2, false, 1, 0.5);
+			var rule = new NthGameMatchRule(2);
 			var game = CreateGame(rule, 8, 2);
 			var matches = game.ActiveRound;
 
@@ -276,7 +276,7 @@ namespace BSMM2Test {
 		[TestMethod]
 		public void ThreeOnThreeMatchStatusTest()
 		{
-			var rule = new ThreeOnThreeMatchRule(false, 1, 0.5);
+			var rule = new ThreeOnThreeMatchRule();
 			var game = new FakeGame(rule, 4);
 			var match = game.ActiveRound.Matches.ElementAt(0) as MultiMatch;
 			match.SetMultiMatchResult(rule,
@@ -323,7 +323,7 @@ namespace BSMM2Test {
 		[TestMethod]
 		public void ThreeGameMatchStatusTest()
 		{
-			var rule = new NthGameMatchRule(2, false, 1, 0.5);
+			var rule = new NthGameMatchRule(2);
 			var game = new FakeGame(rule, 4);
 			var match = game.ActiveRound.Matches.ElementAt(0) as MultiMatch;
 			match.SetMultiMatchResult(rule,
@@ -369,7 +369,7 @@ namespace BSMM2Test {
 		[TestMethod]
 		public void ThreeGameMatchWithLPStatusTest()
  		{
-			var rule = new NthGameMatchRule(2, true);
+			var rule = new NthGameMatchRule(2, new PointRule(true));
 			var game = new FakeGame(rule, 4);
 			var match = game.ActiveRound.Matches.ElementAt(0) as MultiMatch;
 			match.SetMultiMatchResult(rule,
@@ -491,7 +491,7 @@ namespace BSMM2Test {
 
 		[TestMethod]
 		public void FiveGameMatchWithLPStatusTest() {
-			var rule = new NthGameMatchRule(3, true);
+			var rule = new NthGameMatchRule(3, PointRule.EnableLP);
 			var game = new FakeGame(rule, 4);
 			var match = game.ActiveRound.Matches.ElementAt(0) as MultiMatch;
 			match.SetMultiMatchResult(rule,
@@ -753,17 +753,17 @@ namespace BSMM2Test {
 			var rule = new SingleMatchRule();
 			var a = rule.Clone() as SingleMatchRule;
 			Assert.AreEqual(rule.Name, a.Name);
-			Assert.AreEqual(rule.EnableLifePoint, a.EnableLifePoint);
+			Util.Check(rule.PointRule,a.PointRule);
 
-			rule = new SingleMatchRule(true);
+			rule = new SingleMatchRule(PointRule.EnableLP);
 			a = rule.Clone() as SingleMatchRule;
-			Assert.AreEqual(rule.EnableLifePoint, a.EnableLifePoint);
+			Util.Check(rule.PointRule,a.PointRule);
 			Assert.IsNotNull(a.Comparers);
 		}
 
 		[TestMethod]
 		public void DrawPointTest1() {
-			var game = new FakeGame(new SingleMatchRule(false, 0, 0), 4);
+			var game = new FakeGame(new SingleMatchRule(PointRule.Pokemon), 4);
 
 			game.StepToPlaying();
 
@@ -783,7 +783,7 @@ namespace BSMM2Test {
 
 		[TestMethod]
 		public void DrawPointTest2() {
-			var game = new FakeGame(new SingleMatchRule(false, 1, 0.5), 4);
+			var game = new FakeGame(new SingleMatchRule(), 4);
 
 			game.StepToPlaying();
 
@@ -803,7 +803,7 @@ namespace BSMM2Test {
 
 		[TestMethod]
 		public void DrawPointTest3() {
-			var game = new FakeGame(new NthGameMatchRule(2,false, 0, 0), 4);
+			var game = new FakeGame(new NthGameMatchRule(2,PointRule.Pokemon), 4);
 
 			game.StepToPlaying();
 
@@ -823,7 +823,7 @@ namespace BSMM2Test {
 
 		[TestMethod]
 		public void DrawPointTest4() {
-			var game = new FakeGame(new NthGameMatchRule(3, false, 0), 4);
+			var game = new FakeGame(new NthGameMatchRule(3, PointRule.Pokemon), 4);
 
 			game.StepToPlaying();
 
@@ -843,7 +843,7 @@ namespace BSMM2Test {
 
 		[TestMethod]
 		public void DrawPointTest5() {
-			var game = new FakeGame(new ThreeOnThreeMatchRule(false, 0, 0), 4);
+			var game = new FakeGame(new ThreeOnThreeMatchRule(PointRule.Pokemon), 4);
 
 			game.StepToPlaying();
 

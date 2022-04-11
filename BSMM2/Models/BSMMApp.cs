@@ -57,10 +57,10 @@ namespace BSMM2.Models {
 			BSMMApp Initiate() {
 				var app = new BSMMApp(storage, path,
 						new []{
-							new SingleMatchRule(false, 1, 0.5),
-							new Matches.MultiMatch.NthGameMatch.NthGameMatchRule(2,false, 1, 0.5),
-							new ThreeOnThreeMatchRule(false, 1, 0.5),
-							new Matches.MultiMatch.NthGameMatch.NthGameMatchRule(3,false, 1, 0.5)
+							new SingleMatchRule(),
+							new Matches.MultiMatch.NthGameMatch.NthGameMatchRule(2),
+							new ThreeOnThreeMatchRule(),
+							new Matches.MultiMatch.NthGameMatch.NthGameMatchRule(3)
 						});
 				return app;
 			}

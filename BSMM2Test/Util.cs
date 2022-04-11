@@ -92,13 +92,24 @@ namespace BSMM2Test {
 			}
 		}
 
+		public static void Check(PointRule a, PointRule b) {
+			Assert.AreEqual(a.MatchPoint_Win, b.MatchPoint_Win);
+			Assert.AreEqual(a.WinPoint_Win, b.WinPoint_Win);
+			Assert.AreEqual(a.MatchPoint_Draw, b.MatchPoint_Draw);
+			Assert.AreEqual(a.WinPoint_Draw, b.WinPoint_Draw);
+			Assert.AreEqual(a.MatchPoint_Lose, b.MatchPoint_Lose);
+			Assert.AreEqual(a.WinPoint_Lose, b.WinPoint_Lose);
+			Assert.AreEqual(a.EnableLifePoint, b.EnableLifePoint);
+		}
+
 		public static void Check(IRule a, IRule b) {
 			Assert.AreEqual(a.Name, b.Name);
 			Assert.AreEqual(a.Description, b.Description);
 			CollectionAssert.AreEqual(a.Comparers.ToArray(), a.Comparers.ToArray(), "Comparer has diff");
 			Assert.AreEqual(a.Description, b.Description);
-			Assert.AreEqual(a.EnableLifePoint, b.EnableLifePoint);
-			Assert.AreEqual(a.DrawMatchPoint, b.DrawMatchPoint);
+			Check(a.PointRule, b.PointRule);
+			//Assert.AreEqual(a.EnableLifePoint, b.EnableLifePoint);
+			//Assert.AreEqual(a.DrawMatchPoint, b.DrawMatchPoint);
 		}
 
 		public static void Check(Game a, Game b) {

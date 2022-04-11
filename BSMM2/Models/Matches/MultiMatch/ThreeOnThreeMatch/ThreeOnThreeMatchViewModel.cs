@@ -16,7 +16,7 @@ namespace BSMM2.Models.Matches.MultiMatch.ThreeOnThreeMatch {
 		public IEnumerable<LifePointItem> LifePoints
 			=> LifePointItem.Instance;
 
-		public bool EnableLifePoint => _rule.EnableLifePoint;
+		public bool EnableLifePoint => _rule.PointRule.EnableLifePoint;
 		public ResultItem[] ResultItems { get; }
 		public string Player1Name => _match.Record1.Player.Name;
 		public string Player2Name => _match.Record2.Player.Name;

@@ -19,13 +19,7 @@ namespace BSMM2.Models {
 		string Prefix { get; set; }
 
 		[JsonProperty]
-		bool EnableLifePoint { get; }
-
-		[JsonProperty]
-		int DrawMatchPoint { get; }
-
-		[JsonProperty]
-		double DrawWinPoint { get; }
+		PointRule PointRule { get; }
 
 		Match CreateMatch(Player player1, Player player2 = null);
 

@@ -42,12 +42,12 @@
 					<ColumnDefinition Width="*"/>
 				</Grid.ColumnDefinitions>
 				<Label Grid.Column="0" Text="{x:Static prop:AppResources.LabelNewGameDrawMatchPoint}" VerticalOptions="Center" />
-				<Entry Grid.Column="1" Text="{Binding Rule.DrawMatchPoint}" Keyboard="Numeric" Margin="0"/>
+				<Entry Grid.Column="1" Text="{Binding Rule.PointRule.MatchPoint_Draw}" Keyboard="Numeric" Margin="0"/>
 				<Label Grid.Column="2" Text="{x:Static prop:AppResources.LabelNewGameDrawWinPoint}" VerticalOptions="Center" />
-				<Entry Grid.Column="3" Text="{Binding Rule.DrawWinPoint}" Keyboard="Numeric" Margin="0"/>
+				<Entry Grid.Column="3" Text="{Binding Rule.PointRule.WinPoint_Draw}" Keyboard="Numeric" Margin="0"/>
 			</Grid>
 			<StackLayout Orientation="Horizontal">
-				<Switch IsToggled="{Binding Rule.EnableLifePoint}" />
+				<Switch IsToggled="{Binding Rule.PointRule.EnableLifePoint}" />
 				<Label Text="{x:Static prop:AppResources.LabelNewGameEnableLifePoint}" VerticalOptions="Center" />
 			</StackLayout>
 			<StackLayout Orientation="Horizontal">

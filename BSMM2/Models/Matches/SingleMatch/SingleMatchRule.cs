@@ -9,54 +9,46 @@ namespace BSMM2.Models.Matches.SingleMatch {
 	[JsonObject]
 	public class SingleMatchRule : IRule {
 
-		[JsonProperty]
-		private bool _enableLifePoint;
+		//[JsonProperty]
+		//private bool _enableLifePoint;
 
-		[JsonIgnore]
-		public bool EnableLifePoint {
-			get => _enableLifePoint;
-			set {
-				if (_comparers==null || _enableLifePoint != value) {
-					_enableLifePoint = value;
-					if (value) {
-						_comparers = new IComparer[] {
-							new WinnerComparer(),
-							new PointComparer(),
-							new LifePointComparer(),
-							new OpponentMatchPointComparer(),
-							new OpponentLifePointComparer(),
-							new WinPointComparer(),
-							new OpponentWinPointComparer(),
-							new ByeMatchComparer(),
-						};
-					} else {
-						_comparers = new IComparer[] {
-							new WinnerComparer(),
-							new PointComparer(),
-							new OpponentMatchPointComparer(),
-							new WinPointComparer(),
-							new OpponentWinPointComparer(),
-							new ByeMatchComparer(),
-						};
-					}
-				}
-			}
+		//[JsonIgnore]
+		//private bool EnableLifePoint {
+		//	get => _enableLifePoint;
+		//	set {
+		//		if (_comparers==null || _enableLifePoint != value) {
+		//			_enableLifePoint = value;
+		//			if (value) {
+		//				_comparers = new IComparer[] {
+		//					new WinnerComparer(),
+		//					new PointComparer(),
+		//					new LifePointComparer(),
+		//					new OpponentMatchPointComparer(),
+		//					new OpponentLifePointComparer(),
+		//					new WinPointComparer(),
+		//					new OpponentWinPointComparer(),
+		//					new ByeMatchComparer(),
+		//				};
+		//			} else {
+		//				_comparers = new IComparer[] {
+		//					new WinnerComparer(),
+		//					new PointComparer(),
+		//					new OpponentMatchPointComparer(),
+		//					new WinPointComparer(),
+		//					new OpponentWinPointComparer(),
+		//					new ByeMatchComparer(),
+		//				};
+		//			}
+		//		}
+		//	}
 
-		}
+		//}
 
 		[JsonProperty]
 		public string Prefix { get; set; }
 
 		[JsonProperty]
-		private IEnumerable<IComparer> _comparers;
-
-		[JsonProperty]
-		public int DrawMatchPoint { get; set; }
-		[JsonProperty]
-		public double DrawWinPoint { get; set; }
-
-		[JsonIgnore]
-		public IEnumerable<IComparer> Comparers => _comparers;
+		public IEnumerable<IComparer> Comparers { get; private set; }
 
 		[JsonIgnore]
 		public virtual string Name
@@ -66,8 +58,10 @@ namespace BSMM2.Models.Matches.SingleMatch {
 		public virtual string Description
 			=> AppResources.DescriptionSingleMatch;
 
+		public PointRule PointRule { get; private set; }
+
 		public virtual ContentPage CreateMatchPage(Match match)
-			=> EnableLifePoint ? (ContentPage)new SingleMatchPage(this, (SingleMatch)match) : (ContentPage)new SingleMatchSimplePage(this, (SingleMatch)match);
+			=> PointRule.EnableLifePoint ? (ContentPage)new SingleMatchPage(this, (SingleMatch)match) : (ContentPage)new SingleMatchSimplePage(this, (SingleMatch)match);
 
 		public ContentPage CreateRulePage(Game game)
 			=> new SingleMatchRulePage(game);
@@ -79,22 +73,45 @@ namespace BSMM2.Models.Matches.SingleMatch {
 			=> new SingleMatch(player1, player2);
 
 		public IPoint Point(IEnumerable<IPoint> points)
-			=> SingleMatchResult.Total(EnableLifePoint, points);
+			=> SingleMatchResult.Total(PointRule.EnableLifePoint, points);
 
 		public virtual Comparer<Player> GetComparer( bool force)
 			=> new TheComparer(Comparers, force);
 
+		private IEnumerable<IComparer> CreateComparers(bool enableLifePoint) {
+			if (enableLifePoint) {
+				return new IComparer[] {
+							new WinnerComparer(),
+							new PointComparer(),
+							new LifePointComparer(),
+							new OpponentMatchPointComparer(),
+							new OpponentLifePointComparer(),
+							new WinPointComparer(),
+							new OpponentWinPointComparer(),
+							new ByeMatchComparer(),
+						};
+			} else {
+				return new IComparer[] {
+							new WinnerComparer(),
+							new PointComparer(),
+							new OpponentMatchPointComparer(),
+							new WinPointComparer(),
+							new OpponentWinPointComparer(),
+							new ByeMatchComparer(),
+						};
+			}
+		}
+
 		private SingleMatchRule() {
 		}
 
-		public SingleMatchRule(bool enableLifePoint=false, int drawMatchPoint=1, double drawWinPoint=0.5) {
-			EnableLifePoint = enableLifePoint;
-			DrawMatchPoint = drawMatchPoint;
-			DrawWinPoint = drawWinPoint;
+		public SingleMatchRule(PointRule pointRule = null) {
+			PointRule = new PointRule(pointRule);
+			Comparers = CreateComparers(PointRule.EnableLifePoint);
 			Prefix = AppResources.PrefixPlayer;
 		}
 
-		protected SingleMatchRule(SingleMatchRule src) : this(src.EnableLifePoint, src.DrawMatchPoint, src.DrawWinPoint) {
+		protected SingleMatchRule(SingleMatchRule src) : this(src.PointRule) {
 		}
 	}
 }

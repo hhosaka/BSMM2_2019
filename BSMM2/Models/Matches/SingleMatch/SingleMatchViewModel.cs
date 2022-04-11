@@ -12,7 +12,7 @@ namespace BSMM2.Models.Matches.SingleMatch {
 		private SingleMatch _match;
 		private SingleMatchRule _rule;
 
-		public bool EnableLifePoint => _rule.EnableLifePoint;
+		public bool EnableLifePoint => _rule.PointRule.EnableLifePoint;
 		public ResultItem ResultItem { get; }
 		public string Player1Name => _match.Record1.Player.Name;
 		public string Player2Name => _match.Record2.Player.Name;

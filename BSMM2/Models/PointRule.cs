@@ -8,33 +8,37 @@ namespace BSMM2.Models
 	[JsonObject]
 	public class PointRule
 	{
-		[JsonProperty]
-		int MatchPoint_Win { get; }
+		public static readonly PointRule Default = new PointRule(false);
+		public static readonly PointRule EnableLP = new PointRule(true);
+		public static readonly PointRule Pokemon = new PointRule(false, 3, 1, 0, 0, 0, 0);
 
 		[JsonProperty]
-		double WinPoint_Win { get; }
+		public int MatchPoint_Win { get; set; }
 
 		[JsonProperty]
-		int MatchPoint_Draw { get; }
+		public double WinPoint_Win { get; set; }
 
 		[JsonProperty]
-		double WinPoint_Draw { get; }
+		public int MatchPoint_Draw { get; set; }
 
 		[JsonProperty]
-		int MatchPoint_Lose { get; }
+		public double WinPoint_Draw { get; set; }
 
 		[JsonProperty]
-		double WinPoint_Lose { get; }
+		public int MatchPoint_Lose { get; set; }
 
 		[JsonProperty]
-		bool EnableLifePoint { get; }
+		public double WinPoint_Lose { get; set; }
+
+		[JsonProperty]
+		public bool EnableLifePoint { get; set; }
 
 		private PointRule() { }
 
 		public PointRule(
-			bool enableLifePoint=false,
+			bool enableLifePoint,
 			int matchPoint_Win=3, double winPoint_Win=1,
-			int matchPoint_Draw = 1, double winPoint_Draw = 1,
+			int matchPoint_Draw = 1, double winPoint_Draw = 0.5,
 			int matchPoint_Lose = 0, double winPoint_Lose = 0
 			) {
 			EnableLifePoint = enableLifePoint;
@@ -44,6 +48,13 @@ namespace BSMM2.Models
 			WinPoint_Draw = winPoint_Draw;
 			MatchPoint_Lose = matchPoint_Lose;
 			WinPoint_Lose = winPoint_Lose;
+		}
+
+		public PointRule(PointRule other = null) : this(
+			other?.EnableLifePoint??false,
+			other?.MatchPoint_Win??3, other?.WinPoint_Win??1,
+			other?.MatchPoint_Draw??1, other?.WinPoint_Draw??0.5,
+			other?.MatchPoint_Lose??0, other?.WinPoint_Lose??0) {
 		}
 	}
 }

@@ -296,7 +296,7 @@ namespace BSMM2Test {
 
 		[TestMethod]
 		public void LoadSaveTest9() {
-			var game = new FakeGame(new NthGameMatchRule(2, false, 1, 0.5), 8);
+			var game = new FakeGame(new NthGameMatchRule(2), 8);
 
 			game.StepToPlaying();
 
@@ -311,7 +311,7 @@ namespace BSMM2Test {
 
 		[TestMethod]
 		public void LoadSaveTest10() {
-			var game = new FakeGame(new NthGameMatchRule(2, true), 8);
+			var game = new FakeGame(new NthGameMatchRule(2, PointRule.EnableLP), 8);
 
 			game.StepToPlaying();
 
@@ -326,7 +326,7 @@ namespace BSMM2Test {
 
 		[TestMethod]
 		public void LoadSaveTest11() {
-			var game = new FakeGame(new ThreeOnThreeMatchRule(false, 1, 0.5), 8);
+			var game = new FakeGame(new ThreeOnThreeMatchRule(), 8);
 
 			game.StepToPlaying();
 
@@ -341,7 +341,7 @@ namespace BSMM2Test {
 
 		[TestMethod]
 		public void LoadSaveTest12() {
-			var game = new FakeGame(new ThreeOnThreeMatchRule(true, 1, 0.5), 8);
+			var game = new FakeGame(new ThreeOnThreeMatchRule(PointRule.EnableLP), 8);
 
 			game.StepToPlaying();
 
@@ -356,7 +356,7 @@ namespace BSMM2Test {
 
 		[TestMethod]
 		public void LoadSaveTest13() {
-			var game = new FakeGame(new SingleMatchRule(true, 0), 8);
+			var game = new FakeGame(new SingleMatchRule(PointRule.EnableLP), 8);
 
 			game.StepToPlaying();
 
@@ -652,7 +652,7 @@ namespace BSMM2Test {
 		[TestMethod]
 		public void LoadSaveRuleTest1() {
 
-			var src = new FakeGame(new SingleMatchRule(true), 4);
+			var src = new FakeGame(new SingleMatchRule(PointRule.EnableLP), 4);
 
 			src.StepToMatching();
 			src.StepToPlaying();
@@ -673,7 +673,7 @@ namespace BSMM2Test {
 		public void LoadSaveRuleTest2() {
 
 			var app = BSMMApp.Create(TESTFILE, true);
-			var src = new FakeGame(new SingleMatchRule(true), 4);
+			var src = new FakeGame(new SingleMatchRule(PointRule.EnableLP), 4);
 			app.Add(src, true);
 
 			src.StepToMatching();
@@ -693,9 +693,9 @@ namespace BSMM2Test {
 		}
 
 		[TestMethod]
-		public void LoadSaveRuleTest3() {
+		public void LoadSaveRuleTest3_1() {
 
-			var rule = new SingleMatchRule(true);
+			var rule = new SingleMatchRule(PointRule.EnableLP);
 			var src = new FakeGame(rule, 4);
 
 			src.StepToMatching();
@@ -704,14 +704,20 @@ namespace BSMM2Test {
 			(Util.GetMatch(src, 1) as SingleMatch).SetSingleMatchResult(rule, Win, 5, 5);
 
 			Util.Check(new[] { 3, 1, 4, 2 }, src.GetSortedSource());
+		}
 
-			rule.EnableLifePoint = false;
+		[TestMethod]
+		public void LoadSaveRuleTest3_2() {
+
+			var rule = new SingleMatchRule();
+			var src = new FakeGame(rule, 4);
+
+			src.StepToMatching();
+			src.StepToPlaying();
+			(Util.GetMatch(src, 0) as SingleMatch).SetSingleMatchResult(rule, Win, 1, 0);
+			(Util.GetMatch(src, 1) as SingleMatch).SetSingleMatchResult(rule, Win, 5, 5);
 
 			Util.Check(new[] { 1, 3, 2, 4 }, src.GetSortedSource());
-
-			rule.EnableLifePoint = true;
-
-			Util.Check(new[] { 3, 1, 4, 2 }, src.GetSortedSource());
 		}
 	}
 }

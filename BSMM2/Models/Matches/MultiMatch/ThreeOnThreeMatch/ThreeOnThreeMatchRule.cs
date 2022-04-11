@@ -49,11 +49,11 @@ namespace BSMM2.Models.Matches.MultiMatch.ThreeOnThreeMatch {
 		private ThreeOnThreeMatchRule() {
 		}
 
-		public ThreeOnThreeMatchRule(bool enableLifePoint, int drawMatchPoint, double drawWinPoint):base(enableLifePoint, drawMatchPoint, drawWinPoint)
+		public ThreeOnThreeMatchRule(PointRule pointRule = null):base(pointRule)
 		{
 		}
 
-		private ThreeOnThreeMatchRule(MultiMatchRule rule) : base(rule) {
+		private ThreeOnThreeMatchRule(MultiMatchRule rule) : this(rule.PointRule) {
 		}
 	}
 }

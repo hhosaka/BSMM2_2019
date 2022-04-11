@@ -38,7 +38,7 @@ namespace BSMM2.Models.Matches.MultiMatch.NthGameMatch {
 		private MultiMatch _match;
 		private NthGameMatchRule _rule;
 
-		public bool EnableLifePoint => _rule.EnableLifePoint;
+		public bool EnableLifePoint => _rule.PointRule.EnableLifePoint;
 
 		public int Count => _rule.Count;
 

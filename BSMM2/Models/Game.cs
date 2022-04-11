@@ -256,7 +256,7 @@ namespace BSMM2.Models {
 			Id = Guid.NewGuid();
 			WebServiceId = webServiceId?? Id;
 			Players = players;
-			Rule = players.Rule;
+			Rule = players.Rule.Clone();
 			_rounds = new List<Round>();
 			StartTime = null;
 			if(randomizePlayer!= null) RandomizePlayer = randomizePlayer;
