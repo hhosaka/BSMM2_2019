@@ -26,10 +26,11 @@ namespace BSMM2.Views {
 		void ShowQRCode()
 			=> Navigation.PushModalAsync(new NavigationPage(new WebServicePage(_app, "games/matches/")));
 
-		private void OpenHelpPage(object sender, EventArgs e) => Navigation.PushModalAsync(new WebPage("https://sites.google.com/site/hhosaka183/bs-match-maker-2"));
+		private void OpenHelpPage(object sender, EventArgs e)
+			=> Navigation.PushModalAsync(new NavigationPage(new WebPage("https://sites.google.com/site/hhosaka183/bs-match-maker-2")));
 
 		private void OpenQRCode2MatchesPage(object sender, EventArgs e)
-						=>Navigation.PushModalAsync(new NavigationPage(new WebServicePage(_app, "games/matches/")));
+			=>Navigation.PushModalAsync(new NavigationPage(new WebServicePage(_app, "games/matches/")));
 
 		private async void OnDelegateMatchTapped(object sender, ItemTappedEventArgs args) {
 			if (args.Item is DelegateMatch match && viewModel.Game.ActiveRound.IsPlaying && !match.Match.IsByeMatch)
