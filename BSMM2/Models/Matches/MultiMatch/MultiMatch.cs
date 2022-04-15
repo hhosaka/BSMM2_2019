@@ -37,14 +37,14 @@ namespace BSMM2.Models.Matches.MultiMatch {
 			SetMultiMatchResult(rule, scores);
 		}
 
-		protected abstract MultiMatchResult CreateResult(int drawPoint);
+		protected abstract MultiMatchResult CreateResult(PointRule pointRule);
 
 		public void SetMultiMatchResult(IRule rule, IEnumerable<IScore> scores) {
-			var result1 = CreateResult(rule.PointRule.MatchPoint_Draw);
-			var result2 = CreateResult(rule.PointRule.MatchPoint_Draw);
+			var result1 = CreateResult(rule.PointRule);
+			var result2 = CreateResult(rule.PointRule);
 			foreach (var score in scores) {
-				result1.Add(new SingleMatchResult(rule.PointRule, score.RESULT, score.LifePoint1));
-				result2.Add(new SingleMatchResult(rule.PointRule, RESULTUtil.ToOpponents(score.RESULT), score.LifePoint2));
+				result1.Add(rule.PointRule, new SingleMatchResult(rule.PointRule, score.RESULT, score.LifePoint1));
+				result2.Add(rule.PointRule, new SingleMatchResult(rule.PointRule, RESULTUtil.ToOpponents(score.RESULT), score.LifePoint2));
 			}
 			SetResults(rule, result1, result2);
 		}

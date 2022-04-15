@@ -56,5 +56,16 @@ namespace BSMM2.Models
 			other?.MatchPoint_Draw??1, other?.WinPoint_Draw??0.5,
 			other?.MatchPoint_Lose??0, other?.WinPoint_Lose??0) {
 		}
+
+		public PointRule Reset() {
+			EnableLifePoint = false;
+			MatchPoint_Win = 3;
+			WinPoint_Win = 1;
+			MatchPoint_Draw = 1;
+			WinPoint_Draw = 0.5;
+			MatchPoint_Lose = 0;
+			WinPoint_Lose = 0;
+			return this;
+		}
 	}
 }

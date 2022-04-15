@@ -36,11 +36,11 @@ namespace BSMM2.Models {
 		private List<Match> _matches;
 
 		[JsonIgnore]
-		public IPoint Point
+		public IExportablePoint Point
 			=> _rule?.Point(_matches.Where(match => match.IsFinished).Select(match => match.GetRecord(this).Result.Point));
 
 		[JsonIgnore]
-		public IPoint OpponentPoint
+		public IExportablePoint OpponentPoint
 			=> _rule?.Point(_matches.Where(match => match.IsFinished).Select(match => (match.GetOpponentRecord(this).Player as Player)?.Point));
 
 		public void StepToPlaying(Match match)
@@ -90,14 +90,13 @@ namespace BSMM2.Models {
 		}
 
 		public Player() {// For Serializer
-			_matches = new List<Match>();
 		}
 
-		public Player(IRule rule, string name):this() {
+		public Player(IRule rule, string name) {
 			Id = Guid.NewGuid();
 			_rule = rule;
 			Name = name;
-//			Point = OpponentPoint = rule?.Point(Enumerable.Empty<IPoint>());
+			_matches = new List<Match>();
 		}
 	}
 }

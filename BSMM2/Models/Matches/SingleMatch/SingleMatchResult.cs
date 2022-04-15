@@ -13,9 +13,7 @@ namespace BSMM2.Models.Matches.SingleMatch {
 		public const string TITLE_WIN_POINT = "winpoint";
 		public const string TITLE_LIFE_POINT = "lifepoint";
 
-		private class TheResult : IPoint, IExportableObject {
-
-			private bool _enableLifePoint;
+		private class TotalResult : IExportablePoint {
 
 			public int MatchPoint { get; }
 
@@ -30,12 +28,10 @@ namespace BSMM2.Models.Matches.SingleMatch {
 				return data;
 			}
 
-			public TheResult() {
+			public TotalResult() {
 			}
 
-			public TheResult(bool enableLifePoint, IEnumerable<IPoint> source) {
-				_enableLifePoint = enableLifePoint;
-
+			public TotalResult(bool enableLifePoint, IEnumerable<IPoint> source) {
 				MatchPoint = source?.Sum(p => p?.MatchPoint??0)??0;
 				WinPoint = source?.DefaultIfEmpty().Average(p => p?.WinPoint??0)??0;
 				if (enableLifePoint)
@@ -43,29 +39,20 @@ namespace BSMM2.Models.Matches.SingleMatch {
 			}
 		}
 
-		public static IPoint Total(bool enableLifePoint, IEnumerable<IPoint> points)
-			=> new TheResult(enableLifePoint, points);
-
-		public ExportSource Export(ExportSource src, string origin = "") {
-			throw new System.NotImplementedException();
-		}
-
-		[JsonIgnore]
-		public int MatchPoint
-			=> RESULT == Models.RESULT_T.Win ? 3 : RESULT == Models.RESULT_T.Lose ? 0 : _drawPoint;
-
-		[JsonIgnore]
-		public double WinPoint
-			=> RESULT == Models.RESULT_T.Win ? 1.0 : RESULT == Models.RESULT_T.Lose ? 0.0 : 0.5;
+		public static IExportablePoint Total(bool enableLifePoint, IEnumerable<IPoint> points)
+			=> new TotalResult(enableLifePoint, points);
 
 		[JsonProperty]
-		public double?LifePoint { get; set; }
+		public int MatchPoint { get; private set; }
 
 		[JsonProperty]
-		public int _drawPoint { get; private set; }
+		public double WinPoint { get; private set; }
 
 		[JsonProperty]
-		public RESULT_T RESULT { get; set; }
+		public double?LifePoint { get; private set; }
+
+		[JsonProperty]
+		public RESULT_T RESULT { get; private set; }
 
 		[JsonIgnore]
 		public bool IsFinished => RESULT != RESULT_T.Progress && !(LifePoint < 0);
@@ -74,14 +61,25 @@ namespace BSMM2.Models.Matches.SingleMatch {
 		[JsonIgnore]
 		public IPoint Point => this;
 
+		public int GetMatchPoint(PointRule pointRule)
+			=> RESULT == Models.RESULT_T.Win ? pointRule.MatchPoint_Win
+				: RESULT == Models.RESULT_T.Lose ? pointRule.MatchPoint_Lose
+				: pointRule.MatchPoint_Draw;
+
+		public double GetWinPoint(PointRule pointRule)
+			=> RESULT == Models.RESULT_T.Win ? pointRule.WinPoint_Win
+				: RESULT == Models.RESULT_T.Lose ? pointRule.WinPoint_Lose
+				: pointRule.WinPoint_Draw;
+
 		public SingleMatchResult()
         {
         }
 
 		public SingleMatchResult(PointRule pointRule, RESULT_T result, int?lifePoint) {
 			RESULT = result;
+			MatchPoint = GetMatchPoint(pointRule);
+			WinPoint = GetWinPoint(pointRule);
 			LifePoint = lifePoint;
-			_drawPoint = pointRule.MatchPoint_Draw;
 		}
 	}
 }

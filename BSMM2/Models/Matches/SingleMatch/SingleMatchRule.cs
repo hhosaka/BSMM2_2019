@@ -9,41 +9,6 @@ namespace BSMM2.Models.Matches.SingleMatch {
 	[JsonObject]
 	public class SingleMatchRule : IRule {
 
-		//[JsonProperty]
-		//private bool _enableLifePoint;
-
-		//[JsonIgnore]
-		//private bool EnableLifePoint {
-		//	get => _enableLifePoint;
-		//	set {
-		//		if (_comparers==null || _enableLifePoint != value) {
-		//			_enableLifePoint = value;
-		//			if (value) {
-		//				_comparers = new IComparer[] {
-		//					new WinnerComparer(),
-		//					new PointComparer(),
-		//					new LifePointComparer(),
-		//					new OpponentMatchPointComparer(),
-		//					new OpponentLifePointComparer(),
-		//					new WinPointComparer(),
-		//					new OpponentWinPointComparer(),
-		//					new ByeMatchComparer(),
-		//				};
-		//			} else {
-		//				_comparers = new IComparer[] {
-		//					new WinnerComparer(),
-		//					new PointComparer(),
-		//					new OpponentMatchPointComparer(),
-		//					new WinPointComparer(),
-		//					new OpponentWinPointComparer(),
-		//					new ByeMatchComparer(),
-		//				};
-		//			}
-		//		}
-		//	}
-
-		//}
-
 		[JsonProperty]
 		public string Prefix { get; set; }
 
@@ -72,7 +37,7 @@ namespace BSMM2.Models.Matches.SingleMatch {
 		public virtual Match CreateMatch(Player player1, Player player2)
 			=> new SingleMatch(player1, player2);
 
-		public IPoint Point(IEnumerable<IPoint> points)
+		public IExportablePoint Point(IEnumerable<IPoint> points)
 			=> SingleMatchResult.Total(PointRule.EnableLifePoint, points);
 
 		public virtual Comparer<Player> GetComparer( bool force)

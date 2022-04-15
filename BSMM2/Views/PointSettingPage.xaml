@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+			 xmlns:prop="clr-namespace:BSMM2.Resource"
+			 x:Class="BSMM2.Views.PointSettingPage"
+			 xmlns:local="clr-namespace:BSMM2.ViewModels">
+	<ContentPage.ToolbarItems>
+		<ToolbarItem Text="{x:Static prop:AppResources.MenuBack}" Clicked="Back" Order="Secondary" />
+		<ToolbarItem Text="{x:Static prop:AppResources.TextDefault}" Clicked="Default" Order="Secondary" />
+	</ContentPage.ToolbarItems>
+	<ContentPage.Content>
+		<StackLayout>
+			<Label Text="{x:Static prop:AppResources.TextMatchPointWin}"/>
+			<Entry Text="{Binding MatchPoint_Win}" Keyboard="Numeric" Margin="0"/>
+			<Label Text="{x:Static prop:AppResources.TextWinPointWin}"/>
+			<Entry Text="{Binding WinPoint_Win}" Keyboard="Numeric" Margin="0"/>
+			<Label Text="{x:Static prop:AppResources.TextMatchPointDraw}"/>
+			<Entry Text="{Binding MatchPoint_Draw}" Keyboard="Numeric" Margin="0"/>
+			<Label Text="{x:Static prop:AppResources.TextWinPointDraw}"/>
+			<Entry Text="{Binding WinPoint_Draw}" Keyboard="Numeric" Margin="0"/>
+			<Label Text="{x:Static prop:AppResources.TextMatchPointLose}"/>
+			<Entry Text="{Binding MatchPoint_Lose}" Keyboard="Numeric" Margin="0"/>
+			<Label Text="{x:Static prop:AppResources.TextWinPointLose}"/>
+			<Entry Text="{Binding WinPoint_Lose}" Keyboard="Numeric" Margin="0"/>
+		</StackLayout>
+	</ContentPage.Content>
+</ContentPage>

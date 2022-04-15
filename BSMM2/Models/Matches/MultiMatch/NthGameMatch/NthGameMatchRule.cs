@@ -16,11 +16,9 @@ namespace BSMM2.Models.Matches.MultiMatch.NthGameMatch {
 			class TheResult : MultiMatchResult
 			{
 				public override bool IsFinished => _results.Any() && !_results.Any(result => !result.IsFinished);
-
-				public TheResult(int drawPoint):base(drawPoint) { }
 			}
-			protected override MultiMatchResult CreateResult(int drawPoint)
-				=> new TheResult(drawPoint);
+			protected override MultiMatchResult CreateResult(PointRule pointRule)
+				=> new TheResult();
 
 			public TheMatch() {// For Serializer
 			}

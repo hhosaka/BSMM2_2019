@@ -9,30 +9,30 @@ namespace BSMM2.Models.Matches.MultiMatch {
 
 	[JsonObject]
 	public abstract class MultiMatchResult : IResult,IPoint {
-
 		[JsonProperty]
 		protected List<IResult> _results;
 
 		[JsonProperty]
-		private int _drawPoint;
+		public int MatchPoint { get; private set; }
 
-		[JsonIgnore]
-		private RESULT_T _RESULT;
+		[JsonProperty]
+		public double WinPoint { get; private set; }
 
-		[JsonIgnore]
-		public double?LifePoint
+		[JsonProperty]
+		public double? LifePoint { get; private set; }
+
+		[JsonProperty]
+		public RESULT_T RESULT { get; private set; }
+
+		private double?GetLifePoint()
 			=> _results.Where(r=>r.IsFinished).DefaultIfEmpty().Average(p => p?.Point.LifePoint ??0);
 
-		[JsonIgnore]
-		public double WinPoint
+		private double GetWinPoint(PointRule pointRule)
 			=> _results.Sum(p => p.Point.WinPoint) / _results.Count();
 
-		[JsonIgnore]
-		public RESULT_T RESULT
-			=> _RESULT = GetResult();
-
-		public int MatchPoint
-			=> RESULT == Win ? 3 : RESULT == Lose ? 0 : _drawPoint;
+		private int GetMatchPoint(PointRule pointRule) {
+			return RESULT == Win ? pointRule.MatchPoint_Win : RESULT == Lose ? pointRule.MatchPoint_Lose : pointRule.MatchPoint_Draw;
+		}
 
 		public abstract bool IsFinished { get; }
 
@@ -44,8 +44,13 @@ namespace BSMM2.Models.Matches.MultiMatch {
 		public void Clear()
 			=> _results.Clear();
 
-		public void Add(IResult result)
-			=> _results.Add(result);
+		public void Add(PointRule pointRule, IResult result) {
+			_results.Add(result);
+			RESULT = GetResult();
+			MatchPoint = GetMatchPoint(pointRule);
+			WinPoint = GetWinPoint(pointRule);
+			LifePoint = GetLifePoint();
+		}
 
 		private RESULT_T GetResult() {
 			if (_results.Any()) {
@@ -67,12 +72,7 @@ namespace BSMM2.Models.Matches.MultiMatch {
 			return RESULT_T.Progress;
 		}
 
-		public ExportSource Export(ExportSource src, string origin = "") {
-			throw new System.NotImplementedException();
-		}
-
-		public MultiMatchResult(int drawPoint) {
-			_drawPoint = drawPoint;
+		public MultiMatchResult() {
 			_results = new List<IResult>();
 		}
 	}

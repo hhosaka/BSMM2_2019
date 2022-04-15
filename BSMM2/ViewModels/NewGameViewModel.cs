@@ -74,7 +74,8 @@ namespace BSMM2.ViewModels {
 		public IEnumerable<PlayerCreator> PlayerModes { get; }
 
 		public ICommand CreateCommand { get; }
-
+		public ICommand SettingPointCommand { get; }
+		public event ViewActionHandler OnSettingPoint;
 		public NewGameViewModel(BSMMApp app, Action close) {
 			_app = app;
 			GameName = Game.GameTitle;
@@ -89,6 +90,7 @@ namespace BSMM2.ViewModels {
 			AsCurrentGame = true;
 
 			CreateCommand = new DelegateCommand(ExecuteCreate);
+			SettingPointCommand = new DelegateCommand(() => OnSettingPoint.Invoke());
 
 			void ExecuteCreate() {
 				if (app.Add(new Game(PlayerMode.Create(), UseUniqueId4WebService ? (Guid?)null:app.Id, GameName), AsCurrentGame)) {

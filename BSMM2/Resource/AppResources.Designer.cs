@@ -907,6 +907,15 @@ namespace BSMM2.Resource {
         }
         
         /// <summary>
+        ///   Default に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string TextDefault {
+            get {
+                return ResourceManager.GetString("TextDefault", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Dropped に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string TextDropped {
@@ -976,6 +985,33 @@ namespace BSMM2.Resource {
         public static string TextMatchPoint {
             get {
                 return ResourceManager.GetString("TextMatchPoint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   MatchPoint-Draw に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string TextMatchPointDraw {
+            get {
+                return ResourceManager.GetString("TextMatchPointDraw", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   MatchPoint-Lose に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string TextMatchPointLose {
+            get {
+                return ResourceManager.GetString("TextMatchPointLose", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   MatchPoint-Win に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string TextMatchPointWin {
+            get {
+                return ResourceManager.GetString("TextMatchPointWin", resourceCulture);
             }
         }
         
@@ -1097,6 +1133,15 @@ namespace BSMM2.Resource {
         }
         
         /// <summary>
+        ///   Setting Point Rule に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string TextPointSetting {
+            get {
+                return ResourceManager.GetString("TextPointSetting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Result に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string TextResult {
@@ -1156,6 +1201,33 @@ namespace BSMM2.Resource {
         public static string TextWinPoint {
             get {
                 return ResourceManager.GetString("TextWinPoint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   WinPoint-Draw に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string TextWinPointDraw {
+            get {
+                return ResourceManager.GetString("TextWinPointDraw", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   WinPoint-Lose に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string TextWinPointLose {
+            get {
+                return ResourceManager.GetString("TextWinPointLose", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   WinPoint-Win に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string TextWinPointWin {
+            get {
+                return ResourceManager.GetString("TextWinPointWin", resourceCulture);
             }
         }
         

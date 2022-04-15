@@ -396,6 +396,9 @@
   <data name="TextCorruptedData" xml:space="preserve">
     <value>保存データが破損していたため、設定を初期化しました。</value>
   </data>
+  <data name="TextDefault" xml:space="preserve">
+    <value>初期値</value>
+  </data>
   <data name="TextDropped" xml:space="preserve">
     <value>棄権</value>
   </data>
@@ -420,6 +423,15 @@ BSMM2は設定データの永続性を保証しないことをご了承くださ
   </data>
   <data name="TextMatchPoint" xml:space="preserve">
     <value>マッチP</value>
+  </data>
+  <data name="TextMatchPointDraw" xml:space="preserve">
+    <value>ポイントー引き分け</value>
+  </data>
+  <data name="TextMatchPointLose" xml:space="preserve">
+    <value>ポイントー負け</value>
+  </data>
+  <data name="TextMatchPointWin" xml:space="preserve">
+    <value>ポイントー勝ち</value>
   </data>
   <data name="TextOmitByeMatchDuplication" xml:space="preserve">
     <value>不戦勝の重複を認める</value>
@@ -460,6 +472,9 @@ BSMM2は設定データの永続性を保証しないことをご了承くださ
   <data name="TextPlayerParameterValue" xml:space="preserve">
     <value>値</value>
   </data>
+  <data name="TextPointSetting" xml:space="preserve">
+    <value>ポイント設定</value>
+  </data>
   <data name="TextResult" xml:space="preserve">
     <value>勝敗</value>
   </data>
@@ -485,6 +500,15 @@ BSMM2ユーザは本サービスを無料で使用することができます。
   </data>
   <data name="TextWinPoint" xml:space="preserve">
     <value>勝利P</value>
+  </data>
+  <data name="TextWinPointDraw" xml:space="preserve">
+    <value>勝利ポイントー引き分け</value>
+  </data>
+  <data name="TextWinPointLose" xml:space="preserve">
+    <value>勝利ポイントー負け</value>
+  </data>
+  <data name="TextWinPointWin" xml:space="preserve">
+    <value>勝利ポイントー勝ち</value>
   </data>
   <data name="TitleWebService" xml:space="preserve">
     <value>ウェブサービス</value>

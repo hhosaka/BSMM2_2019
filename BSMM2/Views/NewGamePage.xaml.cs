@@ -11,7 +11,10 @@ namespace BSMM2.Views {
 
 		public NewGamePage(BSMMApp app) {
 			InitializeComponent();
-			BindingContext = new NewGameViewModel(app, async () => await Navigation.PopModalAsync());
+			var viewModel = new NewGameViewModel(app, async () => await Navigation.PopModalAsync());
+			viewModel.OnSettingPoint +=
+				() => Navigation.PushModalAsync(new NavigationPage(new PointSettingPage(app.Rule.PointRule)));
+			BindingContext = viewModel;
 		}
 
 		private async void Back(object sender, EventArgs e)

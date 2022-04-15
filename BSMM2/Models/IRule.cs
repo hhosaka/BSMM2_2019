@@ -29,7 +29,7 @@ namespace BSMM2.Models {
 
 		IRule Clone();
 
-		IPoint Point(IEnumerable<IPoint> results);
+		IExportablePoint Point(IEnumerable<IPoint> results);
 
 		Comparer<Player> GetComparer(bool force);
 	}

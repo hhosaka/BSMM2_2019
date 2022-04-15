@@ -399,6 +399,9 @@
   <data name="TextCorruptedData" xml:space="preserve">
     <value>Due to data corruption, Initialized settings.</value>
   </data>
+  <data name="TextDefault" xml:space="preserve">
+    <value>Default</value>
+  </data>
   <data name="TextDropped" xml:space="preserve">
     <value>Dropped</value>
   </data>
@@ -423,6 +426,15 @@ NOTE :  BSMM2 does not guarantee  persistency of your settings and logs.</value>
   </data>
   <data name="TextMatchPoint" xml:space="preserve">
     <value>Match Point</value>
+  </data>
+  <data name="TextMatchPointDraw" xml:space="preserve">
+    <value>MatchPoint-Draw</value>
+  </data>
+  <data name="TextMatchPointLose" xml:space="preserve">
+    <value>MatchPoint-Lose</value>
+  </data>
+  <data name="TextMatchPointWin" xml:space="preserve">
+    <value>MatchPoint-Win</value>
   </data>
   <data name="TextOmitByeMatchDuplication" xml:space="preserve">
     <value>Omit bye match duplication</value>
@@ -463,6 +475,9 @@ NOTE :  BSMM2 does not guarantee  persistency of your settings and logs.</value>
   <data name="TextPlayerParameterValue" xml:space="preserve">
     <value>Value</value>
   </data>
+  <data name="TextPointSetting" xml:space="preserve">
+    <value>Setting Point Rule</value>
+  </data>
   <data name="TextResult" xml:space="preserve">
     <value>Result</value>
   </data>
@@ -483,6 +498,15 @@ NOTE :  BSMM2 does not guarantee  persistency of your settings and logs.</value>
   </data>
   <data name="TextWinPoint" xml:space="preserve">
     <value>Win Point</value>
+  </data>
+  <data name="TextWinPointDraw" xml:space="preserve">
+    <value>WinPoint-Draw</value>
+  </data>
+  <data name="TextWinPointLose" xml:space="preserve">
+    <value>WinPoint-Lose</value>
+  </data>
+  <data name="TextWinPointWin" xml:space="preserve">
+    <value>WinPoint-Win</value>
   </data>
   <data name="TitleWebService" xml:space="preserve">
     <value>WebService</value>

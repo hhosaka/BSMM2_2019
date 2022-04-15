@@ -771,6 +771,7 @@ namespace BSMM2Test {
 			Util.SetResult(game, 1, Draw);
 
 			Assert.IsTrue(game.Players.Source.All(p => p.Point.MatchPoint == 0));
+			Assert.IsTrue(game.Players.Source.All(p => p.Point.WinPoint == 0));
 
 			game.StepToMatching();
 			game.StepToPlaying();
@@ -779,6 +780,7 @@ namespace BSMM2Test {
 			Util.SetResult(game, 1, Draw);
 
 			Assert.IsTrue(game.Players.Source.All(p => p.Point.MatchPoint == 0));
+			Assert.IsTrue(game.Players.Source.All(p => p.Point.WinPoint == 0));
 		}
 
 		[TestMethod]
@@ -791,6 +793,7 @@ namespace BSMM2Test {
 			Util.SetResult(game, 1, Draw);
 
 			Assert.IsTrue(game.Players.Source.All(p => p.Point.MatchPoint == 1));
+			Assert.IsTrue(game.Players.Source.All(p => p.Point.WinPoint == 0.5));
 
 			game.StepToMatching();
 			game.StepToPlaying();
@@ -799,6 +802,7 @@ namespace BSMM2Test {
 			Util.SetResult(game, 1, Draw);
 
 			Assert.IsTrue(game.Players.Source.All(p => p.Point.MatchPoint == 2));
+			Assert.IsTrue(game.Players.Source.All(p => p.Point.WinPoint == 0.5));
 		}
 
 		[TestMethod]
@@ -811,6 +815,7 @@ namespace BSMM2Test {
 			Util.SetResult(game, 1, Draw);
 
 			Assert.IsTrue(game.Players.Source.All(p => p.Point.MatchPoint == 0));
+			Assert.IsTrue(game.Players.Source.All(p => p.Point.WinPoint == 0));
 
 			game.StepToMatching();
 			game.StepToPlaying();
@@ -819,6 +824,7 @@ namespace BSMM2Test {
 			Util.SetResult(game, 1, Draw);
 
 			Assert.IsTrue(game.Players.Source.All(p => p.Point.MatchPoint == 0));
+			Assert.IsTrue(game.Players.Source.All(p => p.Point.WinPoint == 0));
 		}
 
 		[TestMethod]
@@ -831,6 +837,7 @@ namespace BSMM2Test {
 			Util.SetResult(game, 1, Draw);
 
 			Assert.IsTrue(game.Players.Source.All(p => p.Point.MatchPoint == 0));
+			Assert.IsTrue(game.Players.Source.All(p => p.Point.WinPoint == 0));
 
 			game.StepToMatching();
 			game.StepToPlaying();
@@ -839,6 +846,7 @@ namespace BSMM2Test {
 			Util.SetResult(game, 1, Draw);
 
 			Assert.IsTrue(game.Players.Source.All(p => p.Point.MatchPoint == 0));
+			Assert.IsTrue(game.Players.Source.All(p => p.Point.WinPoint == 0));
 		}
 
 		[TestMethod]
@@ -851,6 +859,7 @@ namespace BSMM2Test {
 			Util.SetResult(game, 1, Draw);
 
 			Assert.IsTrue(game.Players.Source.All(p => p.Point.MatchPoint == 0));
+			Assert.IsTrue(game.Players.Source.All(p => p.Point.WinPoint == 0));
 
 			game.StepToMatching();
 			game.StepToPlaying();
@@ -859,6 +868,29 @@ namespace BSMM2Test {
 			Util.SetResult(game, 1, Draw);
 
 			Assert.IsTrue(game.Players.Source.All(p => p.Point.MatchPoint == 0));
+			Assert.IsTrue(game.Players.Source.All(p => p.Point.WinPoint == 0));
+		}
+
+		[TestMethod]
+		public void DrawPointTest6() {
+			var game = new FakeGame(new SingleMatchRule(new PointRule(false, 3, 1, 0, 0.5, 0, 0)), 4);
+
+			game.StepToPlaying();
+
+			Util.SetResult(game, 0, Draw);
+			Util.SetResult(game, 1, Draw);
+
+			Assert.IsTrue(game.Players.Source.All(p => p.Point.MatchPoint == 0));
+			Assert.IsTrue(game.Players.Source.All(p => p.Point.WinPoint == 0.5));
+
+			game.StepToMatching();
+			game.StepToPlaying();
+
+			Util.SetResult(game, 0, Draw);
+			Util.SetResult(game, 1, Draw);
+
+			Assert.IsTrue(game.Players.Source.All(p => p.Point.MatchPoint == 0));
+			Assert.IsTrue(game.Players.Source.All(p => p.Point.WinPoint == 0.5));
 		}
 	}
 }
