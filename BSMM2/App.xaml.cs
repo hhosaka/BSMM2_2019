@@ -12,7 +12,7 @@ namespace BSMM2 {
 
 		public App() {
 			InitializeComponent();
-			MainPage = new MainPage(BSMMApp.Create(APPDATAFILE, false));// use true in case save data is broken.
+			MainPage = new MainPage(BSMMApp.Create(APPDATAFILE, true));// use true in case save data is broken.
 		}
 
 		protected override void OnStart() {

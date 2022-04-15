@@ -12,8 +12,11 @@
 
   <ItemGroup>
     <Compile Remove="Services\**" />
+    <Compile Remove="ViewModels\Matches\**" />
     <EmbeddedResource Remove="Services\**" />
+    <EmbeddedResource Remove="ViewModels\Matches\**" />
     <None Remove="Services\**" />
+    <None Remove="ViewModels\Matches\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -105,7 +108,6 @@
 
   <ItemGroup>
     <Folder Include="Properties\" />
-    <Folder Include="ViewModels\Matches\" />
     <Folder Include="Views\Matches\" />
   </ItemGroup>
 </Project>

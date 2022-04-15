@@ -29,8 +29,10 @@ namespace BSMM2.Models.Matches.MultiMatch.NthGameMatch {
 		[JsonProperty]
 		public int Count { get; private set; }
 
+		[JsonProperty]
+		private string _title;
 		[JsonIgnore]
-		public override string Name => AppResources.ItemRuleThreeGameMatch;
+		public override string Name => _title;
 
 		[JsonIgnore]
 		public override string Description => AppResources.DescriptionTreeGameMatch;
@@ -45,12 +47,13 @@ namespace BSMM2.Models.Matches.MultiMatch.NthGameMatch {
 		private NthGameMatchRule() {
 		}
 
-		public NthGameMatchRule(int count, PointRule pointRule = null) : base(pointRule)
+		public NthGameMatchRule(int count, PointRule pointRule = null, string title="") : base(pointRule)
         {
+			_title = title;
 			Count = count;
         }
 
-		private NthGameMatchRule(int count, MultiMatchRule src) : this(count, src.PointRule) {
+		private NthGameMatchRule(int count, MultiMatchRule src) : this(count, src.PointRule, src.Name) {
 		}
 	}
 }

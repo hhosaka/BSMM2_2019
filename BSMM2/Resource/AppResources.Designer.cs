@@ -925,7 +925,7 @@ namespace BSMM2.Resource {
         }
         
         /// <summary>
-        ///   There is only winner.　no more create matching. に類似しているローカライズされた文字列を検索します。
+        ///   There is less than one winner.　no more create matching. に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string TextEndGame {
             get {

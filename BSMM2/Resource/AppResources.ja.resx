@@ -403,7 +403,7 @@
     <value>棄権</value>
   </data>
   <data name="TextEndGame" xml:space="preserve">
-    <value>全勝者が決まりました.これ以上の抽選は行いません。</value>
+    <value>全勝者が決まったかいなくなりました。これ以上の抽選は行いません。</value>
   </data>
   <data name="TextFailToMakeMatch" xml:space="preserve">
     <value>現在の設定では抽選できませんでした。条件を変えて再抽選できます。</value>

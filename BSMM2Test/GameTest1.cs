@@ -807,7 +807,7 @@ namespace BSMM2Test {
 
 		[TestMethod]
 		public void DrawPointTest3() {
-			var game = new FakeGame(new NthGameMatchRule(2,PointRule.Pokemon), 4);
+			var game = new FakeGame(new NthGameMatchRule(2, PointRule.Pokemon), 4);
 
 			game.StepToPlaying();
 
@@ -892,5 +892,20 @@ namespace BSMM2Test {
 			Assert.IsTrue(game.Players.Source.All(p => p.Point.MatchPoint == 0));
 			Assert.IsTrue(game.Players.Source.All(p => p.Point.WinPoint == 0.5));
 		}
+
+		[TestMethod]
+		public void DrawTest1() {
+			var game = new FakeGame(new SingleMatchRule(), 8);
+
+			game.StepToPlaying();
+
+			Util.SetResult(game, 0, Draw);
+			Util.SetResult(game, 1, Draw);
+			Util.SetResult(game, 2, Draw);
+			Util.SetResult(game, 3, Draw);
+
+			Assert.IsTrue(game.StepToMatching());
+		}
+
 	}
 }

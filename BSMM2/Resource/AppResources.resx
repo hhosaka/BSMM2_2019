@@ -406,7 +406,7 @@
     <value>Dropped</value>
   </data>
   <data name="TextEndGame" xml:space="preserve">
-    <value>There is only winner.　no more create matching.</value>
+    <value>There is less than one winner.　no more create matching.</value>
   </data>
   <data name="TextFailToMakeMatch" xml:space="preserve">
     <value>Fail to make match. you may re-try after modify settings.</value>
