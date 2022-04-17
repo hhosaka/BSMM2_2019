@@ -136,7 +136,7 @@ namespace BSMM2.Models {
 			return false;
 		}
 
-		public async Task<bool> Save(bool force) {
+		public bool Save(bool force) {
 			if (force || AutoSave) {
 				_storage.Save(this, _path);
 				if (ActiveWebService) {
@@ -145,6 +145,10 @@ namespace BSMM2.Models {
 				return true;
 			}
 			return false;
+		}
+
+		public async Task<bool> SyncWebService() {
+			return await new WebClient().Upload(WebURL, _webServiceAccount, _password, this);
 		}
 
 		public async Task SendByMail(string subject, string body)
@@ -171,7 +175,7 @@ namespace BSMM2.Models {
 
 		private BSMMApp(Storage storage) {
 			_storage = storage;
-			MessagingCenter.Subscribe<object>(this, Messages.REFRESH, async(sender) => await Save(false));
+			MessagingCenter.Subscribe<object>(this, Messages.REFRESH, (sender) => Save(false));
 		}
 
 		public BSMMApp() : this(new Storage()) {// for Serializer

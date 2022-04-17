@@ -16,7 +16,7 @@ namespace BSMM2Test {
 		public async Task ControlGameTest() {
 			var app = BSMMApp.Create(TESTFILE, true);
 			Assert.IsNotNull(app.Game);
-			var viewModel = new PlayersViewModel(app);
+			var viewModel = new PlayersViewModel(app, null);
 			await viewModel.ExecuteRefresh();
 			app.Add(new FakeGame(new SingleMatchRule(), 8), false);
 			var id = app.Game.Id;

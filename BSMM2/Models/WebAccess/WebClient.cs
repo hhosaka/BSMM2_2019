@@ -25,18 +25,20 @@ namespace BSMM2.Models.WebAccess
 
 		public async Task<bool> Upload(string url, string id, string password, BSMMApp app) 
 		{
-			Debug.Assert(!string.IsNullOrEmpty(app.MailAddress));
-			var game = app.Game;
-            var cc = await LoginAsync(url, id, password);
-			if (cc != null) {
-				if (await SendDataAsync<GameOutline>(cc, url + "games/uploadOutline/" + game.WebServiceId, GameOutline.Create(app))) {
-					if (await SendDataAsync<Game>(cc, url + "games/uploadGame/" + game.WebServiceId, game)) {
-						if (await SendDataAsync<IEnumerable<OrderedPlayer>>(cc, url + "games/uploadPlayers/" + game.WebServiceId, game.Players.GetOrderedPlayers())) {
-							return await SendDataAsync<IEnumerable<MatchOutline>>(cc, url + "games/uploadMatches/" + game.WebServiceId, MatchOutline.Create(game.ActiveRound.Matches));
+			try {
+				Debug.Assert(!string.IsNullOrEmpty(app.MailAddress));
+				var game = app.Game;
+				var cc = await LoginAsync(url, id, password);
+				if (cc != null) {
+					if (await SendDataAsync<GameOutline>(cc, url + "games/uploadOutline/" + game.WebServiceId, GameOutline.Create(app))) {
+						if (await SendDataAsync<Game>(cc, url + "games/uploadGame/" + game.WebServiceId, game)) {
+							if (await SendDataAsync<IEnumerable<OrderedPlayer>>(cc, url + "games/uploadPlayers/" + game.WebServiceId, game.Players.GetOrderedPlayers())) {
+								return await SendDataAsync<IEnumerable<MatchOutline>>(cc, url + "games/uploadMatches/" + game.WebServiceId, MatchOutline.Create(game.ActiveRound.Matches));
+							}
 						}
 					}
 				}
-			}
+			} catch { }
 			return false;
 		}
 

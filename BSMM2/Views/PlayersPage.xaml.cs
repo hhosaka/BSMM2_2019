@@ -8,14 +8,14 @@ using Xamarin.Forms.Xaml;
 namespace BSMM2.Views {
 
 	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class PlayersPage : ContentPage, IDisposable {
+	public partial class PlayersPage : ContentPage, UI, IDisposable {
 		private BSMMApp _app;
 		private PlayersViewModel _viewModel;
 		public PlayersPage(BSMMApp app) {
 			_app = app;
 			InitializeComponent();
 
-			_viewModel = new PlayersViewModel(app);
+			_viewModel = new PlayersViewModel(app, this);
 			_viewModel.OnNewGame+= NewGame;
 			_viewModel.OnSelectGame += SelectGame;
 			_viewModel.OnDeleteGame += DeleteGame;
@@ -76,6 +76,14 @@ namespace BSMM2.Views {
 
 		public void Dispose() {
 			_viewModel.OnNewGame -= NewGame;
+			_viewModel.OnSelectGame -= SelectGame;
+			_viewModel.OnDeleteGame -= DeleteGame;
+			_viewModel.OnAddPlayer -= AddPlayer;
+			_viewModel.OnShowQRCode -= ShowQRCode;
 		}
+
+		public void PushPage(Page page)
+			=> Navigation.PushModalAsync(new NavigationPage(page));
+
 	}
 }

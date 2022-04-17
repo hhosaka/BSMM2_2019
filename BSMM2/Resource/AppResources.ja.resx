@@ -357,6 +357,9 @@
   <data name="MenuSettingRule" xml:space="preserve">
     <value>ルール設定</value>
   </data>
+  <data name="MenuSyncWebService" xml:space="preserve">
+    <value>ウェブサービスと同期</value>
+  </data>
   <data name="PrefixGame" xml:space="preserve">
     <value>Game</value>
   </data>
@@ -480,6 +483,9 @@ BSMM2は設定データの永続性を保証しないことをご了承くださ
   </data>
   <data name="TextStartTimer" xml:space="preserve">
     <value>開始</value>
+  </data>
+  <data name="TextSyncWebServiceError" xml:space="preserve">
+    <value>ウェブサービス同期に失敗しました。通信環境を確認してください。</value>
   </data>
   <data name="TextVersionCheck" xml:space="preserve">
     <value>バージョンチェック</value>

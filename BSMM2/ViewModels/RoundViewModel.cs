@@ -11,13 +11,6 @@ using Xamarin.Forms;
 
 namespace BSMM2.ViewModels {
 
-	public interface UI {
-		Task DisplayAlert(string title, string message, string ok);
-		Task<bool> DisplayAlert(string title, string message, string ok, string cancel);
-
-		void PushPage(Page page);
-	};
-
 	public class DelegateMatch : INotifyPropertyChanged
 	{
 		public Match Match { get; }
@@ -108,7 +101,7 @@ namespace BSMM2.ViewModels {
 			async void ExecuteStartTimer()
             {
 				Game.StartTimer();
-				await _app.Save(false);
+				_app.Save(false);
 				await ExecuteRefresh();
 			}
 		}
@@ -144,7 +137,7 @@ namespace BSMM2.ViewModels {
 
 			async void Execute() {
 				Game.StepToPlaying();
-				await _app.Save(false);
+				_app.Save(false);
 				await ExecuteRefresh();
 			}
 		}
@@ -171,7 +164,7 @@ namespace BSMM2.ViewModels {
 
 			async void Execute() {
 				if (Game.Shuffle()) {
-					await _app.Save(false);
+					_app.Save(false);
 					await ExecuteRefresh();
 				} else {
 					await SwitchSetting();
@@ -193,7 +186,7 @@ namespace BSMM2.ViewModels {
 							return;
 						}
 					}
-					await _app.Save(false);
+					_app.Save(false);
 					await ExecuteRefresh();
 				}
 			}

@@ -360,6 +360,9 @@
   <data name="MenuSettingRule" xml:space="preserve">
     <value>Rule</value>
   </data>
+  <data name="MenuSyncWebService" xml:space="preserve">
+    <value>Sync Web Service</value>
+  </data>
   <data name="PrefixGame" xml:space="preserve">
     <value>Game</value>
   </data>
@@ -483,6 +486,9 @@ NOTE :  BSMM2 does not guarantee  persistency of your settings and logs.</value>
   </data>
   <data name="TextStartTimer" xml:space="preserve">
     <value>Start Timer</value>
+  </data>
+  <data name="TextSyncWebServiceError" xml:space="preserve">
+    <value>Upload game is failed. Please check your internet condition.</value>
   </data>
   <data name="TextVersionCheck" xml:space="preserve">
     <value>Version Check</value>

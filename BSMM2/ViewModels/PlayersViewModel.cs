@@ -1,8 +1,6 @@
 ﻿using BSMM2.Models;
-using BSMM2.Models.WebAccess;
+using BSMM2.Resource;
 using Prism.Commands;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
@@ -19,6 +17,8 @@ namespace BSMM2.ViewModels {
 		public event ViewActionHandler OnShowQRCode;
 
 		private BSMMApp _app;
+
+		private UI _ui;
 		private Game Game => _app.Game;
 
 		private ObservableCollection<OrderedPlayer> _players;
@@ -36,9 +36,11 @@ namespace BSMM2.ViewModels {
 		public DelegateCommand ExportPlayersCommand { get; }
 		public DelegateCommand SaveCommand { get; }
 		public DelegateCommand ShowQRCodeCommand { get; }
+		public DelegateCommand SyncWebServiceCommand { get; }
 
-		public PlayersViewModel(BSMMApp app) {
+		public PlayersViewModel(BSMMApp app,UI ui) {
 			_app = app;
+			_ui = ui;
 			Players = new ObservableCollection<OrderedPlayer>();
 
 			NewGameCommand = new DelegateCommand(() => OnNewGame.Invoke());
@@ -46,8 +48,9 @@ namespace BSMM2.ViewModels {
 			DeleteGameCommand = new DelegateCommand(() => OnDeleteGame.Invoke(), () => _app.Games.Any());
 			AddPlayerCommand = new DelegateCommand(() => OnAddPlayer.Invoke(), () => _app.Game.CanAddPlayers());
 			ExportPlayersCommand = new DelegateCommand(_app.ExportPlayers);
-			SaveCommand = new DelegateCommand(async () => await _app.Save(true), () => !_app.AutoSave);
+			SaveCommand = new DelegateCommand(() => _app.Save(true), () => !_app.AutoSave);
 			ShowQRCodeCommand = new DelegateCommand(() => OnShowQRCode.Invoke(), () => _app.ActiveWebService);
+			SyncWebServiceCommand = new DelegateCommand(SyncWebService, () => _app.ActiveWebService);
 			MessagingCenter.Subscribe<object>(this, Messages.REFRESH,
 				async (sender) => await ExecuteRefresh());
 
@@ -66,6 +69,12 @@ namespace BSMM2.ViewModels {
 			}
 		}
 
+		async void SyncWebService() {
+			if (!await _app.SyncWebService()) {
+				await _ui.DisplayAlert("Alert", AppResources.TextSyncWebServiceError, "OK");
+			}
+		}
+
 		private void Refresh() {
 			Players = new ObservableCollection<OrderedPlayer>(Game.Players.GetOrderedPlayers());
 			Title = Game.Headline;
@@ -75,6 +84,7 @@ namespace BSMM2.ViewModels {
 			AddPlayerCommand?.RaiseCanExecuteChanged();
 			SaveCommand?.RaiseCanExecuteChanged();
 			ShowQRCodeCommand?.RaiseCanExecuteChanged();
+			SyncWebServiceCommand?.RaiseCanExecuteChanged();
 		}
 	}
 }

@@ -9,7 +9,7 @@ using Xamarin.Forms.Xaml;
 namespace BSMM2.Views {
 
 	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class RoundPage : ContentPage, UI {
+	public partial class RoundPage : ContentPage, UI,IDisposable {
 		private RoundViewModel viewModel;
 		private BSMMApp _app;
 		public RoundPage(BSMMApp app) {
@@ -41,5 +41,11 @@ namespace BSMM2.Views {
 
 		public void PushPage(Page page)
 			=>Navigation.PushModalAsync(new NavigationPage(page));
+
+		public void Dispose() {
+			viewModel.OnShowRoundsLog -= ShowRoundsLog;
+			viewModel.OnShowQRCode -= ShowQRCode;
+		}
+
 	}
 }

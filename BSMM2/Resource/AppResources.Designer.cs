@@ -790,6 +790,15 @@ namespace BSMM2.Resource {
         }
         
         /// <summary>
+        ///   Sync Web Service に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string MenuSyncWebService {
+            get {
+                return ResourceManager.GetString("MenuSyncWebService", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Game に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string PrefixGame {
@@ -1156,6 +1165,15 @@ namespace BSMM2.Resource {
         public static string TextStartTimer {
             get {
                 return ResourceManager.GetString("TextStartTimer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Upload game is failed. Please check your internet condition. に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string TextSyncWebServiceError {
+            get {
+                return ResourceManager.GetString("TextSyncWebServiceError", resourceCulture);
             }
         }
         

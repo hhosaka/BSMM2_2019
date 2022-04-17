@@ -16,6 +16,7 @@
 		<ToolbarItem Text="{x:Static prop:AppResources.MenuSave}" Command="{Binding SaveCommand}" Order="Secondary" />
         <ToolbarItem Text="{x:Static prop:AppResources.MenuSetting}" Clicked="OpenSettingsPage" Order="Secondary" />
 		<ToolbarItem Text="{x:Static prop:AppResources.MenuQRCode2Players}" Command="{Binding ShowQRCodeCommand}" Order="Secondary" />
+		<ToolbarItem Text="{x:Static prop:AppResources.MenuSyncWebService}" Command="{Binding SyncWebServiceCommand}" Order="Secondary" />
 		<ToolbarItem Text="{x:Static prop:AppResources.MenuHelp}" Clicked="OpenHelpPage" Order="Secondary" />
 	</ContentPage.ToolbarItems>
 	<ContentPage.Resources>
