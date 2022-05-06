@@ -86,6 +86,14 @@ namespace BSMM2Test {
 
 			Util.CheckWithOrder(rule, new[] { 4, 1, 3, 2 }, new[] { 1, 2, 2, 4 }, game.Players.GetOrderedPlayers());
 			Util.Check(new[] { 4, 1, 3, -1 }, game.ActiveRound);
+
+			game.Players.GetSortedPlayers().ToArray()[0].Dropped = true;
+
+			Util.CheckWithOrder(rule, new[] {1, 3, 2, 4}, new[] { 1, 1, 3, 3 }, game.Players.GetOrderedPlayers());
+
+			game.Shuffle();
+
+			game.StepToPlaying();
 		}
 
 		[TestMethod]

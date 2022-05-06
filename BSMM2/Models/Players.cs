@@ -42,7 +42,7 @@ namespace BSMM2.Models
 		}
 
 		public void StepToPlaying(IEnumerable<Match> matches) {
-			foreach (var player in _players)
+			foreach (var player in _players.Where(player=>!player.Dropped))
 				player.StepToPlaying(matches.First(m => m.HasPlayer(player)));
 		}
 
