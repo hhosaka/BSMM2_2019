@@ -411,6 +411,9 @@
   <data name="TextEndGame" xml:space="preserve">
     <value>There is less than one winner.　no more create matching.</value>
   </data>
+  <data name="TextError" xml:space="preserve">
+    <value>ERROR</value>
+  </data>
   <data name="TextFailToMakeMatch" xml:space="preserve">
     <value>Fail to make match. you may re-try after modify settings.</value>
   </data>
@@ -477,6 +480,9 @@ NOTE :  BSMM2 does not guarantee  persistency of your settings and logs.</value>
   </data>
   <data name="TextPlayerParameterValue" xml:space="preserve">
     <value>Value</value>
+  </data>
+  <data name="TextPlayersNumberExceeded" xml:space="preserve">
+    <value>Number of Players is exceeded. Please separate group.</value>
   </data>
   <data name="TextPointSetting" xml:space="preserve">
     <value>Setting Point Rule</value>

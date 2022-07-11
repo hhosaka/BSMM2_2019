@@ -408,6 +408,9 @@
   <data name="TextEndGame" xml:space="preserve">
     <value>全勝者が決まったかいなくなりました。これ以上の抽選は行いません。</value>
   </data>
+  <data name="TextError" xml:space="preserve">
+    <value>エラー</value>
+  </data>
   <data name="TextFailToMakeMatch" xml:space="preserve">
     <value>現在の設定では抽選できませんでした。条件を変えて再抽選できます。</value>
   </data>
@@ -474,6 +477,9 @@ BSMM2は設定データの永続性を保証しないことをご了承くださ
   </data>
   <data name="TextPlayerParameterValue" xml:space="preserve">
     <value>値</value>
+  </data>
+  <data name="TextPlayersNumberExceeded" xml:space="preserve">
+    <value>プレイヤー人数が上限を超えています。２つのグループに分けてください。</value>
   </data>
   <data name="TextPointSetting" xml:space="preserve">
     <value>ポイント設定</value>

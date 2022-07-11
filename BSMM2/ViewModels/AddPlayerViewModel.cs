@@ -1,4 +1,5 @@
 ﻿using BSMM2.Models;
+using BSMM2.Resource;
 using Prism.Commands;
 using System;
 using System.Windows.Input;
@@ -14,15 +15,17 @@ namespace BSMM2.ViewModels {
 
 		public ICommand AddPlayerCommand { get; }
 
-		public AddPlayerViewModel(BSMMApp app, Action exit) {
+		public AddPlayerViewModel(BSMMApp app, UI ui, Action exit) {
 			_app = app;
 
 			AddPlayerCommand = new DelegateCommand(AddPlayer);
 
 			void AddPlayer() {
-					_app.Game.AddPlayers(Data);
-					MessagingCenter.Send<object>(this, Messages.REFRESH);
-					exit();
+				if (!_app.Game.AddPlayers(Data)) {
+					ui.DisplayAlert(AppResources.TextError, AppResources.TextPlayersNumberExceeded, AppResources.ButtonOK);
+				}
+				MessagingCenter.Send<object>(this, Messages.REFRESH);
+				exit();
 			}
 		}
 	}

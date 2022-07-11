@@ -943,6 +943,15 @@ namespace BSMM2.Resource {
         }
         
         /// <summary>
+        ///   ERROR に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string TextError {
+            get {
+                return ResourceManager.GetString("TextError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Fail to make match. you may re-try after modify settings. に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string TextFailToMakeMatch {
@@ -1138,6 +1147,15 @@ namespace BSMM2.Resource {
         public static string TextPlayerParameterValue {
             get {
                 return ResourceManager.GetString("TextPlayerParameterValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Number of Players is exceeded. Please separate group. に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string TextPlayersNumberExceeded {
+            get {
+                return ResourceManager.GetString("TextPlayersNumberExceeded", resourceCulture);
             }
         }
         

@@ -150,6 +150,90 @@ namespace BSMM2Test {
 			Assert.AreEqual(0, game2.Rounds.Count());
 		}
 
+		private void ExecuteMaxMatch(Game game) {
+
+			game.StepToPlaying();
+
+			foreach (var match in game.ActiveRound.Matches) {
+				match.SetResult(game.Rule, Win);
+			}
+
+			game.StepToMatching();
+			game.StepToPlaying();
+
+			foreach (var match in game.ActiveRound.Matches) {
+				match.SetResult(game.Rule, Win);
+			}
+
+			game.StepToMatching();
+			game.StepToPlaying();
+
+			foreach (var match in game.ActiveRound.Matches) {
+				match.SetResult(game.Rule, Win);
+			}
+
+			game.StepToMatching();
+			game.StepToPlaying();
+
+			foreach (var match in game.ActiveRound.Matches) {
+				match.SetResult(game.Rule, Win);
+			}
+
+			game.StepToMatching();
+			game.StepToPlaying();
+
+			foreach (var match in game.ActiveRound.Matches) {
+				match.SetResult(game.Rule, Win);
+			}
+		}
+
+		[TestMethod]
+		public void LoadSaveMaxDepthTest() {
+			var game = new SingleMatchFakeGame(Players.MAX_COUNT);
+
+			ExecuteMaxMatch( game );
+
+			var engine = new Storage();
+			game.Save(engine);
+			var game2 = Game.Load(game.Id, engine);
+		}
+
+		[TestMethod]
+		public void LoadSaveMaxDepth2Test() {
+			var app = BSMMApp.Create("test.json", true);
+			for (int i = 0; i < 16; i++) {
+				var game = new SingleMatchFakeGame(Players.MAX_COUNT);
+
+				app.Add(game, false);
+
+				ExecuteMaxMatch(game);
+			}
+			app.Save(true);
+			BSMMApp.Create(TESTFILE, false);
+		}
+
+		[TestMethod]
+		public void LoadSaveMaxDepth3Test() {
+			var game = new FakeGame(new ThreeOnThreeMatchRule(), Players.MAX_COUNT);
+
+			ExecuteMaxMatch(game);
+
+			var engine = new Storage();
+			game.Save(engine);
+			var game2 = Game.Load(game.Id, engine);
+		}
+
+		[TestMethod]
+		public void LoadSaveMaxDepth4Test() {
+			var game = new FakeGame(new NthGameMatchRule(3), Players.MAX_COUNT);
+
+			ExecuteMaxMatch(game);
+
+			var engine = new Storage();
+			game.Save(engine);
+			var game2 = Game.Load(game.Id, engine);
+		}
+
 		[TestMethod]
 		public void LoadSaveTest5() {
 			var src = new SingleMatchFakeGame(8);

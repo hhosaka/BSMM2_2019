@@ -76,7 +76,7 @@ namespace BSMM2.ViewModels {
 		public ICommand CreateCommand { get; }
 		public ICommand SettingPointCommand { get; }
 		public event ViewActionHandler OnSettingPoint;
-		public NewGameViewModel(BSMMApp app, Action close) {
+		public NewGameViewModel(BSMMApp app, UI ui, Action close) {
 			_app = app;
 			GameName = Game.GameTitle;
 			PlayerModes = new[]{
@@ -93,20 +93,33 @@ namespace BSMM2.ViewModels {
 			SettingPointCommand = new DelegateCommand(() => OnSettingPoint.Invoke());
 
 			void ExecuteCreate() {
-				if (app.Add(new Game(PlayerMode.Create(), UseUniqueId4WebService ? (Guid?)null:app.Id, GameName), AsCurrentGame)) {
-					MessagingCenter.Send<object>(this, Messages.REFRESH);
-				}// TODO : Error handling is required?
-				close?.Invoke();
+				var players = PlayerMode.Create();
+				if (players != null) {
+					if (app.Add(new Game(players, UseUniqueId4WebService ? (Guid?)null : app.Id, GameName), AsCurrentGame)) {
+						MessagingCenter.Send<object>(this, Messages.REFRESH);
+					}// TODO : Error handling is required?
+					close?.Invoke();
+				} else {
+					ui.DisplayAlert(AppResources.TextError, AppResources.TextPlayersNumberExceeded, AppResources.ButtonOK);
+				}
 			}
 
-			Players CreateByNumber()
-				=> new Players(Rule, PlayerCount);
+			Players CreateByNumber() {
+				if (PlayerCount <= Players.MAX_COUNT) {
+					return new Players(Rule, PlayerCount);
+				}
+				return null;
+			}
 
 			Players CreateByEntrySheet() {
 				app.EntryTemplate = EntrySheet;
 				using (var reader = new StringReader(EntrySheet)) {
-					return new Players(Rule, reader);
+					var players = Players.FromStream(Rule, reader).ToList();
+					if (players.Count() <= Players.MAX_COUNT) {
+						return new Players(Rule, players);
+					}
 				}
+				return null;
 			}
 
 			Players CreateByCurrent()

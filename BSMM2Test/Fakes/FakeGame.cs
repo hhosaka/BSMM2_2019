@@ -15,7 +15,7 @@ namespace BSMM2Test {
 		}
 
 		public FakeGame(IRule rule, TextReader r)
-			: base(new Players(rule, r), null, DateTime.Now.ToString(), p => p) {
+			: base(new Players(rule, Players.FromStream(rule, r)), null, DateTime.Now.ToString(), p => p) {
 		}
 
 		public FakeGame(IRule rule, Players players)

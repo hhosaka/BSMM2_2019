@@ -7,6 +7,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Threading;
 using Xamarin.Forms.Internals;
 using static BSMM2.Models.RESULT_T;
@@ -34,6 +35,56 @@ namespace BSMM2Test {
 
 			game.Players.Add();
 			Util.CheckWithOrder(rule, new[] { 1, 3, 4, 6, 5, 6 }, new[] { 1, 1, 1, 1, 1, 1 }, game.Players.GetOrderedPlayers());
+		}
+
+		[TestMethod]
+		public void GameAddPlayerMaxTest() {
+			var rule = new SingleMatchRule();
+			var game = new FakeGame(rule, 0);
+
+			for (int i = 0; i < Players.MAX_COUNT; i++) {
+				Assert.IsTrue(game.Players.Add("Player"+i));
+			}
+			Assert.IsFalse(game.Players.Add("PlayerXXX"));
+		}
+
+		[TestMethod]
+		public void GameAddPlayerMax2Test() {
+			var rule = new SingleMatchRule();
+			var game = new FakeGame(rule, 0);
+
+			Assert.IsTrue(game.Players.Add(Players.MAX_COUNT));
+			Assert.IsFalse(game.Players.Add());
+		}
+
+		[TestMethod]
+		public void GameAddPlayerMax3Test() {
+			var rule = new SingleMatchRule();
+			new FakeGame(rule, Players.MAX_COUNT);
+
+			try {
+				new FakeGame(rule, Players.MAX_COUNT+1);
+				Assert.Fail();
+			} catch (Exception) {
+			}
+		}
+
+		[TestMethod]
+		public void GameAddPlayerMax4Test() {
+			var rule = new SingleMatchRule();
+			var game = new FakeGame(rule, 0);
+			var buf = new StringBuilder();
+			var writer = new StringWriter(buf);
+			for (int i = 0; i < Players.MAX_COUNT; ++i) writer.WriteLine("Player" + i);
+
+			new FakeGame(rule, new StringReader(buf.ToString()));
+
+			writer.WriteLine("PlayerXXX");
+			try {
+				new FakeGame(rule,new StringReader(buf.ToString()));
+				Assert.Fail();
+			} catch (Exception) {
+			}
 		}
 
 		[TestMethod]
@@ -78,11 +129,14 @@ namespace BSMM2Test {
 			Util.CheckWithOrder(rule, new[] { 2, 4, 1, 3 }, new[] { 1, 1, 3, 3 }, game.Players.GetOrderedPlayers());
 
 			game.StepToMatching();
-			game.Players.GetSortedPlayers().ToArray()[0].Dropped = true;
+			var player = game.Players.GetSortedPlayers().ToArray()[0];
+			player.Dropped = true;
 
 			Util.CheckWithOrder(rule, new[] { 4, 1, 3, 2 }, new[] { 1, 2, 2, 4 }, game.Players.GetOrderedPlayers());
 
 			game.Shuffle();
+
+			Assert.AreEqual(1, game.GetMatches(player).Count());
 
 			Util.CheckWithOrder(rule, new[] { 4, 1, 3, 2 }, new[] { 1, 2, 2, 4 }, game.Players.GetOrderedPlayers());
 			Util.Check(new[] { 4, 1, 3, -1 }, game.ActiveRound);
@@ -94,6 +148,8 @@ namespace BSMM2Test {
 			game.Shuffle();
 
 			game.StepToPlaying();
+
+			Assert.AreEqual(1, game.GetMatches(player).Count());
 		}
 
 		[TestMethod]

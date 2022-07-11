@@ -12,6 +12,7 @@ namespace BSMM2.Models {
 				= new JsonSerializerSettings {
 					PreserveReferencesHandling = PreserveReferencesHandling.Objects,
 					TypeNameHandling = TypeNameHandling.Auto,
+					MaxDepth=256,
 					Error = (sender, args) => OnError(args)
 				};
 
@@ -36,6 +37,7 @@ namespace BSMM2.Models {
 				= new JsonSerializerSettings {
 					PreserveReferencesHandling = PreserveReferencesHandling.Objects,
 					TypeNameHandling = TypeNameHandling.Auto,
+					MaxDepth = 256,
 					Error = (sender, args) => OnError(args)
 				};
 

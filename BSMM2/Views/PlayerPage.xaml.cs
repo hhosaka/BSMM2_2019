@@ -19,7 +19,7 @@ namespace BSMM2.Views {
 
 			int i = ADDTIONAL_ROW_POSITION;
 			var data = player.Point.Export(new ExportSource())
-				.Union(player.OpponentPoint.Export(new ExportSource(),"opponent_"));
+				.Union(player.OpponentPoint.Export(new ExportSource(), "opponent_"));
 			foreach (var param in data) {
 				grid.RowDefinitions.Add(new RowDefinition() { Height = GridLength.Auto });
 				CreateLabel(i, 0, param.Key);

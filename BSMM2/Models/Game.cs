@@ -65,7 +65,7 @@ namespace BSMM2.Models {
 			foreach(var round in _rounds) {
 				yield return round.Matches.First(m => m.HasPlayer(player));
 			}
-			if (ActiveRound?.IsPlaying ==true ) {
+			if (ActiveRound?.IsPlaying == true && !player.Dropped ) {
 				yield return ActiveRound.Matches.First(m => m.HasPlayer(player));
 			}
 		}
@@ -76,13 +76,14 @@ namespace BSMM2.Models {
 		public bool CanAddPlayers() => !ActiveRound.IsPlaying && !_rounds.Any();
 
 		public bool AddPlayers(string data) {
+			bool ret = true;
 			foreach (var name in data.Split(new[] { '\r', '\n' })) {
 				if (!string.IsNullOrEmpty(name)) {
-					Players.Add(name);
+					if(!Players.Add(name))ret = false;
 				}
 			}
 			Shuffle();// TODO : 一回戦の結果が終わるまでは追加を認めたいのだが…
-			return true;
+			return ret;
 		}
 
 		public ContentPage CreateMatchPage(Match match)
