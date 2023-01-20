@@ -291,6 +291,9 @@
   <data name="LabelUseOpponentMatchPoint" xml:space="preserve">
     <value>オポネントポイントで比較</value>
   </data>
+  <data name="LabelUseOpponentOpponentMatchPoint" xml:space="preserve">
+    <value>オポネントのオポネントポイントで比較</value>
+  </data>
   <data name="LabelUseOpponentWinPoint" xml:space="preserve">
     <value>オポネント勝利ポイントで比較</value>
   </data>

@@ -294,6 +294,9 @@
   <data name="LabelUseOpponentMatchPoint" xml:space="preserve">
     <value>Use Opponent match point</value>
   </data>
+  <data name="LabelUseOpponentOpponentMatchPoint" xml:space="preserve">
+    <value>Use Opponent's Opponent match point</value>
+  </data>
   <data name="LabelUseOpponentWinPoint" xml:space="preserve">
     <value>Use Opponent win point</value>
   </data>

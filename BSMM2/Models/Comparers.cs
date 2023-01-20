@@ -133,6 +133,26 @@ namespace BSMM2.Models {
 	}
 
 	[JsonObject]
+	public class OpponentOpponentMatchPointComparer : IComparer
+	{
+
+		[JsonIgnore]
+		public string Label => AppResources.LabelUseOpponentOpponentMatchPoint;
+
+		[JsonIgnore]
+		public bool Selectable => true;
+
+		[JsonIgnore]
+		public LEVEL Level => LEVEL.Option;
+
+		[JsonProperty]
+		public bool Active { get; set; } = true;
+
+		public int Compare(Player p1, Player p2)
+			=> p1.OpponentOpponentPoint.MatchPoint - p2.OpponentOpponentPoint.MatchPoint;
+	}
+
+	[JsonObject]
 	public class OpponentLifePointComparer : IComparer {
 
 		[JsonIgnore]

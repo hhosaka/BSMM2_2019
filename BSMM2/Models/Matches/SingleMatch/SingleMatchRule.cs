@@ -53,6 +53,7 @@ namespace BSMM2.Models.Matches.SingleMatch {
 							new OpponentLifePointComparer(),
 							new WinPointComparer(),
 							new OpponentWinPointComparer(),
+							new OpponentOpponentMatchPointComparer(),
 							new ByeMatchComparer(),
 						};
 			} else {
@@ -62,6 +63,7 @@ namespace BSMM2.Models.Matches.SingleMatch {
 							new OpponentMatchPointComparer(),
 							new WinPointComparer(),
 							new OpponentWinPointComparer(),
+							new OpponentOpponentMatchPointComparer(),
 							new ByeMatchComparer(),
 						};
 			}

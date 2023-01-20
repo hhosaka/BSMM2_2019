@@ -54,5 +54,22 @@ namespace BSMM2Test
 			game.AcceptLosersGapMatchDuplication = true;
 			Assert.IsTrue(game.StepToMatching());
 		}
+
+		[TestMethod]
+		public void DeresukeIssue3Test() {
+			var rule = new SingleMatchRule();
+			var game = new FakeGame(rule, 14);
+
+			Util.CreateSingleMatchRound(game, new[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14 });
+			game.StepToMatching();
+			Util.CreateSingleMatchRound(game, new[] { 5, 3, 13, 7, 9, 11, 1, 10, 6, 12, 14, 8, 2, 4 });
+			game.StepToMatching();
+			Util.CreateSingleMatchRound(game, new[] { 5, 13, 9, 1, 2, 6, 14, 7, 11, 3, 10, 4, 8, 12 });
+			game.StepToMatching();
+			Util.CreateSingleMatchRound(game, new[] { 9, 5, 13, 1, 11, 14, 10, 6, 2, 3, 12, 7, 8, 4 });
+			game.StepToMatching();
+
+			Util.CheckWithOrder(game.Rule, new[] { 9, 5, 13, 11, 2, 1, 14, 10, 8, 3, 6, 7, 12, 4 }, new[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14 }, game.Players.GetOrderedPlayers());
+		}
 	}
 }

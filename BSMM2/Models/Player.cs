@@ -43,6 +43,10 @@ namespace BSMM2.Models {
 		public IExportablePoint OpponentPoint
 			=> _rule?.Point(_matches.Where(match => match.IsFinished).Select(match => (match.GetOpponentRecord(this).Player as Player)?.Point));
 
+		[JsonIgnore]
+		public IExportablePoint OpponentOpponentPoint
+			=> _rule?.Point(_matches.Where(match => match.IsFinished).Select(match => match.GetOpponentRecord(this).Player?.OpponentPoint));
+
 		public void StepToPlaying(Match match)
 			=>_matches.Add(match);
 

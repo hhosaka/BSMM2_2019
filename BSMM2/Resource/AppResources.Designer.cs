@@ -592,6 +592,15 @@ namespace BSMM2.Resource {
         }
         
         /// <summary>
+        ///   Use Opponent&apos;s Opponent match point に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string LabelUseOpponentOpponentMatchPoint {
+            get {
+                return ResourceManager.GetString("LabelUseOpponentOpponentMatchPoint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Use Opponent win point に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string LabelUseOpponentWinPoint {
