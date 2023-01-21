@@ -152,38 +152,13 @@ namespace BSMM2Test {
 
 		private void ExecuteMaxMatch(Game game) {
 
-			game.StepToPlaying();
 
-			foreach (var match in game.ActiveRound.Matches) {
-				match.SetResult(game.Rule, Win);
-			}
-
-			game.StepToMatching();
-			game.StepToPlaying();
-
-			foreach (var match in game.ActiveRound.Matches) {
-				match.SetResult(game.Rule, Win);
-			}
-
-			game.StepToMatching();
-			game.StepToPlaying();
-
-			foreach (var match in game.ActiveRound.Matches) {
-				match.SetResult(game.Rule, Win);
-			}
-
-			game.StepToMatching();
-			game.StepToPlaying();
-
-			foreach (var match in game.ActiveRound.Matches) {
-				match.SetResult(game.Rule, Win);
-			}
-
-			game.StepToMatching();
-			game.StepToPlaying();
-
-			foreach (var match in game.ActiveRound.Matches) {
-				match.SetResult(game.Rule, Win);
+			while (game.Players.GetOrderedPlayers().Count(p=>p.Order==1)>1) {
+				game.StepToMatching();
+				game.StepToPlaying();
+				foreach (var match in game.ActiveRound.Matches) {
+					match.SetResult(game.Rule, Win);
+				}
 			}
 		}
 
